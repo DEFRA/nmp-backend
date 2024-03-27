@@ -63,6 +63,8 @@
     <Build Include="DBO\Tables\Farms.sql" />
     <Build Include="DBO\Tables\ExcessRainfalls.sql" />
     <Build Include="DBO\Tables\Users.sql" />
+    <Build Include="DBO\Tables\Roles.sql" />
+    <Build Include="DBO\Tables\UserFarms.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Script.PostDeployment.sql" />
