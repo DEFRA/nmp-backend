@@ -2,7 +2,7 @@
 (
 	[ID] INT NOT NULL IDENTITY(1,1) PRIMARY KEY, 
     [GivenName] NVARCHAR(50) NOT NULL, 
-    [SurName] NVARCHAR(50) NULL, 
+    [Surname] NVARCHAR(50) NULL, 
     [Email] NVARCHAR(256) NOT NULL, 
     [UserName] NVARCHAR(128) NOT NULL UNIQUE
 )
