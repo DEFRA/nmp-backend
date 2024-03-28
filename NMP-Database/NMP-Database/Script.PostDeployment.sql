@@ -14,7 +14,7 @@ Post-Deployment Script Template
 IF NOT EXISTS (SELECT 1 FROM [dbo].[Users])
 BEGIN
 SET IDENTITY_INSERT [dbo].[Users] ON 
-INSERT [dbo].[Users] ([ID], [GivenName], [SurName], [Email], [UserName]) VALUES (1, N'NMPTUser', NULL, N'mark.brown@rsk-bsl.com', N'609CB6D5-7185-4C1F-95F1-DB09567B15C2')
+INSERT [dbo].[Users] ([ID], [GivenName], [SurName], [Email], [UserName]) VALUES (1, N'NMPT User', NULL, N'mark.brown@rsk-bsl.com', N'609CB6D5-7185-4C1F-95F1-DB09567B15C2')
 SET IDENTITY_INSERT [dbo].[Users] OFF
 END
 

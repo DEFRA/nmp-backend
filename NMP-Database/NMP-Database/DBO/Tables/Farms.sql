@@ -11,16 +11,18 @@
     [FarmerName]         NVARCHAR (128)  NULL,
     [BusinessName]       NVARCHAR (128)  NULL,
     [SBI]                NVARCHAR (20)   NULL,
-    [STD]                NVARCHAR (6)    NOT NULL,
+    [STD]                NVARCHAR (6)    NULL,
     [Telephone]          NVARCHAR (15)   NULL,
     [Mobile]             NVARCHAR (13)   NULL,
     [Email]              NVARCHAR (256)  NULL,
     [Rainfall]           INT             NULL,
-    [TotalFarmArea]      DECIMAL (18, 4) NULL CONSTRAINT DF_Farms_TotalFarmArea DEFAULT 0,
-    [AverageAltitude]    INT             NULL CONSTRAINT DF_Farms_AverageAltitude DEFAULT 0,
-    [RegistredOrganicProducer] BIT     NOT NULL CONSTRAINT DF_Farms_RegistredOrganicProducer DEFAULT 0,
-    [MetricUnits]        BIT             NULL CONSTRAINT DF_Farms_MetricUnits DEFAULT 0,
-    [EnglishRules]       BIT             NULL CONSTRAINT DF_Farms_EnglishRules DEFAULT 1,
+    [TotalFarmArea]      DECIMAL (18, 4) NOT NULL CONSTRAINT DF_Farms_TotalFarmArea DEFAULT 0,
+    [AverageAltitude]    INT             NOT NULL CONSTRAINT DF_Farms_AverageAltitude DEFAULT 0,
+    [RegistredOrganicProducer] BIT       NOT NULL CONSTRAINT DF_Farms_RegistredOrganicProducer DEFAULT 0,
+    [MetricUnits]        BIT             NOT NULL CONSTRAINT DF_Farms_MetricUnits DEFAULT 0,
+    [EnglishRules]       BIT             NOT NULL CONSTRAINT DF_Farms_EnglishRules DEFAULT 1,
+    [NVZFields]          INT             NOT NULL CONSTRAINT DF_Farms_NVZFields DEFAULT 0,
+    [FieldsAbove300SeaLevel]   INT       NOT NULL CONSTRAINT DF_Farms_FieldsAbove300SeaLevel DEFAULT 0
     CONSTRAINT [PK_Farms] PRIMARY KEY ([ID] ASC)
 
 
