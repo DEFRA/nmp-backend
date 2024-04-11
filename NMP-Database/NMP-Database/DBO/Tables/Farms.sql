@@ -18,12 +18,18 @@
     [Rainfall]           INT             NULL,
     [TotalFarmArea]      DECIMAL (18, 4) NOT NULL CONSTRAINT DF_Farms_TotalFarmArea DEFAULT 0,
     [AverageAltitude]    INT             NOT NULL CONSTRAINT DF_Farms_AverageAltitude DEFAULT 0,
-    [RegistredOrganicProducer] BIT       NOT NULL CONSTRAINT DF_Farms_RegistredOrganicProducer DEFAULT 0,
+    [RegisteredOrganicProducer] BIT       NOT NULL CONSTRAINT DF_Farms_RegistredOrganicProducer DEFAULT 0,
     [MetricUnits]        BIT             NOT NULL CONSTRAINT DF_Farms_MetricUnits DEFAULT 0,
     [EnglishRules]       BIT             NOT NULL CONSTRAINT DF_Farms_EnglishRules DEFAULT 1,
     [NVZFields]          INT             NOT NULL CONSTRAINT DF_Farms_NVZFields DEFAULT 0,
-    [FieldsAbove300SeaLevel]   INT       NOT NULL CONSTRAINT DF_Farms_FieldsAbove300SeaLevel DEFAULT 0
-    CONSTRAINT [PK_Farms] PRIMARY KEY ([ID] ASC)
+    [FieldsAbove300SeaLevel]   INT       NOT NULL CONSTRAINT DF_Farms_FieldsAbove300SeaLevel DEFAULT 0,
+    [CreatedOn] DATETIME2 NULL DEFAULT GETDATE(), 
+    [CreatedByID] INT NULL, 
+    [ModifiedOn] DATETIME2 NULL, 
+    [ModifiedByID] INT NULL,
+    CONSTRAINT [PK_Farms] PRIMARY KEY ([ID] ASC),
+    CONSTRAINT [FK_Farms_Users_CreatedBy] FOREIGN KEY([CreatedByID]) REFERENCES [dbo].[Users] ([ID]),
+    CONSTRAINT [FK_Farms_Users_ModifiedBy] FOREIGN KEY([ModifiedByID]) REFERENCES [dbo].[Users] ([ID])
 
 
 )
