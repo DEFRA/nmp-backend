@@ -18,7 +18,7 @@
     [Rainfall]           INT             NULL,
     [TotalFarmArea]      DECIMAL (18, 4) NOT NULL CONSTRAINT DF_Farms_TotalFarmArea DEFAULT 0,
     [AverageAltitude]    INT             NOT NULL CONSTRAINT DF_Farms_AverageAltitude DEFAULT 0,
-    [RegistredOrganicProducer] BIT       NOT NULL CONSTRAINT DF_Farms_RegistredOrganicProducer DEFAULT 0,
+    [RegisteredOrganicProducer] BIT       NOT NULL CONSTRAINT DF_Farms_RegistredOrganicProducer DEFAULT 0,
     [MetricUnits]        BIT             NOT NULL CONSTRAINT DF_Farms_MetricUnits DEFAULT 0,
     [EnglishRules]       BIT             NOT NULL CONSTRAINT DF_Farms_EnglishRules DEFAULT 1,
     [NVZFields]          INT             NOT NULL CONSTRAINT DF_Farms_NVZFields DEFAULT 0,
