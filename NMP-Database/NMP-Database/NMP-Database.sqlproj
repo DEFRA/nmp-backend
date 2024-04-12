@@ -56,6 +56,8 @@
     <Folder Include="Properties" />
     <Folder Include="DBO" />
     <Folder Include="DBO\Tables" />
+    <Folder Include="DBO\StoredProcedures" />
+    <Folder Include="DBO\StoredProcedures\Farms" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="DBO\Tables\Farms.sql" />
@@ -64,14 +66,12 @@
     <Build Include="DBO\Tables\Roles.sql" />
     <Build Include="DBO\Tables\UserFarms.sql" />
     <Build Include="DBO\Tables\Fields.sql" />
+    <Build Include="DBO\StoredProcedures\Farms\spFarms_GetUserFarms.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Script.PostDeployment.sql" />
   </ItemGroup>
   <ItemGroup>
     <PreDeploy Include="Script.PreDeployment.sql" />
-  </ItemGroup>
-  <ItemGroup>
-    <RefactorLog Include="NMP-Database.refactorlog" />
   </ItemGroup>
 </Project>
