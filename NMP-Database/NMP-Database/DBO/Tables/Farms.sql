@@ -6,7 +6,7 @@
     [Address2]           NVARCHAR (50)   NULL,
     [Address3]           NVARCHAR (50)   NULL,
     [Address4]           NVARCHAR (50)   NULL,
-    [PostCode]           NVARCHAR (50)   NOT NULL,
+    [Postcode]           NVARCHAR (50)   NOT NULL,
     [CPH]                NVARCHAR (50)   NULL,
     [FarmerName]         NVARCHAR (128)  NULL,
     [BusinessName]       NVARCHAR (128)  NULL,
@@ -29,8 +29,8 @@
     [ModifiedByID] INT NULL,
     CONSTRAINT [PK_Farms] PRIMARY KEY ([ID] ASC),
     CONSTRAINT [FK_Farms_Users_CreatedBy] FOREIGN KEY([CreatedByID]) REFERENCES [dbo].[Users] ([ID]),
-    CONSTRAINT [FK_Farms_Users_ModifiedBy] FOREIGN KEY([ModifiedByID]) REFERENCES [dbo].[Users] ([ID])
-
+    CONSTRAINT [FK_Farms_Users_ModifiedBy] FOREIGN KEY([ModifiedByID]) REFERENCES [dbo].[Users] ([ID]),
+    CONSTRAINT [UC_Farms_NamePostcode] UNIQUE ([Name], [Postcode])
 
 )
 
