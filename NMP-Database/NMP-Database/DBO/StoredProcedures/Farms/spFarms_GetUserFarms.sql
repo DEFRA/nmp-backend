@@ -3,6 +3,7 @@
 AS
 BEGIN
     SELECT 
+        [Farms].[ID],
         [Farms].[Name],
         [Farms].[Address1],
         [Farms].[Address2],
