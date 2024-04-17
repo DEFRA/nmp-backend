@@ -67,6 +67,8 @@
     <Build Include="DBO\Tables\UserFarms.sql" />
     <Build Include="DBO\Tables\Fields.sql" />
     <Build Include="DBO\StoredProcedures\Farms\spFarms_GetUserFarms.sql" />
+    <Build Include="DBO\Tables\SoilAnalyses.sql" />
+    <Build Include="DBO\Tables\Crops.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Script.PostDeployment.sql" />

@@ -2,18 +2,20 @@
 (
 	[ID] INT NOT NULL IDENTITY(1,1),
 	[FarmID] INT NOT NULL,
-	[SoilTypeID] INT NULL, --RB209
-	[NVZProgrammeID] NVARCHAR(50) NULL, --RB209
 	[Name] NVARCHAR(50) NOT NULL,
-    [LPIDNumber] NVARCHAR(50) NULL,
 	[NationalGridReference] NVARCHAR(50) NULL,
-	[TotalArea] DECIMAL(18,3) NULL,
+    [LPIDNumber] NVARCHAR(50) NULL,
+	[TotalArea] DECIMAL(18,3) NOT NULL,
     [CroppedArea] DECIMAL(18,3) NULL, 
 	[ManureNonSpreadingArea] DECIMAL(18,3) NULL,
-	[SoilReleasingClay] BIT NULL DEFAULT 0, 
-	[IsWithinNVZ] BIT NULL DEFAULT 0,
-	[IsAbove300SeaLevel] BIT NULL DEFAULT 0,
-    [CreatedOn] DATETIME2 NULL DEFAULT GETDATE(), 
+	[IsWithinNVZ] BIT NULL CONSTRAINT DF_Fields_IsWithinNVZ DEFAULT 0,
+	[IsAbove300SeaLevel] BIT NULL CONSTRAINT DF_Fields_IsAbove300SeaLevel DEFAULT 0,
+	[SoilTypeID] INT NULL, --RB209
+	[SoilReleasingClay] BIT NULL CONSTRAINT DF_Fields_SoilReleasingClay DEFAULT 0,
+
+	[NVZProgrammeID] NVARCHAR(50) NULL, --RB209	
+	[IsActive] BIT NOT NULL CONSTRAINT DF_Fields_IsActive DEFAULT 1,
+    [CreatedOn] DATETIME2 NULL CONSTRAINT DF_Fields_CreatedOn DEFAULT GETDATE(), 
     [CreatedByID] INT NOT NULL,
 	[ModifiedOn] DATETIME2 NULL,
 	[ModifiedByID] INT NULL,
