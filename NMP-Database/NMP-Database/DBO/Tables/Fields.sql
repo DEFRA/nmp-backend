@@ -17,7 +17,7 @@
 	[NVZProgrammeID] NVARCHAR(50) NULL, --RB209	
 	[IsActive] BIT NOT NULL CONSTRAINT DF_Fields_IsActive DEFAULT 1,
     [CreatedOn] DATETIME2 NULL CONSTRAINT DF_Fields_CreatedOn DEFAULT GETDATE(), 
-    [CreatedByID] INT NOT NULL,
+    [CreatedByID] INT NULL,
 	[ModifiedOn] DATETIME2 NULL,
 	[ModifiedByID] INT NULL,
     CONSTRAINT [PK_Fields] PRIMARY KEY ([ID] ASC), 
