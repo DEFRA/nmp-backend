@@ -1,9 +1,9 @@
 ﻿CREATE TABLE [dbo].[Crops]
 (
-	[Id]                    INT IDENTITY(1,1) NOT NULL,
-	[FieldId]               INT             NOT NULL,
+	[ID]                    INT IDENTITY(1,1) NOT NULL,
+	[FieldID]               INT             NOT NULL,
     [Year]                  INT             NOT NULL,
-    [CropTypeId]            INT             NULL,    
+    [CropTypeID]            INT             NULL,    
     [Variety]               NVARCHAR (100)  NULL,
     [CropInfo1]             INT             NULL,
     [CropInfo2]             INT             NULL,
@@ -20,8 +20,14 @@
     [StockingRate]          DECIMAL(18, 3)  NULL        CONSTRAINT DF_Crops_StockingRate DEFAULT 0,
     [DefoliationSequence]   INT             NULL,
     [GrazingIntensity]      INT             NULL        CONSTRAINT DF_Crops_GrazingIntensity DEFAULT 0,
-    [PreviousId]            INT             NULL,
-    CONSTRAINT [PK_Crops] PRIMARY KEY CLUSTERED ([Id] ASC),    
-    CONSTRAINT [FK_Crops_Fields] FOREIGN KEY([FieldId]) REFERENCES [dbo].[Fields] ([Id])
+    [CreatedOn]             DATETIME2       NULL DEFAULT GETDATE(), 
+    [CreatedByID]           INT             NULL, 
+    [ModifiedOn]            DATETIME2       NULL, 
+    [ModifiedByID]          INT             NULL,
+    [PreviousID]            INT             NULL,
+    CONSTRAINT [PK_Crops] PRIMARY KEY CLUSTERED ([ID] ASC),    
+    CONSTRAINT [FK_Crops_Fields] FOREIGN KEY([FieldID]) REFERENCES [dbo].[Fields] ([ID]),
+    CONSTRAINT [FK_Crops_Users_CreatedBy] FOREIGN KEY([CreatedByID]) REFERENCES [dbo].[Users] ([ID]),
+    CONSTRAINT [FK_Crops_Users_ModifiedBy] FOREIGN KEY([ModifiedByID]) REFERENCES [dbo].[Users] ([ID]),
 )
 

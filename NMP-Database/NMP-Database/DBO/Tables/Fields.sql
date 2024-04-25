@@ -4,6 +4,7 @@
 	[FarmID] INT NOT NULL,
 	[Name] NVARCHAR(50) NOT NULL,
 	[NationalGridReference] NVARCHAR(50) NULL,
+	[OtherReference] NVARCHAR(50) NULL,
     [LPIDNumber] NVARCHAR(50) NULL,
 	[TotalArea] DECIMAL(18,3) NOT NULL,
     [CroppedArea] DECIMAL(18,3) NULL, 
