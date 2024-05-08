@@ -70,6 +70,8 @@
     <Build Include="DBO\Tables\SoilAnalyses.sql" />
     <Build Include="DBO\Tables\Crops.sql" />
     <Build Include="DBO\Tables\ManagementPeriods.sql" />
+    <Build Include="DBO\Tables\Recommendations.sql" />
+    <Build Include="DBO\Tables\RecommendationComments.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Script.PostDeployment.sql" />
