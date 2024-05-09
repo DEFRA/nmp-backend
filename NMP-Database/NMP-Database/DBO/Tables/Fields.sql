@@ -14,8 +14,8 @@
 	[SoilTypeID] INT NULL, --RB209
 	[SoilReleasingClay] BIT NULL CONSTRAINT DF_Fields_SoilReleasingClay DEFAULT 0,
 
-	[NVZProgrammeID] NVARCHAR(50) NULL, --RB209	
-	[IsActive] BIT NOT NULL CONSTRAINT DF_Fields_IsActive DEFAULT 1,
+	[NVZProgrammeID] INT NULL CONSTRAINT DF_Fields_NVZProgrammeID DEFAULT 1, --RB209	
+	[IsActive] BIT NOT NULL  CONSTRAINT DF_Fields_IsActive DEFAULT 1,
     [CreatedOn] DATETIME2 NULL CONSTRAINT DF_Fields_CreatedOn DEFAULT GETDATE(), 
     [CreatedByID] INT NULL,
 	[ModifiedOn] DATETIME2 NULL,
