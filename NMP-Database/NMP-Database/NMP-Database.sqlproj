@@ -58,6 +58,7 @@
     <Folder Include="DBO\Tables" />
     <Folder Include="DBO\StoredProcedures" />
     <Folder Include="DBO\StoredProcedures\Farms" />
+    <Folder Include="DBO\StoredProcedures\Recommendations" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="DBO\Tables\Farms.sql" />
@@ -72,6 +73,7 @@
     <Build Include="DBO\Tables\ManagementPeriods.sql" />
     <Build Include="DBO\Tables\Recommendations.sql" />
     <Build Include="DBO\Tables\RecommendationComments.sql" />
+    <Build Include="DBO\StoredProcedures\Recommendations\spRecommendations_GetRecommendations.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Script.PostDeployment.sql" />
