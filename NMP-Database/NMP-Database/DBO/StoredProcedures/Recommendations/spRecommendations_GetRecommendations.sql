@@ -1,6 +1,6 @@
 ﻿CREATE PROCEDURE [dbo].[spRecommendations_GetRecommendations]
-    @FieldID INT,
-    @HarvestYear INT
+    @fieldId INT,
+    @harvestYear INT
 AS
 BEGIN
     SELECT
@@ -40,14 +40,14 @@ BEGIN
         [Recommendations].[ModifiedOn],
         [Recommendations].[ModifiedByID],
         [Recommendations].[PreviousID]
-    FROM 
+    FROM
         [Recommendations]
     INNER JOIN
         [ManagementPeriods] ON [Recommendations].[ManagementPeriodID] = [ManagementPeriods].[ID]
     INNER JOIN
         [Crops] ON [ManagementPeriods].[CropID] = [Crops].[ID]
     WHERE
-        [Crops].[FieldID] = @FieldID
+        [Crops].[FieldID] = @fieldId
     AND
-        [Crops].[Year] = @HarvestYear;
+        [Crops].[Year] = @harvestYear;
 END
