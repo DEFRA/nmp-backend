@@ -76,6 +76,7 @@
     <Build Include="DBO\Tables\RecommendationComments.sql" />
     <Build Include="DBO\StoredProcedures\Recommendations\spRecommendations_GetRecommendations.sql" />
     <Build Include="DBO\StoredProcedures\Crops\spCrops_GetPlans.sql" />
+    <Build Include="DBO\StoredProcedures\Crops\spCrops_GetPlansByHarvestYear.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Script.PostDeployment.sql" />
