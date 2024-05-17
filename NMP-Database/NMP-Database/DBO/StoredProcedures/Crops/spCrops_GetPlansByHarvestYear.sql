@@ -6,11 +6,10 @@ BEGIN
     SELECT
         [Crops].[CropTypeID],
         [Fields].[ID] AS FieldID,
-        MIN([Fields].[Name]) AS FieldName,
-        CASE
-            WHEN MAX([Crops].[ModifiedOn]) IS NULL THEN MAX([Crops].[CreatedOn])
-            ELSE MAX([Crops].[ModifiedOn])
-            END AS LastModifiedOn
+        [Fields].[Name] AS FieldName,
+        [Crops].[Variety] AS CropVariety,
+        [Crops].[OtherCropName] AS OtherCropName,
+        GREATEST([Crops].[ModifiedOn], [Crops].[CreatedOn]) AS LastModifiedOn
     FROM
         [Crops]
     INNER JOIN
@@ -21,7 +20,4 @@ BEGIN
         [Crops].[Year] = @harvestYear
     AND 
         [Crops].[Confirm] = 0
-    GROUP BY 
-        [Crops].[CropTypeID],
-        [Fields].[ID]
 END
