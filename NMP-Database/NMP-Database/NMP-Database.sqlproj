@@ -77,11 +77,15 @@
     <Build Include="DBO\StoredProcedures\Recommendations\spRecommendations_GetRecommendations.sql" />
     <Build Include="DBO\StoredProcedures\Crops\spCrops_GetPlans.sql" />
     <Build Include="DBO\StoredProcedures\Crops\spCrops_GetPlansByHarvestYear.sql" />
+    <Build Include="DBO\Tables\Organisations.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Script.PostDeployment.sql" />
   </ItemGroup>
   <ItemGroup>
     <PreDeploy Include="Script.PreDeployment.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <RefactorLog Include="NMP-Database.refactorlog" />
   </ItemGroup>
 </Project>
