@@ -9,7 +9,10 @@ BEGIN
         [Fields].[Name] AS FieldName,
         [Crops].[Variety] AS CropVariety,
         [Crops].[OtherCropName] AS OtherCropName,
-        GREATEST([Crops].[ModifiedOn], [Crops].[CreatedOn]) AS LastModifiedOn
+        CASE
+            WHEN [Crops].[ModifiedOn] >= [Crops].[CreatedOn] THEN [Crops].[ModifiedOn]
+            ELSE [Crops].[CreatedOn]
+        END AS LastModifiedOn
     FROM
         [Crops]
     INNER JOIN
