@@ -1,0 +1,6 @@
+﻿CREATE TABLE [dbo].[Organisations]
+(
+	[Id] UNIQUEIDENTIFIER NOT NULL, 
+    [Name] NVARCHAR(512) NOT NULL,
+	CONSTRAINT [PK_Organisations] PRIMARY KEY ([ID] ASC),
+)
