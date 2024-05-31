@@ -82,6 +82,7 @@
     <Build Include="DBO\Tables\Organisations.sql" />
     <Build Include="DBO\StoredProcedures\Users\spUsers_MergeUser.sql" />
     <Build Include="DBO\StoredProcedures\Organisations\spOrganisations_MergeOrganisation.sql" />
+    <Build Include="DBO\Tables\ClimateDatas.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Script.PostDeployment.sql" />
