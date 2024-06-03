@@ -83,6 +83,18 @@
     <Build Include="DBO\StoredProcedures\Users\spUsers_MergeUser.sql" />
     <Build Include="DBO\StoredProcedures\Organisations\spOrganisations_MergeOrganisation.sql" />
     <Build Include="DBO\Tables\ClimateDatas.sql" />
+    <Build Include="DBO\Tables\MannerApplications.sql" />
+    <Build Include="DBO\Tables\MannerNutrientPriceDatas.sql" />
+    <Build Include="DBO\Tables\ManureTypes.sql" />
+    <Build Include="DBO\Tables\ApplicationMethods.sql" />
+    <Build Include="DBO\Tables\Incorporations.sql" />
+    <Build Include="DBO\Tables\IncorporationDelays.sql" />
+    <Build Include="DBO\Tables\Windspeeds.sql" />
+    <Build Include="DBO\Tables\Moistures.sql" />
+    <Build Include="DBO\Tables\RainsWithinSixHours.sql" />
+    <Build Include="DBO\Tables\ManureLinkToApplicationMethods.sql" />
+    <Build Include="DBO\Tables\ApplicationMethodLinkToIncorporations.sql" />
+    <Build Include="DBO\Tables\IncorporationLinkToIncorporationDelays.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Script.PostDeployment.sql" />
