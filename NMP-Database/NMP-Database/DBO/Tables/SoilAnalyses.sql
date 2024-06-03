@@ -4,7 +4,7 @@
 	[FieldID]                   INT             NOT NULL,
     [Year]                      INT             NOT NULL,
     [SulphurDeficient]          BIT             NOT NULL CONSTRAINT DF_SoilAnalyses_SulphurDeficient DEFAULT 1,
-    [Date]                      DATETIME        NULL,
+    [Date]                      DATETIME2        NULL,
     [PH]                        DECIMAL (18, 3) NULL,    
     [PhosphorusMethodologyID]   INT             NULL,
     [Phosphorus]                INT             NULL,
