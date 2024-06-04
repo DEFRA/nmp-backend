@@ -25,11 +25,11 @@
 	[TotalSO3] DECIMAL(18, 2) NULL,
     CONSTRAINT [PK_MannerApplications] PRIMARY KEY CLUSTERED ([ID] ASC),
     CONSTRAINT [FK_MannerApplications_Fields] FOREIGN KEY([FieldID]) REFERENCES [dbo].[Fields] ([ID]),
-	CONSTRAINT [FK_MannerApplications_ManureTypes] FOREIGN KEY([ManureTypeID]) REFERENCES [dbo].[ManureTypes] ([ID]),
-	CONSTRAINT [FK_MannerApplications_ApplicationMethods] FOREIGN KEY([ApplicationMethodID]) REFERENCES [dbo].[ApplicationMethods] ([ID]),
-	CONSTRAINT [FK_MannerApplications_Incorporations] FOREIGN KEY([IncorporationID]) REFERENCES [dbo].[Incorporations] ([ID]),
-	CONSTRAINT [FK_MannerApplications_IncroporationDelays] FOREIGN KEY([IncroporationDelayID]) REFERENCES [dbo].[IncorporationDelays] ([ID]),
-	CONSTRAINT [FK_MannerApplications_Windspeeds] FOREIGN KEY([WindspeedID]) REFERENCES [dbo].[Windspeeds] ([ID]),
-	CONSTRAINT [FK_MannerApplications_RainsWithinSixHours] FOREIGN KEY([RainfallWithin6HoursID]) REFERENCES [dbo].[RainsWithinSixHours] ([ID]),
-	CONSTRAINT [FK_MannerApplications_Moistures] FOREIGN KEY([MoistureID]) REFERENCES [dbo].[Moistures] ([ID])
+	CONSTRAINT [FK_MannerApplications_ManureTypes_ManureTypeID] FOREIGN KEY([ManureTypeID]) REFERENCES [dbo].[ManureTypes] ([ID]),
+	CONSTRAINT [FK_MannerApplications_ApplicationMethods_ApplicationMethodID] FOREIGN KEY([ApplicationMethodID]) REFERENCES [dbo].[ApplicationMethods] ([ID]),
+	CONSTRAINT [FK_MannerApplications_Incorporations_IncorporationID] FOREIGN KEY([IncorporationID]) REFERENCES [dbo].[IncorporationMethods] ([ID]),
+	CONSTRAINT [FK_MannerApplications_IncroporationDelays_IncroporationDelayID] FOREIGN KEY([IncroporationDelayID]) REFERENCES [dbo].[IncorporationDelays] ([ID]),
+	CONSTRAINT [FK_MannerApplications_Windspeeds_WindspeedID] FOREIGN KEY([WindspeedID]) REFERENCES [dbo].[Windspeeds] ([ID]),
+	CONSTRAINT [FK_MannerApplications_RainsWithinSixHours_RainfallWithin6HoursID] FOREIGN KEY([RainfallWithin6HoursID]) REFERENCES [dbo].[RainsWithinSixHours] ([ID]),
+	CONSTRAINT [FK_MannerApplications_TopsoilMoistures_MoistureID] FOREIGN KEY([MoistureID]) REFERENCES [dbo].[TopsoilMoistures] ([ID])
 )

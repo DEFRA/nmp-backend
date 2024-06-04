@@ -87,14 +87,17 @@
     <Build Include="DBO\Tables\MannerNutrientPriceDatas.sql" />
     <Build Include="DBO\Tables\ManureTypes.sql" />
     <Build Include="DBO\Tables\ApplicationMethods.sql" />
-    <Build Include="DBO\Tables\Incorporations.sql" />
+    <Build Include="DBO\Tables\IncorporationMethods.sql" />
     <Build Include="DBO\Tables\IncorporationDelays.sql" />
     <Build Include="DBO\Tables\Windspeeds.sql" />
-    <Build Include="DBO\Tables\Moistures.sql" />
-    <Build Include="DBO\Tables\RainsWithinSixHours.sql" />
-    <Build Include="DBO\Tables\ManureTypeLinkToApplicationMethods.sql" />
-    <Build Include="DBO\Tables\ApplicationMethodLinkToIncorporations.sql" />
-    <Build Include="DBO\Tables\IncorporationLinkToIncorporationDelays.sql" />
+    <Build Include="DBO\Tables\MoistureTypes.sql" />
+    <Build Include="DBO\Tables\RainTypes.sql" />
+    <Build Include="DBO\Tables\ManureTypesApplicationMethods.sql" />
+    <Build Include="DBO\Tables\ApplicationMethodIncorporationMethods.sql" />
+    <Build Include="DBO\Tables\IncorpMethodsIncorpDelays.sql" />
+    <Build Include="DBO\Tables\Countries.sql" />
+    <Build Include="DBO\Tables\Manures.sql" />
+    <Build Include="DBO\Tables\OrganicManures.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Script.PostDeployment.sql" />

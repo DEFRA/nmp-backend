@@ -1,9 +1,10 @@
 ﻿CREATE TABLE [dbo].[ManureTypes]
 (
 	[ID] INT IDENTITY(1,1) NOT NULL,
-	[Name] NVARCHAR(50)  NULL,
-	[Country] INT NULL,
-	[IsLiquid] BIT  NULL,
+	[Name] NVARCHAR(50) NOT  NULL,
+	[ManureID] INT  NOT NULL,
+	[CountryID] INT NOT NULL,
+	[IsLiquid] BIT NOT NULL,
 	[DryMatter] DECIMAL(18,2) NULL,
 	[TotalN] DECIMAL(18,2) NULL,
 	[NH4N] DECIMAL(18,2) NULL,
@@ -13,5 +14,8 @@
 	[K2O] DECIMAL(18,2) NULL,
 	[SO3] DECIMAL(18,2) NULL,
 	[MgO] DECIMAL(18,2) NULL,
-	CONSTRAINT [PK_ManureTypes] PRIMARY KEY CLUSTERED ([ID] ASC),
+	CONSTRAINT [PK_ManureTypes] PRIMARY KEY CLUSTERED ([ID] ASC),	
+	CONSTRAINT [FK_ManureTypes_Manures_ManureID] FOREIGN KEY (ManureID) REFERENCES Manures(ID),
+    CONSTRAINT [FK_ManureTypes_Countries_CountryID] FOREIGN KEY (CountryID) REFERENCES Countries(ID)
+
 )
