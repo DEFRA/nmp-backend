@@ -1,5 +1,5 @@
 ﻿CREATE TABLE [dbo].[Moistures]
 (
 	[ID] INT IDENTITY(1,1) NOT NULL PRIMARY KEY, 
-    [Moisture] NVARCHAR(100) NULL 
+    [Name] NVARCHAR(100) NULL 
 )
