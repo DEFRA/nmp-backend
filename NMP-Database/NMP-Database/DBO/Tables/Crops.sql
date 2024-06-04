@@ -8,7 +8,7 @@
     [OtherCropName]         NVARCHAR (128)  NULL,
     [CropInfo1]             INT             NULL,
     [CropInfo2]             INT             NULL,
-    [SowingDate]            DATETIME        NULL,
+    [SowingDate]            DATETIME2        NULL,
     [Yield]                 DECIMAL (18, 3) NULL,
     [Confirm]               BIT             NOT NULL    CONSTRAINT DF_Crops_Confirm DEFAULT 0,    
     [PreviousGrass]         INT             NULL,    
