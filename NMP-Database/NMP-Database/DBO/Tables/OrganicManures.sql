@@ -29,7 +29,7 @@
 	[RainfallWithin6HoursID] INT NULL,
 	[MoistureID] INT NULL,
 	CONSTRAINT [PK_OrganicManures] PRIMARY KEY CLUSTERED ([ID] ASC),
-    CONSTRAINT [FK_OrganicManures_Fields] FOREIGN KEY([ManagementPeriodId]) REFERENCES [dbo].[ManagementPeriods] ([ID]),
+    CONSTRAINT [FK_OrganicManures_ManagementPeriods_ManagementPeriodId] FOREIGN KEY([ManagementPeriodId]) REFERENCES [dbo].[ManagementPeriods] ([ID]),
 	CONSTRAINT [FK_OrganicManures_ManureTypes_ManureTypeID] FOREIGN KEY([ManureTypeID]) REFERENCES [dbo].[ManureTypes] ([ID]),
 	CONSTRAINT [FK_OrganicManures_ApplicationMethods_ApplicationMethodID] FOREIGN KEY([ApplicationMethodID]) REFERENCES [dbo].[ApplicationMethods] ([ID]),
 	CONSTRAINT [FK_OrganicManures_IncorporationMethods_IncroporationMethodID] FOREIGN KEY([IncroporationMethodID]) REFERENCES [dbo].[IncorporationMethods] ([ID]),

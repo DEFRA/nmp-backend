@@ -93,7 +93,7 @@
     <Build Include="DBO\Tables\MoistureTypes.sql" />
     <Build Include="DBO\Tables\RainTypes.sql" />
     <Build Include="DBO\Tables\ManureTypesApplicationMethods.sql" />
-    <Build Include="DBO\Tables\ApplicationMethodIncorporationMethods.sql" />
+    <Build Include="DBO\Tables\ApplicationMethodsIncorpMethods.sql" />
     <Build Include="DBO\Tables\IncorpMethodsIncorpDelays.sql" />
     <Build Include="DBO\Tables\Countries.sql" />
     <Build Include="DBO\Tables\Manures.sql" />
