@@ -83,8 +83,6 @@
     <Build Include="DBO\StoredProcedures\Users\spUsers_MergeUser.sql" />
     <Build Include="DBO\StoredProcedures\Organisations\spOrganisations_MergeOrganisation.sql" />
     <Build Include="DBO\Tables\ClimateDatas.sql" />
-    <Build Include="DBO\Tables\MannerApplications.sql" />
-    <Build Include="DBO\Tables\MannerNutrientPriceDatas.sql" />
     <Build Include="DBO\Tables\ManureTypes.sql" />
     <Build Include="DBO\Tables\ApplicationMethods.sql" />
     <Build Include="DBO\Tables\IncorporationMethods.sql" />
