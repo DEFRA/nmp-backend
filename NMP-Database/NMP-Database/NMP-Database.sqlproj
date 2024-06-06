@@ -98,6 +98,7 @@
     <Build Include="DBO\Tables\OrganicManures.sql" />
     <Build Include="DBO\StoredProcedures\Crops\spCrops_GetCropPlansFieldsByHarvestYear.sql" />
     <Build Include="DBO\StoredProcedures\Crops\spCrops_GetCropPlansCropTypesByHarvestYear.sql" />
+    <Build Include="DBO\StoredProcedures\Crops\spCrops_GetCropPlansManagementPeriodByHarvestYear.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Script.PostDeployment.sql" />
