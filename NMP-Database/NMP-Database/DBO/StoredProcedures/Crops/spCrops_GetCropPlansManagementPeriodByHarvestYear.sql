@@ -15,7 +15,8 @@ BEGIN
         WHERE
             [Crops].[Year] = @harvestYear
             AND [Crops].[FieldID] IN (SELECT value FROM STRING_SPLIT(@fieldIds, ','))
-            AND [Crops].[CropTypeID] = @cropTypeId;
+            AND [Crops].[CropTypeID] = @cropTypeId
+            AND [Crops].[Confirm] = 0;
     END
     ELSE
     BEGIN
@@ -27,6 +28,7 @@ BEGIN
             [Crops] ON [Crops].[ID] = [ManagementPeriods].[CropID]
         WHERE
             [Crops].[Year] = @harvestYear
-            AND [Crops].[FieldID] IN (SELECT value FROM STRING_SPLIT(@fieldIds, ','));
+            AND [Crops].[FieldID] IN (SELECT value FROM STRING_SPLIT(@fieldIds, ','))
+            AND [Crops].[Confirm] = 0;
     END
 END
