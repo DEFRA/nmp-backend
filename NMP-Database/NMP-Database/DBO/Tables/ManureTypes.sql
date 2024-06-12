@@ -4,7 +4,7 @@
 	[Name] [nvarchar](100) NOT NULL,
 	[ManureGroupID] [int] NOT NULL,
 	[CountryID] [int] NOT NULL,
-	[HighReadielyAvailableNitrogen] [bit] NOT NULL,
+	[HighReadilyAvailableNitrogen] [bit] NOT NULL,
 	[IsLiquid] [bit] NOT NULL,
 	[DryMatter] [decimal](18, 2) NULL,
 	[TotalN] [decimal](18, 2) NULL,
