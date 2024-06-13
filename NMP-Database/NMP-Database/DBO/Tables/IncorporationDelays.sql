@@ -1,5 +1,5 @@
 ﻿CREATE TABLE [dbo].[IncorporationDelays] (
-    [ID]        INT            NOT NULL,
+    [ID]        INT IDENTITY(1,1) NOT NULL,
     [Name]      NVARCHAR (100) NOT NULL,
     [FromHours] INT            NULL,
     [ToHours]   INT            NULL,

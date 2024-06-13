@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [dbo].[ManureTypes]
 (
-	[ID] [int] NOT NULL,
+	[ID] [int] NOT NULL IDENTITY(0,1),
 	[Name] [nvarchar](100) NOT NULL,
 	[ManureGroupID] [int] NOT NULL,
 	[CountryID] [int] NOT NULL,
