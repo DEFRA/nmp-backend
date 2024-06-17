@@ -3,6 +3,7 @@
     [Name]      NVARCHAR (100) NOT NULL,
     [FromHours] INT            NULL,
     [ToHours]   INT            NULL,
+    [ApplicableFor] [nvarchar](1) NULL,
     CONSTRAINT [PK_IncorporationDelays] PRIMARY KEY CLUSTERED ([ID] ASC)
 );
 
