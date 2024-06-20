@@ -15,7 +15,7 @@
     [Telephone]          NVARCHAR (15)   NULL,
     [Mobile]             NVARCHAR (13)   NULL,
     [Email]              NVARCHAR (256)  NULL,
-    [Rainfall]           DECIMAL (18, 5) NULL,
+    [Rainfall]           INT NULL,
     [TotalFarmArea]      DECIMAL (18, 4) NOT NULL CONSTRAINT DF_Farms_TotalFarmArea DEFAULT 0,
     [AverageAltitude]    INT             NOT NULL CONSTRAINT DF_Farms_AverageAltitude DEFAULT 0,
     [RegisteredOrganicProducer] BIT       NOT NULL CONSTRAINT DF_Farms_RegistredOrganicProducer DEFAULT 0,
