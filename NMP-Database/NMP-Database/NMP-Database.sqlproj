@@ -99,6 +99,7 @@
     <Build Include="DBO\StoredProcedures\Crops\spCrops_GetCropPlansFieldsByHarvestYear.sql" />
     <Build Include="DBO\StoredProcedures\Crops\spCrops_GetCropPlansCropTypesByHarvestYear.sql" />
     <Build Include="DBO\StoredProcedures\Crops\spCrops_GetCropPlansManagementPeriodByHarvestYear.sql" />
+    <Build Include="DBO\Tables\ManureDefaultValueAgainstFarm.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Script.PostDeployment.sql" />
