@@ -28,6 +28,10 @@
 	[WindspeedID] [int] NULL,
 	[RainfallWithinSixHoursID] [int] NULL,
 	[MoistureID] [int] NULL,
+	[CreatedOn] DATETIME2 NULL DEFAULT GETDATE(), 
+    [CreatedByID] INT NULL, 
+    [ModifiedOn] DATETIME2 NULL, 
+    [ModifiedByID] INT NULL,
 	CONSTRAINT [PK_OrganicManures] PRIMARY KEY CLUSTERED ([ID] ASC),
     CONSTRAINT [FK_OrganicManures_ManagementPeriods_ManagementPeriodId] FOREIGN KEY([ManagementPeriodId]) REFERENCES [dbo].[ManagementPeriods] ([ID]),
 	CONSTRAINT [FK_OrganicManures_ManureTypes_ManureTypeID] FOREIGN KEY([ManureTypeID]) REFERENCES [dbo].[ManureTypes] ([ID]),
@@ -36,6 +40,8 @@
 	CONSTRAINT [FK_OrganicManures_IncorporationDelays_IncorporationDelayID] FOREIGN KEY([IncorporationDelayID]) REFERENCES [dbo].[IncorporationDelays] ([ID]),
 	CONSTRAINT [FK_OrganicManures_Windspeeds_WindspeedID] FOREIGN KEY([WindspeedID]) REFERENCES [dbo].[Windspeeds] ([ID]),
 	CONSTRAINT [FK_OrganicManures_RainTypes_RainfallWithinSixHoursID] FOREIGN KEY([RainfallWithinSixHoursID]) REFERENCES [dbo].[RainTypes] ([ID]),
-	CONSTRAINT [FK_OrganicManures_MoistureTypes_MoistureID] FOREIGN KEY([MoistureID]) REFERENCES [dbo].[MoistureTypes] ([ID])
+	CONSTRAINT [FK_OrganicManures_MoistureTypes_MoistureID] FOREIGN KEY([MoistureID]) REFERENCES [dbo].[MoistureTypes] ([ID]),
+	 CONSTRAINT [FK_OrganicManures_Users_CreatedBy] FOREIGN KEY([CreatedByID]) REFERENCES [dbo].[Users] ([ID]),
+    CONSTRAINT [FK_OrganicManures_Users_ModifiedBy] FOREIGN KEY([ModifiedByID]) REFERENCES [dbo].[Users] ([ID])
 
 )
