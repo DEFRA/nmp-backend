@@ -33,7 +33,7 @@
 	CONSTRAINT [FK_OrganicManures_ManureTypes_ManureTypeID] FOREIGN KEY([ManureTypeID]) REFERENCES [dbo].[ManureTypes] ([ID]),
 	CONSTRAINT [FK_OrganicManures_ApplicationMethods_ApplicationMethodID] FOREIGN KEY([ApplicationMethodID]) REFERENCES [dbo].[ApplicationMethods] ([ID]),
 	CONSTRAINT [FK_OrganicManures_IncorporationMethods_IncorporationMethodID] FOREIGN KEY([IncorporationMethodID]) REFERENCES [dbo].[IncorporationMethods] ([ID]),
-	CONSTRAINT [FK_OrganicManures_IncroporationDelays_IncorporationDelayID] FOREIGN KEY([IncorporationDelayID]) REFERENCES [dbo].[IncorporationDelays] ([ID]),
+	CONSTRAINT [FK_OrganicManures_IncorporationDelays_IncorporationDelayID] FOREIGN KEY([IncorporationDelayID]) REFERENCES [dbo].[IncorporationDelays] ([ID]),
 	CONSTRAINT [FK_OrganicManures_Windspeeds_WindspeedID] FOREIGN KEY([WindspeedID]) REFERENCES [dbo].[Windspeeds] ([ID]),
 	CONSTRAINT [FK_OrganicManures_RainTypes_RainfallWithinSixHoursID] FOREIGN KEY([RainfallWithinSixHoursID]) REFERENCES [dbo].[RainTypes] ([ID]),
 	CONSTRAINT [FK_OrganicManures_MoistureTypes_MoistureID] FOREIGN KEY([MoistureID]) REFERENCES [dbo].[MoistureTypes] ([ID])
