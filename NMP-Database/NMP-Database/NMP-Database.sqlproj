@@ -82,7 +82,6 @@
     <Build Include="DBO\Tables\Organisations.sql" />
     <Build Include="DBO\StoredProcedures\Users\spUsers_MergeUser.sql" />
     <Build Include="DBO\StoredProcedures\Organisations\spOrganisations_MergeOrganisation.sql" />
-    <Build Include="DBO\Tables\ClimateDatas.sql" />
     <Build Include="DBO\Tables\ManureTypes.sql" />
     <Build Include="DBO\Tables\ApplicationMethods.sql" />
     <Build Include="DBO\Tables\IncorporationMethods.sql" />
@@ -100,6 +99,7 @@
     <Build Include="DBO\StoredProcedures\Crops\spCrops_GetCropPlansCropTypesByHarvestYear.sql" />
     <Build Include="DBO\StoredProcedures\Crops\spCrops_GetCropPlansManagementPeriodByHarvestYear.sql" />
     <Build Include="DBO\Tables\FarmManureTypes.sql" />
+    <Build Include="DBO\Tables\ClimateDatabase.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Script.PostDeployment.sql" />
