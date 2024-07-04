@@ -3,7 +3,7 @@
     @harvestYear INT
 AS
 BEGIN
-    SELECT
+   SELECT
         [Crops].[CropTypeID],
         [Fields].[ID] AS FieldID,
         [Fields].[Name] AS FieldName,
@@ -12,11 +12,14 @@ BEGIN
         CASE
             WHEN [Crops].[ModifiedOn] >= [Crops].[CreatedOn] THEN [Crops].[ModifiedOn]
             ELSE [Crops].[CreatedOn]
-        END AS LastModifiedOn
+        END AS LastModifiedOn,
+        (SELECT COUNT(DISTINCT [OrganicManures].[ID]) FROM [OrganicManures] WHERE [OrganicManures].[ManagementPeriodID] = [ManagementPeriods].[ID]) AS TotalOrganicManures
     FROM
         [Crops]
     INNER JOIN
         [Fields] ON [Fields].[ID] = [Crops].[FieldID]
+    INNER JOIN
+    	[ManagementPeriods] ON [ManagementPeriods].[CropID] = [Crops].[ID]
     WHERE
         [Fields].[FarmID] = @farmId
     AND 
