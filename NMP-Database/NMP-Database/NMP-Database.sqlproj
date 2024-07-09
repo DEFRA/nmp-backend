@@ -100,6 +100,9 @@
     <Build Include="DBO\StoredProcedures\Crops\spCrops_GetCropPlansManagementPeriodByHarvestYear.sql" />
     <Build Include="DBO\Tables\FarmManureTypes.sql" />
     <Build Include="DBO\Tables\ClimateDatabase.sql" />
+    <Build Include="DBO\Tables\TopSoils.sql" />
+    <Build Include="DBO\Tables\SoilTypeSoilTextures.sql" />
+    <Build Include="DBO\Tables\SubSoils.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Script.PostDeployment.sql" />
