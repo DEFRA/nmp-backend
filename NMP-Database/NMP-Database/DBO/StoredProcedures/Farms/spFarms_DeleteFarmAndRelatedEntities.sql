@@ -2,7 +2,6 @@
 @FarmID INT
 AS
 BEGIN
-SET NOCOUNT ON;
  
 -- Use temporary tables to store intermediate results
 DECLARE @FieldIDs TABLE (ID INT);
