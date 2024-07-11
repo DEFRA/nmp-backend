@@ -103,6 +103,7 @@
     <Build Include="DBO\Tables\TopSoils.sql" />
     <Build Include="DBO\Tables\SoilTypeSoilTextures.sql" />
     <Build Include="DBO\Tables\SubSoils.sql" />
+    <Build Include="DBO\StoredProcedures\Farms\spFarms_DeleteFarmAndRelatedEntities.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Script.PostDeployment.sql" />
