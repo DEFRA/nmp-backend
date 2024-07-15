@@ -3,6 +3,7 @@
 	[ID] [int] NOT NULL IDENTITY(0,1),
 	[Name] [nvarchar](100) NOT NULL,
 	[ManureGroupID] [int] NOT NULL,
+	[ManureTypeCategoryID] [int] NOT NULL,
 	[CountryID] [int] NOT NULL,
 	[HighReadilyAvailableNitrogen] [bit] NOT NULL,
 	[IsLiquid] [bit] NOT NULL,
@@ -22,6 +23,7 @@
 	[ApplicationRateGrass] [int] NOT NULL,	
 	CONSTRAINT [PK_ManureTypes] PRIMARY KEY CLUSTERED ([ID] ASC),	
 	CONSTRAINT [FK_ManureTypes_ManureGroups_ManureGroupID] FOREIGN KEY (ManureGroupID) REFERENCES ManureGroups(ID),
-    CONSTRAINT [FK_ManureTypes_Countries_CountryID] FOREIGN KEY (CountryID) REFERENCES Countries(ID)
+    CONSTRAINT [FK_ManureTypes_Countries_CountryID] FOREIGN KEY (CountryID) REFERENCES Countries(ID),
+	CONSTRAINT [FK_ManureTypes_ManureTypeCategories_ManureTypeCategoryID] FOREIGN KEY ([ManureTypeCategoryID]) REFERENCES [dbo].[ManureTypeCategories] ([ID])
 
 )
