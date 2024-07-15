@@ -118,6 +118,9 @@
     <Build Include="DBO\StoredProcedures\FarmManureTypes\spFarmManureTypes_DeleteFarmManureTypes.sql" />
     <Build Include="DBO\StoredProcedures\ManagementPeriods\spManagementPeriods_DeleteManagementPeriods.sql" />
     <Build Include="DBO\StoredProcedures\OrganicManures\spOrganicManures_DeleteOrganicManures.sql" />
+    <Build Include="DBO\Tables\ManureTypeCategories.sql" />
+    <Build Include="DBO\Tables\MannerCropTypes.sql" />
+    <Build Include="DBO\Tables\CropTypeLinkings.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Script.PostDeployment.sql" />
