@@ -62,6 +62,12 @@
     <Folder Include="DBO\StoredProcedures\Crops" />
     <Folder Include="DBO\StoredProcedures\Users" />
     <Folder Include="DBO\StoredProcedures\Organisations" />
+    <Folder Include="DBO\StoredProcedures\Fields" />
+    <Folder Include="DBO\StoredProcedures\SoilAnalyses" />
+    <Folder Include="DBO\StoredProcedures\RecommendationComments" />
+    <Folder Include="DBO\StoredProcedures\FarmManureTypes" />
+    <Folder Include="DBO\StoredProcedures\ManagementPeriods" />
+    <Folder Include="DBO\StoredProcedures\OrganicManures" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="DBO\Tables\Farms.sql" />
@@ -103,7 +109,15 @@
     <Build Include="DBO\Tables\TopSoils.sql" />
     <Build Include="DBO\Tables\SoilTypeSoilTextures.sql" />
     <Build Include="DBO\Tables\SubSoils.sql" />
-    <Build Include="DBO\StoredProcedures\Farms\spFarms_DeleteFarmAndRelatedEntities.sql" />
+    <Build Include="DBO\StoredProcedures\Crops\spCrops_DeleteCrops.sql" />
+    <Build Include="DBO\StoredProcedures\Farms\spFarms_DeleteFarm.sql" />
+    <Build Include="DBO\StoredProcedures\Recommendations\spRecommendations_DeleteRecommendations.sql" />
+    <Build Include="DBO\StoredProcedures\Fields\spFields_DeleteFields.sql" />
+    <Build Include="DBO\StoredProcedures\SoilAnalyses\spSoilAnalyses_DeleteSoilAnalyses.sql" />
+    <Build Include="DBO\StoredProcedures\RecommendationComments\spRecommendationComments_DeleteRecommendationComments.sql" />
+    <Build Include="DBO\StoredProcedures\FarmManureTypes\spFarmManureTypes_DeleteFarmManureTypes.sql" />
+    <Build Include="DBO\StoredProcedures\ManagementPeriods\spManagementPeriods_DeleteManagementPeriods.sql" />
+    <Build Include="DBO\StoredProcedures\OrganicManures\spOrganicManures_DeleteOrganicManures.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Script.PostDeployment.sql" />
