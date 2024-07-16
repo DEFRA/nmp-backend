@@ -28,6 +28,7 @@
 	[WindspeedID] [int] NULL,
 	[RainfallWithinSixHoursID] [int] NULL,
 	[MoistureID] [int] NULL,
+	[AutumnCropNitrogenUptake] [decimal](5, 2) NOT NULL CONSTRAINT DF_OrganicManures_AutumnCropNitrogenUptake DEFAULT (0),
 	[CreatedOn] DATETIME2 NULL DEFAULT GETDATE(), 
     [CreatedByID] INT NULL, 
     [ModifiedOn] DATETIME2 NULL, 
