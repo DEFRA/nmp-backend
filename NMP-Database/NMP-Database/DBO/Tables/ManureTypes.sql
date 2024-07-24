@@ -22,8 +22,8 @@
 	[ApplicationRateArable] [int] NOT NULL,
 	[ApplicationRateGrass] [int] NOT NULL,	
 	CONSTRAINT [PK_ManureTypes] PRIMARY KEY CLUSTERED ([ID] ASC),	
-	CONSTRAINT [FK_ManureTypes_ManureGroups_ManureGroupID] FOREIGN KEY (ManureGroupID) REFERENCES ManureGroups(ID),
-    CONSTRAINT [FK_ManureTypes_Countries_CountryID] FOREIGN KEY (CountryID) REFERENCES Countries(ID),
-	CONSTRAINT [FK_ManureTypes_ManureTypeCategories_ManureTypeCategoryID] FOREIGN KEY ([ManureTypeCategoryID]) REFERENCES [dbo].[ManureTypeCategories] ([ID])
+	CONSTRAINT [FK_ManureTypes_ManureGroups] FOREIGN KEY (ManureGroupID) REFERENCES ManureGroups(ID),
+    CONSTRAINT [FK_ManureTypes_Countries] FOREIGN KEY (CountryID) REFERENCES Countries(ID),
+	CONSTRAINT [FK_ManureTypes_ManureTypeCategories] FOREIGN KEY ([ManureTypeCategoryID]) REFERENCES [dbo].[ManureTypeCategories] ([ID])
 
 )

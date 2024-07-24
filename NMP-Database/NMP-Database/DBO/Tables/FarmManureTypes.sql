@@ -18,8 +18,8 @@
     [ModifiedOn] DATETIME2 NULL, 
     [ModifiedByID] INT NULL,
 	CONSTRAINT [PK_FarmManureTypes] PRIMARY KEY ([ID] ASC),	
-    CONSTRAINT [FK_FarmManureTypes_Farms_FarmID] FOREIGN KEY ([FarmID]) REFERENCES [Farms]([ID]),
-    CONSTRAINT [FK_FarmManureTypes_ManureTypes_ManureTypeID] FOREIGN KEY ([ManureTypeID]) REFERENCES [ManureTypes]([ID]),
+    CONSTRAINT [FK_FarmManureTypes_Farms] FOREIGN KEY ([FarmID]) REFERENCES [Farms]([ID]),
+    CONSTRAINT [FK_FarmManureTypes_ManureTypes] FOREIGN KEY ([ManureTypeID]) REFERENCES [ManureTypes]([ID]),
 	CONSTRAINT [FK_FarmManureTypes_Users_CreatedBy] FOREIGN KEY([CreatedByID]) REFERENCES [dbo].[Users] ([ID]),
     CONSTRAINT [FK_FarmManureTypes_Users_ModifiedBy] FOREIGN KEY([ModifiedByID]) REFERENCES [dbo].[Users] ([ID])
 )
