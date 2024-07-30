@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [dbo].[InOrganicManureDurations]
 (
-	[Id] INT NOT NULL IDENTITY(1,1),
+	[ID] INT NOT NULL IDENTITY(1,1),
 	[Name] NVARCHAR(100) NOT NULL,
 	[StartDate] INT NOT NULL,	
 	[StartMonth] INT NOT NULL,
