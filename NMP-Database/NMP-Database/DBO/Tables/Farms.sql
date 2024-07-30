@@ -29,7 +29,7 @@
     [ModifiedOn] DATETIME2 NULL, 
     [ModifiedByID] INT NULL,
     CONSTRAINT [PK_Farms] PRIMARY KEY ([ID] ASC),
-    CONSTRAINT [FK_Farms_Organisations_OrganisationID] FOREIGN KEY([OrganisationID]) REFERENCES [dbo].[Organisations] ([ID]),
+    CONSTRAINT [FK_Farms_Organisations] FOREIGN KEY([OrganisationID]) REFERENCES [dbo].[Organisations] ([ID]),
     CONSTRAINT [FK_Farms_Users_CreatedBy] FOREIGN KEY([CreatedByID]) REFERENCES [dbo].[Users] ([ID]),
     CONSTRAINT [FK_Farms_Users_ModifiedBy] FOREIGN KEY([ModifiedByID]) REFERENCES [dbo].[Users] ([ID]),
     CONSTRAINT [UC_Farms_NamePostcode] UNIQUE ([Name], [Postcode])
