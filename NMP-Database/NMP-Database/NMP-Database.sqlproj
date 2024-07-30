@@ -118,6 +118,8 @@
     <Build Include="DBO\Tables\ManureTypeCategories.sql" />
     <Build Include="DBO\Tables\MannerCropTypes.sql" />
     <Build Include="DBO\Tables\CropTypeLinkings.sql" />
+    <Build Include="DBO\Tables\FertiliserManures.sql" />
+    <Build Include="DBO\Tables\InOrganicManureDurations.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Script.PostDeployment.sql" />
