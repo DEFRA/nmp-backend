@@ -1,8 +1,10 @@
 ﻿CREATE TABLE [dbo].[Users]
 (
-	[ID] INT NOT NULL IDENTITY(1,1) PRIMARY KEY, 
+	[ID] INT NOT NULL IDENTITY(1,1), 
     [GivenName] NVARCHAR(50) NOT NULL, 
     [Surname] NVARCHAR(50) NULL, 
     [Email] NVARCHAR(256) NOT NULL, 
-    [UserName] NVARCHAR(128) NOT NULL UNIQUE
+    [UserIdentifier] UNIQUEIDENTIFIER NULL,
+    CONSTRAINT [PK_Users] PRIMARY KEY ([ID] ASC),
+    CONSTRAINT [UC_Users_UserIdentifier] UNIQUE ([UserIdentifier])
 )

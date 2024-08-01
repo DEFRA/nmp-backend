@@ -6,7 +6,7 @@
     [Utilisation1ID] INT NULL CONSTRAINT DF_ManagementPeriods_Utilisation1 DEFAULT 0, 
     [Utilisation2ID] INT NULL CONSTRAINT DF_ManagementPeriods_Utilisation2 DEFAULT 0, 
     [Yield] DECIMAL(18, 3) NULL CONSTRAINT DF_ManagementPeriods_Yield DEFAULT 0, 
-    [PloughedDown] DATETIME NULL,
+    [PloughedDown] DATETIME2 NULL,
     [CreatedOn] DATETIME2 NULL DEFAULT GETDATE(), 
     [CreatedByID] INT NULL, 
     [ModifiedOn] DATETIME2 NULL, 
