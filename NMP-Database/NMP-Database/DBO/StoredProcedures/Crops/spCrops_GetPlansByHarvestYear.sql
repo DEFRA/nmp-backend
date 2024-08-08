@@ -13,8 +13,9 @@ BEGIN
             WHEN [Crops].[ModifiedOn] >= [Crops].[CreatedOn] THEN [Crops].[ModifiedOn]
             ELSE [Crops].[CreatedOn]
         END AS LastModifiedOn,
-        (SELECT COUNT(DISTINCT [OrganicManures].[ID]) FROM [OrganicManures] WHERE [OrganicManures].[ManagementPeriodID] = [ManagementPeriods].[ID]) AS TotalOrganicManures
-    FROM
+        (SELECT COUNT(DISTINCT [OrganicManures].[ID]) FROM [OrganicManures] WHERE [OrganicManures].[ManagementPeriodID] = [ManagementPeriods].[ID]) AS TotalOrganicManures,
+        (SELECT COUNT(DISTINCT [FertiliserManures].[ID])  FROM [FertiliserManures]  WHERE [FertiliserManures].[ManagementPeriodID] = [ManagementPeriods].[ID]) AS TotalFertiliserManures
+   FROM
         [Crops]
     INNER JOIN
         [Fields] ON [Fields].[ID] = [Crops].[FieldID]
