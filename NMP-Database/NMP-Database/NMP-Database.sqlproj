@@ -68,6 +68,7 @@
     <Folder Include="DBO\StoredProcedures\FarmManureTypes" />
     <Folder Include="DBO\StoredProcedures\ManagementPeriods" />
     <Folder Include="DBO\StoredProcedures\OrganicManures" />
+    <Folder Include="DBO\StoredProcedures\FertiliserManures" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="DBO\Tables\Farms.sql" />
@@ -120,6 +121,7 @@
     <Build Include="DBO\Tables\CropTypeLinkings.sql" />
     <Build Include="DBO\Tables\FertiliserManures.sql" />
     <Build Include="DBO\Tables\InOrganicManureDurations.sql" />
+    <Build Include="DBO\StoredProcedures\FertiliserManures\spFertiliserManures_DeleteFertiliserManures.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Script.PostDeployment.sql" />

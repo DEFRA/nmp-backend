@@ -6,6 +6,7 @@ BEGIN
 
     DECLARE @RecommendationID INT;
     DECLARE @OrganicManureID INT;
+    DECLARE @FertiliserManuresID INT;
 
     BEGIN TRY
         BEGIN TRANSACTION;
@@ -41,6 +42,22 @@ BEGIN
 
         CLOSE organicmanure_cursor;
         DEALLOCATE organicmanure_cursor;
+
+        -- Fetch and delete FertiliserManures
+        DECLARE fertilisermanures_cursor CURSOR FOR
+        SELECT ID FROM FertiliserManures WHERE ManagementPeriodID = @ManagementPeriodID;
+
+        OPEN fertilisermanures_cursor;
+        FETCH NEXT FROM fertilisermanures_cursor INTO @FertiliserManuresID;
+
+        WHILE @@FETCH_STATUS = 0
+        BEGIN
+            EXEC spFertiliserManures_DeleteFertiliserManures @FertiliserManuresID;
+            FETCH NEXT FROM fertilisermanures_cursor INTO @FertiliserManuresID;
+        END;
+
+        CLOSE fertilisermanures_cursor;
+        DEALLOCATE fertilisermanures_cursor;
 
         -- Delete the ManagementPeriod
         DELETE FROM ManagementPeriods
