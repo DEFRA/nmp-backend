@@ -22,6 +22,7 @@
     [StockingRate]          DECIMAL(18, 3)  NULL        CONSTRAINT DF_Crops_StockingRate DEFAULT 0,
     [DefoliationSequence]   INT             NULL,
     [GrazingIntensity]      INT             NULL        CONSTRAINT DF_Crops_GrazingIntensity DEFAULT 0,
+    [CropOrder]             INT             NOT NULL,
     [CreatedOn]             DATETIME2       NULL DEFAULT GETDATE(), 
     [CreatedByID]           INT             NULL, 
     [ModifiedOn]            DATETIME2       NULL, 
