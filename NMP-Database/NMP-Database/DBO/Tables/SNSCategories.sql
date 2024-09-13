@@ -1,0 +1,6 @@
+﻿CREATE TABLE [dbo].[SNSCategories]
+(
+	[ID] INT NOT NULL IDENTITY(1,1),
+	[Name] NVARCHAR(50) NOT NULL,	
+    CONSTRAINT [PK_SNSCategories] PRIMARY KEY ([ID] ASC)
+)
