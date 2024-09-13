@@ -5,7 +5,9 @@
     [DefaultYield] DECIMAL(18, 1) NULL,
     [IsPerennial] BIT NOT NULL, 
     [NMaxLimit]   INT NULL,
-    CONSTRAINT [FK_CropTypeLinkings_MannerCropTypes] FOREIGN KEY ([MannerCropTypeID]) REFERENCES [dbo].[MannerCropTypes] ([ID])
+    [SNSCategoryID] INT Null,
+    CONSTRAINT [FK_CropTypeLinkings_MannerCropTypes] FOREIGN KEY ([MannerCropTypeID]) REFERENCES [dbo].[MannerCropTypes] ([ID]),
+    CONSTRAINT [FK_CropTypeLinkings_SNSCategories] FOREIGN KEY ([SNSCategoryID]) REFERENCES [dbo].[SNSCategories] ([ID])
 
 );
 
