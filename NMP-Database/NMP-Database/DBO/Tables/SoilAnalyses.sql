@@ -15,6 +15,7 @@
     [MagnesiumIndex]            TINYINT         NULL,    
     [SoilNitrogenSupply]        INT             NULL,
     [SoilNitrogenSupplyIndex]   TINYINT         NULL,
+    [SoilNitrogenSampleDate]    DATETIME2       NULL,
     [Sodium]                    INT             NULL,
     [Lime]                      DECIMAL (18, 3) NULL,    
     [PhosphorusStatus]          NVARCHAR (20)   NULL,
