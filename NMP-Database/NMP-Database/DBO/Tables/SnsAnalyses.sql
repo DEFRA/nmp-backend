@@ -20,4 +20,5 @@
     [ModifiedOn] DATETIME2 NULL, 
     [ModifiedByID] INT NULL,
     CONSTRAINT [PK_SnsAnalyses] PRIMARY KEY ([ID] ASC),
+    CONSTRAINT [FK_SnsAnalyses_Fields] FOREIGN KEY([FieldID]) REFERENCES [dbo].[Fields] ([ID])
 )
