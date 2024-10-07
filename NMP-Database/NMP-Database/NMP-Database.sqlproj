@@ -121,6 +121,7 @@
     <Build Include="DBO\Tables\InOrganicManureDurations.sql" />
     <Build Include="DBO\StoredProcedures\FertiliserManures\spFertiliserManures_DeleteFertiliserManures.sql" />
     <Build Include="DBO\Tables\SNSCategories.sql" />
+    <Build Include="DBO\Tables\SnsAnalyses.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Script.PostDeployment.sql" />
