@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [dbo].[SnsAnalyses]
 (
-	[Id] INT NOT NULL PRIMARY KEY IDENTITY, 
+	[Id] INT NOT NULL IDENTITY, 
     [FieldID] INT NOT NULL,
     [SampleDate] DATETIME2 NULL, 
     [SnsAt0to30cm] INT NULL, 
@@ -15,8 +15,9 @@
     [AdjustmentValue] DECIMAL(18, 3) NULL, 
     [SoilNitrogenSupplyValue] INT NULL, 
     [SoilNitrogenSupplyIndex] TINYINT NULL,
-    [CreatedOn] DATETIME2 NULL DEFAULT GETDATE(), 
+    [CreatedOn] DATETIME2 NULL CONSTRAINT DF_SnsAnalyses_CreatedOn DEFAULT GETDATE(), 
     [CreatedByID] INT NULL, 
     [ModifiedOn] DATETIME2 NULL, 
-    [ModifiedByID] INT NULL
+    [ModifiedByID] INT NULL,
+    CONSTRAINT [PK_SnsAnalyses] PRIMARY KEY ([ID] ASC),
 )
