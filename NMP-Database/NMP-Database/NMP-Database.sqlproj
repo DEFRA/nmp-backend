@@ -69,6 +69,7 @@
     <Folder Include="DBO\StoredProcedures\ManagementPeriods" />
     <Folder Include="DBO\StoredProcedures\OrganicManures" />
     <Folder Include="DBO\StoredProcedures\FertiliserManures" />
+    <Folder Include="DBO\StoredProcedures\SnsAnalyses" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="DBO\Tables\Farms.sql" />
@@ -111,6 +112,7 @@
     <Build Include="DBO\Tables\SNSCategories.sql" />
     <Build Include="DBO\Tables\SnsAnalyses.sql" />
     <Build Include="DBO\Tables\SecondCropLinkings.sql" />
+    <Build Include="DBO\StoredProcedures\SnsAnalyses\spSnsAnalyses_DeleteSnsAnalyses.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Script.PostDeployment.sql" />
