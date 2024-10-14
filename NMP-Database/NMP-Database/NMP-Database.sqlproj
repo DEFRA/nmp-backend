@@ -88,17 +88,7 @@
     <Build Include="DBO\Tables\Organisations.sql" />
     <Build Include="DBO\StoredProcedures\Users\spUsers_MergeUser.sql" />
     <Build Include="DBO\StoredProcedures\Organisations\spOrganisations_MergeOrganisation.sql" />
-    <Build Include="DBO\Tables\ManureTypes.sql" />
-    <Build Include="DBO\Tables\ApplicationMethods.sql" />
-    <Build Include="DBO\Tables\IncorporationMethods.sql" />
-    <Build Include="DBO\Tables\IncorporationDelays.sql" />
-    <Build Include="DBO\Tables\Windspeeds.sql" />
-    <Build Include="DBO\Tables\MoistureTypes.sql" />
-    <Build Include="DBO\Tables\RainTypes.sql" />
-    <Build Include="DBO\Tables\ApplicationMethodsIncorpMethods.sql" />
-    <Build Include="DBO\Tables\IncorpMethodsIncorpDelays.sql" />
     <Build Include="DBO\Tables\Countries.sql" />
-    <Build Include="DBO\Tables\ManureGroups.sql" />
     <Build Include="DBO\Tables\OrganicManures.sql" />
     <Build Include="DBO\StoredProcedures\Crops\spCrops_GetCropPlansFieldsByHarvestYear.sql" />
     <Build Include="DBO\StoredProcedures\Crops\spCrops_GetCropPlansCropTypesByHarvestYear.sql" />
@@ -115,8 +105,6 @@
     <Build Include="DBO\StoredProcedures\FarmManureTypes\spFarmManureTypes_DeleteFarmManureTypes.sql" />
     <Build Include="DBO\StoredProcedures\ManagementPeriods\spManagementPeriods_DeleteManagementPeriods.sql" />
     <Build Include="DBO\StoredProcedures\OrganicManures\spOrganicManures_DeleteOrganicManures.sql" />
-    <Build Include="DBO\Tables\ManureTypeCategories.sql" />
-    <Build Include="DBO\Tables\MannerCropTypes.sql" />
     <Build Include="DBO\Tables\CropTypeLinkings.sql" />
     <Build Include="DBO\Tables\FertiliserManures.sql" />
     <Build Include="DBO\Tables\InOrganicManureDurations.sql" />
