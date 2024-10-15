@@ -94,7 +94,6 @@
     <Build Include="DBO\StoredProcedures\Crops\spCrops_GetCropPlansCropTypesByHarvestYear.sql" />
     <Build Include="DBO\StoredProcedures\Crops\spCrops_GetCropPlansManagementPeriodByHarvestYear.sql" />
     <Build Include="DBO\Tables\FarmManureTypes.sql" />
-    <Build Include="DBO\Tables\ClimateDatabase.sql" />
     <Build Include="DBO\Tables\SoilTypeSoilTextures.sql" />
     <Build Include="DBO\StoredProcedures\Crops\spCrops_DeleteCrops.sql" />
     <Build Include="DBO\StoredProcedures\Farms\spFarms_DeleteFarm.sql" />
