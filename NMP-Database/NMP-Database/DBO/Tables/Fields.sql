@@ -15,6 +15,7 @@
 	[TopSoilID] INT NULL,
 	[SubSoilID] INT NULL,
 	[SoilReleasingClay] BIT NULL CONSTRAINT DF_Fields_SoilReleasingClay DEFAULT 0,
+	[SoilOverChalk] BIT NULL CONSTRAINT DF_Fields_SoilOverChalk DEFAULT 0,
 	[NVZProgrammeID] INT NULL CONSTRAINT DF_Fields_NVZProgrammeID DEFAULT 1, --RB209	
 	[IsActive] BIT NOT NULL  CONSTRAINT DF_Fields_IsActive DEFAULT 1,
     [CreatedOn] DATETIME2 NULL CONSTRAINT DF_Fields_CreatedOn DEFAULT GETDATE(), 
