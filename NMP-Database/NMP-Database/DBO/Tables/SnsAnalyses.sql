@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [dbo].[SnsAnalyses]
 (
-	[Id] INT NOT NULL IDENTITY, 
+	[ID] INT NOT NULL IDENTITY, 
     [FieldID] INT NOT NULL,
     [SampleDate] DATETIME2 NULL, 
     [SnsAt0to30cm] INT NULL, 
