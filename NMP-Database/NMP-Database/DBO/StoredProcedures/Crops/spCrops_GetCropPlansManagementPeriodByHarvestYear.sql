@@ -17,7 +17,7 @@ BEGIN
             AND [Crops].[FieldID] IN (SELECT value FROM STRING_SPLIT(@fieldIds, ','))
             AND [Crops].[CropTypeID] = @cropTypeId
             AND [Crops].[Confirm] = 0
-            AND [Crops].[CropOrder] = 1
+            --AND [Crops].[CropOrder] = 1
     END
     ELSE
     BEGIN
