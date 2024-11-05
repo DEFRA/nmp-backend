@@ -15,11 +15,11 @@ BEGIN
 
     BEGIN TRY
         -- Check if the record exists
-        IF EXISTS (SELECT 1 FROM [dbo].[SnsAnalyses] WHERE [Id] = @Id)
+        IF EXISTS (SELECT 1 FROM [dbo].[SnsAnalyses] WHERE [ID] = @Id)
         BEGIN
             -- Delete the record
             DELETE FROM [dbo].[SnsAnalyses]
-            WHERE [Id] = @Id;
+            WHERE [ID] = @Id;
 
             -- Commit if it's a local transaction
             IF @IsLocalTransaction = 1

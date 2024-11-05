@@ -76,7 +76,6 @@
     <Build Include="DBO\Tables\ExcessRainfalls.sql" />
     <Build Include="DBO\Tables\Users.sql" />
     <Build Include="DBO\Tables\Fields.sql" />
-    <Build Include="DBO\StoredProcedures\Farms\spFarms_GetUserFarms.sql" />
     <Build Include="DBO\Tables\SoilAnalyses.sql" />
     <Build Include="DBO\Tables\Crops.sql" />
     <Build Include="DBO\Tables\ManagementPeriods.sql" />
@@ -114,10 +113,14 @@
     <Build Include="DBO\StoredProcedures\SnsAnalyses\spSnsAnalyses_DeleteSnsAnalyses.sql" />
   </ItemGroup>
   <ItemGroup>
-    <PostDeploy Include="Script.PostDeployment.sql" />
+    <PostDeploy Include="Script.PostDeployment.sql">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </PostDeploy>
   </ItemGroup>
   <ItemGroup>
-    <PreDeploy Include="Script.PreDeployment.sql" />
+    <PreDeploy Include="Script.PreDeployment.sql">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </PreDeploy>
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="NMP-Database.refactorlog" />
