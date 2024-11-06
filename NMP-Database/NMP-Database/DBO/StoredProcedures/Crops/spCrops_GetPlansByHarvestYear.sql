@@ -9,6 +9,8 @@ BEGIN
         [Fields].[Name] AS FieldName,
         [Crops].[Variety] AS CropVariety,
         [Crops].[OtherCropName] AS OtherCropName,
+		[Crops].[CropInfo1] AS CropInfo1,
+		[Crops].[Yield] AS Yield,
         CASE
             WHEN [Crops].[ModifiedOn] >= [Crops].[CreatedOn] THEN [Crops].[ModifiedOn]
             ELSE [Crops].[CreatedOn]
