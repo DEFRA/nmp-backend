@@ -4,7 +4,8 @@
 AS
 BEGIN
     SELECT
-        [Crops].[CropTypeID]
+        [Crops].[CropTypeID],
+        [Crops].[CropOrder]
     FROM
         [Crops]
     INNER JOIN
@@ -14,5 +15,6 @@ BEGIN
     AND [Crops].[Year] = @harvestYear
     AND [Crops].[Confirm] = 0
     GROUP BY
-        [Crops].[CropTypeID]
+        [Crops].[CropTypeID],
+        [Crops].[CropOrder]
 END
