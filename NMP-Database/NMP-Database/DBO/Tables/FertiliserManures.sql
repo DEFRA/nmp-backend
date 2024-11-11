@@ -25,7 +25,7 @@
     [ModifiedOn] DATETIME2 NULL, 
     [ModifiedByID] INT NULL,
 	CONSTRAINT [PK_FertiliserManures] PRIMARY KEY CLUSTERED ([ID] ASC),
-    CONSTRAINT [FK_FertiliserManures_ManagementPeriods] FOREIGN KEY([ManagementPeriodId]) REFERENCES [dbo].[ManagementPeriods] ([ID]),
+    CONSTRAINT [FK_FertiliserManures_ManagementPeriods] FOREIGN KEY([ManagementPeriodID]) REFERENCES [dbo].[ManagementPeriods] ([ID]),
 	 CONSTRAINT [FK_FertiliserManures_Users_CreatedBy] FOREIGN KEY([CreatedByID]) REFERENCES [dbo].[Users] ([ID]),
     CONSTRAINT [FK_FertiliserManures_Users_ModifiedBy] FOREIGN KEY([ModifiedByID]) REFERENCES [dbo].[Users] ([ID])
 )	

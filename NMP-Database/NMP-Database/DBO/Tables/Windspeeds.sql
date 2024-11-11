@@ -1,8 +1,0 @@
-﻿CREATE TABLE [dbo].[Windspeeds]
-(
-	[ID] INT IDENTITY(1,1) NOT NULL, 
-    [Name] NVARCHAR(100)  NOT NULL  ,
-	[FromScale] INT NOT NULL,
-	[ToScale] INT NOT NULL,
-	CONSTRAINT [PK_Windspeeds] PRIMARY KEY CLUSTERED ([ID] ASC)	 
-)

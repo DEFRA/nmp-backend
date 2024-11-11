@@ -84,7 +84,7 @@ BEGIN
     INNER JOIN
         [Crops] ON [ManagementPeriods].[CropID] = [Crops].[ID]
     WHERE
-        [Crops].[FieldID] = @FieldID
+        [Crops].[FieldID] = @fieldId
     AND
-        [Crops].[Year] = @HarvestYear;
+        [Crops].[Year] = @harvestYear;
 END
