@@ -3,6 +3,24 @@
     @harvestYear INT
 AS
 BEGIN
+     -- Aggregating FertiliserManures table
+         WITH SummedFertiliserManures AS (
+             SELECT
+                 [ManagementPeriodID],
+                 SUM([N]) AS Total_N,
+                 SUM([P2O5]) AS Total_P2O5,
+                 SUM([K2O]) AS Total_K2O,
+                 SUM([MgO]) AS Total_MgO,
+                 SUM([SO3]) AS Total_SO3,
+                 SUM([Na2O]) AS Total_Na2O,
+                 SUM([Lime]) AS Total_Lime,
+                 SUM([NH4N]) AS Total_NH4N,
+                 SUM([NO3N]) AS Total_NO3N
+             FROM [FertiliserManures]
+             GROUP BY [ManagementPeriodID]
+         )
+     
+
     SELECT
         [Crops].[ID] AS Crop_ID,
         [Crops].[FieldID] AS Crop_FieldID,
@@ -76,13 +94,24 @@ BEGIN
         [Recommendations].[CreatedByID] AS Recommendation_CreatedByID,
         [Recommendations].[ModifiedOn] AS Recommendation_ModifiedOn,
         [Recommendations].[ModifiedByID] AS Recommendation_ModifiedByID,
-        [Recommendations].[PreviousID] AS Recommendation_PreviousID
+        [Recommendations].[PreviousID] AS Recommendation_PreviousID,
+        [SummedFertiliserManures].[Total_N] AS FertiliserManure_FertiliserAppliedN,
+        [SummedFertiliserManures].[Total_P2O5] AS FertiliserManure_FertiliserAppliedP2O5,
+        [SummedFertiliserManures].[Total_K2O] AS FertiliserManure_FertiliserAppliedK2O,
+        [SummedFertiliserManures].[Total_MgO] AS FertiliserManure_FertiliserAppliedMgO,
+        [SummedFertiliserManures].[Total_SO3] AS FertiliserManure_FertiliserAppliedSO3,
+        [SummedFertiliserManures].[Total_Na2O] AS FertiliserManure_FertiliserAppliedNa2O,
+        [SummedFertiliserManures].[Total_Lime] AS FertiliserManure_FertiliserAppliedLime,
+        [SummedFertiliserManures].[Total_NH4N] AS FertiliserManure_FertiliserAppliedNH4N,
+        [SummedFertiliserManures].[Total_NO3N] AS FertiliserManure_FertiliserAppliedNO3N
     FROM 
         [Recommendations]
     INNER JOIN
         [ManagementPeriods] ON [Recommendations].[ManagementPeriodID] = [ManagementPeriods].[ID]
     INNER JOIN
         [Crops] ON [ManagementPeriods].[CropID] = [Crops].[ID]
+    LEFT JOIN
+        SummedFertiliserManures ON [Recommendations].[ManagementPeriodID] = [SummedFertiliserManures].[ManagementPeriodID]
     WHERE
         [Crops].[FieldID] = @fieldId
     AND
