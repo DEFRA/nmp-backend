@@ -14,4 +14,32 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="ID" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="df640119-5eeb-46cc-a8d1-9f98882ca169" ChangeDateTime="11/18/2024 05:44:04">
+    <Property Name="ElementName" Value="[dbo].[PKBalance].[POtash]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[PKBalance]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Potash" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="dfae5c32-7b9c-4a0e-9486-035e7ba48417" ChangeDateTime="11/18/2024 05:47:33">
+    <Property Name="ElementName" Value="[dbo].[PKBalances].[Potash]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[PKBalances]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="PBal" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="dedcf144-6b6c-4f15-a08b-1b1d51fd0b58" ChangeDateTime="11/18/2024 05:51:26">
+    <Property Name="ElementName" Value="[dbo].[PKBalances].[PBal]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[PKBalances]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="PBalance" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="c8720437-43cd-49e5-abb3-fb0c9402c861" ChangeDateTime="11/18/2024 05:51:31">
+    <Property Name="ElementName" Value="[dbo].[PKBalances].[KBal]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[PKBalances]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="KBalance" />
+  </Operation>
 </Operations>
