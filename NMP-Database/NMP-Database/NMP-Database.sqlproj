@@ -112,6 +112,7 @@
     <Build Include="DBO\Tables\SnsAnalyses.sql" />
     <Build Include="DBO\Tables\SecondCropLinkings.sql" />
     <Build Include="DBO\StoredProcedures\SnsAnalyses\spSnsAnalyses_DeleteSnsAnalyses.sql" />
+    <Build Include="DBO\Tables\PKBalances.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Script.PostDeployment.sql">
