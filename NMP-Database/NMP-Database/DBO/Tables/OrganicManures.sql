@@ -2,6 +2,7 @@
     [ID]                       INT             IDENTITY (1, 1) NOT NULL,
     [ManagementPeriodID]       INT             NOT NULL,
     [ManureTypeID]             INT             NOT NULL,
+    [ManureTypeName]           NVARCHAR (250)  NULL,
     [ApplicationDate]          DATETIME        NULL,
     [Confirm]                  BIT             NULL,
     [N]                        DECIMAL (18, 3) NOT NULL,
