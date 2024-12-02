@@ -2,6 +2,7 @@
     [ID]           INT             IDENTITY (1, 1) NOT NULL,
     [FarmID]       INT             NOT NULL,
     [ManureTypeID] INT             NOT NULL,
+    [ManureTypeName] NVARCHAR (250)    NULL,
     [FieldTypeID]  INT             NOT NULL,
     [DryMatter]    DECIMAL (18, 2) NOT NULL,
     [TotalN]       DECIMAL (18, 2) NOT NULL,
