@@ -14,9 +14,9 @@ Post-Deployment Script Template
 IF NOT EXISTS (SELECT 1 FROM [dbo].[Countries])
 BEGIN
     SET IDENTITY_INSERT [dbo].[Countries] ON
-    INSERT INTO [Countries] (ID,Name) values(1,'England/Wales')
-    INSERT INTO [Countries] (ID,Name) values(2,'Scotland')
-    INSERT INTO [Countries] (ID,Name) values(3,'All')
+    INSERT INTO [Countries] (ID,Name,RB209CountryID) values(1,'England',1)
+    INSERT INTO [Countries] (ID,Name,RB209CountryID) values(2,'Scotland',2)
+    INSERT INTO [Countries] (ID,Name,RB209CountryID) values(3,'Wales',1)
     SET IDENTITY_INSERT [dbo].[Countries] OFF
 END
 

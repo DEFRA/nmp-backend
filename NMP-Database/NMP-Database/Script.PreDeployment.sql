@@ -9,3 +9,8 @@
                SELECT * FROM [$(TableName)]					
 --------------------------------------------------------------------------------------
 */
+
+IF EXISTS (SELECT 1 FROM [dbo].[Countries])
+BEGIN
+    TRUNCATE TABLE [Countries];
+END
