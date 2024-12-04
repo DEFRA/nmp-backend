@@ -15,7 +15,7 @@ IF NOT EXISTS (SELECT 1 FROM [dbo].[Countries])
 BEGIN
     SET IDENTITY_INSERT [dbo].[Countries] ON
     INSERT INTO [Countries] (ID,Name,RB209CountryID) values(1,'England',1)
-    INSERT INTO [Countries] (ID,Name,RB209CountryID) values(2,'Scotland',0)
+    INSERT INTO [Countries] (ID,Name,RB209CountryID) values(2,'Scotland',2)
     INSERT INTO [Countries] (ID,Name,RB209CountryID) values(3,'Wales',1)
     SET IDENTITY_INSERT [dbo].[Countries] OFF
 END
