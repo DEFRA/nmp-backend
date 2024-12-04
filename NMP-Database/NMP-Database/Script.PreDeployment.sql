@@ -9,8 +9,11 @@
                SELECT * FROM [$(TableName)]					
 --------------------------------------------------------------------------------------
 */
-
-IF EXISTS (SELECT 1 FROM [dbo].[Countries])
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'Countries' AND TABLE_SCHEMA = 'DBO')
 BEGIN
-    TRUNCATE TABLE [Countries];
+	IF NOT EXISTS(SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'Countries' AND COLUMN_NAME = 'RB209CountryID' AND TABLE_SCHEMA = 'DBO')
+	BEGIN 
+		PRINT 'Column NOT exists';
+		TRUNCATE TABLE [Countries];
+	END
 END
