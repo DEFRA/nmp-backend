@@ -113,6 +113,7 @@
     <Build Include="DBO\Tables\SecondCropLinkings.sql" />
     <Build Include="DBO\StoredProcedures\SnsAnalyses\spSnsAnalyses_DeleteSnsAnalyses.sql" />
     <Build Include="DBO\Tables\PKBalances.sql" />
+    <Build Include="DBO\Tables\InprogressCalculations.sql" />
     <Build Include="DBO\Tables\GrassManagementOptions.sql" />
     <Build Include="DBO\Tables\GrassTypicalCuts.sql" />
     <Build Include="DBO\Tables\SoilNitrogenSupplyItems.sql" />
