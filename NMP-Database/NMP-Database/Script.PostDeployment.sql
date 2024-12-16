@@ -1026,13 +1026,13 @@ END
 
 IF NOT EXISTS (SELECT 1 FROM [dbo].[SoilNitrogenSupplyItems])
 BEGIN
-    SET IDENTITY_INSERT [dbo].[SoilNitrogenSupplyItems] ON 
-    INSERT [dbo].[SoilNitrogenSupplyItems] ([ID], [Name],[SoilNitrogenSupplyId]) VALUES (1, N'None',1)
-    INSERT [dbo].[SoilNitrogenSupplyItems] ([ID], [Name],[SoilNitrogenSupplyId]) VALUES (4, N'Up to 100kg per hectare',1)
-    INSERT [dbo].[SoilNitrogenSupplyItems] ([ID], [Name],[SoilNitrogenSupplyId]) VALUES (3, N'100kg to 250kg per hectare',2)
-    INSERT [dbo].[SoilNitrogenSupplyItems] ([ID], [Name],[SoilNitrogenSupplyId]) VALUES (2, N'Over 250kg per hectare',3)
+SET IDENTITY_INSERT [dbo].[SoilNitrogenSupplyItems] ON 
+INSERT [dbo].[SoilNitrogenSupplyItems] ([ID], [Name],[SoilNitrogenSupplyId]) VALUES (1, N'None',1)
+INSERT [dbo].[SoilNitrogenSupplyItems] ([ID], [Name],[SoilNitrogenSupplyId]) VALUES (2, N'Up to 100kg per hectare',1)
+INSERT [dbo].[SoilNitrogenSupplyItems] ([ID], [Name],[SoilNitrogenSupplyId]) VALUES (3, N'100kg to 250kg per hectare',2)
+INSERT [dbo].[SoilNitrogenSupplyItems] ([ID], [Name],[SoilNitrogenSupplyId]) VALUES (4, N'Over 250kg per hectare',3)
     
-    SET IDENTITY_INSERT [dbo].[SoilNitrogenSupplyItems] OFF
+SET IDENTITY_INSERT [dbo].[SoilNitrogenSupplyItems] OFF
 END
 
 GO
