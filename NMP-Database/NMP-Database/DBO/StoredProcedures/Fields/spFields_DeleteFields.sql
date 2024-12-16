@@ -15,11 +15,12 @@ BEGIN
         SET @IsLocalTransaction = 1;
     END
 
-    BEGIN TRY
+   BEGIN TRY
         -- Use temporary tables to store intermediate results if needed
         DECLARE @CropIDs TABLE (ID INT);
         DECLARE @SoilAnalysesIDs TABLE (ID INT);
         DECLARE @SnsAnalysesIDs TABLE (ID INT);
+        DECLARE @PreviousGrassIDs TABLE (ID INT);
 
         -- Fetch and store Crop IDs associated with the Field
         INSERT INTO @CropIDs (ID)
@@ -32,6 +33,10 @@ BEGIN
         -- Fetch and store SnsAnalysis IDs associated with the Field
         INSERT INTO @SnsAnalysesIDs (ID)
         SELECT ID FROM SnsAnalyses WHERE FieldID = @FieldID;
+
+        -- Fetch and store PreviousGrasses IDs associated with the Field
+        INSERT INTO @PreviousGrassIDs (ID)
+        SELECT ID FROM PreviousGrasses WHERE FieldID = @FieldID;
 
         -- Delete each crop using the existing stored procedure
         DECLARE @CropID INT;
@@ -76,6 +81,22 @@ BEGIN
             END
             CLOSE sns_cursor;
             DEALLOCATE sns_cursor;
+        END
+
+        -- Delete PreviousGrasses records using the stored procedure
+        IF EXISTS (SELECT 1 FROM @PreviousGrassIDs)
+        BEGIN
+            DECLARE @PreviousGrassID INT;
+            DECLARE pg_cursor CURSOR FOR SELECT ID FROM @PreviousGrassIDs;
+            OPEN pg_cursor;
+            FETCH NEXT FROM pg_cursor INTO @PreviousGrassID;
+            WHILE @@FETCH_STATUS = 0
+            BEGIN
+                EXEC spPreviousGrasses_DeleteByID @PreviousGrassID;
+                FETCH NEXT FROM pg_cursor INTO @PreviousGrassID;
+            END
+            CLOSE pg_cursor;
+            DEALLOCATE pg_cursor;
         END
 
         -- Now delete the Field
