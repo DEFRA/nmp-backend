@@ -1013,7 +1013,7 @@ BEGIN
     INSERT [dbo].[GrassManagementOptions] ([ID], [Name]) VALUES (1, N'Cut only')
     INSERT [dbo].[GrassManagementOptions] ([ID], [Name]) VALUES (2, N'Grazed only')
     INSERT [dbo].[GrassManagementOptions] ([ID], [Name]) VALUES (3, N'Grazed and cut')
-    SET IDENTITY_INSERT [dbo].[GrassManagements] OFF
+    SET IDENTITY_INSERT [dbo].[GrassManagementOptions] OFF
 END
 
 IF NOT EXISTS (SELECT 1 FROM [dbo].[GrassTypicalCuts])
