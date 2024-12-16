@@ -2,6 +2,7 @@
 (
 	[ID] INT NOT NULL IDENTITY, 
     [FieldID] INT NOT NULL,
+    [CurrentCropTypeID] INT NOT NULL,
     [SampleDate] DATETIME2 NULL, 
     [SnsAt0to30cm] INT NULL, 
     [SnsAt30to60cm] INT NULL, 
