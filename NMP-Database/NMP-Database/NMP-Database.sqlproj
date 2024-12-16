@@ -71,6 +71,7 @@
     <Folder Include="DBO\StoredProcedures\OrganicManures" />
     <Folder Include="DBO\StoredProcedures\FertiliserManures" />
     <Folder Include="DBO\StoredProcedures\SnsAnalyses" />
+    <Folder Include="DBO\StoredProcedures\PreviousGrasses" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="DBO\Tables\Farms.sql" />
@@ -118,6 +119,7 @@
     <Build Include="DBO\Tables\GrassTypicalCuts.sql" />
     <Build Include="DBO\Tables\SoilNitrogenSupplyItems.sql" />
     <Build Include="DBO\Tables\PreviousGrasses.sql" />
+    <Build Include="DBO\StoredProcedures\PreviousGrasses\spPreviousGrasses_DeleteByID.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Script.PostDeployment.sql">
