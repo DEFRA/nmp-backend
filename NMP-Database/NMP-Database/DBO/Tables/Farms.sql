@@ -25,7 +25,7 @@
     [FieldsAbove300SeaLevel]   INT       NOT NULL CONSTRAINT DF_Farms_FieldsAbove300SeaLevel DEFAULT 0,
     [LastHarvestYear]    INT NULL,
     [OrganisationID] UNIQUEIDENTIFIER NOT NULL,
-    [CountryID]           INT  NOT NULL  CONSTRAINT DF_Farms_CountryID DEFAULT 1,
+    [CountryID]           INT  NOT NULL,
     [CreatedOn] DATETIME2 NULL DEFAULT GETDATE(), 
     [CreatedByID] INT NULL, 
     [ModifiedOn] DATETIME2 NULL, 
