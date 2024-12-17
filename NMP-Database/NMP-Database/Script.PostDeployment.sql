@@ -14,9 +14,9 @@ Post-Deployment Script Template
 IF NOT EXISTS (SELECT 1 FROM [dbo].[Countries])
 BEGIN
     SET IDENTITY_INSERT [dbo].[Countries] ON
-    INSERT INTO [Countries] (ID,Name) values(1,'England/Wales')
-    INSERT INTO [Countries] (ID,Name) values(2,'Scotland')
-    INSERT INTO [Countries] (ID,Name) values(3,'All')
+    INSERT INTO [Countries] (ID,Name,RB209CountryID) values(1,'England',1)
+    INSERT INTO [Countries] (ID,Name,RB209CountryID) values(2,'Scotland',2)
+    INSERT INTO [Countries] (ID,Name,RB209CountryID) values(3,'Wales',1)
     SET IDENTITY_INSERT [dbo].[Countries] OFF
 END
 
@@ -1005,6 +1005,34 @@ INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (182, 1
 INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (182, 181)
 INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (182, 182)
 --SET IDENTITY_INSERT [dbo].[SecondCropLinkings] OFF
+END
+
+IF NOT EXISTS (SELECT 1 FROM [dbo].[GrassManagementOptions])
+BEGIN
+    SET IDENTITY_INSERT [dbo].[GrassManagementOptions] ON 
+    INSERT [dbo].[GrassManagementOptions] ([ID], [Name]) VALUES (1, N'Cut only')
+    INSERT [dbo].[GrassManagementOptions] ([ID], [Name]) VALUES (2, N'Grazed only')
+    INSERT [dbo].[GrassManagementOptions] ([ID], [Name]) VALUES (3, N'Grazed and cut')
+    SET IDENTITY_INSERT [dbo].[GrassManagementOptions] OFF
+END
+
+IF NOT EXISTS (SELECT 1 FROM [dbo].[GrassTypicalCuts])
+BEGIN
+    SET IDENTITY_INSERT [dbo].[GrassTypicalCuts] ON 
+    INSERT [dbo].[GrassTypicalCuts] ([ID], [Name]) VALUES (1, N'One')
+    INSERT [dbo].[GrassTypicalCuts] ([ID], [Name]) VALUES (2, N'Two or more')
+    SET IDENTITY_INSERT [dbo].[GrassTypicalCuts] OFF
+END
+
+IF NOT EXISTS (SELECT 1 FROM [dbo].[SoilNitrogenSupplyItems])
+BEGIN
+SET IDENTITY_INSERT [dbo].[SoilNitrogenSupplyItems] ON 
+INSERT [dbo].[SoilNitrogenSupplyItems] ([ID], [Name],[SoilNitrogenSupplyId]) VALUES (1, N'None',1)
+INSERT [dbo].[SoilNitrogenSupplyItems] ([ID], [Name],[SoilNitrogenSupplyId]) VALUES (2, N'Up to 100kg per hectare',1)
+INSERT [dbo].[SoilNitrogenSupplyItems] ([ID], [Name],[SoilNitrogenSupplyId]) VALUES (3, N'100kg to 250kg per hectare',2)
+INSERT [dbo].[SoilNitrogenSupplyItems] ([ID], [Name],[SoilNitrogenSupplyId]) VALUES (4, N'Over 250kg per hectare',3)
+    
+SET IDENTITY_INSERT [dbo].[SoilNitrogenSupplyItems] OFF
 END
 
 GO
