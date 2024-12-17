@@ -42,4 +42,18 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="KBalance" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="4c8ac3d1-3d20-4edd-b876-94a6d48dab32" ChangeDateTime="12/17/2024 06:48:42">
+    <Property Name="ElementName" Value="[dbo].[InprogressCalculations].[FarmID]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[InprogressCalculations]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Field" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="7cb2f0c9-d4c7-4fe8-b5eb-7b78577be8d0" ChangeDateTime="12/17/2024 06:48:56">
+    <Property Name="ElementName" Value="[dbo].[InprogressCalculations].[Field]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[InprogressCalculations]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="FieldID" />
+  </Operation>
 </Operations>
