@@ -1,7 +1,7 @@
 ﻿CREATE TABLE [dbo].[Farms]
 (
 	[ID]                 INT NOT NULL IDENTITY(1,1),
-	[Name]               NVARCHAR (250)   NOT NULL,
+	[Name]               NVARCHAR (250)  NOT NULL,
     [Address1]           NVARCHAR (50)   NULL,
     [Address2]           NVARCHAR (50)   NULL,
     [Address3]           NVARCHAR (50)   NULL,
@@ -25,12 +25,14 @@
     [FieldsAbove300SeaLevel]   INT       NOT NULL CONSTRAINT DF_Farms_FieldsAbove300SeaLevel DEFAULT 0,
     [LastHarvestYear]    INT NULL,
     [OrganisationID] UNIQUEIDENTIFIER NOT NULL,
+    [CountryID]           INT  NOT NULL,
     [CreatedOn] DATETIME2 NULL DEFAULT GETDATE(), 
     [CreatedByID] INT NULL, 
     [ModifiedOn] DATETIME2 NULL, 
     [ModifiedByID] INT NULL,
     CONSTRAINT [PK_Farms] PRIMARY KEY ([ID] ASC),
     CONSTRAINT [FK_Farms_Organisations] FOREIGN KEY([OrganisationID]) REFERENCES [dbo].[Organisations] ([ID]),
+    CONSTRAINT [FK_Farms_Countries] FOREIGN KEY([CountryID]) REFERENCES [dbo].[Countries] ([ID]),
     CONSTRAINT [FK_Farms_Users_CreatedBy] FOREIGN KEY([CreatedByID]) REFERENCES [dbo].[Users] ([ID]),
     CONSTRAINT [FK_Farms_Users_ModifiedBy] FOREIGN KEY([ModifiedByID]) REFERENCES [dbo].[Users] ([ID]),
     CONSTRAINT [UC_Farms_NamePostcode] UNIQUE ([Name], [Postcode])
