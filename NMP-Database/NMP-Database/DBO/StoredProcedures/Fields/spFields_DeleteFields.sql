@@ -15,8 +15,8 @@ BEGIN
         SET @IsLocalTransaction = 1;
     END
 
-   BEGIN TRY
-        -- Use temporary tables to store intermediate results if needed
+    BEGIN TRY
+        -- Step 1: Use temporary tables to store intermediate results if needed
         DECLARE @CropIDs TABLE (ID INT);
         DECLARE @SoilAnalysesIDs TABLE (ID INT);
         DECLARE @SnsAnalysesIDs TABLE (ID INT);
@@ -38,7 +38,7 @@ BEGIN
         INSERT INTO @PreviousGrassIDs (ID)
         SELECT ID FROM PreviousGrasses WHERE FieldID = @FieldID;
 
-        -- Delete each crop using the existing stored procedure
+        -- Step 2: Delete each crop using the existing stored procedure
         DECLARE @CropID INT;
         DECLARE crop_cursor CURSOR FOR SELECT ID FROM @CropIDs;
         OPEN crop_cursor;
@@ -51,7 +51,7 @@ BEGIN
         CLOSE crop_cursor;
         DEALLOCATE crop_cursor;
 
-        -- Delete SoilAnalysis records only if any exist
+        -- Step 3: Delete SoilAnalysis records only if any exist
         IF EXISTS (SELECT 1 FROM @SoilAnalysesIDs)
         BEGIN
             DECLARE @SoilAnalysesID INT;
@@ -67,7 +67,7 @@ BEGIN
             DEALLOCATE sa_cursor;
         END
 
-        -- Delete SnsAnalysis records only if any exist
+        -- Step 4: Delete SnsAnalysis records only if any exist
         IF EXISTS (SELECT 1 FROM @SnsAnalysesIDs)
         BEGIN
             DECLARE @SnsAnalysisID INT;
@@ -83,7 +83,7 @@ BEGIN
             DEALLOCATE sns_cursor;
         END
 
-        -- Delete PreviousGrasses records using the stored procedure
+        -- Step 5: Delete PreviousGrasses records using the stored procedure
         IF EXISTS (SELECT 1 FROM @PreviousGrassIDs)
         BEGIN
             DECLARE @PreviousGrassID INT;
@@ -99,10 +99,13 @@ BEGIN
             DEALLOCATE pg_cursor;
         END
 
-        -- Now delete the Field
+        -- Step 6: Just before deleting the Field, first delete from InprogressCalculations table using FieldID
+        EXEC spInprogressCalculations_DeleteByFieldID @FieldID;
+
+        -- Step 7: Now delete the Field
         DELETE FROM Fields WHERE ID = @FieldID;
 
-        -- Commit if this procedure started the transaction
+        -- Step 8: Commit the transaction if this procedure started it
         IF @IsLocalTransaction = 1
         BEGIN
             COMMIT TRANSACTION;
@@ -125,5 +128,5 @@ BEGIN
         -- Rethrow the error
         RAISERROR(@ErrorMessage, @ErrorSeverity, @ErrorState);
     END CATCH
-END
+END;
 GO
