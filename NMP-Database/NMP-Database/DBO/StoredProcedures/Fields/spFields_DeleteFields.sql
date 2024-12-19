@@ -21,6 +21,7 @@ BEGIN
         DECLARE @SoilAnalysesIDs TABLE (ID INT);
         DECLARE @SnsAnalysesIDs TABLE (ID INT);
         DECLARE @PreviousGrassIDs TABLE (ID INT);
+        DECLARE @PKBalanceIDs TABLE (ID INT);
 
         -- Fetch and store Crop IDs associated with the Field
         INSERT INTO @CropIDs (ID)
@@ -37,6 +38,10 @@ BEGIN
         -- Fetch and store PreviousGrasses IDs associated with the Field
         INSERT INTO @PreviousGrassIDs (ID)
         SELECT ID FROM PreviousGrasses WHERE FieldID = @FieldID;
+
+        -- Fetch and store PKBalance IDs associated with the Field
+        INSERT INTO @PKBalanceIDs (ID)
+        SELECT ID FROM PKBalances WHERE FieldID = @FieldID;
 
         -- Step 2: Delete each crop using the existing stored procedure
         DECLARE @CropID INT;
@@ -99,13 +104,20 @@ BEGIN
             DEALLOCATE pg_cursor;
         END
 
-        -- Step 6: Just before deleting the Field, first delete from InprogressCalculations table using FieldID
+        -- Step 6: Delete PKBalances records only if any exist, using FieldID instead of PKBalanceID
+        IF EXISTS (SELECT 1 FROM @PKBalanceIDs)
+        BEGIN
+            -- Call spPKBalances_DeleteByFieldID with @FieldID directly
+            EXEC spPKBalances_DeleteByFieldID @FieldID;
+        END
+
+        -- Step 7: Just before deleting the Field, first delete from InprogressCalculations table using FieldID
         EXEC spInprogressCalculations_DeleteByFieldID @FieldID;
 
-        -- Step 7: Now delete the Field
+        -- Step 8: Now delete the Field
         DELETE FROM Fields WHERE ID = @FieldID;
 
-        -- Step 8: Commit the transaction if this procedure started it
+        -- Step 9: Commit the transaction if this procedure started it
         IF @IsLocalTransaction = 1
         BEGIN
             COMMIT TRANSACTION;
