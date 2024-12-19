@@ -1,5 +1,6 @@
 ﻿CREATE TABLE [dbo].[InprogressCalculations]
 (
-		[FarmID] INT NOT NULL,
-		CONSTRAINT [FK_InprogressCalculations_Farms] FOREIGN KEY ([FarmID]) REFERENCES [Farms]([ID]),
+		[FieldID] INT NOT NULL,
+		[Year] INT NOT NULL, 
+        CONSTRAINT [PK_InprogressCalculations] PRIMARY KEY CLUSTERED ([FieldID] ASC, [Year] ASC),
 )

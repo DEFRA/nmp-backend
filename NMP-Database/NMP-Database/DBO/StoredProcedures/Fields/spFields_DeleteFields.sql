@@ -16,10 +16,12 @@ BEGIN
     END
 
     BEGIN TRY
-        -- Use temporary tables to store intermediate results if needed
+        -- Step 1: Use temporary tables to store intermediate results if needed
         DECLARE @CropIDs TABLE (ID INT);
         DECLARE @SoilAnalysesIDs TABLE (ID INT);
         DECLARE @SnsAnalysesIDs TABLE (ID INT);
+        DECLARE @PreviousGrassIDs TABLE (ID INT);
+        DECLARE @PKBalanceIDs TABLE (ID INT);
 
         -- Fetch and store Crop IDs associated with the Field
         INSERT INTO @CropIDs (ID)
@@ -33,7 +35,15 @@ BEGIN
         INSERT INTO @SnsAnalysesIDs (ID)
         SELECT ID FROM SnsAnalyses WHERE FieldID = @FieldID;
 
-        -- Delete each crop using the existing stored procedure
+        -- Fetch and store PreviousGrasses IDs associated with the Field
+        INSERT INTO @PreviousGrassIDs (ID)
+        SELECT ID FROM PreviousGrasses WHERE FieldID = @FieldID;
+
+        -- Fetch and store PKBalance IDs associated with the Field
+        INSERT INTO @PKBalanceIDs (ID)
+        SELECT ID FROM PKBalances WHERE FieldID = @FieldID;
+
+        -- Step 2: Delete each crop using the existing stored procedure
         DECLARE @CropID INT;
         DECLARE crop_cursor CURSOR FOR SELECT ID FROM @CropIDs;
         OPEN crop_cursor;
@@ -46,7 +56,7 @@ BEGIN
         CLOSE crop_cursor;
         DEALLOCATE crop_cursor;
 
-        -- Delete SoilAnalysis records only if any exist
+        -- Step 3: Delete SoilAnalysis records only if any exist
         IF EXISTS (SELECT 1 FROM @SoilAnalysesIDs)
         BEGIN
             DECLARE @SoilAnalysesID INT;
@@ -62,7 +72,7 @@ BEGIN
             DEALLOCATE sa_cursor;
         END
 
-        -- Delete SnsAnalysis records only if any exist
+        -- Step 4: Delete SnsAnalysis records only if any exist
         IF EXISTS (SELECT 1 FROM @SnsAnalysesIDs)
         BEGIN
             DECLARE @SnsAnalysisID INT;
@@ -78,10 +88,36 @@ BEGIN
             DEALLOCATE sns_cursor;
         END
 
-        -- Now delete the Field
+        -- Step 5: Delete PreviousGrasses records using the stored procedure
+        IF EXISTS (SELECT 1 FROM @PreviousGrassIDs)
+        BEGIN
+            DECLARE @PreviousGrassID INT;
+            DECLARE pg_cursor CURSOR FOR SELECT ID FROM @PreviousGrassIDs;
+            OPEN pg_cursor;
+            FETCH NEXT FROM pg_cursor INTO @PreviousGrassID;
+            WHILE @@FETCH_STATUS = 0
+            BEGIN
+                EXEC spPreviousGrasses_DeleteByID @PreviousGrassID;
+                FETCH NEXT FROM pg_cursor INTO @PreviousGrassID;
+            END
+            CLOSE pg_cursor;
+            DEALLOCATE pg_cursor;
+        END
+
+        -- Step 6: Delete PKBalances records only if any exist, using FieldID instead of PKBalanceID
+        IF EXISTS (SELECT 1 FROM @PKBalanceIDs)
+        BEGIN
+            -- Call spPKBalances_DeleteByFieldID with @FieldID directly
+            EXEC spPKBalances_DeleteByFieldID @FieldID;
+        END
+
+        -- Step 7: Just before deleting the Field, first delete from InprogressCalculations table using FieldID
+        EXEC spInprogressCalculations_DeleteByFieldID @FieldID;
+
+        -- Step 8: Now delete the Field
         DELETE FROM Fields WHERE ID = @FieldID;
 
-        -- Commit if this procedure started the transaction
+        -- Step 9: Commit the transaction if this procedure started it
         IF @IsLocalTransaction = 1
         BEGIN
             COMMIT TRANSACTION;
@@ -104,5 +140,5 @@ BEGIN
         -- Rethrow the error
         RAISERROR(@ErrorMessage, @ErrorSeverity, @ErrorState);
     END CATCH
-END
+END;
 GO
