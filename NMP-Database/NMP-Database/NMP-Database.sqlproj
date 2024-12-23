@@ -72,6 +72,8 @@
     <Folder Include="DBO\StoredProcedures\FertiliserManures" />
     <Folder Include="DBO\StoredProcedures\SnsAnalyses" />
     <Folder Include="DBO\StoredProcedures\PreviousGrasses" />
+    <Folder Include="DBO\StoredProcedures\InprogressCalculations" />
+    <Folder Include="DBO\StoredProcedures\PKBalances" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="DBO\Tables\Farms.sql" />
@@ -120,6 +122,8 @@
     <Build Include="DBO\Tables\SoilNitrogenSupplyItems.sql" />
     <Build Include="DBO\Tables\PreviousGrasses.sql" />
     <Build Include="DBO\StoredProcedures\PreviousGrasses\spPreviousGrasses_DeleteByID.sql" />
+    <Build Include="DBO\StoredProcedures\InprogressCalculations\spInprogressCalculations_DeleteByFieldID.sql" />
+    <Build Include="DBO\StoredProcedures\PKBalances\spPKBalances_DeleteByFieldID.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Script.PostDeployment.sql">
