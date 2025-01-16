@@ -1095,7 +1095,7 @@ INSERT [dbo].[SoilNitrogenSupplyItems] ([ID], [Name],[SoilNitrogenSupplyId]) VAL
 SET IDENTITY_INSERT [dbo].[SoilNitrogenSupplyItems] OFF
 END
 
-IF NOT EXISTS (SELECT 1 FROM [dbo].[Farms])
+IF EXISTS (SELECT 1 FROM [dbo].[Farms])
 BEGIN
 UPDATE [dbo].[Farms] SET [ClimatePostCode]=[Postcode]
 END
