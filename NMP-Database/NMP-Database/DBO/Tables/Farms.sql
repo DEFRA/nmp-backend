@@ -26,6 +26,7 @@
     [LastHarvestYear]    INT NULL,
     [OrganisationID] UNIQUEIDENTIFIER NOT NULL,
     [CountryID]           INT  NOT NULL,
+    [ClimateDataPostCode]    NVARCHAR(50)  NULL ,
     [CreatedOn] DATETIME2 NULL DEFAULT GETDATE(), 
     [CreatedByID] INT NULL, 
     [ModifiedOn] DATETIME2 NULL, 
