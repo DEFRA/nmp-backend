@@ -4,6 +4,7 @@
 AS
 BEGIN
    SELECT
+        [Crops].[ID] AS CropID,               -- Add this line to retrieve Crops.ID
         [Crops].[CropTypeID],
         [Fields].[ID] AS FieldID,
         [Fields].[Name] AS FieldName,
