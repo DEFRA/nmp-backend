@@ -12,8 +12,6 @@
 	[IsWithinNVZ] BIT NULL CONSTRAINT DF_Fields_IsWithinNVZ DEFAULT 0,
 	[IsAbove300SeaLevel] BIT NULL CONSTRAINT DF_Fields_IsAbove300SeaLevel DEFAULT 0,
 	[SoilTypeID] INT NULL, --RB209
-	[TopSoilID] INT NULL,
-	[SubSoilID] INT NULL,
 	[SoilReleasingClay] BIT NULL CONSTRAINT DF_Fields_SoilReleasingClay DEFAULT 0,
 	[SoilOverChalk] BIT NULL CONSTRAINT DF_Fields_SoilOverChalk DEFAULT 0,
 	[NVZProgrammeID] INT NULL CONSTRAINT DF_Fields_NVZProgrammeID DEFAULT 1, --RB209	
@@ -29,6 +27,5 @@
     CONSTRAINT [FK_Fields_Users_CreatedBy] FOREIGN KEY ([CreatedByID]) REFERENCES [Users]([ID]),
     CONSTRAINT [FK_Fields_Users_ModifiedBy] FOREIGN KEY ([ModifiedByID]) REFERENCES [Users]([ID]),
 	CONSTRAINT [UC_Fields_FarmName] UNIQUE ([FarmID], [Name])
-
 
 )

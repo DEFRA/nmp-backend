@@ -10,7 +10,7 @@
     [Phosphorus]                INT             NULL,
     [PhosphorusIndex]           TINYINT         NULL,
     [Potassium]                 INT             NULL,
-    [PotassiumIndex]            TINYINT         NULL, 
+    [PotassiumIndex]            SMALLINT         NULL, 
     [Magnesium]                 INT             NULL,  
     [MagnesiumIndex]            TINYINT         NULL,    
     [SoilNitrogenSupply]        INT             NULL,
