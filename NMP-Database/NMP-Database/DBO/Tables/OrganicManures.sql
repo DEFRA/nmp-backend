@@ -30,6 +30,7 @@
     [RainfallWithinSixHoursID] INT             NULL,
     [MoistureID]               INT             NULL,
     [AutumnCropNitrogenUptake] DECIMAL (5, 2)  CONSTRAINT [DF_OrganicManures_AutumnCropNitrogenUptake] DEFAULT ((0)) NOT NULL,
+    [AvailableNForNMax]        DECIMAL (18, 3) NULL, 
     [CreatedOn]                DATETIME2 (7)   DEFAULT (getdate()) NULL,
     [CreatedByID]              INT             NULL,
     [ModifiedOn]               DATETIME2 (7)   NULL,
