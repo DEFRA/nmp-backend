@@ -114,111 +114,255 @@ SET IDENTITY_INSERT [dbo].[CropInfoQuestions] OFF
 
 IF NOT EXISTS (SELECT 1 FROM [dbo].[CropTypeLinkings])
 BEGIN
-INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimit], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (0, 2, CAST(8.0 AS Decimal(18, 1)), 0, 220, 3,1)
-INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimit], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (1, 2, CAST(6.5 AS Decimal(18, 1)), 0, 180, 3,1)
-INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimit], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (2, 6, CAST(6.0 AS Decimal(18, 1)), 0, 180, 1,1)
-INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimit], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (3, 6, CAST(5.5 AS Decimal(18, 1)), 0, 150, 1,1)
-INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimit], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (4, 2, CAST(6.0 AS Decimal(18, 1)), 0, NULL, 3,NULL)
-INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimit], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (5, 6, CAST(6.0 AS Decimal(18, 1)), 0, NULL, 1,NULL)
-INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimit], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (6, 2, CAST(6.0 AS Decimal(18, 1)), 0, NULL, 3,NULL)
-INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimit], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (7, 6, CAST(6.0 AS Decimal(18, 1)), 0, NULL, 1,NULL)
-INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimit], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (8, 2, CAST(8.0 AS Decimal(18, 1)), 0, NULL, 3,NULL)
-INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimit], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (9, 6, CAST(6.0 AS Decimal(18, 1)), 0, NULL, 1,NULL)
-INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimit], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (20, 4, CAST(3.5 AS Decimal(18, 1)), 0, 250, 2,2)
-INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimit], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (21, 6, NULL, 0, NULL, 1,2)
-INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimit], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (22, 9, NULL, 0, NULL, 1,NULL)
-INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimit], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (23, 9, CAST(4.0 AS Decimal(18, 1)), 0, 0, 1,3)
-INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimit], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (24, 9, CAST(3.5 AS Decimal(18, 1)), 0, 0, 1,NULL)
-INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimit], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (25, 9, CAST(3.5 AS Decimal(18, 1)), 0, 0, 1,NULL)
-INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimit], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (26, 8, CAST(60.0 AS Decimal(18, 1)), 0, 120, 1,4)
-INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimit], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (27, 9, NULL, 1, NULL, 1,NULL)
-INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimit], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (28, 9, NULL, 0, NULL, 1,NULL)
-INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimit], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (40, 9, NULL, 0, 150, 1,NULL)
-INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimit], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (41, 9, NULL, 0, NULL, 1,NULL)
-INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimit], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (43, 9, NULL, 0, NULL, 1,NULL)
-INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimit], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (44, 9, NULL, 0, NULL, 1,NULL)
-INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimit], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (45, 9, NULL, 0, NULL, 1,NULL)
-INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimit], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (50, 6, NULL, 0, NULL, 1,NULL)
-INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimit], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (51, 6, NULL, 0, NULL, 1,NULL)
-INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimit], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (52, 2, NULL, 0, NULL, 1,NULL)
-INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimit], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (53, 2, NULL, 0, NULL, 1,NULL)
-INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimit], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (54, 6, NULL, 0, NULL, 1,NULL)
-INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimit], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (55, 6, NULL, 0, NULL, 1,NULL)
-INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimit], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (56, 6, NULL, 0, NULL, 1,NULL)
-INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimit], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (57, 2, NULL, 0, NULL, 1,NULL)
-INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimit], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (58, 2, NULL, 0, NULL, 1,NULL)
-INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimit], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (59, 2, NULL, 0, NULL, 1,NULL)
-INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimit], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (60, 9, NULL, 1, NULL, 4,5)
-INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimit], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (61, 9, NULL, 0, NULL, 4,NULL)
-INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimit], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (62, 9, NULL, 0, NULL, 4,6)
-INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimit], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (63, 9, NULL, 0, NULL, 4,7)
-INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimit], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (64, 9, NULL, 0, NULL, 4,NULL)
-INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimit], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (65, 9, NULL, 0, NULL, 4,NULL)
-INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimit], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (66, 9, NULL, 0, NULL, 4,NULL)
-INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimit], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (67, 9, NULL, 0, NULL, 4,NULL)
-INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimit], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (68, 9, NULL, 0, NULL, 4,NULL)
-INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimit], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (69, 9, NULL, 0, NULL, 4,NULL)
-INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimit], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (70, 9, NULL, 0, NULL, 4,NULL)
-INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimit], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (71, 9, NULL, 0, NULL, 4,NULL)
-INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimit], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (72, 9, NULL, 0, NULL, 4,NULL)
-INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimit], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (73, 9, NULL, 0, NULL, 4,8)
-INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimit], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (74, 9, NULL, 0, NULL, 4,8)
-INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimit], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (75, 9, NULL, 0, NULL, 4,NULL)
-INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimit], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (76, 9, NULL, 1, NULL, 4,NULL)
-INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimit], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (77, 9, NULL, 0, NULL, 4,NULL)
-INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimit], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (78, 9, NULL, 0, NULL, 4,NULL)
-INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimit], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (79, 9, NULL, 0, NULL, 4,NULL)
-INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimit], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (90, 8, NULL, 0, NULL, 4,NULL)
-INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimit], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (91, 9, NULL, 0, NULL, 4,NULL)
-INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimit], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (92, 9, NULL, 0, NULL, 4,NULL)
-INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimit], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (93, 9, NULL, 0, NULL, 4,NULL)
-INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimit], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (94, 9, NULL, 0, NULL, 4,NULL)
-INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimit], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (110, 9, NULL, 1, NULL, 5,9)
-INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimit], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (111, 9, NULL, 1, NULL, 5,9)
-INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimit], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (112, 9, NULL, 1, NULL, 5,9)
-INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimit], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (113, 9, NULL, 1, NULL, 5,9)
-INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimit], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (114, 9, NULL, 1, NULL, 5,9)
-INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimit], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (115, 9, NULL, 1, NULL, 5,9)
-INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimit], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (116, 9, NULL, 1, NULL, 5,10)
-INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimit], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (117, 9, NULL, 1, NULL, 5,10)
-INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimit], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (118, 9, NULL, 1, NULL, 5,10)
-INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimit], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (119, 9, NULL, 1, NULL, 5,10)
-INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimit], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (120, 9, NULL, 1, NULL, 5,10)
-INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimit], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (121, 9, NULL, 1, NULL, 5,10)
-INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimit], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (122, 9, NULL, 1, NULL, 5,10)
-INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimit], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (123, 9, NULL, 1, NULL, 5,11)
-INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimit], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (124, 9, NULL, 1, NULL, 5,10)
-INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimit], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (125, 9, NULL, 1, NULL, 5,10)
-INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimit], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (140, 1, NULL, 0, 330, NULL,NULL)
-INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimit], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (160, 7, CAST(50.0 AS Decimal(18, 1)), 0, 270, 1,12)
-INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimit], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (161, 7, CAST(50.0 AS Decimal(18, 1)), 0, 270, 1,12)
-INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimit], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (162, 7, CAST(50.0 AS Decimal(18, 1)), 0, 270, 1,12)
-INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimit], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (163, 7, CAST(50.0 AS Decimal(18, 1)), 0, 270, 1,12)
-INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimit], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (170, 9, NULL, 0, NULL, 1,NULL)
-INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimit], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (171, 6, NULL, 0, NULL, 3,NULL)
-INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimit], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (172, 6, NULL, 0, NULL, 3,NULL)
-INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimit], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (173, 6, NULL, 0, NULL, 3,NULL)
-INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimit], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (174, 6, NULL, 0, NULL, 3,NULL)
-INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimit], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (175, 9, NULL, 0, NULL, 3,NULL)
-INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimit], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (176, 9, NULL, 0, NULL, 3,NULL)
-INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimit], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (177, 9, NULL, 1, NULL, NULL,NULL)
-INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimit], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (178, 9, NULL, 1, NULL, NULL,NULL)
-INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimit], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (179, 9, NULL, 1, NULL, 4,NULL)
-INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimit], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (180, 9, NULL, 0, NULL, 4,NULL)
-INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimit], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (181, 9, NULL, 0, NULL, 4,NULL)
-INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimit], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (182, 9, NULL, 0, NULL, 4,NULL)
-INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimit], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (184, 9, NULL, 1, NULL, 1,13)
-INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimit], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (185, 9, NULL, 1, NULL, 1,5)
-INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimit], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (187, 9, NULL, 1, NULL, 3,NULL)
-INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimit], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (188, 9, NULL, 0, NULL, NULL,NULL)
-INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimit], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (189, 9, NULL, 0, NULL, 1,NULL)
-INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimit], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (191, 9, NULL, 0, NULL, NULL,NULL)
-INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimit], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (192, 9, NULL, 0, NULL, 4,NULL)
-INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimit], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (193, 9, NULL, 1, NULL, 4,5)
-INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimit], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (194, 9, NULL, 0, NULL, 1,NULL)
-INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimit], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (195, 9, NULL, 0, NULL, 1,NULL)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (0, 2, CAST(8.0 AS Decimal(18, 1)), 0, 220,220, 3,1)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (1, 2, CAST(6.5 AS Decimal(18, 1)), 0, 180,180, 3,1)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (2, 6, CAST(6.0 AS Decimal(18, 1)), 0, 180,180, 1,1)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (3, 6, CAST(5.5 AS Decimal(18, 1)), 0, 150,150, 1,1)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (4, 2, CAST(6.0 AS Decimal(18, 1)), 0, NULL,NULL, 3,NULL)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (5, 6, CAST(6.0 AS Decimal(18, 1)), 0, NULL, NULL, 1,NULL)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (6, 2, CAST(6.0 AS Decimal(18, 1)), 0, NULL,NULL, 3,NULL)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (7, 6, CAST(6.0 AS Decimal(18, 1)), 0, NULL,NULL, 1,NULL)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (8, 2, CAST(8.0 AS Decimal(18, 1)), 0, NULL,NULL, 3,NULL)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (9, 6, CAST(6.0 AS Decimal(18, 1)), 0, NULL,NULL, 1,NULL)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (20, 4, CAST(3.5 AS Decimal(18, 1)), 0, 250,250, 2,2)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (21, 6, NULL, 0, NULL,NULL, 1,2)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (22, 9, NULL, 0, NULL,NULL, 1,NULL)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (23, 9, CAST(4.0 AS Decimal(18, 1)), 0, 0,0, 1,3)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (24, 9, CAST(3.5 AS Decimal(18, 1)), 0, 0, 0,1,NULL)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (25, 9, CAST(3.5 AS Decimal(18, 1)), 0, 0, 0,1,NULL)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (26, 8, CAST(60.0 AS Decimal(18, 1)), 0, 120,120, 1,4)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (27, 9, NULL, 1, NULL,NULL, 1,NULL)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (28, 9, NULL, 0, NULL,NULL, 1,NULL)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (40, 9, NULL, 0, 150,150, 1,NULL)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (41, 9, NULL, 0, NULL, NULL, 1,NULL)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (43, 9, NULL, 0, NULL, NULL, 1,NULL)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (44, 9, NULL, 0, NULL, NULL, 1,NULL)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (45, 9, NULL, 0, NULL, NULL, 1,NULL)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (50, 6, NULL, 0, NULL, NULL, 1,NULL)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (51, 6, NULL, 0, NULL, NULL, 1,NULL)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (52, 2, NULL, 0, NULL, NULL, 1,NULL)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (53, 2, NULL, 0, NULL, NULL, 1,NULL)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (54, 6, NULL, 0, NULL, NULL, 1,NULL)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (55, 6, NULL, 0, NULL, NULL, 1,NULL)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (56, 6, NULL, 0, NULL, NULL, 1,NULL)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (57, 2, NULL, 0, NULL, NULL, 1,NULL)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (58, 2, NULL, 0, NULL, NULL, 1,NULL)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (59, 2, NULL, 0, NULL, NULL, 1,NULL)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (60, 9, NULL, 1, 180, 150, 4,5)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (61, 9, NULL, 0, 370, 350, 4,NULL)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (62, 9, NULL, 0, 370, 350, 4,6)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (63, 9, NULL, 0, 370, 350, 4,7)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (64, 9, NULL, 0, 370, 350, 4,NULL)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (65, 9, NULL, 0, 280, 250, 4,NULL)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (66, 9, NULL, 0, NULL, NULL, 4,NULL)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (67, 9, NULL, 0, 280, 250, 4,NULL)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (68, 9, NULL, 0, 280, 250, 4,NULL)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (69, 9, NULL, 0, 280, 250, 4,NULL)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (70, 9, NULL, 0, 180, 150, 4,NULL)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (71, 9, NULL, 0, 280, 250, 4,NULL)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (72, 9, NULL, 0, 280, 250, 4,NULL)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (73, 9, NULL, 0, 280, 250, 4,8)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (74, 9, NULL, 0, 280, 250, 4,8)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (75, 9, NULL, 0, 370, 350, 4,NULL)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (76, 9, NULL, 1, NULL, NULL, 4,NULL)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (77, 9, NULL, 0, NULL, NULL, 4,NULL)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (78, 9, NULL, 0, NULL, NULL, 4,NULL)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (79, 9, NULL, 0, NULL, NULL, 4,NULL)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (90, 8, NULL, 0, 370, 350, 4,NULL)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (91, 9, NULL, 0, 280, 250, 4,NULL)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (92, 9, NULL, 0, 180, 150, 4,NULL)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (93, 9, NULL, 0, 280, 250, 4,NULL)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (94, 9, NULL, 0, 180, 150, 4,NULL)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (110, 9, NULL, 1, NULL, NULL, 5,9)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (111, 9, NULL, 1, NULL, NULL, 5,9)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (112, 9, NULL, 1, NULL, NULL, 5,9)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (113, 9, NULL, 1, NULL, NULL, 5,9)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (114, 9, NULL, 1, NULL, NULL, 5,9)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (115, 9, NULL, 1, NULL, NULL, 5,9)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (116, 9, NULL, 1, NULL, NULL, 5,10)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (117, 9, NULL, 1, NULL, NULL, 5,10)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (118, 9, NULL, 1, NULL, NULL, 5,10)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (119, 9, NULL, 1, NULL, NULL, 5,10)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (120, 9, NULL, 1, NULL, NULL, 5,10)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (121, 9, NULL, 1, NULL, NULL, 5,10)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (122, 9, NULL, 1, NULL, NULL, 5,10)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (123, 9, NULL, 1, NULL, NULL, 5,11)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (124, 9, NULL, 1, NULL, NULL, 5,10)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (125, 9, NULL, 1, NULL, NULL, 5,10)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (140, 1, NULL, 0, 300,300, NULL,NULL)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (160, 7, CAST(50.0 AS Decimal(18, 1)), 0, 270, 270, 1,12)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (161, 7, CAST(50.0 AS Decimal(18, 1)), 0, 270, 270, 1,12)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (162, 7, CAST(50.0 AS Decimal(18, 1)), 0, 270, 270, 1,12)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (163, 7, CAST(50.0 AS Decimal(18, 1)), 0, 270, 270, 1,12)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (170, 9, NULL, 0, NULL, NULL, 1,NULL)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (171, 6, NULL, 0, NULL, NULL, 3,NULL)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (172, 6, NULL, 0, NULL, NULL, 3,NULL)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (173, 6, NULL, 0, NULL, NULL, 3,NULL)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (174, 6, NULL, 0, NULL, NULL, 3,NULL)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (175, 9, NULL, 0, NULL, NULL, 3,NULL)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (176, 9, NULL, 0, NULL, NULL, 3,NULL)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (177, 9, NULL, 1, NULL, NULL, NULL,NULL)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (178, 9, NULL, 1, NULL, NULL, NULL,NULL)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (179, 9, NULL, 1, NULL, NULL, 4,NULL)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (180, 9, NULL, 0, NULL, NULL, 4,NULL)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (181, 9, NULL, 0, NULL, NULL, 4,NULL)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (182, 9, NULL, 0, NULL, NULL, 4,NULL)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (184, 9, NULL, 1, NULL, NULL, 1,13)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (185, 9, NULL, 1, NULL, NULL, 1,5)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (187, 9, NULL, 1, NULL, NULL, 3,NULL)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (188, 9, NULL, 0, NULL, NULL, NULL,NULL)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (189, 9, NULL, 0, NULL, NULL, 1,NULL)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (191, 9, NULL, 0, NULL, NULL, NULL,NULL)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (192, 9, NULL, 0, NULL, NULL, 4,NULL)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (193, 9, NULL, 1, NULL, NULL, 4,5)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (194, 9, NULL, 0, NULL, NULL, 1,NULL)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [SNSCategoryID],[CropInfoOneQuestionID]) VALUES (195, 9, NULL, 0, NULL, NULL, 1,NULL)
 END
 GO
+
+
+IF EXISTS (SELECT 1 FROM [dbo].[CropTypeLinkings] where [CropTypeID]=0)
+BEGIN
+UPDATE [dbo].[CropTypeLinkings] SET [NMaxLimitEngland]=220,[NMaxLimitWales]=220 where [CropTypeID]=0
+END
+IF EXISTS (SELECT 1 FROM [dbo].[CropTypeLinkings] where [CropTypeID]=1)
+BEGIN
+UPDATE [dbo].[CropTypeLinkings] SET [NMaxLimitEngland]=180,[NMaxLimitWales]=180 where [CropTypeID]=1
+END
+IF EXISTS (SELECT 1 FROM [dbo].[CropTypeLinkings] where [CropTypeID]=2)
+BEGIN
+UPDATE [dbo].[CropTypeLinkings] SET [NMaxLimitEngland]=180,[NMaxLimitWales]=180 where [CropTypeID]=2
+END
+IF EXISTS (SELECT 1 FROM [dbo].[CropTypeLinkings] where [CropTypeID]=3)
+BEGIN
+UPDATE [dbo].[CropTypeLinkings] SET [NMaxLimitEngland]=150,[NMaxLimitWales]=150 where [CropTypeID]=3
+END
+IF EXISTS (SELECT 1 FROM [dbo].[CropTypeLinkings] where [CropTypeID]=20)
+BEGIN
+UPDATE [dbo].[CropTypeLinkings] SET [NMaxLimitEngland]=250,[NMaxLimitWales]=250 where [CropTypeID]=20
+END
+IF EXISTS (SELECT 1 FROM [dbo].[CropTypeLinkings] where [CropTypeID]=23)
+BEGIN
+UPDATE [dbo].[CropTypeLinkings] SET [NMaxLimitEngland]=0,[NMaxLimitWales]=0 where [CropTypeID]=23
+END
+IF EXISTS (SELECT 1 FROM [dbo].[CropTypeLinkings] where [CropTypeID]=24)
+BEGIN
+UPDATE [dbo].[CropTypeLinkings] SET [NMaxLimitEngland]=0,[NMaxLimitWales]=0 where [CropTypeID]=24
+END
+IF EXISTS (SELECT 1 FROM [dbo].[CropTypeLinkings] where [CropTypeID]=25)
+BEGIN
+UPDATE [dbo].[CropTypeLinkings] SET [NMaxLimitEngland]=0,[NMaxLimitWales]=0 where [CropTypeID]=25
+END
+IF EXISTS (SELECT 1 FROM [dbo].[CropTypeLinkings] where [CropTypeID]=26)
+BEGIN
+UPDATE [dbo].[CropTypeLinkings] SET [NMaxLimitEngland]=120,[NMaxLimitWales]=120 where [CropTypeID]=26
+END
+IF EXISTS (SELECT 1 FROM [dbo].[CropTypeLinkings] where [CropTypeID]=40)
+BEGIN
+UPDATE [dbo].[CropTypeLinkings] SET [NMaxLimitEngland]=150,[NMaxLimitWales]=150 where [CropTypeID]=40
+END
+IF EXISTS (SELECT 1 FROM [dbo].[CropTypeLinkings] where [CropTypeID]=60)
+BEGIN
+UPDATE [dbo].[CropTypeLinkings] SET [NMaxLimitEngland]=180,[NMaxLimitWales]=150 where [CropTypeID]=60
+END
+IF EXISTS (SELECT 1 FROM [dbo].[CropTypeLinkings] where [CropTypeID]=61)
+BEGIN
+UPDATE [dbo].[CropTypeLinkings] SET [NMaxLimitEngland]=370,[NMaxLimitWales]=350 where [CropTypeID]=61
+END
+IF EXISTS (SELECT 1 FROM [dbo].[CropTypeLinkings] where [CropTypeID]=62)
+BEGIN
+UPDATE [dbo].[CropTypeLinkings] SET [NMaxLimitEngland]=370,[NMaxLimitWales]=350 where [CropTypeID]=62
+END
+IF EXISTS (SELECT 1 FROM [dbo].[CropTypeLinkings] where [CropTypeID]=63)
+BEGIN
+UPDATE [dbo].[CropTypeLinkings] SET [NMaxLimitEngland]=370,[NMaxLimitWales]=350 where [CropTypeID]=63
+END
+IF EXISTS (SELECT 1 FROM [dbo].[CropTypeLinkings] where [CropTypeID]=64)
+BEGIN
+UPDATE [dbo].[CropTypeLinkings] SET [NMaxLimitEngland]=370,[NMaxLimitWales]=350 where [CropTypeID]=64
+END
+IF EXISTS (SELECT 1 FROM [dbo].[CropTypeLinkings] where [CropTypeID]=65)
+BEGIN
+UPDATE [dbo].[CropTypeLinkings] SET [NMaxLimitEngland]=280,[NMaxLimitWales]=250 where [CropTypeID]=65
+END
+IF EXISTS (SELECT 1 FROM [dbo].[CropTypeLinkings] where [CropTypeID]=67)
+BEGIN
+UPDATE [dbo].[CropTypeLinkings] SET [NMaxLimitEngland]=280,[NMaxLimitWales]=250 where [CropTypeID]=67
+END
+IF EXISTS (SELECT 1 FROM [dbo].[CropTypeLinkings] where [CropTypeID]=68)
+BEGIN
+UPDATE [dbo].[CropTypeLinkings] SET [NMaxLimitEngland]=280,[NMaxLimitWales]=250 where [CropTypeID]=68
+END
+IF EXISTS (SELECT 1 FROM [dbo].[CropTypeLinkings] where [CropTypeID]=69)
+BEGIN
+UPDATE [dbo].[CropTypeLinkings] SET [NMaxLimitEngland]=280,[NMaxLimitWales]=250 where [CropTypeID]=69
+END
+IF EXISTS (SELECT 1 FROM [dbo].[CropTypeLinkings] where [CropTypeID]=70)
+BEGIN
+UPDATE [dbo].[CropTypeLinkings] SET [NMaxLimitEngland]=180,[NMaxLimitWales]=150 where [CropTypeID]=70
+END
+IF EXISTS (SELECT 1 FROM [dbo].[CropTypeLinkings] where [CropTypeID]=71)
+BEGIN
+UPDATE [dbo].[CropTypeLinkings] SET [NMaxLimitEngland]=280,[NMaxLimitWales]=250 where [CropTypeID]=71
+END
+IF EXISTS (SELECT 1 FROM [dbo].[CropTypeLinkings] where [CropTypeID]=72)
+BEGIN
+UPDATE [dbo].[CropTypeLinkings] SET [NMaxLimitEngland]=280,[NMaxLimitWales]=250 where [CropTypeID]=72
+END
+IF EXISTS (SELECT 1 FROM [dbo].[CropTypeLinkings] where [CropTypeID]=73)
+BEGIN
+UPDATE [dbo].[CropTypeLinkings] SET [NMaxLimitEngland]=280,[NMaxLimitWales]=250 where [CropTypeID]=73
+END
+IF EXISTS (SELECT 1 FROM [dbo].[CropTypeLinkings] where [CropTypeID]=74)
+BEGIN
+UPDATE [dbo].[CropTypeLinkings] SET [NMaxLimitEngland]=280,[NMaxLimitWales]=250 where [CropTypeID]=74
+END
+IF EXISTS (SELECT 1 FROM [dbo].[CropTypeLinkings] where [CropTypeID]=75)
+BEGIN
+UPDATE [dbo].[CropTypeLinkings] SET [NMaxLimitEngland]=370,[NMaxLimitWales]=350 where [CropTypeID]=75
+END
+IF EXISTS (SELECT 1 FROM [dbo].[CropTypeLinkings] where [CropTypeID]=90)
+BEGIN
+UPDATE [dbo].[CropTypeLinkings] SET [NMaxLimitEngland]=370,[NMaxLimitWales]=350 where [CropTypeID]=90
+END
+IF EXISTS (SELECT 1 FROM [dbo].[CropTypeLinkings] where [CropTypeID]=91)
+BEGIN
+UPDATE [dbo].[CropTypeLinkings] SET [NMaxLimitEngland]=280,[NMaxLimitWales]=250 where [CropTypeID]=91
+END
+IF EXISTS (SELECT 1 FROM [dbo].[CropTypeLinkings] where [CropTypeID]=92)
+BEGIN
+UPDATE [dbo].[CropTypeLinkings] SET [NMaxLimitEngland]=180,[NMaxLimitWales]=150 where [CropTypeID]=92
+END
+IF EXISTS (SELECT 1 FROM [dbo].[CropTypeLinkings] where [CropTypeID]=93)
+BEGIN
+UPDATE [dbo].[CropTypeLinkings] SET [NMaxLimitEngland]=280,[NMaxLimitWales]=250 where [CropTypeID]=93
+END
+IF EXISTS (SELECT 1 FROM [dbo].[CropTypeLinkings] where [CropTypeID]=94)
+BEGIN
+UPDATE [dbo].[CropTypeLinkings] SET [NMaxLimitEngland]=180,[NMaxLimitWales]=150 where [CropTypeID]=94
+END
+IF EXISTS (SELECT 1 FROM [dbo].[CropTypeLinkings] where [CropTypeID]=140)
+BEGIN
+UPDATE [dbo].[CropTypeLinkings] SET [NMaxLimitEngland]=300,[NMaxLimitWales]=300 where [CropTypeID]=140
+END
+IF EXISTS (SELECT 1 FROM [dbo].[CropTypeLinkings] where [CropTypeID]=160)
+BEGIN
+UPDATE [dbo].[CropTypeLinkings] SET [NMaxLimitEngland]=270,[NMaxLimitWales]=270 where [CropTypeID]=160
+END
+IF EXISTS (SELECT 1 FROM [dbo].[CropTypeLinkings] where [CropTypeID]=161)
+BEGIN
+UPDATE [dbo].[CropTypeLinkings] SET [NMaxLimitEngland]=270,[NMaxLimitWales]=270 where [CropTypeID]=161
+END
+IF EXISTS (SELECT 1 FROM [dbo].[CropTypeLinkings] where [CropTypeID]=162)
+BEGIN
+UPDATE [dbo].[CropTypeLinkings] SET [NMaxLimitEngland]=270,[NMaxLimitWales]=270 where [CropTypeID]=162
+END
+IF EXISTS (SELECT 1 FROM [dbo].[CropTypeLinkings] where [CropTypeID]=163)
+BEGIN
+UPDATE [dbo].[CropTypeLinkings] SET [NMaxLimitEngland]=270,[NMaxLimitWales]=270 where [CropTypeID]=163
+END
+
+
 
 IF NOT EXISTS (SELECT 1 FROM [dbo].[InOrganicManureDurations])
 BEGIN
