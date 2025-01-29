@@ -30,6 +30,7 @@
     [MgIndex]               NVARCHAR (30)  NULL,
     [SIndex]                NVARCHAR (30)  NULL,
     [NaIndex]               NVARCHAR (30)  NULL,
+    [NIndex]                NVARCHAR (30)  NULL,
     [Comments]              NVARCHAR (MAX) NULL,
     [CreatedOn]             DATETIME2      NULL DEFAULT GETDATE(), 
     [CreatedByID]           INT            NULL, 
