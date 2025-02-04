@@ -47,6 +47,7 @@ BEGIN
         -- Delete related RecommendationComments using existing SP
         DECLARE @RecommendationID INT;
         DECLARE rec_cursor CURSOR FOR SELECT ID FROM @RecommendationIDs;
+
         OPEN rec_cursor;
         FETCH NEXT FROM rec_cursor INTO @RecommendationID;
         WHILE @@FETCH_STATUS = 0
@@ -144,6 +145,13 @@ BEGIN
         END
         CLOSE field_cursor;
         DEALLOCATE field_cursor;
+
+        -- Check if records exist in ExcessRainfalls for the given FarmID
+        IF EXISTS (SELECT 1 FROM ExcessRainfalls WHERE FarmID = @FarmID)
+        BEGIN
+            -- Delete related ExcessRainfalls if records are found
+            DELETE FROM ExcessRainfalls WHERE FarmID = @FarmID;
+        END
 
         -- Finally, delete the Farm itself
         DELETE FROM Farms WHERE ID = @FarmID;
