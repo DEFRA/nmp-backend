@@ -12,6 +12,7 @@ BEGIN
         [Crops].[OtherCropName] AS OtherCropName,
 		[Crops].[CropInfo1] AS CropInfo1,
 		[Crops].[Yield] AS Yield,
+		[Crops].[CropGroupName] AS CropGroupName,
         CASE
             WHEN [Crops].[ModifiedOn] >= [Crops].[CreatedOn] THEN [Crops].[ModifiedOn]
             ELSE [Crops].[CreatedOn]
