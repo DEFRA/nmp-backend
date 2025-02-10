@@ -89,6 +89,7 @@ BEGIN
         [Recommendations].[MgIndex] AS Recommendation_MgIndex,
         [Recommendations].[SIndex] AS Recommendation_SIndex,
         [Recommendations].[NaIndex] AS Recommendation_NaIndex,
+        [Recommendations].[NIndex] AS Recommendation_NIndex,
         [Recommendations].[Comments] AS Recommendation_Comments,
         [Recommendations].[CreatedOn] AS Recommendation_CreatedOn,
         [Recommendations].[CreatedByID] AS Recommendation_CreatedByID,
