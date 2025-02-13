@@ -13,6 +13,8 @@ BEGIN
 		[Crops].[CropInfo1] AS CropInfo1,
 		[Crops].[Yield] AS Yield,
 		[Crops].[CropGroupName] AS CropGroupName,
+		[Crops].[Year] AS Year,
+		[Crops].[CropOrder] AS CropOrder,
         CASE
             WHEN [Crops].[ModifiedOn] >= [Crops].[CreatedOn] THEN [Crops].[ModifiedOn]
             ELSE [Crops].[CreatedOn]
