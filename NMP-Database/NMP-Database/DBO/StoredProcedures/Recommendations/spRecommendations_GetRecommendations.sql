@@ -32,6 +32,7 @@ BEGIN
         [Crops].[CropInfo2] AS Crop_CropInfo2,
         [Crops].[SowingDate] AS Crop_SowingDate,
         [Crops].[Yield] AS Crop_Yield,
+		[Crops].[CropOrder] AS Crop_CropOrder,
         [Crops].[Confirm] AS Crop_Confirm,
         [Crops].[PreviousGrass] AS Crop_PreviousGrass,
         [Crops].[Comments] AS Crop_Comments,
