@@ -1244,4 +1244,15 @@ BEGIN
 UPDATE [dbo].[Farms] SET [ClimateDataPostCode]=[Postcode] where [ClimateDataPostCode] IS NULL
 END
 
+
+IF NOT EXISTS (SELECT 1 FROM [dbo].[ExcessWinterRainfallOptions])
+BEGIN
+    SET IDENTITY_INSERT [dbo].[ExcessWinterRainfallOptions] ON
+    INSERT [dbo].[ExcessWinterRainfallOptions] ([ID], [Name], [Value]) VALUES (1, N'High - 250mm or more', 300)
+	INSERT [dbo].[ExcessWinterRainfallOptions] ([ID], [Name], [Value]) VALUES (2, N'Moderate - 150mm to 250mm', 200)
+	INSERT [dbo].[ExcessWinterRainfallOptions] ([ID], [Name], [Value]) VALUES (3, N'Low - Less than 150mm', 100)
+    SET IDENTITY_INSERT [dbo].[ExcessWinterRainfallOptions] OFF
+END
+
+
 GO
