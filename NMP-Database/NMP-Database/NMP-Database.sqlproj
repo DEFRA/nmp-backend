@@ -125,6 +125,7 @@
     <Build Include="DBO\StoredProcedures\InprogressCalculations\spInprogressCalculations_DeleteByFieldID.sql" />
     <Build Include="DBO\StoredProcedures\PKBalances\spPKBalances_DeleteByFieldID.sql" />
     <Build Include="DBO\Tables\CropInfoQuestions.sql" />
+    <Build Include="DBO\Tables\ExcessWinterRainfallOptions.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Script.PostDeployment.sql">
