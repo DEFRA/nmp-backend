@@ -4,6 +4,7 @@
 AS
 BEGIN
    SELECT
+        [Crops].[ID] AS CropID,               -- Add this line to retrieve Crops.ID
         [Crops].[CropTypeID],
         [Fields].[ID] AS FieldID,
         [Fields].[Name] AS FieldName,
@@ -11,6 +12,9 @@ BEGIN
         [Crops].[OtherCropName] AS OtherCropName,
 		[Crops].[CropInfo1] AS CropInfo1,
 		[Crops].[Yield] AS Yield,
+		[Crops].[CropGroupName] AS CropGroupName,
+		[Crops].[Year] AS Year,
+		[Crops].[CropOrder] AS CropOrder,
         CASE
             WHEN [Crops].[ModifiedOn] >= [Crops].[CreatedOn] THEN [Crops].[ModifiedOn]
             ELSE [Crops].[CreatedOn]
