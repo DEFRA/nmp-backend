@@ -10,7 +10,7 @@
     [K2O]                      DECIMAL (18, 3) NOT NULL,
     [MgO]                      DECIMAL (18, 3) NOT NULL,
     [SO3]                      DECIMAL (18, 3) NOT NULL,    
-    [ApplicationRate]          INT             NOT NULL,
+    [ApplicationRate]          DECIMAL(18, 1)             NOT NULL,
     [DryMatterPercent]         DECIMAL (18, 2) NOT NULL,
     [UricAcid]                 DECIMAL (18, 2) NOT NULL,
     [EndOfDrain]               DATETIME        NULL,
