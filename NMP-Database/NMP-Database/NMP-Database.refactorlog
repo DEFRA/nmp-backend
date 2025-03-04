@@ -56,4 +56,11 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="FieldID" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="908a2ae3-304c-4180-bccb-f83f6cf5a9d5" ChangeDateTime="03/03/2025 10:02:45">
+    <Property Name="ElementName" Value="[dbo].[SnsAnalyses].[FieldID]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[SnsAnalyses]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="CropID" />
+  </Operation>
 </Operations>
