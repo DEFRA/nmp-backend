@@ -19,7 +19,6 @@ BEGIN
         -- Step 1: Use temporary tables to store intermediate results if needed
         DECLARE @CropIDs TABLE (ID INT);
         DECLARE @SoilAnalysesIDs TABLE (ID INT);
-        DECLARE @SnsAnalysesIDs TABLE (ID INT);
         DECLARE @PreviousGrassIDs TABLE (ID INT);
         DECLARE @PKBalanceIDs TABLE (ID INT);
 
@@ -30,10 +29,6 @@ BEGIN
         -- Fetch and store SoilAnalysis IDs associated with the Field
         INSERT INTO @SoilAnalysesIDs (ID)
         SELECT ID FROM SoilAnalyses WHERE FieldID = @FieldID;
-
-        -- Fetch and store SnsAnalysis IDs associated with the Field
-        INSERT INTO @SnsAnalysesIDs (ID)
-        SELECT ID FROM SnsAnalyses WHERE FieldID = @FieldID;
 
         -- Fetch and store PreviousGrasses IDs associated with the Field
         INSERT INTO @PreviousGrassIDs (ID)
@@ -72,22 +67,7 @@ BEGIN
             DEALLOCATE sa_cursor;
         END
 
-        -- Step 4: Delete SnsAnalysis records only if any exist
-        IF EXISTS (SELECT 1 FROM @SnsAnalysesIDs)
-        BEGIN
-            DECLARE @SnsAnalysisID INT;
-            DECLARE sns_cursor CURSOR FOR SELECT ID FROM @SnsAnalysesIDs;
-            OPEN sns_cursor;
-            FETCH NEXT FROM sns_cursor INTO @SnsAnalysisID;
-            WHILE @@FETCH_STATUS = 0
-            BEGIN
-                EXEC spSnsAnalyses_DeleteSnsAnalyses @SnsAnalysisID;
-                FETCH NEXT FROM sns_cursor INTO @SnsAnalysisID;
-            END
-            CLOSE sns_cursor;
-            DEALLOCATE sns_cursor;
-        END
-
+      
         -- Step 5: Delete PreviousGrasses records using the stored procedure
         IF EXISTS (SELECT 1 FROM @PreviousGrassIDs)
         BEGIN
