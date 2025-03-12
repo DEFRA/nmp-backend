@@ -2,7 +2,7 @@
 (
 	[ID] INT NOT NULL IDENTITY, 
     [CropID] INT NOT NULL,
-    [CurrentCropTypeID] INT NOT NULL,
+    [CropTypeID] INT NOT NULL,
     [SampleDate] DATETIME2 NULL, 
     [SnsAt0to30cm] INT NULL, 
     [SnsAt30to60cm] INT NULL, 
@@ -10,6 +10,7 @@
     [SampleDepth] INT NULL, 
     [SoilMineralNitrogen] INT NULL, 
     [NumberOfShoots] INT NULL, 
+    [GreenAreaIndex] DECIMAL(18, 3) NULL, 
     [CropHeight] DECIMAL(18, 3) NULL, 
     [SeasonId] INT NULL, 
     [PercentageOfOrganicMatter] DECIMAL(18, 3) NULL, 
