@@ -11,10 +11,12 @@ BEGIN
         [Crops].[Variety] AS CropVariety,
         [Crops].[OtherCropName] AS OtherCropName,
 		[Crops].[CropInfo1] AS CropInfo1,
+		[Crops].[CropInfo2] AS CropInfo2,
 		[Crops].[Yield] AS Yield,
 		[Crops].[CropGroupName] AS CropGroupName,
 		[Crops].[Year] AS Year,
 		[Crops].[CropOrder] AS CropOrder,
+		[Crops].[SowingDate] AS SowingDate,
         CASE
             WHEN [Crops].[ModifiedOn] >= [Crops].[CreatedOn] THEN [Crops].[ModifiedOn]
             ELSE [Crops].[CreatedOn]
