@@ -1,8 +1,8 @@
 ﻿CREATE TABLE [dbo].[SnsAnalyses]
 (
 	[ID] INT NOT NULL IDENTITY, 
-    [FieldID] INT NOT NULL,
-    [CurrentCropTypeID] INT NOT NULL,
+    [CropID] INT NOT NULL,
+    [CropTypeID] INT NOT NULL,
     [SampleDate] DATETIME2 NULL, 
     [SnsAt0to30cm] INT NULL, 
     [SnsAt30to60cm] INT NULL, 
@@ -10,6 +10,7 @@
     [SampleDepth] INT NULL, 
     [SoilMineralNitrogen] INT NULL, 
     [NumberOfShoots] INT NULL, 
+    [GreenAreaIndex] DECIMAL(18, 3) NULL, 
     [CropHeight] DECIMAL(18, 3) NULL, 
     [SeasonId] INT NULL, 
     [PercentageOfOrganicMatter] DECIMAL(18, 3) NULL, 
@@ -21,5 +22,5 @@
     [ModifiedOn] DATETIME2 NULL, 
     [ModifiedByID] INT NULL,
     CONSTRAINT [PK_SnsAnalyses] PRIMARY KEY ([ID] ASC),
-    CONSTRAINT [FK_SnsAnalyses_Fields] FOREIGN KEY([FieldID]) REFERENCES [dbo].[Fields] ([ID])
+    CONSTRAINT [FK_SnsAnalyses_Crops] FOREIGN KEY([CropID]) REFERENCES [dbo].[Crops] ([ID])
 )
