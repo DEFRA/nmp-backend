@@ -127,6 +127,7 @@
     <Build Include="DBO\Tables\CropInfoQuestions.sql" />
     <Build Include="DBO\Tables\ExcessWinterRainfallOptions.sql" />
     <Build Include="DBO\Tables\UserExtensions.sql" />
+    <Build Include="DBO\StoredProcedures\FertiliserManures\spFertiliserManures_GetByFarmIdAndYear.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Script.PostDeployment.sql">
