@@ -7,7 +7,8 @@ BEGIN
     DECLARE @ManagementPeriodID INT;
     DECLARE @RecommendationID INT;
     DECLARE @RecommendationCommentsID INT;
-    DECLARE @OrganicManureID INT;
+    DECLARE @OrganicManureID INT;    
+        DECLARE @SnsAnalysesIDs TABLE (ID INT);
 
     BEGIN TRY
         BEGIN TRANSACTION;
@@ -77,6 +78,28 @@ BEGIN
 
         CLOSE cur_ManagementPeriod;
         DEALLOCATE cur_ManagementPeriod;
+
+        
+        -- Fetch and store SnsAnalysis IDs associated with the Crop
+        INSERT INTO @SnsAnalysesIDs (ID)
+        SELECT ID FROM SnsAnalyses WHERE CropID = @CropsID;
+
+          -- Step 4: Delete SnsAnalysis records only if any exist
+        IF EXISTS (SELECT 1 FROM @SnsAnalysesIDs)
+        BEGIN
+            DECLARE @SnsAnalysisID INT;
+            DECLARE sns_cursor CURSOR FOR SELECT ID FROM @SnsAnalysesIDs;
+            OPEN sns_cursor;
+            FETCH NEXT FROM sns_cursor INTO @SnsAnalysisID;
+            WHILE @@FETCH_STATUS = 0
+            BEGIN
+                EXEC spSnsAnalyses_DeleteSnsAnalyses @SnsAnalysisID;
+                FETCH NEXT FROM sns_cursor INTO @SnsAnalysisID;
+            END
+            CLOSE sns_cursor;
+            DEALLOCATE sns_cursor;
+        END
+
 
         -- Delete the Crop
         DELETE FROM Crops WHERE ID = @CropsID;
