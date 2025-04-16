@@ -17,6 +17,9 @@ BEGIN
 		[Crops].[Year] AS Year,
 		[Crops].[CropOrder] AS CropOrder,
 		[Crops].[SowingDate] AS SowingDate,
+		[Crops].[SwardTypeID] AS SwardTypeID,
+		[Crops].[PotentialCut] AS PotentialCut,
+		[Crops].DefoliationSequenceID AS DefoliationSequenceID,
         CASE
             WHEN [Crops].[ModifiedOn] >= [Crops].[CreatedOn] THEN [Crops].[ModifiedOn]
             ELSE [Crops].[CreatedOn]
