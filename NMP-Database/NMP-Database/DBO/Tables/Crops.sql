@@ -26,7 +26,7 @@
     [SwardTypeID]           INT             NULL,
     [SwardManagementID]     INT             NULL,
     [PotentialCut]          INT             NULL,
-    [CreatedOn]             DATETIME2 (7)   CONSTRAINT [DF__tmp_ms_xx__Creat__61516785] DEFAULT (getdate()) NULL,
+    [CreatedOn]             DATETIME2       NULL DEFAULT GETDATE(), 
     [CreatedByID]           INT             NULL,
     [ModifiedOn]            DATETIME2 (7)   NULL,
     [ModifiedByID]          INT             NULL,
