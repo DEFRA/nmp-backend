@@ -28,7 +28,7 @@
     [PotentialCut]          INT             NULL,
     [CreatedOn]             DATETIME2       NULL DEFAULT GETDATE(), 
     [CreatedByID]           INT             NULL,
-    [ModifiedOn]            DATETIME2 (7)   NULL,
+    [ModifiedOn]            DATETIME2    NULL,
     [ModifiedByID]          INT             NULL,
     [PreviousID]            INT             NULL,
     CONSTRAINT [PK_Crops] PRIMARY KEY CLUSTERED ([ID] ASC),
