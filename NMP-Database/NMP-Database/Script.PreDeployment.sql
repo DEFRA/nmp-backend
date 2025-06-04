@@ -121,4 +121,16 @@ BEGIN
         END
      END
 
+
+
+    IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'CropTypeLinkings' AND TABLE_SCHEMA = 'DBO')
+    BEGIN
+        IF EXISTS(SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'CropTypeLinkings' AND COLUMN_NAME = 'NMaxLimitEngland' AND TABLE_SCHEMA = 'DBO')
+        BEGIN
+            IF EXISTS(SELECT 1 FROM CropTypeLinkings WHERE NMaxLimitEngland IS NULL AND CropTypeID=77)
+            BEGIN
+             UPDATE CropTypeLinkings SET NMaxLimitEngland=280, NMaxLimitWales=250 WHERE CropTypeID=77
+            END
+        END    
+     END
 END
