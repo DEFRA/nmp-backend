@@ -165,7 +165,7 @@ INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield
 INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [SNSCategoryID], [CropInfoOneQuestionID]) VALUES (74, 9, NULL, 0, 280, 250, 4, 8)--
 INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [SNSCategoryID], [CropInfoOneQuestionID]) VALUES (75, 9, NULL, 0, 370, 350, 4, NULL)--
 INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [SNSCategoryID], [CropInfoOneQuestionID]) VALUES (76, 9, NULL, 1, NULL, NULL, 4, NULL)--
-INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [SNSCategoryID], [CropInfoOneQuestionID]) VALUES (77, 9, NULL, 0, NULL, NULL, 4, NULL)--
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [SNSCategoryID], [CropInfoOneQuestionID]) VALUES (77, 9, NULL, 0, 280, 250, 4, NULL)--
 INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [SNSCategoryID], [CropInfoOneQuestionID]) VALUES (78, 9, NULL, 0, NULL, NULL, 4, NULL)--
 INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [SNSCategoryID], [CropInfoOneQuestionID]) VALUES (79, 9, NULL, 0, NULL, NULL, 4, NULL)
 INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [SNSCategoryID], [CropInfoOneQuestionID]) VALUES (90, 8, NULL, 0, 370, 350, 4, NULL)--
@@ -361,6 +361,10 @@ END
 IF EXISTS (SELECT 1 FROM [dbo].[CropTypeLinkings] where [CropTypeID]=163)
 BEGIN
 UPDATE [dbo].[CropTypeLinkings] SET [NMaxLimitEngland]=270,[NMaxLimitWales]=270 where [CropTypeID]=163
+END
+IF EXISTS (SELECT 1 FROM [dbo].[CropTypeLinkings] where [CropTypeID]=77 AND [NMaxLimitEngland] IS NULL)
+BEGIN
+UPDATE [dbo].CropTypeLinkings SET [NMaxLimitEngland]=280, [NMaxLimitWales]=250 WHERE [CropTypeID]=77 AND [NMaxLimitEngland] IS NULL
 END
 
 
