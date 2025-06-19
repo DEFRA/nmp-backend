@@ -81,4 +81,56 @@ BEGIN
         ALTER TABLE DBO.PKBalances
         ALTER COLUMN CreatedByID INT NULL;
     END
+
+    IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'Crops' AND TABLE_SCHEMA = 'DBO')
+    BEGIN
+        IF EXISTS(SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'Crops' AND COLUMN_NAME = 'DefoliationSequence' AND TABLE_SCHEMA = 'DBO')
+        BEGIN
+            PRINT 'Changing COLUMN NAME DefoliationSequence to DefoliationSequenceID';
+            EXEC sp_rename 'Crops.DefoliationSequence', 'DefoliationSequenceID', 'COLUMN';
+        END
+        IF NOT EXISTS(SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'Crops' AND COLUMN_NAME = 'SwardTypeID' AND TABLE_SCHEMA = 'DBO')
+        BEGIN
+            PRINT 'Add COLUMN';
+            ALTER TABLE Crops
+            ADD SwardTypeID INT NULL;
+        END
+        IF NOT EXISTS(SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'Crops' AND COLUMN_NAME = 'SwardManagementID' AND TABLE_SCHEMA = 'DBO')
+        BEGIN
+            PRINT 'Add COLUMN';
+            ALTER TABLE Crops
+            ADD SwardManagementID INT NULL;
+        END
+        IF NOT EXISTS(SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'Crops' AND COLUMN_NAME = 'PotentialCut' AND TABLE_SCHEMA = 'DBO')
+        BEGIN
+            PRINT 'Add COLUMN';
+            ALTER TABLE Crops
+            ADD PotentialCut INT NULL;
+        END
+        
+    END
+
+
+    IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'ManagementPeriods' AND TABLE_SCHEMA = 'DBO')
+    BEGIN
+        IF EXISTS(SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'ManagementPeriods' AND COLUMN_NAME = 'DefoliationID' AND TABLE_SCHEMA = 'DBO')
+        BEGIN
+            PRINT 'Changing COLUMN NAME DefoliationID to Defoliation';
+            EXEC sp_rename 'ManagementPeriods.DefoliationID', 'Defoliation', 'COLUMN';
+
+        END
+     END
+
+
+
+    IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'CropTypeLinkings' AND TABLE_SCHEMA = 'DBO')
+    BEGIN
+        IF EXISTS(SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'CropTypeLinkings' AND COLUMN_NAME = 'NMaxLimitEngland' AND TABLE_SCHEMA = 'DBO')
+        BEGIN
+            IF EXISTS(SELECT 1 FROM CropTypeLinkings WHERE NMaxLimitEngland IS NULL AND CropTypeID=77)
+            BEGIN
+             UPDATE CropTypeLinkings SET NMaxLimitEngland=280, NMaxLimitWales=250 WHERE CropTypeID=77
+            END
+        END    
+     END
 END

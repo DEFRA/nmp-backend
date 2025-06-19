@@ -129,6 +129,10 @@
     <Build Include="DBO\Tables\UserExtensions.sql" />
     <Build Include="DBO\StoredProcedures\FertiliserManures\spFertiliserManures_GetByFarmIdAndYear.sql" />
     <Build Include="DBO\StoredProcedures\OrganicManures\spOrganicManures_GetByFarmIdAndYear.sql" />
+    <Build Include="DBO\Tables\PreviousGrassIdMapping.sql" />
+    <Build Include="DBO\Tables\GrassHistoryIdMapping.sql" />
+    <Build Include="DBO\Tables\SoilGroupCategories.sql" />
+    <Build Include="DBO\Tables\CropGroupCategories.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Script.PostDeployment.sql">

@@ -17,18 +17,24 @@ BEGIN
 		[Crops].[Year] AS Year,
 		[Crops].[CropOrder] AS CropOrder,
 		[Crops].[SowingDate] AS SowingDate,
+		[Crops].[SwardTypeID] AS SwardTypeID,
+		[Crops].[PotentialCut] AS PotentialCut,
+		[Crops].SwardManagementID AS SwardManagementID,
+		[Crops].DefoliationSequenceID AS DefoliationSequenceID,
+		[Crops].Establishment AS Establishment,
         CASE
             WHEN [Crops].[ModifiedOn] >= [Crops].[CreatedOn] THEN [Crops].[ModifiedOn]
             ELSE [Crops].[CreatedOn]
-        END AS LastModifiedOn,
-        (SELECT COUNT(DISTINCT [OrganicManures].[ID]) FROM [OrganicManures] WHERE [OrganicManures].[ManagementPeriodID] = [ManagementPeriods].[ID]) AS TotalOrganicManures,
-        (SELECT COUNT(DISTINCT [FertiliserManures].[ID])  FROM [FertiliserManures]  WHERE [FertiliserManures].[ManagementPeriodID] = [ManagementPeriods].[ID]) AS TotalFertiliserManures
+        END AS LastModifiedOn
+		--,
+  --      (SELECT COUNT(DISTINCT [OrganicManures].[ID]) FROM [OrganicManures] WHERE [OrganicManures].[ManagementPeriodID] = [ManagementPeriods].[ID]) AS TotalOrganicManures,
+  --      (SELECT COUNT(DISTINCT [FertiliserManures].[ID])  FROM [FertiliserManures]  WHERE [FertiliserManures].[ManagementPeriodID] = [ManagementPeriods].[ID]) AS TotalFertiliserManures
    FROM
         [Crops]
     INNER JOIN
         [Fields] ON [Fields].[ID] = [Crops].[FieldID]
-    INNER JOIN
-    	[ManagementPeriods] ON [ManagementPeriods].[CropID] = [Crops].[ID]
+    --INNER JOIN
+    --	[ManagementPeriods] ON [ManagementPeriods].[CropID] = [Crops].[ID]
     WHERE
         [Fields].[FarmID] = @farmId
     AND 
