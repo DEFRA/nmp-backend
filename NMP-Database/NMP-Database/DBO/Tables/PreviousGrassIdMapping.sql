@@ -5,7 +5,9 @@
     [SecondHYFieldType] INT NULL, 
     [ThirdHYFieldType] INT NULL, 
     [LayDuration] INT NULL,    --1 for 1 to 2 years, 2 for 3 to 5 years
-    [IsGrazedOnly] BIT NULL, 
+    [IsGrazedOnly] BIT NULL,
+    [IsCutOnly] BIT NULL,
+    [IsGrazedNCut] BIT NULL,
     [IsHighClover] BIT NULL, 
     [NitrogenUse] NVARCHAR(20) NULL, 
     [PreviousGrassID] INT NULL,
