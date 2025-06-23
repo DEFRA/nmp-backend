@@ -20,7 +20,7 @@ BEGIN
     SET IDENTITY_INSERT [dbo].[Countries] OFF
 END
 
-
+GO
 
 IF NOT EXISTS (SELECT 1 FROM [dbo].[SoilTypeSoilTextures])
 BEGIN
@@ -54,8 +54,7 @@ END
 GO
 
 
-SET IDENTITY_INSERT [dbo].[CropInfoQuestions] ON 
-
+SET IDENTITY_INSERT [dbo].[CropInfoQuestions] ON
 IF NOT EXISTS (SELECT 1 FROM [dbo].[CropInfoQuestions] WHERE [ID] = 1)
 BEGIN
     INSERT [dbo].[CropInfoQuestions] ([ID], [CropInfoQuestion]) VALUES (1, N'How do you plan to use the grain?')
@@ -108,9 +107,9 @@ IF NOT EXISTS (SELECT 1 FROM [dbo].[CropInfoQuestions] WHERE [ID] = 13)
 BEGIN
     INSERT [dbo].[CropInfoQuestions] ([ID], [CropInfoQuestion]) VALUES (13, N'Is the crop in its first two years of establishment?')
 END
-
 SET IDENTITY_INSERT [dbo].[CropInfoQuestions] OFF
 
+GO
 
 IF NOT EXISTS (SELECT 1 FROM [dbo].[CropTypeLinkings])
 BEGIN
@@ -367,7 +366,7 @@ BEGIN
 UPDATE [dbo].CropTypeLinkings SET [NMaxLimitEngland]=280, [NMaxLimitWales]=250 WHERE [CropTypeID]=77 AND [NMaxLimitEngland] IS NULL
 END
 
-
+GO
 
 IF NOT EXISTS (SELECT 1 FROM [dbo].[InOrganicManureDurations])
 BEGIN
@@ -382,6 +381,8 @@ BEGIN
     INSERT [dbo].[InOrganicManureDurations] ([ID], [Name], [ApplicationDate], [ApplicationMonth]) VALUES (8, N'Mid June to July', 7, 7)
     SET IDENTITY_INSERT [dbo].[InOrganicManureDurations] OFF
 END
+
+GO
 
 IF NOT EXISTS (SELECT 1 FROM [dbo].[SecondCropLinkings])
 BEGIN
@@ -447,8 +448,6 @@ INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (58, 17
 INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (58, 173)
 INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (58, 174)
 
-
-
 INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (60, 60)
 INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (60, 61)
 INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (60, 62)
@@ -504,7 +503,6 @@ INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (61, 94
 INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (61, 170)
 INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (61, 181)
 INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (61, 182)
-
 
 INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (62, 60)
 INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (62, 61)
@@ -927,7 +925,6 @@ INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (77, 17
 INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (77, 181)
 INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (77, 182)
 
-
 INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (78, 60)
 INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (78, 61)
 INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (78, 62)
@@ -1216,6 +1213,8 @@ INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (182, 1
 --SET IDENTITY_INSERT [dbo].[SecondCropLinkings] OFF
 END
 
+GO
+
 IF NOT EXISTS (SELECT 1 FROM [dbo].[GrassManagementOptions])
 BEGIN
     SET IDENTITY_INSERT [dbo].[GrassManagementOptions] ON 
@@ -1225,6 +1224,8 @@ BEGIN
     SET IDENTITY_INSERT [dbo].[GrassManagementOptions] OFF
 END
 
+GO
+
 IF NOT EXISTS (SELECT 1 FROM [dbo].[GrassTypicalCuts])
 BEGIN
     SET IDENTITY_INSERT [dbo].[GrassTypicalCuts] ON 
@@ -1233,6 +1234,8 @@ BEGIN
     SET IDENTITY_INSERT [dbo].[GrassTypicalCuts] OFF
 END
 
+GO
+
 IF NOT EXISTS (SELECT 1 FROM [dbo].[SoilNitrogenSupplyItems])
 BEGIN
 SET IDENTITY_INSERT [dbo].[SoilNitrogenSupplyItems] ON 
@@ -1240,15 +1243,17 @@ INSERT [dbo].[SoilNitrogenSupplyItems] ([ID], [Name],[SoilNitrogenSupplyId]) VAL
 INSERT [dbo].[SoilNitrogenSupplyItems] ([ID], [Name],[SoilNitrogenSupplyId]) VALUES (2, N'Up to 100kg per hectare',1)
 INSERT [dbo].[SoilNitrogenSupplyItems] ([ID], [Name],[SoilNitrogenSupplyId]) VALUES (3, N'100kg to 250kg per hectare',2)
 INSERT [dbo].[SoilNitrogenSupplyItems] ([ID], [Name],[SoilNitrogenSupplyId]) VALUES (4, N'Over 250kg per hectare',3)
-    
 SET IDENTITY_INSERT [dbo].[SoilNitrogenSupplyItems] OFF
 END
 
+GO
+
 IF EXISTS (SELECT 1 FROM [dbo].[Farms] where [ClimateDataPostCode] IS NULL)
 BEGIN
-UPDATE [dbo].[Farms] SET [ClimateDataPostCode]=[Postcode] where [ClimateDataPostCode] IS NULL
+    UPDATE [dbo].[Farms] SET [ClimateDataPostCode]=[Postcode] where [ClimateDataPostCode] IS NULL
 END
 
+GO
 
 IF NOT EXISTS (SELECT 1 FROM [dbo].[ExcessWinterRainfallOptions])
 BEGIN
@@ -1259,72 +1264,114 @@ BEGIN
     SET IDENTITY_INSERT [dbo].[ExcessWinterRainfallOptions] OFF
 END
 
+GO
 IF NOT EXISTS (SELECT 1 FROM [dbo].[PreviousGrassIdMapping])
 BEGIN
     SET IDENTITY_INSERT [dbo].[PreviousGrassIdMapping] ON
-INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, IsHighClover, NitrogenUse, PreviousGrassID) VALUES (1, 2, 2, 2, 2, 1, 1, 'High', 9);
-INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, IsHighClover, NitrogenUse, PreviousGrassID) VALUES (2, 2, 2, 2, 2, 1, 0, 'High', 9);
-INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, IsHighClover, NitrogenUse, PreviousGrassID) VALUES (3, 2, 2, 2, 2, 1, 0, 'Low', 5);
-INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, IsHighClover, NitrogenUse, PreviousGrassID) VALUES (4, 2, 2, 2, 2, 0, 1, 'High', 5);
-INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, IsHighClover, NitrogenUse, PreviousGrassID) VALUES (5, 2, 2, 2, 2, 0, 0, 'Low', 2);
-INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, IsHighClover, NitrogenUse, PreviousGrassID) VALUES (6, 2, 2, 2, 2, 0, 0, 'High', 5);
-INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, IsHighClover, NitrogenUse, PreviousGrassID) VALUES (7, 1, 2, 2, 1, 1, 1, 'High', 13);
-INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, IsHighClover, NitrogenUse, PreviousGrassID) VALUES (8, 1, 2, 2, 1, 1, 0, 'High', 13);
-INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, IsHighClover, NitrogenUse, PreviousGrassID) VALUES (9, 1, 2, 2, 1, 1, 0, 'Low', 10);
-INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, IsHighClover, NitrogenUse, PreviousGrassID) VALUES (10, 1, 2, 2, 1, 0, 1, 'High', 10);
-INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, IsHighClover, NitrogenUse, PreviousGrassID) VALUES (11, 1, 2, 2, 1, 0, 0, 'Low', 10);
-INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, IsHighClover, NitrogenUse, PreviousGrassID) VALUES (12, 1, 2, 2, 1, 0, 0, 'High', 10);
-INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, IsHighClover, NitrogenUse, PreviousGrassID) VALUES (13, 1, 2, 2, 2, 1, 1, 'High', 17);
-INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, IsHighClover, NitrogenUse, PreviousGrassID) VALUES (14, 1, 2, 2, 2, 1, 0, 'High', 17);
-INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, IsHighClover, NitrogenUse, PreviousGrassID) VALUES (15, 1, 2, 2, 2, 1, 0, 'Low', 13);
-INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, IsHighClover, NitrogenUse, PreviousGrassID) VALUES (16, 1, 2, 2, 2, 0, 1, 'High', 13);
-INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, IsHighClover, NitrogenUse, PreviousGrassID) VALUES (17, 1, 2, 2, 2, 0, 0, 'Low', 10);
-INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, IsHighClover, NitrogenUse, PreviousGrassID) VALUES (18, 1, 2, 2, 2, 0, 0, 'High', 13);
-INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, IsHighClover, NitrogenUse, PreviousGrassID) VALUES (19, 1, 1, 2, 1, 1, 1, 'High', 21);
-INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, IsHighClover, NitrogenUse, PreviousGrassID) VALUES (20, 1, 1, 2, 1, 1, 0, 'High', 21);
-INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, IsHighClover, NitrogenUse, PreviousGrassID) VALUES (21, 1, 1, 2, 1, 1, 0, 'Low', 18);
-INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, IsHighClover, NitrogenUse, PreviousGrassID) VALUES (22, 1, 1, 2, 1, 0, 1, 'High', 18);
-INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, IsHighClover, NitrogenUse, PreviousGrassID) VALUES (23, 1, 1, 2, 1, 0, 0, 'Low', 18);
-INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, IsHighClover, NitrogenUse, PreviousGrassID) VALUES (24, 1, 1, 2, 1, 0, 0, 'High', 18);
-INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, IsHighClover, NitrogenUse, PreviousGrassID) VALUES (25, 1, 1, 2, 2, 1, 1, 'High', 25);
-INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, IsHighClover, NitrogenUse, PreviousGrassID) VALUES (26, 1, 1, 2, 2, 1, 0, 'High', 25);
-INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, IsHighClover, NitrogenUse, PreviousGrassID) VALUES (27, 1, 1, 2, 2, 1, 0, 'Low', 21);
-INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, IsHighClover, NitrogenUse, PreviousGrassID) VALUES (28, 1, 1, 2, 2, 0, 1, 'High', 21);
-INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, IsHighClover, NitrogenUse, PreviousGrassID) VALUES (29, 1, 1, 2, 2, 0, 0, 'Low', 18);
-INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, IsHighClover, NitrogenUse, PreviousGrassID) VALUES (30, 1, 1, 2, 2, 0, 0, 'High', 21);
-INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, IsHighClover, NitrogenUse, PreviousGrassID) VALUES (31, 2, 1, 2, 1, 1, 1, 'High', 5);
-INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, IsHighClover, NitrogenUse, PreviousGrassID) VALUES (32, 2, 1, 2, 1, 1, 0, 'High', 5);
-INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, IsHighClover, NitrogenUse, PreviousGrassID) VALUES (33, 2, 1, 2, 1, 1, 0, 'Low', 2);
-INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, IsHighClover, NitrogenUse, PreviousGrassID) VALUES (34, 2, 1, 2, 1, 0, 1, 'High', 2);
-INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, IsHighClover, NitrogenUse, PreviousGrassID) VALUES (35, 2, 1, 2, 1, 0, 0, 'Low', 2);
-INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, IsHighClover, NitrogenUse, PreviousGrassID) VALUES (36, 2, 1, 2, 1, 0, 0, 'High', 2);
-INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, IsHighClover, NitrogenUse, PreviousGrassID) VALUES (37, 2, 1, 1, 1, 1, 1, 'High', 5);
-INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, IsHighClover, NitrogenUse, PreviousGrassID) VALUES (38, 2, 1, 1, 1, 1, 0, 'High', 5);
-INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, IsHighClover, NitrogenUse, PreviousGrassID) VALUES (39, 2, 1, 1, 1, 1, 0, 'Low', 2);
-INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, IsHighClover, NitrogenUse, PreviousGrassID) VALUES (40, 2, 1, 1, 1, 0, 1, 'High', 2);
-INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, IsHighClover, NitrogenUse, PreviousGrassID) VALUES (41, 2, 1, 1, 1, 0, 0, 'Low', 2);
-INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, IsHighClover, NitrogenUse, PreviousGrassID) VALUES (42, 2, 1, 1, 1, 0, 0, 'High', 2);
-INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, IsHighClover, NitrogenUse, PreviousGrassID) VALUES (43, 2, 2, 1, 1, 1, 1, 'High', 5);
-INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, IsHighClover, NitrogenUse, PreviousGrassID) VALUES (44, 2, 2, 1, 1, 1, 0, 'High', 5);
-INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, IsHighClover, NitrogenUse, PreviousGrassID) VALUES (45, 2, 2, 1, 1, 1, 0, 'Low', 2);
-INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, IsHighClover, NitrogenUse, PreviousGrassID) VALUES (46, 2, 2, 1, 1, 0, 1, 'High', 2);
-INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, IsHighClover, NitrogenUse, PreviousGrassID) VALUES (47, 2, 2, 1, 1, 0, 0, 'Low', 2);
-INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, IsHighClover, NitrogenUse, PreviousGrassID) VALUES (48, 2, 2, 1, 1, 0, 0, 'High', 2);
-INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, IsHighClover, NitrogenUse, PreviousGrassID) VALUES (49, 1, 2, 1, 1, 1, 1, 'High', 13);
-INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, IsHighClover, NitrogenUse, PreviousGrassID) VALUES (50, 1, 2, 1, 1, 1, 0, 'High', 13);
-INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, IsHighClover, NitrogenUse, PreviousGrassID) VALUES (51, 1, 2, 1, 1, 1, 0, 'Low', 10);
-INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, IsHighClover, NitrogenUse, PreviousGrassID) VALUES (52, 1, 2, 1, 1, 0, 1, 'High', 10);
-INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, IsHighClover, NitrogenUse, PreviousGrassID) VALUES (53, 1, 2, 1, 1, 0, 0, 'Low', 10);
-INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, IsHighClover, NitrogenUse, PreviousGrassID) VALUES (54, 1, 2, 1, 1, 0, 0, 'High', 10);
-INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, IsHighClover, NitrogenUse, PreviousGrassID) VALUES (55, 2, 1, 1, 1, 1, 1, 'High', 5);
-INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, IsHighClover, NitrogenUse, PreviousGrassID) VALUES (56, 2, 1, 1, 1, 1, 0, 'High', 5);
-INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, IsHighClover, NitrogenUse, PreviousGrassID) VALUES (57, 2, 1, 1, 1, 1, 0, 'Low', 2);
-INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, IsHighClover, NitrogenUse, PreviousGrassID) VALUES (58, 2, 1, 1, 1, 0, 1, 'High', 2);
-INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, IsHighClover, NitrogenUse, PreviousGrassID) VALUES (59, 2, 1, 1, 1, 0, 0, 'Low', 2);
-INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, IsHighClover, NitrogenUse, PreviousGrassID) VALUES (60, 2, 1, 1, 1, 0, 0, 'High', 2);
-SET IDENTITY_INSERT [dbo].[PreviousGrassIdMapping] OFF
+    INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, [IsCutOnly], [IsGrazedNCut], IsHighClover, NitrogenUse, PreviousGrassID) VALUES (1, 2, 2, 2, 2, 1,0,0, 1, 'High', 9);
+    INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, [IsCutOnly], [IsGrazedNCut], IsHighClover, NitrogenUse, PreviousGrassID) VALUES (2, 2, 2, 2, 2, 0,1,0, 1, 'High', 5);
+    INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, [IsCutOnly], [IsGrazedNCut], IsHighClover, NitrogenUse, PreviousGrassID) VALUES (3, 2, 2, 2, 2, 0,0,1, 1, 'High', 5);
+    INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, [IsCutOnly], [IsGrazedNCut],IsHighClover, NitrogenUse, PreviousGrassID) VALUES (4, 2, 2, 2, 2, 1,0,0, 0, 'High', 9);
+    INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, [IsCutOnly], [IsGrazedNCut],IsHighClover, NitrogenUse, PreviousGrassID) VALUES (5, 2, 2, 2, 2, 0,1,0, 0, 'High', 5);
+    INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, [IsCutOnly], [IsGrazedNCut],IsHighClover, NitrogenUse, PreviousGrassID) VALUES (6, 2, 2, 2, 2, 0,0,1, 0, 'High', 5);
+    INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, [IsCutOnly], [IsGrazedNCut],IsHighClover, NitrogenUse, PreviousGrassID) VALUES (7, 2, 2, 2, 2, 1,0,0, 0, 'Low', 5);
+    INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, [IsCutOnly], [IsGrazedNCut],IsHighClover, NitrogenUse, PreviousGrassID) VALUES (8, 2, 2, 2, 2, 0,1,0, 0, 'Low', 2);
+    INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, [IsCutOnly], [IsGrazedNCut],IsHighClover, NitrogenUse, PreviousGrassID) VALUES (9, 2, 2, 2, 2, 0,0,1, 0, 'Low', 5);
+
+    INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, [IsCutOnly], [IsGrazedNCut],IsHighClover, NitrogenUse, PreviousGrassID) VALUES (10, 1, 2, 2, 1, 1,0,0, 1, 'High', 13);
+    INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, [IsCutOnly], [IsGrazedNCut],IsHighClover, NitrogenUse, PreviousGrassID) VALUES (11, 1, 2, 2, 1, 0,1,0, 1, 'High', 10);
+    INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, [IsCutOnly], [IsGrazedNCut],IsHighClover, NitrogenUse, PreviousGrassID) VALUES (12, 1, 2, 2, 1, 0,0,1, 1, 'High', 13);
+    INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, [IsCutOnly], [IsGrazedNCut],IsHighClover, NitrogenUse, PreviousGrassID) VALUES (13, 1, 2, 2, 1, 1,0,0, 0, 'High', 13);
+    INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, [IsCutOnly], [IsGrazedNCut],IsHighClover, NitrogenUse, PreviousGrassID) VALUES (14, 1, 2, 2, 1, 0,1,0, 0, 'High', 10);
+    INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, [IsCutOnly], [IsGrazedNCut],IsHighClover, NitrogenUse, PreviousGrassID) VALUES (15, 1, 2, 2, 1, 0,0,1, 0, 'High', 13);
+    INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, [IsCutOnly], [IsGrazedNCut],IsHighClover, NitrogenUse, PreviousGrassID) VALUES (16, 1, 2, 2, 1, 1,0,0, 0, 'Low', 10);
+    INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, [IsCutOnly], [IsGrazedNCut],IsHighClover, NitrogenUse, PreviousGrassID) VALUES (17, 1, 2, 2, 1, 0,1,0, 0, 'Low', 10);
+    INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, [IsCutOnly], [IsGrazedNCut],IsHighClover, NitrogenUse, PreviousGrassID) VALUES (18, 1, 2, 2, 1, 0,0,1, 0, 'Low', 10);
+
+    INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, [IsCutOnly], [IsGrazedNCut],IsHighClover, NitrogenUse, PreviousGrassID) VALUES (19, 1, 2, 2, 2, 1,0,0, 1, 'High', 17);
+    INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, [IsCutOnly], [IsGrazedNCut],IsHighClover, NitrogenUse, PreviousGrassID) VALUES (20, 1, 2, 2, 2, 0,1,0, 1, 'High', 13);
+    INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, [IsCutOnly], [IsGrazedNCut],IsHighClover, NitrogenUse, PreviousGrassID) VALUES (21, 1, 2, 2, 2, 0,0,1, 1, 'High', 13);
+    INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, [IsCutOnly], [IsGrazedNCut],IsHighClover, NitrogenUse, PreviousGrassID) VALUES (22, 1, 2, 2, 2, 1,0,0, 0, 'High', 17);
+    INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, [IsCutOnly], [IsGrazedNCut],IsHighClover, NitrogenUse, PreviousGrassID) VALUES (23, 1, 2, 2, 2, 0,1,0, 0, 'High', 13);
+    INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, [IsCutOnly], [IsGrazedNCut],IsHighClover, NitrogenUse, PreviousGrassID) VALUES (24, 1, 2, 2, 2, 0,0,1, 0, 'High', 13);
+    INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, [IsCutOnly], [IsGrazedNCut],IsHighClover, NitrogenUse, PreviousGrassID) VALUES (25, 1, 2, 2, 2, 1,0,0, 0, 'Low', 13);
+    INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, [IsCutOnly], [IsGrazedNCut],IsHighClover, NitrogenUse, PreviousGrassID) VALUES (26, 1, 2, 2, 2, 0,1,0, 0, 'Low', 10);
+    INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, [IsCutOnly], [IsGrazedNCut],IsHighClover, NitrogenUse, PreviousGrassID) VALUES (27, 1, 2, 2, 2, 0,0,1, 0, 'Low', 13);
+
+    INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, [IsCutOnly], [IsGrazedNCut],IsHighClover, NitrogenUse, PreviousGrassID) VALUES (28, 1, 1, 2, 1, 1,0,0, 1, 'High', 21);
+    INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, [IsCutOnly], [IsGrazedNCut],IsHighClover, NitrogenUse, PreviousGrassID) VALUES (29, 1, 1, 2, 1, 0,1,0, 1, 'High', 18);
+    INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, [IsCutOnly], [IsGrazedNCut],IsHighClover, NitrogenUse, PreviousGrassID) VALUES (30, 1, 1, 2, 1, 0,0,1, 1, 'High', 21);
+    INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, [IsCutOnly], [IsGrazedNCut],IsHighClover, NitrogenUse, PreviousGrassID) VALUES (31, 1, 1, 2, 1, 1,0,0, 0, 'High', 21);
+    INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, [IsCutOnly], [IsGrazedNCut],IsHighClover, NitrogenUse, PreviousGrassID) VALUES (32, 1, 1, 2, 1, 0,1,0, 0, 'High', 18);
+    INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, [IsCutOnly], [IsGrazedNCut],IsHighClover, NitrogenUse, PreviousGrassID) VALUES (33, 1, 1, 2, 1, 0,0,1, 0, 'High', 18);
+    INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, [IsCutOnly], [IsGrazedNCut],IsHighClover, NitrogenUse, PreviousGrassID) VALUES (34, 1, 1, 2, 1, 1,0,0, 0, 'Low', 18);
+    INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, [IsCutOnly], [IsGrazedNCut],IsHighClover, NitrogenUse, PreviousGrassID) VALUES (35, 1, 1, 2, 1, 0,1,0, 0, 'Low', 18);
+    INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, [IsCutOnly], [IsGrazedNCut],IsHighClover, NitrogenUse, PreviousGrassID) VALUES (36, 1, 1, 2, 1, 0,0,1, 0, 'Low', 18);
+
+    INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, [IsCutOnly], [IsGrazedNCut],IsHighClover, NitrogenUse, PreviousGrassID) VALUES (37, 1, 1, 2, 2, 1,0,0, 1, 'High', 25);
+    INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, [IsCutOnly], [IsGrazedNCut],IsHighClover, NitrogenUse, PreviousGrassID) VALUES (38, 1, 1, 2, 2, 0,1,0, 1, 'High', 21);
+    INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, [IsCutOnly], [IsGrazedNCut],IsHighClover, NitrogenUse, PreviousGrassID) VALUES (39, 1, 1, 2, 2, 0,0,1, 1, 'High', 21);
+    INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, [IsCutOnly], [IsGrazedNCut],IsHighClover, NitrogenUse, PreviousGrassID) VALUES (40, 1, 1, 2, 2, 1,0,0, 0, 'High', 25);
+    INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, [IsCutOnly], [IsGrazedNCut],IsHighClover, NitrogenUse, PreviousGrassID) VALUES (41, 1, 1, 2, 2, 0,1,0, 0, 'High', 21);
+    INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, [IsCutOnly], [IsGrazedNCut],IsHighClover, NitrogenUse, PreviousGrassID) VALUES (42, 1, 1, 2, 2, 0,0,1, 0, 'High', 21);
+    INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, [IsCutOnly], [IsGrazedNCut],IsHighClover, NitrogenUse, PreviousGrassID) VALUES (43, 1, 1, 2, 2, 1,0,0, 0, 'Low', 21);
+    INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, [IsCutOnly], [IsGrazedNCut],IsHighClover, NitrogenUse, PreviousGrassID) VALUES (44, 1, 1, 2, 2, 0,1,0, 0, 'Low', 18);
+    INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, [IsCutOnly], [IsGrazedNCut],IsHighClover, NitrogenUse, PreviousGrassID) VALUES (45, 1, 1, 2, 2, 0,0,1, 0, 'Low', 21);
+
+    INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, [IsCutOnly], [IsGrazedNCut],IsHighClover, NitrogenUse, PreviousGrassID) VALUES (46, 2, 1, 2, 1, 1,0,0, 1, 'High', 5);
+    INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, [IsCutOnly], [IsGrazedNCut],IsHighClover, NitrogenUse, PreviousGrassID) VALUES (47, 2, 1, 2, 1, 0,1,0, 1, 'High', 2);
+    INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, [IsCutOnly], [IsGrazedNCut],IsHighClover, NitrogenUse, PreviousGrassID) VALUES (48, 2, 1, 2, 1, 0,0,1, 1, 'High', 5);
+    INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, [IsCutOnly], [IsGrazedNCut],IsHighClover, NitrogenUse, PreviousGrassID) VALUES (49, 2, 1, 2, 1, 1,0,0, 0, 'High', 5);
+    INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, [IsCutOnly], [IsGrazedNCut],IsHighClover, NitrogenUse, PreviousGrassID) VALUES (50, 2, 1, 2, 1, 0,1,0, 0, 'High', 2);
+    INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, [IsCutOnly], [IsGrazedNCut],IsHighClover, NitrogenUse, PreviousGrassID) VALUES (51, 2, 1, 2, 1, 0,0,1, 0, 'High', 5);
+    INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, [IsCutOnly], [IsGrazedNCut],IsHighClover, NitrogenUse, PreviousGrassID) VALUES (52, 2, 1, 2, 1, 1,0,0, 0, 'Low', 2);
+    INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, [IsCutOnly], [IsGrazedNCut],IsHighClover, NitrogenUse, PreviousGrassID) VALUES (53, 2, 1, 2, 1, 0,1,0, 0, 'Low', 2);
+    INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, [IsCutOnly], [IsGrazedNCut],IsHighClover, NitrogenUse, PreviousGrassID) VALUES (54, 2, 1, 2, 1, 0,0,1, 0, 'Low', 2);
+
+    INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, [IsCutOnly], [IsGrazedNCut],IsHighClover, NitrogenUse, PreviousGrassID) VALUES (55, 2, 1, 1, 1, 1,0,0, 1, 'High', 5);
+    INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, [IsCutOnly], [IsGrazedNCut],IsHighClover, NitrogenUse, PreviousGrassID) VALUES (56, 2, 1, 1, 1, 0,1,0, 1, 'High', 2);
+    INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, [IsCutOnly], [IsGrazedNCut],IsHighClover, NitrogenUse, PreviousGrassID) VALUES (57, 2, 1, 1, 1, 0,0,1, 1, 'High', 5);
+    INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, [IsCutOnly], [IsGrazedNCut],IsHighClover, NitrogenUse, PreviousGrassID) VALUES (58, 2, 1, 1, 1, 1,0,0, 0, 'High', 5);
+    INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, [IsCutOnly], [IsGrazedNCut],IsHighClover, NitrogenUse, PreviousGrassID) VALUES (59, 2, 1, 1, 1, 0,1,0, 0, 'High', 2);
+    INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, [IsCutOnly], [IsGrazedNCut],IsHighClover, NitrogenUse, PreviousGrassID) VALUES (60, 2, 1, 1, 1, 0,0,1, 0, 'High', 5);
+    INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, [IsCutOnly], [IsGrazedNCut],IsHighClover, NitrogenUse, PreviousGrassID) VALUES (61, 2, 1, 1, 1, 1,0,0, 0, 'Low', 2);
+    INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, [IsCutOnly], [IsGrazedNCut],IsHighClover, NitrogenUse, PreviousGrassID) VALUES (62, 2, 1, 1, 1, 0,1,0, 0, 'Low', 2);
+    INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, [IsCutOnly], [IsGrazedNCut],IsHighClover, NitrogenUse, PreviousGrassID) VALUES (63, 2, 1, 1, 1, 0,0,1, 0, 'Low', 2);
+
+    INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, [IsCutOnly], [IsGrazedNCut],IsHighClover, NitrogenUse, PreviousGrassID) VALUES (64, 2, 2, 1, 1, 1,0,0, 1, 'High', 5);
+    INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, [IsCutOnly], [IsGrazedNCut],IsHighClover, NitrogenUse, PreviousGrassID) VALUES (65, 2, 2, 1, 1, 0,1,0, 1, 'High', 2);
+    INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, [IsCutOnly], [IsGrazedNCut],IsHighClover, NitrogenUse, PreviousGrassID) VALUES (66, 2, 2, 1, 1, 0,0,1, 1, 'High', 5);
+    INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, [IsCutOnly], [IsGrazedNCut],IsHighClover, NitrogenUse, PreviousGrassID) VALUES (67, 2, 2, 1, 1, 1,0,0, 0, 'High', 5);
+    INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, [IsCutOnly], [IsGrazedNCut],IsHighClover, NitrogenUse, PreviousGrassID) VALUES (68, 2, 2, 1, 1, 0,1,0, 0, 'High', 2);
+    INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, [IsCutOnly], [IsGrazedNCut],IsHighClover, NitrogenUse, PreviousGrassID) VALUES (69, 2, 2, 1, 1, 0,0,1, 0, 'High', 5);
+    INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, [IsCutOnly], [IsGrazedNCut],IsHighClover, NitrogenUse, PreviousGrassID) VALUES (70, 2, 2, 1, 1, 1,0,0, 0, 'Low', 2);
+    INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, [IsCutOnly], [IsGrazedNCut],IsHighClover, NitrogenUse, PreviousGrassID) VALUES (71, 2, 2, 1, 1, 0,1,0, 0, 'Low', 2);
+    INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, [IsCutOnly], [IsGrazedNCut],IsHighClover, NitrogenUse, PreviousGrassID) VALUES (72, 2, 2, 1, 1, 0,0,1, 0, 'Low', 2);
+
+    INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, [IsCutOnly], [IsGrazedNCut],IsHighClover, NitrogenUse, PreviousGrassID) VALUES (73, 1, 2, 1, 1, 1,0,0, 1, 'High', 13);
+    INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, [IsCutOnly], [IsGrazedNCut],IsHighClover, NitrogenUse, PreviousGrassID) VALUES (74, 1, 2, 1, 1, 0,1,0, 1, 'High', 10);
+    INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, [IsCutOnly], [IsGrazedNCut],IsHighClover, NitrogenUse, PreviousGrassID) VALUES (75, 1, 2, 1, 1, 0,0,1, 1, 'High', 13);
+    INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, [IsCutOnly], [IsGrazedNCut],IsHighClover, NitrogenUse, PreviousGrassID) VALUES (76, 1, 2, 1, 1, 1,0,0, 0, 'High', 13);
+    INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, [IsCutOnly], [IsGrazedNCut],IsHighClover, NitrogenUse, PreviousGrassID) VALUES (77, 1, 2, 1, 1, 0,1,0, 0, 'High', 10);
+    INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, [IsCutOnly], [IsGrazedNCut],IsHighClover, NitrogenUse, PreviousGrassID) VALUES (78, 1, 2, 1, 1, 0,0,1, 0, 'High', 13);
+    INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, [IsCutOnly], [IsGrazedNCut],IsHighClover, NitrogenUse, PreviousGrassID) VALUES (79, 1, 2, 1, 1, 1,0,0, 0, 'Low', 10);
+    INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, [IsCutOnly], [IsGrazedNCut],IsHighClover, NitrogenUse, PreviousGrassID) VALUES (80, 1, 2, 1, 1, 0,1,0, 0, 'Low', 10);
+    INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, [IsCutOnly], [IsGrazedNCut],IsHighClover, NitrogenUse, PreviousGrassID) VALUES (81, 1, 2, 1, 1, 0,0,1, 0, 'Low', 10);
+
+    INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, [IsCutOnly], [IsGrazedNCut],IsHighClover, NitrogenUse, PreviousGrassID) VALUES (82, 2, 1, 1, 1, 1,0,0, 1, 'High', 5);
+    INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, [IsCutOnly], [IsGrazedNCut],IsHighClover, NitrogenUse, PreviousGrassID) VALUES (83, 2, 1, 1, 1, 0,1,0, 1, 'High', 2);
+    INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, [IsCutOnly], [IsGrazedNCut],IsHighClover, NitrogenUse, PreviousGrassID) VALUES (84, 2, 1, 1, 1, 0,0,1, 1, 'High', 5);
+    INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, [IsCutOnly], [IsGrazedNCut],IsHighClover, NitrogenUse, PreviousGrassID) VALUES (85, 2, 1, 1, 1, 1,0,0, 0, 'High', 5);
+    INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, [IsCutOnly], [IsGrazedNCut],IsHighClover, NitrogenUse, PreviousGrassID) VALUES (86, 2, 1, 1, 1, 0,1,0, 0, 'High', 2);
+    INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, [IsCutOnly], [IsGrazedNCut],IsHighClover, NitrogenUse, PreviousGrassID) VALUES (87, 2, 1, 1, 1, 0,0,1, 0, 'High', 5);
+    INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, [IsCutOnly], [IsGrazedNCut],IsHighClover, NitrogenUse, PreviousGrassID) VALUES (88, 2, 1, 1, 1, 1,0,0, 0, 'Low', 2);
+    INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, [IsCutOnly], [IsGrazedNCut],IsHighClover, NitrogenUse, PreviousGrassID) VALUES (89, 2, 1, 1, 1, 0,1,0, 0, 'Low', 2);
+    INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, [IsCutOnly], [IsGrazedNCut],IsHighClover, NitrogenUse, PreviousGrassID) VALUES (90, 2, 1, 1, 1, 0,0,1, 0, 'Low', 2);
+
+    SET IDENTITY_INSERT [dbo].[PreviousGrassIdMapping] OFF
 END
 
+GO
 IF NOT EXISTS (SELECT 1 FROM [dbo].[GrassHistoryIdMapping])
 BEGIN
 SET IDENTITY_INSERT [dbo].[GrassHistoryIdMapping] ON
@@ -1347,6 +1394,7 @@ INSERT INTO [GrassHistoryIdMapping] ([ID], [FirstHYFieldType], [SecondHYFieldTyp
 SET IDENTITY_INSERT [dbo].[GrassHistoryIdMapping] OFF
 END
 
+GO
 IF NOT EXISTS (SELECT 1 FROM [dbo].[SoilGroupCategories])
 BEGIN
     --SET IDENTITY_INSERT [dbo].[SoilGroupCategories] ON
@@ -1366,6 +1414,7 @@ BEGIN
     --SET IDENTITY_INSERT [dbo].[SoilGroupCategories] OFF
 END
 
+GO
 IF NOT EXISTS (SELECT 1 FROM [dbo].[CropGroupCategories])
 BEGIN
     --SET IDENTITY_INSERT [dbo].[CropGroupCategories] ON
