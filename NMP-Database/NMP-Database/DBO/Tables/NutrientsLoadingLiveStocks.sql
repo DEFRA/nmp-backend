@@ -1,0 +1,28 @@
+﻿CREATE TABLE [dbo].[NutrientsLoadingLiveStocks] (
+    [Id]               INT             IDENTITY (1, 1) NOT NULL,
+    [FarmId]           INT             NOT NULL,
+    [LiveStockGroupId] INT             NOT NULL,
+    [LiveStockGroup]   NVARCHAR (250)  NULL,
+    [LiveStockTypeId]  INT             NULL,
+    [LiveStockType]    NVARCHAR (250)  NULL,
+    [Units]            DECIMAL (18, 3) NULL,
+    [NByUnit]          DECIMAL (18, 3) NULL,
+    [TotalNProduced]   DECIMAL (18, 3) NULL,
+    [Occupancy]        INT             NULL,
+    [PByUnit]          DECIMAL (18)    NULL,
+    [TotalPProduced]   INT             NULL,
+    [Jan]              INT             NULL,
+    [Feb]              INT             NULL,
+    [Mar]              INT             NULL,
+    [Apr]              INT             NULL,
+    [May]              INT             NULL,
+    [June]             INT             NULL,
+    [July]             INT             NULL,
+    [Aug]              INT             NULL,
+    [Sep]              INT             NULL,
+    [Oct]              INT             NULL,
+    [Nov]              INT             NULL,
+    [Dec]              INT             NULL,    
+    CONSTRAINT [PK_NutrientsLoadingLiveStocks] PRIMARY KEY ([ID] ASC)
+);
+
