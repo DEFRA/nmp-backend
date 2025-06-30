@@ -133,6 +133,11 @@
     <Build Include="DBO\Tables\GrassHistoryIdMapping.sql" />
     <Build Include="DBO\Tables\SoilGroupCategories.sql" />
     <Build Include="DBO\Tables\CropGroupCategories.sql" />
+    <Build Include="DBO\Tables\NutrientsLoadingManures.sql" />
+    <Build Include="DBO\Tables\NutrientsLoadingLiveStocks.sql" />
+    <Build Include="DBO\Tables\NutrientsLoadingFarmDetails.sql" />
+    <Build Include="DBO\Tables\LivestockTypes.sql" />
+    <Build Include="DBO\Tables\LivestockGroups.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Script.PostDeployment.sql">
