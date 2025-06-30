@@ -1484,53 +1484,56 @@ SET IDENTITY_INSERT [dbo].[LivestockGroups] ON
     SET IDENTITY_INSERT [dbo].[LivestockGroups] OFF    
 END
 
+
 IF NOT EXISTS (SELECT 1 FROM [dbo].[LivestockTypes])
 BEGIN
-
     SET IDENTITY_INSERT [dbo].[LivestockTypes] ON 
-    INSERT [dbo].[LivestockTypes] ([ID], [LivestockGroupID], [Name], [IsDairyCow], [NByUnit], [NByUnitCalc], [P2o5], [P2o5Calc], [Occupancy], [OrderBy]) VALUES (1, 1, N'1 dairy cow (over 9000 litres milk yield)', 1, CAST(115.00 AS Decimal(8, 2)), CAST(115.00 AS Decimal(8, 2)), CAST(52.00 AS Decimal(8, 2)), CAST(52.00 AS Decimal(8, 2)), NULL, 1)
-    INSERT [dbo].[LivestockTypes] ([ID], [LivestockGroupID], [Name], [IsDairyCow], [NByUnit], [NByUnitCalc], [P2o5], [P2o5Calc], [Occupancy], [OrderBy]) VALUES (2, 1, N'1 dairy cow (6000-9000 litres milk yield)', 1, CAST(101.00 AS Decimal(8, 2)), CAST(101.00 AS Decimal(8, 2)), CAST(44.00 AS Decimal(8, 2)), CAST(44.00 AS Decimal(8, 2)), NULL, 2)
-    INSERT [dbo].[LivestockTypes] ([ID], [LivestockGroupID], [Name], [IsDairyCow], [NByUnit], [NByUnitCalc], [P2o5], [P2o5Calc], [Occupancy], [OrderBy]) VALUES (3, 1, N'1 dairy cow (up to 6000 litres milk yield)', 1, CAST(77.00 AS Decimal(8, 2)), CAST(77.00 AS Decimal(8, 2)), CAST(34.00 AS Decimal(8, 2)), CAST(34.00 AS Decimal(8, 2)), NULL, 3)
-    INSERT [dbo].[LivestockTypes] ([ID], [LivestockGroupID], [Name], [IsDairyCow], [NByUnit], [NByUnitCalc], [P2o5], [P2o5Calc], [Occupancy], [OrderBy]) VALUES (4, 1, N'1 dairy heifer replacement, 3-13 months', 0, CAST(35.00 AS Decimal(8, 2)), CAST(35.00 AS Decimal(8, 2)), CAST(12.40 AS Decimal(8, 2)), CAST(12.40 AS Decimal(8, 2)), NULL, 4)
-    INSERT [dbo].[LivestockTypes] ([ID], [LivestockGroupID], [Name], [IsDairyCow], [NByUnit], [NByUnitCalc], [P2o5], [P2o5Calc], [Occupancy], [OrderBy]) VALUES (5, 1, N'1 dairy heifer replacement, 13 months to first calf', 0, CAST(61.00 AS Decimal(8, 2)), CAST(61.00 AS Decimal(8, 2)), CAST(25.00 AS Decimal(8, 2)), CAST(25.00 AS Decimal(8, 2)), NULL, 5)
-    INSERT [dbo].[LivestockTypes] ([ID], [LivestockGroupID], [Name], [IsDairyCow], [NByUnit], [NByUnitCalc], [P2o5], [P2o5Calc], [Occupancy], [OrderBy]) VALUES (6, 1, N'1 beef suckler, 25 months and over (up to 500 kg)', 0, CAST(61.00 AS Decimal(8, 2)), CAST(61.00 AS Decimal(8, 2)), CAST(24.00 AS Decimal(8, 2)), CAST(24.00 AS Decimal(8, 2)), NULL, 6)
-    INSERT [dbo].[LivestockTypes] ([ID], [LivestockGroupID], [Name], [IsDairyCow], [NByUnit], [NByUnitCalc], [P2o5], [P2o5Calc], [Occupancy], [OrderBy]) VALUES (7, 1, N'1 beef suckler, 25 months and over (500 kg and over)', 0, CAST(83.00 AS Decimal(8, 2)), CAST(83.00 AS Decimal(8, 2)), CAST(31.00 AS Decimal(8, 2)), CAST(31.00 AS Decimal(8, 2)), NULL, 7)
-    INSERT [dbo].[LivestockTypes] ([ID], [LivestockGroupID], [Name], [IsDairyCow], [NByUnit], [NByUnitCalc], [P2o5], [P2o5Calc], [Occupancy], [OrderBy]) VALUES (8, 1, N'1 beef cow/steer, 3-13 months', 0, CAST(33.00 AS Decimal(8, 2)), CAST(33.00 AS Decimal(8, 2)), CAST(12.00 AS Decimal(8, 2)), CAST(12.00 AS Decimal(8, 2)), NULL, 8)
-    INSERT [dbo].[LivestockTypes] ([ID], [LivestockGroupID], [Name], [IsDairyCow], [NByUnit], [NByUnitCalc], [P2o5], [P2o5Calc], [Occupancy], [OrderBy]) VALUES (9, 1, N'1 beef cow/steer, 13-25 months', 0, CAST(50.00 AS Decimal(8, 2)), CAST(50.00 AS Decimal(8, 2)), CAST(15.70 AS Decimal(8, 2)), CAST(15.70 AS Decimal(8, 2)), NULL, 9)
-    INSERT [dbo].[LivestockTypes] ([ID], [LivestockGroupID], [Name], [IsDairyCow], [NByUnit], [NByUnitCalc], [P2o5], [P2o5Calc], [Occupancy], [OrderBy]) VALUES (10, 1, N'1 beef cow/steer, 25 months and over', 0, CAST(50.00 AS Decimal(8, 2)), CAST(50.00 AS Decimal(8, 2)), CAST(22.00 AS Decimal(8, 2)), CAST(22.00 AS Decimal(8, 2)), NULL, 10)
-    INSERT [dbo].[LivestockTypes] ([ID], [LivestockGroupID], [Name], [IsDairyCow], [NByUnit], [NByUnitCalc], [P2o5], [P2o5Calc], [Occupancy], [OrderBy]) VALUES (11, 1, N'1 bull beef, 3 months and over', 0, CAST(54.00 AS Decimal(8, 2)), CAST(54.00 AS Decimal(8, 2)), CAST(8.80 AS Decimal(8, 2)), CAST(8.80 AS Decimal(8, 2)), NULL, 11)
-    INSERT [dbo].[LivestockTypes] ([ID], [LivestockGroupID], [Name], [IsDairyCow], [NByUnit], [NByUnitCalc], [P2o5], [P2o5Calc], [Occupancy], [OrderBy]) VALUES (12, 1, N'1 bull for breeding, 3-25 months', 0, CAST(50.00 AS Decimal(8, 2)), CAST(50.00 AS Decimal(8, 2)), CAST(15.70 AS Decimal(8, 2)), CAST(15.70 AS Decimal(8, 2)), NULL, 12)
-    INSERT [dbo].[LivestockTypes] ([ID], [LivestockGroupID], [Name], [IsDairyCow], [NByUnit], [NByUnitCalc], [P2o5], [P2o5Calc], [Occupancy], [OrderBy]) VALUES (13, 1, N'1 bull for breeding, 25 months and over', 0, CAST(48.00 AS Decimal(8, 2)), CAST(48.00 AS Decimal(8, 2)), CAST(22.00 AS Decimal(8, 2)), CAST(22.00 AS Decimal(8, 2)), NULL, 13)
-    INSERT [dbo].[LivestockTypes] ([ID], [LivestockGroupID], [Name], [IsDairyCow], [NByUnit], [NByUnitCalc], [P2o5], [P2o5Calc], [Occupancy], [OrderBy]) VALUES (14, 1, N'1 calf, up to 3 months', 0, CAST(8.40 AS Decimal(8, 2)), CAST(8.40 AS Decimal(8, 2)), CAST(4.60 AS Decimal(8, 2)), CAST(4.60 AS Decimal(8, 2)), NULL, 14)
-    INSERT [dbo].[LivestockTypes] ([ID], [LivestockGroupID], [Name], [IsDairyCow], [NByUnit], [NByUnitCalc], [P2o5], [P2o5Calc], [Occupancy], [OrderBy]) VALUES (15, 2, N'1 sow place with litter, up to 7 kg (with synth. amino acids)', 0, CAST(16.00 AS Decimal(8, 2)), CAST(16.00 AS Decimal(8, 2)), CAST(13.50 AS Decimal(8, 2)), CAST(13.50 AS Decimal(8, 2)), CAST(100.00 AS Decimal(8, 2)), 15)
-    INSERT [dbo].[LivestockTypes] ([ID], [LivestockGroupID], [Name], [IsDairyCow], [NByUnit], [NByUnitCalc], [P2o5], [P2o5Calc], [Occupancy], [OrderBy]) VALUES (16, 2, N'1 sow place with litter, up to 7 kg (no synth. amino acids)', 0, CAST(18.00 AS Decimal(8, 2)), CAST(18.00 AS Decimal(8, 2)), CAST(13.50 AS Decimal(8, 2)), CAST(13.50 AS Decimal(8, 2)), CAST(100.00 AS Decimal(8, 2)), 16)
-    INSERT [dbo].[LivestockTypes] ([ID], [LivestockGroupID], [Name], [IsDairyCow], [NByUnit], [NByUnitCalc], [P2o5], [P2o5Calc], [Occupancy], [OrderBy]) VALUES (17, 2, N'1 weaner place, 7-13 kg', 0, CAST(1.00 AS Decimal(8, 2)), CAST(1.00 AS Decimal(8, 2)), CAST(0.34 AS Decimal(8, 2)), CAST(0.34 AS Decimal(8, 2)), CAST(71.00 AS Decimal(8, 2)), 17)
-    INSERT [dbo].[LivestockTypes] ([ID], [LivestockGroupID], [Name], [IsDairyCow], [NByUnit], [NByUnitCalc], [P2o5], [P2o5Calc], [Occupancy], [OrderBy]) VALUES (18, 2, N'1 weaner place, 13-31 kg', 0, CAST(4.20 AS Decimal(8, 2)), CAST(4.20 AS Decimal(8, 2)), CAST(1.80 AS Decimal(8, 2)), CAST(1.80 AS Decimal(8, 2)), CAST(82.00 AS Decimal(8, 2)), 18)
-    INSERT [dbo].[LivestockTypes] ([ID], [LivestockGroupID], [Name], [IsDairyCow], [NByUnit], [NByUnitCalc], [P2o5], [P2o5Calc], [Occupancy], [OrderBy]) VALUES (19, 2, N'1 grower place, 31-66 kg (dry fed)', 0, CAST(7.70 AS Decimal(8, 2)), CAST(7.70 AS Decimal(8, 2)), CAST(3.90 AS Decimal(8, 2)), CAST(3.90 AS Decimal(8, 2)), CAST(88.00 AS Decimal(8, 2)), 19)
-    INSERT [dbo].[LivestockTypes] ([ID], [LivestockGroupID], [Name], [IsDairyCow], [NByUnit], [NByUnitCalc], [P2o5], [P2o5Calc], [Occupancy], [OrderBy]) VALUES (20, 2, N'1 grower place, 31-66 kg (liquid fed)', 0, CAST(7.70 AS Decimal(8, 2)), CAST(7.70 AS Decimal(8, 2)), CAST(3.90 AS Decimal(8, 2)), CAST(3.90 AS Decimal(8, 2)), CAST(88.00 AS Decimal(8, 2)), 20)
-    INSERT [dbo].[LivestockTypes] ([ID], [LivestockGroupID], [Name], [IsDairyCow], [NByUnit], [NByUnitCalc], [P2o5], [P2o5Calc], [Occupancy], [OrderBy]) VALUES (21, 2, N'1 finisher place, 66 kg and over (dry fed)', 0, CAST(10.60 AS Decimal(8, 2)), CAST(10.60 AS Decimal(8, 2)), CAST(5.60 AS Decimal(8, 2)), CAST(5.60 AS Decimal(8, 2)), CAST(86.00 AS Decimal(8, 2)), 21)
-    INSERT [dbo].[LivestockTypes] ([ID], [LivestockGroupID], [Name], [IsDairyCow], [NByUnit], [NByUnitCalc], [P2o5], [P2o5Calc], [Occupancy], [OrderBy]) VALUES (22, 2, N'1 finisher place, 66 kg and over (liquid fed)', 0, CAST(10.60 AS Decimal(8, 2)), CAST(10.60 AS Decimal(8, 2)), CAST(5.60 AS Decimal(8, 2)), CAST(5.60 AS Decimal(8, 2)), CAST(86.00 AS Decimal(8, 2)), 22)
-    INSERT [dbo].[LivestockTypes] ([ID], [LivestockGroupID], [Name], [IsDairyCow], [NByUnit], [NByUnitCalc], [P2o5], [P2o5Calc], [Occupancy], [OrderBy]) VALUES (23, 2, N'1 maiden gilt place', 0, CAST(11.10 AS Decimal(8, 2)), CAST(11.10 AS Decimal(8, 2)), CAST(5.80 AS Decimal(8, 2)), CAST(5.80 AS Decimal(8, 2)), CAST(80.00 AS Decimal(8, 2)), 23)
-    INSERT [dbo].[LivestockTypes] ([ID], [LivestockGroupID], [Name], [IsDairyCow], [NByUnit], [NByUnitCalc], [P2o5], [P2o5Calc], [Occupancy], [OrderBy]) VALUES (24, 2, N'1 breeding boar place, 66-150 kg', 0, CAST(12.00 AS Decimal(8, 2)), CAST(12.00 AS Decimal(8, 2)), CAST(6.50 AS Decimal(8, 2)), CAST(6.50 AS Decimal(8, 2)), CAST(100.00 AS Decimal(8, 2)), 24)
-    INSERT [dbo].[LivestockTypes] ([ID], [LivestockGroupID], [Name], [IsDairyCow], [NByUnit], [NByUnitCalc], [P2o5], [P2o5Calc], [Occupancy], [OrderBy]) VALUES (25, 2, N'1 breeding boar place, 150 kg and over', 0, CAST(17.50 AS Decimal(8, 2)), CAST(17.50 AS Decimal(8, 2)), CAST(10.20 AS Decimal(8, 2)), CAST(10.20 AS Decimal(8, 2)), CAST(100.00 AS Decimal(8, 2)), 25)
-    INSERT [dbo].[LivestockTypes] ([ID], [LivestockGroupID], [Name], [IsDairyCow], [NByUnit], [NByUnitCalc], [P2o5], [P2o5Calc], [Occupancy], [OrderBy]) VALUES (26, 3, N'1000 layer pullet places, up to 17 wks', 0, CAST(210.00 AS Decimal(8, 2)), CAST(210.00 AS Decimal(8, 2)), CAST(150.00 AS Decimal(8, 2)), CAST(150.00 AS Decimal(8, 2)), CAST(89.00 AS Decimal(8, 2)), 26)
-    INSERT [dbo].[LivestockTypes] ([ID], [LivestockGroupID], [Name], [IsDairyCow], [NByUnit], [NByUnitCalc], [P2o5], [P2o5Calc], [Occupancy], [OrderBy]) VALUES (27, 3, N'1000 laying hen places (cages), 17 wks and over', 0, CAST(400.00 AS Decimal(8, 2)), CAST(400.00 AS Decimal(8, 2)), CAST(350.00 AS Decimal(8, 2)), CAST(350.00 AS Decimal(8, 2)), CAST(97.00 AS Decimal(8, 2)), 27)
-    INSERT [dbo].[LivestockTypes] ([ID], [LivestockGroupID], [Name], [IsDairyCow], [NByUnit], [NByUnitCalc], [P2o5], [P2o5Calc], [Occupancy], [OrderBy]) VALUES (28, 3, N'1000 laying hen places (free range), 17 wks and over', 0, CAST(530.00 AS Decimal(8, 2)), CAST(530.00 AS Decimal(8, 2)), CAST(390.00 AS Decimal(8, 2)), CAST(390.00 AS Decimal(8, 2)), CAST(97.00 AS Decimal(8, 2)), 28)
-    INSERT [dbo].[LivestockTypes] ([ID], [LivestockGroupID], [Name], [IsDairyCow], [NByUnit], [NByUnitCalc], [P2o5], [P2o5Calc], [Occupancy], [OrderBy]) VALUES (29, 3, N'1000 broiler places', 0, CAST(330.00 AS Decimal(8, 2)), CAST(330.00 AS Decimal(8, 2)), CAST(220.00 AS Decimal(8, 2)), CAST(220.00 AS Decimal(8, 2)), CAST(85.00 AS Decimal(8, 2)), 29)
-    INSERT [dbo].[LivestockTypes] ([ID], [LivestockGroupID], [Name], [IsDairyCow], [NByUnit], [NByUnitCalc], [P2o5], [P2o5Calc], [Occupancy], [OrderBy]) VALUES (30, 3, N'1000 broiler breeder pullet places, up to 25 wks', 0, CAST(290.00 AS Decimal(8, 2)), CAST(290.00 AS Decimal(8, 2)), CAST(260.00 AS Decimal(8, 2)), CAST(260.00 AS Decimal(8, 2)), CAST(92.00 AS Decimal(8, 2)), 30)
-    INSERT [dbo].[LivestockTypes] ([ID], [LivestockGroupID], [Name], [IsDairyCow], [NByUnit], [NByUnitCalc], [P2o5], [P2o5Calc], [Occupancy], [OrderBy]) VALUES (31, 3, N'1000 broiler breeder places, 25 wks and over', 0, CAST(700.00 AS Decimal(8, 2)), CAST(700.00 AS Decimal(8, 2)), CAST(520.00 AS Decimal(8, 2)), CAST(520.00 AS Decimal(8, 2)), CAST(95.00 AS Decimal(8, 2)), 31)
-    INSERT [dbo].[LivestockTypes] ([ID], [LivestockGroupID], [Name], [IsDairyCow], [NByUnit], [NByUnitCalc], [P2o5], [P2o5Calc], [Occupancy], [OrderBy]) VALUES (32, 3, N'1000 turkey places (male)', 0, CAST(1230.00 AS Decimal(8, 2)), CAST(1230.00 AS Decimal(8, 2)), CAST(1020.00 AS Decimal(8, 2)), CAST(1020.00 AS Decimal(8, 2)), CAST(90.00 AS Decimal(8, 2)), 32)
-    INSERT [dbo].[LivestockTypes] ([ID], [LivestockGroupID], [Name], [IsDairyCow], [NByUnit], [NByUnitCalc], [P2o5], [P2o5Calc], [Occupancy], [OrderBy]) VALUES (33, 3, N'1000 turkey places (female)', 0, CAST(910.00 AS Decimal(8, 2)), CAST(910.00 AS Decimal(8, 2)), CAST(740.00 AS Decimal(8, 2)), CAST(740.00 AS Decimal(8, 2)), CAST(88.00 AS Decimal(8, 2)), 33)
-    INSERT [dbo].[LivestockTypes] ([ID], [LivestockGroupID], [Name], [IsDairyCow], [NByUnit], [NByUnitCalc], [P2o5], [P2o5Calc], [Occupancy], [OrderBy]) VALUES (34, 3, N'1000 duck places', 0, CAST(750.00 AS Decimal(8, 2)), CAST(750.00 AS Decimal(8, 2)), CAST(730.00 AS Decimal(8, 2)), CAST(730.00 AS Decimal(8, 2)), CAST(83.00 AS Decimal(8, 2)), 34)
-    INSERT [dbo].[LivestockTypes] ([ID], [LivestockGroupID], [Name], [IsDairyCow], [NByUnit], [NByUnitCalc], [P2o5], [P2o5Calc], [Occupancy], [OrderBy]) VALUES (35, 3, N'1 ostrich', 0, CAST(1.40 AS Decimal(8, 2)), CAST(1.40 AS Decimal(8, 2)), CAST(6.80 AS Decimal(8, 2)), CAST(6.80 AS Decimal(8, 2)), CAST(100.00 AS Decimal(8, 2)), 35)
-    INSERT [dbo].[LivestockTypes] ([ID], [LivestockGroupID], [Name], [IsDairyCow], [NByUnit], [NByUnitCalc], [P2o5], [P2o5Calc], [Occupancy], [OrderBy]) VALUES (36, 4, N'1 sheep (up to 60 kg) with lamb(s) up to 6 months', 0, CAST(7.60 AS Decimal(8, 2)), CAST(7.60 AS Decimal(8, 2)), CAST(3.20 AS Decimal(8, 2)), CAST(3.20 AS Decimal(8, 2)), NULL, 33)
-    INSERT [dbo].[LivestockTypes] ([ID], [LivestockGroupID], [Name], [IsDairyCow], [NByUnit], [NByUnitCalc], [P2o5], [P2o5Calc], [Occupancy], [OrderBy]) VALUES (37, 4, N'1 sheep (60 kg or over) with lamb(s) up to 6 months', 0, CAST(11.90 AS Decimal(8, 2)), CAST(11.90 AS Decimal(8, 2)), CAST(3.70 AS Decimal(8, 2)), CAST(3.70 AS Decimal(8, 2)), NULL, 34)
-    INSERT [dbo].[LivestockTypes] ([ID], [LivestockGroupID], [Name], [IsDairyCow], [NByUnit], [NByUnitCalc], [P2o5], [P2o5Calc], [Occupancy], [OrderBy]) VALUES (38, 4, N'1 lamb, 6-9 months', 0, CAST(2.00 AS Decimal(8, 2)), CAST(2.00 AS Decimal(8, 2)), CAST(0.28 AS Decimal(8, 2)), CAST(0.28 AS Decimal(8, 2)), NULL, 35)
-    INSERT [dbo].[LivestockTypes] ([ID], [LivestockGroupID], [Name], [IsDairyCow], [NByUnit], [NByUnitCalc], [P2o5], [P2o5Calc], [Occupancy], [OrderBy]) VALUES (39, 4, N'1 lamb, 9 months and over', 0, CAST(1.40 AS Decimal(8, 2)), CAST(1.40 AS Decimal(8, 2)), CAST(0.77 AS Decimal(8, 2)), CAST(0.77 AS Decimal(8, 2)), NULL, 36)
-    INSERT [dbo].[LivestockTypes] ([ID], [LivestockGroupID], [Name], [IsDairyCow], [NByUnit], [NByUnitCalc], [P2o5], [P2o5Calc], [Occupancy], [OrderBy]) VALUES (40, 4, N'1 goat', 0, CAST(15.00 AS Decimal(8, 2)), CAST(15.00 AS Decimal(8, 2)), CAST(6.90 AS Decimal(8, 2)), CAST(6.90 AS Decimal(8, 2)), NULL, 37)
-    INSERT [dbo].[LivestockTypes] ([ID], [LivestockGroupID], [Name], [IsDairyCow], [NByUnit], [NByUnitCalc], [P2o5], [P2o5Calc], [Occupancy], [OrderBy]) VALUES (41, 4, N'1 deer for breeding', 0, CAST(15.20 AS Decimal(8, 2)), CAST(15.20 AS Decimal(8, 2)), CAST(6.40 AS Decimal(8, 2)), CAST(6.40 AS Decimal(8, 2)), NULL, 38)
-    INSERT [dbo].[LivestockTypes] ([ID], [LivestockGroupID], [Name], [IsDairyCow], [NByUnit], [NByUnitCalc], [P2o5], [P2o5Calc], [Occupancy], [OrderBy]) VALUES (42, 4, N'1 deer, other', 0, CAST(12.00 AS Decimal(8, 2)), CAST(12.00 AS Decimal(8, 2)), CAST(4.30 AS Decimal(8, 2)), CAST(4.30 AS Decimal(8, 2)), NULL, 39)
-    INSERT [dbo].[LivestockTypes] ([ID], [LivestockGroupID], [Name], [IsDairyCow], [NByUnit], [NByUnitCalc], [P2o5], [P2o5Calc], [Occupancy], [OrderBy]) VALUES (43, 4, N'1 horse', 0, CAST(21.00 AS Decimal(8, 2)), CAST(21.00 AS Decimal(8, 2)), CAST(20.00 AS Decimal(8, 2)), CAST(20.00 AS Decimal(8, 2)), NULL, 40) 
+    INSERT [dbo].[LivestockTypes] ([ID], [LivestockGroupID], [Name], [NByUnit], [NByUnitCalc], [P2o5], [P2o5Calc], [Occupancy], [OrderBy]) VALUES
+    (1, 1, N'1 dairy cow (over 9000 litres milk yield)', 115.00, 115.00, 52.00, 52.00, NULL, 1),
+    (2, 1, N'1 dairy cow (6000-9000 litres milk yield)', 101.00, 101.00, 44.00, 44.00, NULL, 2),
+    (3, 1, N'1 dairy cow (up to 6000 litres milk yield)', 77.00, 77.00, 34.00, 34.00, NULL, 3),
+    (4, 1, N'1 dairy heifer replacement, 3-13 months', 35.00, 35.00, 12.40, 12.40, NULL, 4),
+    (5, 1, N'1 dairy heifer replacement, 13 months to first calf', 61.00, 61.00, 25.00, 25.00, NULL, 5),
+    (6, 1, N'1 beef suckler, 25 months and over (up to 500 kg)', 61.00, 61.00, 24.00, 24.00, NULL, 6),
+    (7, 1, N'1 beef suckler, 25 months and over (500 kg and over)', 83.00, 83.00, 31.00, 31.00, NULL, 7),
+    (8, 1, N'1 beef cow/steer, 3-13 months', 33.00, 33.00, 12.00, 12.00, NULL, 8),
+    (9, 1, N'1 beef cow/steer, 13-25 months', 50.00, 50.00, 15.70, 15.70, NULL, 9),
+    (10, 1, N'1 beef cow/steer, 25 months and over', 50.00, 50.00, 22.00, 22.00, NULL, 10),
+    (11, 1, N'1 bull beef, 3 months and over', 54.00, 54.00, 8.80, 8.80, NULL, 11),
+    (12, 1, N'1 bull for breeding, 3-25 months', 50.00, 50.00, 15.70, 15.70, NULL, 12),
+    (13, 1, N'1 bull for breeding, 25 months and over', 48.00, 48.00, 22.00, 22.00, NULL, 13),
+    (14, 1, N'1 calf, up to 3 months', 8.40, 8.40, 4.60, 4.60, NULL, 14),
+    (15, 2, N'1 sow place with litter, up to 7 kg (with synth. amino acids)', 16.00, 16.00, 13.50, 13.50, 100.00, 15),
+    (16, 2, N'1 sow place with litter, up to 7 kg (no synth. amino acids)', 18.00, 18.00, 13.50, 13.50, 100.00, 16),
+    (17, 2, N'1 weaner place, 7-13 kg', 1.00, 1.00, 0.34, 0.34, 71.00, 17),
+    (18, 2, N'1 weaner place, 13-31 kg', 4.20, 4.20, 1.80, 1.80, 82.00, 18),
+    (19, 2, N'1 grower place, 31-66 kg (dry fed)', 7.70, 7.70, 3.90, 3.90, 88.00, 19),
+    (20, 2, N'1 grower place, 31-66 kg (liquid fed)', 7.70, 7.70, 3.90, 3.90, 88.00, 20),
+    (21, 2, N'1 finisher place, 66 kg and over (dry fed)', 10.60, 10.60, 5.60, 5.60, 86.00, 21),
+    (22, 2, N'1 finisher place, 66 kg and over (liquid fed)', 10.60, 10.60, 5.60, 5.60, 86.00, 22),
+    (23, 2, N'1 maiden gilt place', 11.10, 11.10, 5.80, 5.80, 80.00, 23),
+    (24, 2, N'1 breeding boar place, 66-150 kg', 12.00, 12.00, 6.50, 6.50, 100.00, 24),
+    (25, 2, N'1 breeding boar place, 150 kg and over', 17.50, 17.50, 10.20, 10.20, 100.00, 25),
+    (26, 3, N'1000 layer pullet places, up to 17 wks', 210.00, 210.00, 150.00, 150.00, 89.00, 26),
+    (27, 3, N'1000 laying hen places (cages), 17 wks and over', 400.00, 400.00, 350.00, 350.00, 97.00, 27),
+    (28, 3, N'1000 laying hen places (free range), 17 wks and over', 530.00, 530.00, 390.00, 390.00, 97.00, 28),
+    (29, 3, N'1000 broiler places', 330.00, 330.00, 220.00, 220.00, 85.00, 29),
+    (30, 3, N'1000 broiler breeder pullet places, up to 25 wks', 290.00, 290.00, 260.00, 260.00, 92.00, 30),
+    (31, 3, N'1000 broiler breeder places, 25 wks and over', 700.00, 700.00, 520.00, 520.00, 95.00, 31),
+    (32, 3, N'1000 turkey places (male)', 1230.00, 1230.00, 1020.00, 1020.00, 90.00, 32),
+    (33, 3, N'1000 turkey places (female)', 910.00, 910.00, 740.00, 740.00, 88.00, 33),
+    (34, 3, N'1000 duck places', 750.00, 750.00, 730.00, 730.00, 83.00, 34),
+    (35, 3, N'1 ostrich', 1.40, 1.40, 6.80, 6.80, 100.00, 35),
+    (36, 4, N'1 sheep (up to 60 kg) with lamb(s) up to 6 months', 7.60, 7.60, 3.20, 3.20, NULL, 36),
+    (37, 4, N'1 sheep (60 kg or over) with lamb(s) up to 6 months', 11.90, 11.90, 3.70, 3.70, NULL, 37),
+    (38, 4, N'1 lamb, 6-9 months', 2.00, 2.00, 0.28, 0.28, NULL, 38),
+    (39, 4, N'1 lamb, 9 months and over', 1.40, 1.40, 0.77, 0.77, NULL, 39),
+    (40, 4, N'1 goat', 15.00, 15.00, 6.90, 6.90, NULL, 40),
+    (41, 4, N'1 deer for breeding', 15.20, 15.20, 6.40, 6.40, NULL, 41),
+    (42, 4, N'1 deer, other', 12.00, 12.00, 4.30, 4.30, NULL, 42),
+    (43, 4, N'1 horse', 21.00, 21.00, 20.00, 20.00, NULL, 43);
+    SET IDENTITY_INSERT [dbo].[LivestockTypes] OFF
 END
+
 
 GO
