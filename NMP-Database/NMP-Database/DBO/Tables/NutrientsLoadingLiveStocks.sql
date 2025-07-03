@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [dbo].[NutrientsLoadingLiveStocks] (
-    [Id]               INT             IDENTITY (1, 1) NOT NULL,
-    [FarmId]           INT             NOT NULL,
+    [ID]               INT             IDENTITY (1, 1) NOT NULL,
+    [FarmID]           INT             NOT NULL,
     [LiveStockGroupId] INT             NOT NULL,
     [LiveStockGroup]   NVARCHAR (250)  NULL,
     [LiveStockTypeId]  INT             NULL,
@@ -23,6 +23,11 @@
     [Oct]              INT             NULL,
     [Nov]              INT             NULL,
     [Dec]              INT             NULL,    
-    CONSTRAINT [PK_NutrientsLoadingLiveStocks] PRIMARY KEY ([ID] ASC)
+    [CreatedOn]        DATETIME2       NULL DEFAULT GETDATE(), 
+    [CreatedByID]      INT             NULL, 
+    [ModifiedOn]       DATETIME2       NULL, 
+    [ModifiedByID]     INT             NULL,
+    CONSTRAINT [PK_NutrientsLoadingLiveStocks] PRIMARY KEY ([ID] ASC),
+    CONSTRAINT [FK_NutrientsLoadingLiveStocks_Farms] FOREIGN KEY ([FarmID]) REFERENCES [Farms]([ID])
 );
 

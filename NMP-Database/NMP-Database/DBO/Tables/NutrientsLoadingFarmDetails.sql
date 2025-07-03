@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [dbo].[NutrientsLoadingFarmDetails] (
-    [Id]              INT             IDENTITY (1, 1) NOT NULL,
-    [FarmId]          INT             NOT NULL,
+    [ID]              INT             IDENTITY (1, 1) NOT NULL,
+    [FarmID]          INT             NOT NULL,
     [CalendarYear]    INT             NOT NULL,
     [LandInNVZ]       DECIMAL (18, 3) NULL,
     [LandNotNVZ]      DECIMAL (18, 3) NULL,
@@ -9,6 +9,12 @@
     [Derogation]      BIT             NOT NULL,
     [GrassPercentage] INT             NULL,
     [ContingencyPlan] BIT             NOT NULL,
-    CONSTRAINT [PK_NutrientsLoadingFarmDetails] PRIMARY KEY ([ID] ASC)
+    [CreatedOn]       DATETIME2       NULL DEFAULT GETDATE(), 
+    [CreatedByID]     INT             NULL, 
+    [ModifiedOn]      DATETIME2       NULL, 
+    [ModifiedByID]    INT             NULL,
+    CONSTRAINT [PK_NutrientsLoadingFarmDetails] PRIMARY KEY ([ID] ASC),
+    CONSTRAINT [FK_NutrientsLoadingFarmDetails_Farms] FOREIGN KEY ([FarmID]) REFERENCES [Farms]([ID]),
+    CONSTRAINT [UQ_FarmID_CalendarYear] UNIQUE ([FarmID], [CalendarYear])
 );
 
