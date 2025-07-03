@@ -1474,6 +1474,66 @@ BEGIN
     --SET IDENTITY_INSERT [dbo].[CropGroupCategories] OFF
 END
 
+IF NOT EXISTS (SELECT 1 FROM [dbo].[LivestockGroups])
+BEGIN
+SET IDENTITY_INSERT [dbo].[LivestockGroups] ON     
+    INSERT [dbo].[LivestockGroups] ([ID], [Name]) VALUES (1, N'Cattle')
+    INSERT [dbo].[LivestockGroups] ([ID], [Name]) VALUES (2, N'Pigs')
+    INSERT [dbo].[LivestockGroups] ([ID], [Name]) VALUES (3, N'Poultry')
+    INSERT [dbo].[LivestockGroups] ([ID], [Name]) VALUES (4, N'Sheep/other')
+    SET IDENTITY_INSERT [dbo].[LivestockGroups] OFF    
+END
+
+
+IF NOT EXISTS (SELECT 1 FROM [dbo].[LivestockTypes])
+BEGIN
+    SET IDENTITY_INSERT [dbo].[LivestockTypes] ON 
+    INSERT [dbo].[LivestockTypes] ([ID], [LivestockGroupID], [Name], [NByUnit], [NByUnitCalc], [P2o5], [P2o5Calc], [Occupancy], [OrderBy]) VALUES
+    (1, 1, N'1 dairy cow (over 9000 litres milk yield)', 115.00, 115.00, 52.00, 52.00, NULL, 1),
+    (2, 1, N'1 dairy cow (6000-9000 litres milk yield)', 101.00, 101.00, 44.00, 44.00, NULL, 2),
+    (3, 1, N'1 dairy cow (up to 6000 litres milk yield)', 77.00, 77.00, 34.00, 34.00, NULL, 3),
+    (4, 1, N'1 dairy heifer replacement, 3-13 months', 35.00, 35.00, 12.40, 12.40, NULL, 4),
+    (5, 1, N'1 dairy heifer replacement, 13 months to first calf', 61.00, 61.00, 25.00, 25.00, NULL, 5),
+    (6, 1, N'1 beef suckler, 25 months and over (up to 500 kg)', 61.00, 61.00, 24.00, 24.00, NULL, 6),
+    (7, 1, N'1 beef suckler, 25 months and over (500 kg and over)', 83.00, 83.00, 31.00, 31.00, NULL, 7),
+    (8, 1, N'1 beef cow/steer, 3-13 months', 33.00, 33.00, 12.00, 12.00, NULL, 8),
+    (9, 1, N'1 beef cow/steer, 13-25 months', 50.00, 50.00, 15.70, 15.70, NULL, 9),
+    (10, 1, N'1 beef cow/steer, 25 months and over', 50.00, 50.00, 22.00, 22.00, NULL, 10),
+    (11, 1, N'1 bull beef, 3 months and over', 54.00, 54.00, 8.80, 8.80, NULL, 11),
+    (12, 1, N'1 bull for breeding, 3-25 months', 50.00, 50.00, 15.70, 15.70, NULL, 12),
+    (13, 1, N'1 bull for breeding, 25 months and over', 48.00, 48.00, 22.00, 22.00, NULL, 13),
+    (14, 1, N'1 calf, up to 3 months', 8.40, 8.40, 4.60, 4.60, NULL, 14),
+    (15, 2, N'1 sow place with litter, up to 7 kg (with synth. amino acids)', 16.00, 16.00, 13.50, 13.50, 100.00, 15),
+    (16, 2, N'1 sow place with litter, up to 7 kg (no synth. amino acids)', 18.00, 18.00, 13.50, 13.50, 100.00, 16),
+    (17, 2, N'1 weaner place, 7-13 kg', 1.00, 1.00, 0.34, 0.34, 71.00, 17),
+    (18, 2, N'1 weaner place, 13-31 kg', 4.20, 4.20, 1.80, 1.80, 82.00, 18),
+    (19, 2, N'1 grower place, 31-66 kg (dry fed)', 7.70, 7.70, 3.90, 3.90, 88.00, 19),
+    (20, 2, N'1 grower place, 31-66 kg (liquid fed)', 7.70, 7.70, 3.90, 3.90, 88.00, 20),
+    (21, 2, N'1 finisher place, 66 kg and over (dry fed)', 10.60, 10.60, 5.60, 5.60, 86.00, 21),
+    (22, 2, N'1 finisher place, 66 kg and over (liquid fed)', 10.60, 10.60, 5.60, 5.60, 86.00, 22),
+    (23, 2, N'1 maiden gilt place', 11.10, 11.10, 5.80, 5.80, 80.00, 23),
+    (24, 2, N'1 breeding boar place, 66-150 kg', 12.00, 12.00, 6.50, 6.50, 100.00, 24),
+    (25, 2, N'1 breeding boar place, 150 kg and over', 17.50, 17.50, 10.20, 10.20, 100.00, 25),
+    (26, 3, N'1000 layer pullet places, up to 17 wks', 210.00, 210.00, 150.00, 150.00, 89.00, 26),
+    (27, 3, N'1000 laying hen places (cages), 17 wks and over', 400.00, 400.00, 350.00, 350.00, 97.00, 27),
+    (28, 3, N'1000 laying hen places (free range), 17 wks and over', 530.00, 530.00, 390.00, 390.00, 97.00, 28),
+    (29, 3, N'1000 broiler places', 330.00, 330.00, 220.00, 220.00, 85.00, 29),
+    (30, 3, N'1000 broiler breeder pullet places, up to 25 wks', 290.00, 290.00, 260.00, 260.00, 92.00, 30),
+    (31, 3, N'1000 broiler breeder places, 25 wks and over', 700.00, 700.00, 520.00, 520.00, 95.00, 31),
+    (32, 3, N'1000 turkey places (male)', 1230.00, 1230.00, 1020.00, 1020.00, 90.00, 32),
+    (33, 3, N'1000 turkey places (female)', 910.00, 910.00, 740.00, 740.00, 88.00, 33),
+    (34, 3, N'1000 duck places', 750.00, 750.00, 730.00, 730.00, 83.00, 34),
+    (35, 3, N'1 ostrich', 1.40, 1.40, 6.80, 6.80, 100.00, 35),
+    (36, 4, N'1 sheep (up to 60 kg) with lamb(s) up to 6 months', 7.60, 7.60, 3.20, 3.20, NULL, 36),
+    (37, 4, N'1 sheep (60 kg or over) with lamb(s) up to 6 months', 11.90, 11.90, 3.70, 3.70, NULL, 37),
+    (38, 4, N'1 lamb, 6-9 months', 2.00, 2.00, 0.28, 0.28, NULL, 38),
+    (39, 4, N'1 lamb, 9 months and over', 1.40, 1.40, 0.77, 0.77, NULL, 39),
+    (40, 4, N'1 goat', 15.00, 15.00, 6.90, 6.90, NULL, 40),
+    (41, 4, N'1 deer for breeding', 15.20, 15.20, 6.40, 6.40, NULL, 41),
+    (42, 4, N'1 deer, other', 12.00, 12.00, 4.30, 4.30, NULL, 42),
+    (43, 4, N'1 horse', 21.00, 21.00, 20.00, 20.00, NULL, 43);
+    SET IDENTITY_INSERT [dbo].[LivestockTypes] OFF
+END
 
 
 GO
