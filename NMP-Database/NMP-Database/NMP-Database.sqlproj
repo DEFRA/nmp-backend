@@ -128,6 +128,16 @@
     <Build Include="DBO\Tables\ExcessWinterRainfallOptions.sql" />
     <Build Include="DBO\Tables\UserExtensions.sql" />
     <Build Include="DBO\StoredProcedures\FertiliserManures\spFertiliserManures_GetByFarmIdAndYear.sql" />
+    <Build Include="DBO\StoredProcedures\OrganicManures\spOrganicManures_GetByFarmIdAndYear.sql" />
+    <Build Include="DBO\Tables\PreviousGrassIdMapping.sql" />
+    <Build Include="DBO\Tables\GrassHistoryIdMapping.sql" />
+    <Build Include="DBO\Tables\SoilGroupCategories.sql" />
+    <Build Include="DBO\Tables\CropGroupCategories.sql" />
+    <Build Include="DBO\Tables\NutrientsLoadingManures.sql" />
+    <Build Include="DBO\Tables\NutrientsLoadingLiveStocks.sql" />
+    <Build Include="DBO\Tables\NutrientsLoadingFarmDetails.sql" />
+    <Build Include="DBO\Tables\LivestockTypes.sql" />
+    <Build Include="DBO\Tables\LivestockGroups.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Script.PostDeployment.sql">

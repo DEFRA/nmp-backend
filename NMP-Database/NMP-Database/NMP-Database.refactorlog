@@ -63,4 +63,18 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="CropID" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="92f72871-7646-4a55-b220-9d2e2e948b28" ChangeDateTime="05/29/2025 14:34:09">
+    <Property Name="ElementName" Value="[dbo].[PreviousGrassScenarios].[SwardManagementID]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[PreviousGrassScenarios]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="IsGrazedOnly" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="f185e549-2044-4975-bfe9-cc1a415ea52a" ChangeDateTime="06/23/2025 10:31:52">
+    <Property Name="ElementName" Value="[dbo].[PreviousGrassIdMapping].[IsCutNGrazed]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[PreviousGrassIdMapping]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="IsGrazedNCut" />
+  </Operation>
 </Operations>

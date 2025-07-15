@@ -4,6 +4,7 @@
 	[FieldID] INT NOT NULL,
     [HasGrassInLastThreeYear] BIT NOT NULL,
     [HarvestYear] INT NULL,
+    [LayDuration] INT NULL,
     [GrassManagementOptionID] INT NULL,
     [GrassTypicalCutID] INT NULL,
     [HasGreaterThan30PercentClover] BIT NULL,
