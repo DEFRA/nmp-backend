@@ -1480,15 +1480,15 @@ SET IDENTITY_INSERT [dbo].[LivestockGroups] ON
     INSERT [dbo].[LivestockGroups] ([ID], [Name]) VALUES (1, N'Cattle')
     INSERT [dbo].[LivestockGroups] ([ID], [Name]) VALUES (2, N'Pigs')
     INSERT [dbo].[LivestockGroups] ([ID], [Name]) VALUES (3, N'Poultry')
-    INSERT [dbo].[LivestockGroups] ([ID], [Name]) VALUES (4, N'Sheep/other')
+    INSERT [dbo].[LivestockGroups] ([ID], [Name]) VALUES (4, N'Sheep')
+    INSERT [dbo].[LivestockGroups] ([ID], [Name]) VALUES (5, N'Goats, deer or horses')
     SET IDENTITY_INSERT [dbo].[LivestockGroups] OFF    
 END
-
 
 IF NOT EXISTS (SELECT 1 FROM [dbo].[LivestockTypes])
 BEGIN
     SET IDENTITY_INSERT [dbo].[LivestockTypes] ON 
-    INSERT [dbo].[LivestockTypes] ([ID], [LivestockGroupID], [Name], [NByUnit], [NByUnitCalc], [P2o5], [P2o5Calc], [Occupancy], [OrderBy]) VALUES
+    INSERT [dbo].[LivestockTypes] ([ID], [LivestockGroupID], [Name], [NByUnit], [NByUnitCalc], [P2O5], [P2O5Calc], [Occupancy], [OrderBy]) VALUES
     (1, 1, N'1 dairy cow (over 9000 litres milk yield)', 115.00, 115.00, 52.00, 52.00, NULL, 1),
     (2, 1, N'1 dairy cow (6000-9000 litres milk yield)', 101.00, 101.00, 44.00, 44.00, NULL, 2),
     (3, 1, N'1 dairy cow (up to 6000 litres milk yield)', 77.00, 77.00, 34.00, 34.00, NULL, 3),
@@ -1528,12 +1528,69 @@ BEGIN
     (37, 4, N'1 sheep (60 kg or over) with lamb(s) up to 6 months', 11.90, 11.90, 3.70, 3.70, NULL, 37),
     (38, 4, N'1 lamb, 6-9 months', 2.00, 2.00, 0.28, 0.28, NULL, 38),
     (39, 4, N'1 lamb, 9 months and over', 1.40, 1.40, 0.77, 0.77, NULL, 39),
-    (40, 4, N'1 goat', 15.00, 15.00, 6.90, 6.90, NULL, 40),
-    (41, 4, N'1 deer for breeding', 15.20, 15.20, 6.40, 6.40, NULL, 41),
-    (42, 4, N'1 deer, other', 12.00, 12.00, 4.30, 4.30, NULL, 42),
-    (43, 4, N'1 horse', 21.00, 21.00, 20.00, 20.00, NULL, 43);
+    (40, 5, N'1 goat', 15.00, 15.00, 6.90, 6.90, NULL, 40),
+    (41, 5, N'1 deer for breeding', 15.20, 15.20, 6.40, 6.40, NULL, 41),
+    (42, 5, N'1 deer, other', 12.00, 12.00, 4.30, 4.30, NULL, 42),
+    (43, 5, N'1 horse', 21.00, 21.00, 20.00, 20.00, NULL, 43);
     SET IDENTITY_INSERT [dbo].[LivestockTypes] OFF
 END
+
+
+
+--Once confirmed by mark brown then we will update accordingly.
+--IF NOT EXISTS (SELECT 1 FROM [dbo].[LivestockTypes])
+--BEGIN
+--    SET IDENTITY_INSERT [dbo].[LivestockTypes] ON 
+--    INSERT [dbo].[LivestockTypes] ([ID], [LivestockGroupID], [Name], [NByUnit], [NByUnitCalc], [P2o5], [P2o5Calc], [Occupancy], [OrderBy]) VALUES
+--    (1, 1, N'1 calf (all categories) youger than to 2 months', 1.4, NULL, NULL, NULL, NULL, 1),
+--    (2, 1, N'1 dairy cow from 2 months and less than 12 months', 29, NULL, NULL, NULL, NULL, 2),
+--    (3, 1, N'1 dairy cow from 12 months up to first calf', 61, NULL, NULL, NULL, NULL, 3),
+--    (4, 1, N'1 dairy cow after first calf (over 9,000 litres milk yield)', 115, NULL, NULL, NULL, NULL, 4),
+--    (5, 1, N'1 dairy cow after first calf (6,000 to 9,000 litres milk yield)', 101, NULL, NULL, NULL, NULL, 5),
+--    (6, 1, N'1 dairy cow after first calf (up to 6,000 litres milk yield)', 77, NULL, NULL, NULL, NULL, 6),
+--    (7, 1, N'1 beef cow or steer (castrated male) from 2 months and less than 12 months', 28, NULL, NULL, NULL, NULL, 7),
+--    (8, 1, N'1 beef cow or steer  from 12 months and less than 24 months', 50, NULL, NULL, NULL, NULL, 8),
+--    (9, 1, N'1 female or steer for slaughter 24 months and over', 50, NULL, NULL, NULL, NULL, 9),
+--    (10, 1, N'1 female for breeding 24 months and over weighing up to 500 kg', 61, NULL, NULL, NULL, NULL, 10),
+--    (11, 1, N'1 female for breeding 25 months and over weighing over 500 kg', 83, NULL, NULL, NULL, NULL, 11),
+--    (12, 1, N'1 non-breeding bull 2 months and over', 54, NULL, NULL, NULL, NULL, 12),
+--    (13, 1, N'1 bull for breeding from 2 and less than 24 months', 50, NULL, NULL, NULL, NULL, 13),
+--    (14, 1, N'1 bull for breeding from 24 months', 48, NULL, NULL, NULL, NULL, 14),
+
+--    (15, 2, N'1 weaner place, 7 to 13 kg', 1, NULL, NULL, NULL, 71, 15),
+--    (16, 2, N'1 weaner place, 13 to 31 kg', 4.2, NULL, NULL, NULL, 82, 16),
+--    (17, 2, N'1 grower place, 31 to 66 kg (dry fed)', 7.7, NULL, NULL, NULL, 88, 17),
+--    (18, 2, N'1 grower place, 31 to 66 kg (liquid fed)', 7.7, NULL, NULL, NULL, 88, 18),
+--    (19, 2, N'1 finisher place, 66 kg and over (dry fed)', 10.6, NULL, NULL,NULL, 86, 19),
+--    (20, 2, N'1 finisher place, 66 kg and over (liquid fed)', 10.6, NULL, NULL, NULL,86, 20),
+--    (21, 2, N'1 maiden gilt place, 66 kg and over', 11.1, NULL, NULL, NULL, 80, 21),
+--    (22, 2, N'1 sow place, 66 kg and over, with litter, up to 7 kg, fed on diet supplement with synthetic amino acids', NULL, NULL, NULL, NULL, 100, 22),
+--    (23, 2, N'1 sow place, 66 kg and over, with litter, up to 7 kg, diet without synthetic amino acids (low protein diet)', 18, NULL, NULL, NULL, 100, 23),
+--    (24, 2, N'1 breeding boar from 66 kg to 150 kg', 12, NULL, NULL, NULL, 100, 24),
+--    (25, 2, N'1 breeding boar, 150 kg and over', 17.5, NULL, NULL, NULL, 100, 25),
+
+--    (26, 3, N'1,000 replacement layer pullet places, up to 17 weeks', 210, NULL, NULL, NULL, 89, 26),
+--    (27, 3, N'1,000 laying hens in cages, 17 weeks and over', 400, NULL, NULL, NULL, 97, 27),
+--    (28, 3, N'1,000 laying hen places, free range (note b), 17 weeks and over', 530, NULL, NULL, NULL, 97, 28),
+--    (29, 3, N'1,000 broiler places ', 330, NULL, NULL, NULL, 85, 29),
+--    (30, 3, N'1,000 replacement broiler breeder pullet places, up to 25 weeks ', 290, NULL, NULL, NULL, 92, 30),
+--    (31, 3, N'1,000 broiler breeder places, 25 weeks and over ', 700, NULL, NULL, NULL, 95, 31),
+--    (32, 3, N'1,000 turkey places (male)', 1230, NULL, NULL, NULL, 90, 32),
+--    (33, 3, N'1,000 turkey places (female)', 910, NULL, NULL, NULL, 88, 33),
+--    (34, 3, N'1,000 duck places', 750, NULL, NULL, NULL, 83, 34),
+--    (35, 3, N'1 ostrich', 1.4, NULL, NULL, NULL, 100, 35),
+
+--    (36, 4, N'1 lamb, 6 to 9 months', 0.5, NULL, NULL, NULL, NULL, 36),
+--    (37, 4, N'1 lamb, 9 months and over, to first lambing, first tupping or slaughter', 0.7, NULL, NULL, NULL, NULL, 37),
+--    (38, 4, N'1 sheep, less than 60 kg, after lambing or tupping.  For ewes this includes one or more suckled lambs up to 6 months', 7.6, NULL, NULL, NULL, NULL, 38),
+--    (39, 4, N'1 sheep, over 60 kg, after lambing or tupping.  For ewes this includes one or more suckled lambs up to 6 months', 11.9, NULL, NULL, NULL, NULL, 39),
+
+--    (40, 5, N'1 goat ', 15, NULL, NULL, NULL, NULL, 40),
+--    (41, 5, N'1 deer for breeding', 15.2, NULL, NULL, NULL, NULL, 41),
+--    (42, 5, N'1 deer, other', 12, NULL, NULL, NULL, NULL, 42),
+--    (43, 5, N'1 horse', 21, NULL, NULL, NULL, NULL, 43);
+--    SET IDENTITY_INSERT [dbo].[LivestockTypes] OFF
+--END
 
 
 GO
