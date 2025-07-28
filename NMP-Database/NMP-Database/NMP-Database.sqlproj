@@ -74,7 +74,6 @@
     <Folder Include="DBO\StoredProcedures\PreviousGrasses" />
     <Folder Include="DBO\StoredProcedures\InprogressCalculations" />
     <Folder Include="DBO\StoredProcedures\PKBalances" />
-    <Folder Include="dbo\Stored Procedures\" />
     <Folder Include="DBO\StoredProcedures\NutrientsLoadingFarmDetails" />
     <Folder Include="DBO\StoredProcedures\NutrientsLoadingManures" />
   </ItemGroup>
