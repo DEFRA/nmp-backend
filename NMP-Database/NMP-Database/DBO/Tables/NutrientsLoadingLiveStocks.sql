@@ -26,6 +26,8 @@
     [ModifiedOn]       DATETIME2       NULL, 
     [ModifiedByID]     INT             NULL,
     CONSTRAINT [PK_NutrientsLoadingLiveStocks] PRIMARY KEY ([ID] ASC),
-    CONSTRAINT [FK_NutrientsLoadingLiveStocks_Farms] FOREIGN KEY ([FarmID]) REFERENCES [Farms]([ID])
+    CONSTRAINT [FK_NutrientsLoadingLiveStocks_Farms] FOREIGN KEY ([FarmID]) REFERENCES [Farms]([ID]),
+    CONSTRAINT [FK_NutrientsLoadingLiveStocks_LivestockGroups] FOREIGN KEY ([LiveStockGroupID]) REFERENCES [LivestockGroups]([ID]),
+    CONSTRAINT [FK_NutrientsLoadingLiveStocks_LivestockTypes] FOREIGN KEY ([LiveStockTypeID]) REFERENCES [LivestockTypes]([ID])
 );
 
