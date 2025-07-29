@@ -1,10 +1,8 @@
 ﻿CREATE TABLE [dbo].[NutrientsLoadingLiveStocks] (
     [ID]               INT             IDENTITY (1, 1) NOT NULL,
     [FarmID]           INT             NOT NULL,
-    [LiveStockGroupId] INT             NOT NULL,
-    [LiveStockGroup]   NVARCHAR (250)  NULL,
-    [LiveStockTypeId]  INT             NULL,
-    [LiveStockType]    NVARCHAR (250)  NULL,
+    [LiveStockGroupID] INT             NOT NULL,
+    [LiveStockTypeID]  INT             NULL,
     [Units]            DECIMAL (18, 3) NULL,
     [NByUnit]          DECIMAL (18, 3) NULL,
     [TotalNProduced]   DECIMAL (18, 3) NULL,
