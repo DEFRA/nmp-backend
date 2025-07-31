@@ -77,4 +77,18 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="IsGrazedNCut" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="fd15830c-165e-4321-b140-68c68fcb7244" ChangeDateTime="07/25/2025 07:50:41">
+    <Property Name="ElementName" Value="[dbo].[LivestockTypes].[P2o5]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[LivestockTypes]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="P2O5" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="e54b5785-a6c8-49c6-b0b3-6b2de88221c1" ChangeDateTime="07/25/2025 07:50:46">
+    <Property Name="ElementName" Value="[dbo].[LivestockTypes].[P2o5Calc]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[LivestockTypes]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="P2O5Calc" />
+  </Operation>
 </Operations>
