@@ -1595,5 +1595,13 @@ BEGIN
     SET IDENTITY_INSERT [dbo].[LivestockTypes] OFF
 END
 
+IF NOT EXISTS (SELECT 1 FROM [dbo].[SecondCropLinkings] WHERE FirstCropID=55 AND SecondCropID=140)
+BEGIN
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (55, 140)
+END
 
+IF NOT EXISTS (SELECT 1 FROM [dbo].[SecondCropLinkings] WHERE FirstCropID=58 AND SecondCropID=140)
+BEGIN
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (58, 140)
+END
 GO
