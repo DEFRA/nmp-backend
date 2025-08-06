@@ -1604,4 +1604,21 @@ IF NOT EXISTS (SELECT 1 FROM [dbo].[SecondCropLinkings] WHERE FirstCropID=58 AND
 BEGIN
 INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (58, 140)
 END
+
+
+IF EXISTS (SELECT 1 FROM [dbo].[LivestockTypes] where [LivestockGroupID] IN (1,4,5))
+BEGIN
+UPDATE [dbo].[LivestockTypes] SET [IsGrazing]=1 where [LivestockGroupID] IN (1,4,5)
+END
+IF EXISTS (SELECT 1 FROM [dbo].[LivestockTypes] where [LivestockGroupID] IN (2,3))
+BEGIN
+UPDATE [dbo].[LivestockTypes] SET [IsGrazing]=0 where [LivestockGroupID] IN (2,3)
+END
+IF EXISTS (SELECT 1 FROM [dbo].[LivestockTypes] where [ID]=2)  --1 veal calf
+BEGIN
+UPDATE [dbo].[LivestockTypes] SET [IsGrazing]=0 where [ID]=2
+END
+
+
+
 GO
