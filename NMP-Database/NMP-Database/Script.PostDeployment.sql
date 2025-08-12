@@ -137,10 +137,10 @@ INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield
 INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [SNSCategoryID], [CropInfoOneQuestionID]) VALUES (43, 9, NULL, 0, NULL, NULL, 3, NULL)
 INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [SNSCategoryID], [CropInfoOneQuestionID]) VALUES (44, 9, NULL, 0, NULL, NULL, 3, NULL)
 INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [SNSCategoryID], [CropInfoOneQuestionID]) VALUES (45, 9, NULL, 0, NULL, NULL, 3, NULL)
-INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [SNSCategoryID], [CropInfoOneQuestionID]) VALUES (50, 6, NULL, 0, NULL, NULL, 3, NULL)
-INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [SNSCategoryID], [CropInfoOneQuestionID]) VALUES (51, 6, NULL, 0, NULL, NULL, 3, NULL)
-INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [SNSCategoryID], [CropInfoOneQuestionID]) VALUES (52, 2, NULL, 0, NULL, NULL, 1, NULL)
-INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [SNSCategoryID], [CropInfoOneQuestionID]) VALUES (53, 2, NULL, 0, NULL, NULL, 1, NULL)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [SNSCategoryID], [CropInfoOneQuestionID]) VALUES (50, 6, NULL, 0, 150, 150, 3, NULL)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [SNSCategoryID], [CropInfoOneQuestionID]) VALUES (51, 6, NULL, 0, 180, 180, 3, NULL)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [SNSCategoryID], [CropInfoOneQuestionID]) VALUES (52, 2, NULL, 0, 180, 180, 1, NULL)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [SNSCategoryID], [CropInfoOneQuestionID]) VALUES (53, 2, NULL, 0, 220, 220, 1, NULL)
 INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [SNSCategoryID], [CropInfoOneQuestionID]) VALUES (54, 6, NULL, 0, NULL, NULL, 3, NULL)
 INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [SNSCategoryID], [CropInfoOneQuestionID]) VALUES (55, 6, NULL, 0, NULL, NULL, 3, NULL)
 INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [SNSCategoryID], [CropInfoOneQuestionID]) VALUES (56, 6, NULL, 0, NULL, NULL, 3, NULL)
@@ -219,6 +219,24 @@ INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield
 
 END
 GO
+
+IF EXISTS (SELECT 1 FROM [dbo].[CropTypeLinkings] where [CropTypeID]=50)
+BEGIN
+UPDATE [dbo].[CropTypeLinkings] SET [NMaxLimitEngland]=150,[NMaxLimitWales]=150 where [CropTypeID]=50
+END
+IF EXISTS (SELECT 1 FROM [dbo].[CropTypeLinkings] where [CropTypeID]=51)
+BEGIN
+UPDATE [dbo].[CropTypeLinkings] SET [NMaxLimitEngland]=180,[NMaxLimitWales]=180 where [CropTypeID]=51
+END
+IF EXISTS (SELECT 1 FROM [dbo].[CropTypeLinkings] where [CropTypeID]=52)
+BEGIN
+UPDATE [dbo].[CropTypeLinkings] SET [NMaxLimitEngland]=180,[NMaxLimitWales]=180 where [CropTypeID]=52
+END
+IF EXISTS (SELECT 1 FROM [dbo].[CropTypeLinkings] where [CropTypeID]=53)
+BEGIN
+UPDATE [dbo].[CropTypeLinkings] SET [NMaxLimitEngland]=220,[NMaxLimitWales]=220 where [CropTypeID]=53
+END
+
 
 
 --IF EXISTS (SELECT 1 FROM [dbo].[CropTypeLinkings] where [CropTypeID]=0)
