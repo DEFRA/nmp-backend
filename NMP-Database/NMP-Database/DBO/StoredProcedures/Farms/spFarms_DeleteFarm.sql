@@ -21,6 +21,7 @@ BEGIN
         DECLARE @SoilAnalysisIDs TABLE (ID INT);
         DECLARE @NutrientsLoadingFarmDetailIDs TABLE (ID INT);
         DECLARE @NutrientsLoadingManuresIDs TABLE (ID INT);
+        DECLARE @NutrientsLoadingLiveStocksIDs TABLE (ID INT);
 
         -- Fetch and store Field IDs
         INSERT INTO @FieldIDs (ID)
@@ -53,6 +54,10 @@ BEGIN
 		-- Fetch and store NutrientsLoadingManures IDs
         INSERT INTO @NutrientsLoadingManuresIDs (ID)
         SELECT ID FROM NutrientsLoadingManures WHERE FarmID = @FarmID;
+
+        -- Fetch and store NutrientsLoadingLiveStocks IDs
+        INSERT INTO @NutrientsLoadingLiveStocksIDs (ID)
+        SELECT ID FROM NutrientsLoadingLiveStocks WHERE FarmID = @FarmID;
 
         -- Delete related RecommendationComments using existing SP
         DECLARE @RecommendationID INT;
@@ -187,6 +192,19 @@ BEGIN
         END
         CLOSE nutrientsLoadingManures_cursor;
         DEALLOCATE nutrientsLoadingManures_cursor;
+
+        -- Delete related NutrientsLoadingLiveStocks using existing SP
+		 DECLARE @NutrientsLoadingLiveStockID INT;
+        DECLARE nutrientsLoadingLivestocks_cursor CURSOR FOR SELECT ID FROM @NutrientsLoadingLiveStocksIDs;
+        OPEN nutrientsLoadingLivestocks_cursor;
+        FETCH NEXT FROM nutrientsLoadingLivestocks_cursor INTO @NutrientsLoadingLiveStockID;
+        WHILE @@FETCH_STATUS = 0
+        BEGIN
+            EXEC [spNutrientsLoadingLiveStocks_DeleteNutrientsLoadingLiveStocks] @NutrientsLoadingLiveStockID;
+            FETCH NEXT FROM nutrientsLoadingLivestocks_cursor INTO @NutrientsLoadingLiveStockID;
+        END
+        CLOSE nutrientsLoadingLivestocks_cursor;
+        DEALLOCATE nutrientsLoadingLivestocks_cursor;
 
         -- Finally, delete the Farm itself
         DELETE FROM Farms WHERE ID = @FarmID;
