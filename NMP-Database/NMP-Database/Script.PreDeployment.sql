@@ -157,13 +157,7 @@
 --	TRUNCATE TABLE [LivestockGroups];
 --END
 
-IF  EXISTS (SELECT 1 FROM [dbo].[SoilNitrogenSupplyItems])
-BEGIN
-UPDATE [dbo].[SoilNitrogenSupplyItems] SET [Name]=N'None', [SoilNitrogenSupplyId] =1 WHERE [ID]=1
-UPDATE [dbo].[SoilNitrogenSupplyItems] SET [Name]=N'Up to 100kg per hectare', [SoilNitrogenSupplyId] =1 WHERE [ID]=2
-UPDATE [dbo].[SoilNitrogenSupplyItems] SET [Name]=N'100kg to 250kg per hectare', [SoilNitrogenSupplyId] =2 WHERE [ID]=3
-UPDATE [dbo].[SoilNitrogenSupplyItems] SET [Name]=N'Over 250kg per hectar', [SoilNitrogenSupplyId] =3 WHERE [ID]=4
-END
+
 
 
 
