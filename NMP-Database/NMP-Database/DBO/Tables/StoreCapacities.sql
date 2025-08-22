@@ -1,0 +1,20 @@
+﻿CREATE TABLE [dbo].[StoreCapacities]
+(
+	[FarmID] INT NOT NULL,
+	[Year] INT NOT NULL,
+	[MaterialStateID] INT NOT NULL,
+	[StorageTypeID] INT  NOT NULL,
+	[Length] DECIMAL(18, 3) NULL,
+	[Width] DECIMAL(18, 3) NULL,
+	[Depth] DECIMAL(18, 3) NULL,
+	[Circumference] DECIMAL(18, 3) NULL,
+	[Diameter] DECIMAL(18, 3) NULL,
+	[IsCovered] BIT NULL,
+	[CapacityVolume] DECIMAL(18, 3) NULL,
+	[CapacityWeight] DECIMAL(18, 3) NULL,
+	[SurfaceArea] DECIMAL(18, 3) NULL,
+	CONSTRAINT [PK_StoreCapacities] PRIMARY KEY CLUSTERED ([FarmID],[Year]),
+    CONSTRAINT [FK_StoreCapacities_Farms] FOREIGN KEY ([FarmID]) REFERENCES [Farms]([ID]),
+    CONSTRAINT [FK_StoreCapacities_MaterialStates] FOREIGN KEY ([MaterialStateID]) REFERENCES [MaterialStates]([ID]),
+    CONSTRAINT [FK_StoreCapacities_StorageTypes] FOREIGN KEY ([StorageTypeID]) REFERENCES [StorageTypes]([ID]),
+)
