@@ -76,6 +76,7 @@
     <Folder Include="DBO\StoredProcedures\PKBalances" />
     <Folder Include="DBO\StoredProcedures\NutrientsLoadingFarmDetails" />
     <Folder Include="DBO\StoredProcedures\NutrientsLoadingManures" />
+    <Folder Include="DBO\StoredProcedures\NutrientsLoadingLiveStocks" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="DBO\Tables\Farms.sql" />
@@ -142,6 +143,7 @@
     <Build Include="DBO\Tables\LivestockGroups.sql" />
     <Build Include="DBO\StoredProcedures\NutrientsLoadingFarmDetails\spNutrientsLoadingFarmDetails_DeleteNutrientsLoadingFarmDetails.sql" />
     <Build Include="DBO\StoredProcedures\NutrientsLoadingManures\spNutrientsLoadingManures_DeleteNutrientsLoadingManures.sql" />
+    <Build Include="DBO\StoredProcedures\NutrientsLoadingLiveStocks\spNutrientsLoadingLiveStocks_DeleteNutrientsLoadingLiveStocks.sql" />
     <Build Include="DBO\Tables\MaterialStates.sql" />
     <Build Include="DBO\Tables\StorageTypes.sql" />
     <Build Include="DBO\Tables\StoreCapacities.sql" />

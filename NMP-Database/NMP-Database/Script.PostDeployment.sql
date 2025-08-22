@@ -85,7 +85,7 @@ BEGIN
 END
 IF NOT EXISTS (SELECT 1 FROM [dbo].[CropInfoQuestions] WHERE [ID] = 8)
 BEGIN
-    INSERT [dbo].[CropInfoQuestions] ([ID], [CropInfoQuestion]) VALUES (8, N'When will you sow this crop?')
+    INSERT [dbo].[CropInfoQuestions] ([ID], [CropInfoQuestion]) VALUES (8, N'What type of spring onions are you sowing?')
 END
 IF NOT EXISTS (SELECT 1 FROM [dbo].[CropInfoQuestions] WHERE [ID] = 9)
 BEGIN
@@ -1633,6 +1633,19 @@ BEGIN
 UPDATE [dbo].[LivestockTypes] SET [IsGrazing]=0 where [ID]=2
 END
 
+
+IF  EXISTS (SELECT 1 FROM [dbo].[SoilNitrogenSupplyItems])
+BEGIN
+UPDATE [dbo].[SoilNitrogenSupplyItems] SET [Name]=N'None', [SoilNitrogenSupplyId] =1 WHERE [ID]=1
+UPDATE [dbo].[SoilNitrogenSupplyItems] SET [Name]=N'Up to 100kg per hectare', [SoilNitrogenSupplyId] =1 WHERE [ID]=2
+UPDATE [dbo].[SoilNitrogenSupplyItems] SET [Name]=N'100kg to 250kg per hectare', [SoilNitrogenSupplyId] =2 WHERE [ID]=3
+UPDATE [dbo].[SoilNitrogenSupplyItems] SET [Name]=N'Over 250kg per hectar', [SoilNitrogenSupplyId] =3 WHERE [ID]=4
+END
+
+IF EXISTS (SELECT 1 FROM [dbo].[CropInfoQuestions] where [ID]=8)
+BEGIN
+UPDATE [dbo].[CropInfoQuestions] SET [CropInfoQuestion]=N'What type of spring onions are you sowing?' where [ID]=8
+END
 
 
 GO
