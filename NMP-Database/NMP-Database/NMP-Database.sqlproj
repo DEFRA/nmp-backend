@@ -144,6 +144,9 @@
     <Build Include="DBO\StoredProcedures\NutrientsLoadingFarmDetails\spNutrientsLoadingFarmDetails_DeleteNutrientsLoadingFarmDetails.sql" />
     <Build Include="DBO\StoredProcedures\NutrientsLoadingManures\spNutrientsLoadingManures_DeleteNutrientsLoadingManures.sql" />
     <Build Include="DBO\StoredProcedures\NutrientsLoadingLiveStocks\spNutrientsLoadingLiveStocks_DeleteNutrientsLoadingLiveStocks.sql" />
+    <Build Include="DBO\Tables\MaterialStates.sql" />
+    <Build Include="DBO\Tables\StorageTypes.sql" />
+    <Build Include="DBO\Tables\StoreCapacities.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Script.PostDeployment.sql">
