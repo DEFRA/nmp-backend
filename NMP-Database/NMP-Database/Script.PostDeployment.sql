@@ -1649,3 +1649,12 @@ END
 
 
 GO
+
+IF NOT EXISTS (SELECT 1 FROM [dbo].[MaterialStates])
+BEGIN
+    SET IDENTITY_INSERT [dbo].[MaterialStates] ON
+    INSERT INTO [MaterialStates] (ID,Name) values(1,'Dirty water storage')
+    INSERT INTO [MaterialStates] (ID,Name) values(2,'Slurry storage')
+    INSERT INTO [MaterialStates] (ID,Name) values(3,'Solid manure storage')
+    SET IDENTITY_INSERT [dbo].[MaterialStates] OFF
+END

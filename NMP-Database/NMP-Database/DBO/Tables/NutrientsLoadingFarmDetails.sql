@@ -9,6 +9,8 @@
     [Derogation]      BIT             NOT NULL,
     [GrassPercentage] INT             NULL,
     [ContingencyPlan] BIT             NOT NULL,
+    [IsAnyLivestockNumber] BIT            NULL,
+    [IsAnyLivestockImportExport] BIT             NULL,
     [CreatedOn]       DATETIME2       NULL DEFAULT GETDATE(), 
     [CreatedByID]     INT             NULL, 
     [ModifiedOn]      DATETIME2       NULL, 
