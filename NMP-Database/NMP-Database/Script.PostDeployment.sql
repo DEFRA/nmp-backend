@@ -1665,7 +1665,7 @@ BEGIN
     INSERT INTO [StorageTypes] (ID,[Name],[FreeBoardheight]) values(1,'Square or rectangular tank',0.3)
     INSERT INTO [StorageTypes] (ID,[Name],[FreeBoardheight]) values(2,'Circular tank',0.3)
     INSERT INTO [StorageTypes] (ID,[Name],[FreeBoardheight]) values(3,'Earth banked lagoon',0.75)
-    INSERT INTO [StorageTypes] (ID,[Name],[FreeBoardheight]) values(4,'Storage bag')
+    INSERT INTO [StorageTypes] (ID,[Name]) values(4,'Storage bag')
     SET IDENTITY_INSERT [dbo].[StorageTypes] OFF
 END
 
