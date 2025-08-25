@@ -1658,3 +1658,34 @@ BEGIN
     INSERT INTO [MaterialStates] (ID,Name) values(3,'Solid manure storage')
     SET IDENTITY_INSERT [dbo].[MaterialStates] OFF
 END
+
+IF NOT EXISTS (SELECT 1 FROM [dbo].[StorageTypes])
+BEGIN
+    SET IDENTITY_INSERT [dbo].[StorageTypes] ON
+    INSERT INTO [StorageTypes] (ID,[Name],[FreeBoardheight]) values(1,'Square or rectangular tank',0.3)
+    INSERT INTO [StorageTypes] (ID,[Name],[FreeBoardheight]) values(2,'Circular tank',0.3)
+    INSERT INTO [StorageTypes] (ID,[Name],[FreeBoardheight]) values(3,'Earth banked lagoon',0.75)
+    INSERT INTO [StorageTypes] (ID,[Name],[FreeBoardheight]) values(4,'Storage bag')
+    SET IDENTITY_INSERT [dbo].[StorageTypes] OFF
+END
+
+IF NOT EXISTS (SELECT 1 FROM [dbo].[SolidManureTypes])
+BEGIN
+    SET IDENTITY_INSERT [dbo].[SolidManureTypes] ON
+    INSERT INTO [SolidManureTypes] (ID,[Name],[Density]) values(9,'Poultry litter',0.5)
+    INSERT INTO [SolidManureTypes] (ID,[Name],[Density]) values(10,'Other poultry litter(usually from layers)',0.9)
+    INSERT INTO [SolidManureTypes] (ID,[Name],[Density]) values(11,'Other solid manures',0.7)
+    SET IDENTITY_INSERT [dbo].[SolidManureTypes] OFF
+END
+
+IF NOT EXISTS (SELECT 1 FROM [dbo].[BankSlopeAngles])
+BEGIN
+    SET IDENTITY_INSERT [dbo].[BankSlopeAngles] ON
+    INSERT INTO [BankSlopeAngles] (ID,[Name],[Angle],[Slope]) values(1,'1:0.5 (63 degrees)',63,0.5)
+    INSERT INTO [BankSlopeAngles] (ID,[Name],[Angle],[Slope]) values(2,'1:0.75 (53 degrees)',53,0.75)
+    INSERT INTO [BankSlopeAngles] (ID,[Name],[Angle],[Slope]) values(3,'1:1 (45 degrees)',45,1)
+    INSERT INTO [BankSlopeAngles] (ID,[Name],[Angle],[Slope]) values(4,'1:1.5 (33.7 degrees)',33.7,1.5)
+    INSERT INTO [BankSlopeAngles] (ID,[Name],[Angle],[Slope]) values(5,'1:2 (26.5 degrees)',26.5,2)
+    INSERT INTO [BankSlopeAngles] (ID,[Name],[Angle],[Slope]) values(6,'1:2.5 (21.8 degrees)',21.8,2.5)
+    SET IDENTITY_INSERT [dbo].[BankSlopeAngles] OFF
+END
