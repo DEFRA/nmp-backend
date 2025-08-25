@@ -147,6 +147,8 @@
     <Build Include="DBO\Tables\MaterialStates.sql" />
     <Build Include="DBO\Tables\StorageTypes.sql" />
     <Build Include="DBO\Tables\StoreCapacities.sql" />
+    <Build Include="DBO\Tables\SolidManureTypes.sql" />
+    <Build Include="DBO\Tables\BankSlopeAngles.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Script.PostDeployment.sql">
