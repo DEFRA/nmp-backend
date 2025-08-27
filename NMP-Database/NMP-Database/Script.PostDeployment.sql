@@ -1588,7 +1588,7 @@ BEGIN
 
     (27, 3, N'1,000 replacement layer pullet places, up to 17 weeks', 210, 210, 150, 150, 89,0, 26),
     (28, 3, N'1,000 laying hens in cages, 17 weeks and over', 400, 400, 350, 350, 97,0, 27),
-    (29, 3, N'1,000 laying hen places, free range (note b), 17 weeks and over', 530, 530, 390, 390, 97,0, 28),
+    (29, 3, N'1,000 laying hen places, free range, 17 weeks and over', 530, 530, 390, 390, 97,0, 28),
     (30, 3, N'1,000 broiler places ', 330, 330, 220, 220, 85,0, 29),
     (31, 3, N'1,000 replacement broiler breeder pullet places, up to 25 weeks ', 290, 290, 260, 260, 92,0, 30),
     (32, 3, N'1,000 broiler breeder places, 25 weeks and over ', 700, 700, 520, 520, 95,0, 31),
@@ -1608,6 +1608,8 @@ BEGIN
     (44, 5, N'1 horse', 21, 21, 20, 20, NULL,1, 43);
     SET IDENTITY_INSERT [dbo].[LivestockTypes] OFF
 END
+
+
 
 IF NOT EXISTS (SELECT 1 FROM [dbo].[SecondCropLinkings] WHERE FirstCropID=55 AND SecondCropID=140)
 BEGIN
@@ -1647,7 +1649,6 @@ BEGIN
 UPDATE [dbo].[CropInfoQuestions] SET [CropInfoQuestion]=N'What type of spring onions are you sowing?' where [ID]=8
 END
 
-
 GO
 
 IF NOT EXISTS (SELECT 1 FROM [dbo].[MaterialStates])
@@ -1678,6 +1679,8 @@ BEGIN
     SET IDENTITY_INSERT [dbo].[SolidManureTypes] OFF
 END
 
+GO
+
 IF NOT EXISTS (SELECT 1 FROM [dbo].[BankSlopeAngles])
 BEGIN
     SET IDENTITY_INSERT [dbo].[BankSlopeAngles] ON
@@ -1689,3 +1692,14 @@ BEGIN
     INSERT INTO [BankSlopeAngles] (ID,[Name],[Angle],[Slope]) values(6,'1:2.5 (21.8 degrees)',21.8,2.5)
     SET IDENTITY_INSERT [dbo].[BankSlopeAngles] OFF
 END
+
+GO
+
+IF EXISTS (SELECT 1 FROM [dbo].[LivestockTypes] where [ID]=29)
+BEGIN
+UPDATE [dbo].[LivestockTypes] SET [Name]=N'1,000 laying hen places, free range, 17 weeks and over' where [ID]=29
+END
+
+
+
+GO -- do not remove this GO
