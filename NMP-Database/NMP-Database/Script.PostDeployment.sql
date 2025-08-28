@@ -1558,7 +1558,7 @@ IF NOT EXISTS (SELECT 1 FROM [dbo].[LivestockTypes])
 BEGIN
     SET IDENTITY_INSERT [dbo].[LivestockTypes] ON 
     INSERT [dbo].[LivestockTypes] ([ID], [LivestockGroupID], [Name], [NByUnit], [NByUnitCalc], [P2o5], [P2o5Calc], [Occupancy], [IsGrazing], [OrderBy]) VALUES
-    (1, 1, N'1 calf (all categories except veal) youger than to 2 months', 8.4, 8.4, 4.6, 4.6, NULL, 1, 1),
+    (1, 1, N'1 calf (all categories except veal) youger than 2 months', 8.4, 8.4, 4.6, 4.6, NULL, 1, 1),
     (2, 1, N'1 veal calf', 8.4, 8.4, 4.6, 4.6, NULL,0,1),
     (3, 1, N'1 dairy cow from 2 months and less than 12 months', 35, 35, 12.4, 12.4, NULL,1, 2),
     (4, 1, N'1 dairy cow from 12 months up to first calf', 61, 61, 25, 25, NULL,1, 3),
@@ -1705,5 +1705,9 @@ BEGIN
 UPDATE [dbo].[CropTypeLinkings] SET [NMaxLimitEngland]=0,[NMaxLimitWales]=0 where [CropTypeID]=181
 END
 
+IF EXISTS (SELECT 1 FROM [dbo].[LivestockTypes] where [ID]=1)
+BEGIN
+UPDATE [dbo].[LivestockTypes] SET [Name]=N'1 calf (all categories except veal) youger than 2 months' where [ID]=1
+END
 
 GO -- do not remove this GO
