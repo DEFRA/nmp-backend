@@ -16,7 +16,7 @@
     [Address3]         NVARCHAR (50)   NULL,
     [Address4]         NVARCHAR (50)   NULL,
     [PostCode]         NVARCHAR (50)   NULL,
-    [Comments]         NVARCHAR (255)  NULL,
+    [Comments]         NVARCHAR (100)  NULL,
     [K2O]                      DECIMAL (18, 3) NULL,
     [MgO]                      DECIMAL (18, 3) NULL,
     [SO3]                      DECIMAL (18, 3) NULL,   
