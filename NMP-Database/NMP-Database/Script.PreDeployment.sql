@@ -157,8 +157,4 @@
 --	TRUNCATE TABLE [LivestockGroups];
 --END
 
-
-
-
-
 GO
