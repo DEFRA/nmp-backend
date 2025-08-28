@@ -161,7 +161,7 @@ IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'Nutrients
 BEGIN
     IF EXISTS(SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'NutrientsLoadingManures' AND COLUMN_NAME = 'Comments' AND TABLE_SCHEMA = 'DBO')
     BEGIN 
-        PRINT 'Column data type change';
+        PRINT 'Column data length change';
         ALTER TABLE DBO.NutrientsLoadingManures
         ALTER COLUMN Comments NVARCHAR (100) NULL; 
     END
