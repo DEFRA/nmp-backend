@@ -157,8 +157,15 @@
 --	TRUNCATE TABLE [LivestockGroups];
 --END
 
-
-
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'NutrientsLoadingManures' AND TABLE_SCHEMA = 'DBO')
+BEGIN
+    IF EXISTS(SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'NutrientsLoadingManures' AND COLUMN_NAME = 'Comments' AND TABLE_SCHEMA = 'DBO')
+    BEGIN 
+        PRINT 'Column data type change';
+        ALTER TABLE DBO.NutrientsLoadingManures
+        ALTER COLUMN Comments NVARCHAR (100) NULL; 
+    END
+END
 
 
 GO
