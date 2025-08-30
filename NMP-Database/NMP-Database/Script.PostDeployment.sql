@@ -85,7 +85,7 @@ BEGIN
 END
 IF NOT EXISTS (SELECT 1 FROM [dbo].[CropInfoQuestions] WHERE [ID] = 8)
 BEGIN
-    INSERT [dbo].[CropInfoQuestions] ([ID], [CropInfoQuestion]) VALUES (8, N'When will you sow this crop?')
+    INSERT [dbo].[CropInfoQuestions] ([ID], [CropInfoQuestion]) VALUES (8, N'What type of spring onions are you sowing?')
 END
 IF NOT EXISTS (SELECT 1 FROM [dbo].[CropInfoQuestions] WHERE [ID] = 9)
 BEGIN
@@ -204,7 +204,7 @@ INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield
 INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [SNSCategoryID], [CropInfoOneQuestionID]) VALUES (178, 9, NULL, 1, NULL, NULL, NULL, NULL)
 INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [SNSCategoryID], [CropInfoOneQuestionID]) VALUES (179, 9, NULL, 1, NULL, NULL, 4, NULL)
 INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [SNSCategoryID], [CropInfoOneQuestionID]) VALUES (180, 9, NULL, 0, NULL, NULL, NULL, NULL)
-INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [SNSCategoryID], [CropInfoOneQuestionID]) VALUES (181, 9, NULL, 0, NULL, NULL, 4, NULL)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [SNSCategoryID], [CropInfoOneQuestionID]) VALUES (181, 9, NULL, 0, 0, 0, 4, NULL)
 INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [SNSCategoryID], [CropInfoOneQuestionID]) VALUES (182, 9, NULL, 0, NULL, NULL, NULL, NULL)
 INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [SNSCategoryID], [CropInfoOneQuestionID]) VALUES (184, 9, NULL, 1, NULL, NULL, 3, 13)
 INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [SNSCategoryID], [CropInfoOneQuestionID]) VALUES (185, 9, NULL, 1, NULL, NULL, 3, 5)
@@ -1558,7 +1558,7 @@ IF NOT EXISTS (SELECT 1 FROM [dbo].[LivestockTypes])
 BEGIN
     SET IDENTITY_INSERT [dbo].[LivestockTypes] ON 
     INSERT [dbo].[LivestockTypes] ([ID], [LivestockGroupID], [Name], [NByUnit], [NByUnitCalc], [P2o5], [P2o5Calc], [Occupancy], [IsGrazing], [OrderBy]) VALUES
-    (1, 1, N'1 calf (all categories except veal) youger than to 2 months', 8.4, 8.4, 4.6, 4.6, NULL, 1, 1),
+    (1, 1, N'1 calf (all categories except veal) youger than 2 months', 8.4, 8.4, 4.6, 4.6, NULL, 1, 1),
     (2, 1, N'1 veal calf', 8.4, 8.4, 4.6, 4.6, NULL,0,1),
     (3, 1, N'1 dairy cow from 2 months and less than 12 months', 35, 35, 12.4, 12.4, NULL,1, 2),
     (4, 1, N'1 dairy cow from 12 months up to first calf', 61, 61, 25, 25, NULL,1, 3),
@@ -1588,7 +1588,7 @@ BEGIN
 
     (27, 3, N'1,000 replacement layer pullet places, up to 17 weeks', 210, 210, 150, 150, 89,0, 26),
     (28, 3, N'1,000 laying hens in cages, 17 weeks and over', 400, 400, 350, 350, 97,0, 27),
-    (29, 3, N'1,000 laying hen places, free range (note b), 17 weeks and over', 530, 530, 390, 390, 97,0, 28),
+    (29, 3, N'1,000 laying hen places, free range, 17 weeks and over', 530, 530, 390, 390, 97,0, 28),
     (30, 3, N'1,000 broiler places ', 330, 330, 220, 220, 85,0, 29),
     (31, 3, N'1,000 replacement broiler breeder pullet places, up to 25 weeks ', 290, 290, 260, 260, 92,0, 30),
     (32, 3, N'1,000 broiler breeder places, 25 weeks and over ', 700, 700, 520, 520, 95,0, 31),
@@ -1608,6 +1608,8 @@ BEGIN
     (44, 5, N'1 horse', 21, 21, 20, 20, NULL,1, 43);
     SET IDENTITY_INSERT [dbo].[LivestockTypes] OFF
 END
+
+
 
 IF NOT EXISTS (SELECT 1 FROM [dbo].[SecondCropLinkings] WHERE FirstCropID=55 AND SecondCropID=140)
 BEGIN
@@ -1634,5 +1636,78 @@ UPDATE [dbo].[LivestockTypes] SET [IsGrazing]=0 where [ID]=2
 END
 
 
+IF  EXISTS (SELECT 1 FROM [dbo].[SoilNitrogenSupplyItems])
+BEGIN
+UPDATE [dbo].[SoilNitrogenSupplyItems] SET [Name]=N'None', [SoilNitrogenSupplyId] =1 WHERE [ID]=1
+UPDATE [dbo].[SoilNitrogenSupplyItems] SET [Name]=N'Up to 100kg per hectare', [SoilNitrogenSupplyId] =1 WHERE [ID]=2
+UPDATE [dbo].[SoilNitrogenSupplyItems] SET [Name]=N'100kg to 250kg per hectare', [SoilNitrogenSupplyId] =2 WHERE [ID]=3
+UPDATE [dbo].[SoilNitrogenSupplyItems] SET [Name]=N'Over 250kg per hectar', [SoilNitrogenSupplyId] =3 WHERE [ID]=4
+END
+
+IF EXISTS (SELECT 1 FROM [dbo].[CropInfoQuestions] where [ID]=8)
+BEGIN
+UPDATE [dbo].[CropInfoQuestions] SET [CropInfoQuestion]=N'What type of spring onions are you sowing?' where [ID]=8
+END
 
 GO
+
+IF NOT EXISTS (SELECT 1 FROM [dbo].[MaterialStates])
+BEGIN
+    SET IDENTITY_INSERT [dbo].[MaterialStates] ON
+    INSERT INTO [MaterialStates] (ID,Name) values(1,'Dirty water storage')
+    INSERT INTO [MaterialStates] (ID,Name) values(2,'Slurry storage')
+    INSERT INTO [MaterialStates] (ID,Name) values(3,'Solid manure storage')
+    SET IDENTITY_INSERT [dbo].[MaterialStates] OFF
+END
+
+IF NOT EXISTS (SELECT 1 FROM [dbo].[StorageTypes])
+BEGIN
+    SET IDENTITY_INSERT [dbo].[StorageTypes] ON
+    INSERT INTO [StorageTypes] (ID,[Name],[FreeBoardheight]) values(1,'Square or rectangular tank',0.3)
+    INSERT INTO [StorageTypes] (ID,[Name],[FreeBoardheight]) values(2,'Circular tank',0.3)
+    INSERT INTO [StorageTypes] (ID,[Name],[FreeBoardheight]) values(3,'Earth banked lagoon',0.75)
+    INSERT INTO [StorageTypes] (ID,[Name],[FreeBoardheight]) values(4,'Storage bag',0)
+    SET IDENTITY_INSERT [dbo].[StorageTypes] OFF
+END
+
+IF NOT EXISTS (SELECT 1 FROM [dbo].[SolidManureTypes])
+BEGIN
+    SET IDENTITY_INSERT [dbo].[SolidManureTypes] ON
+    INSERT INTO [SolidManureTypes] (ID,[Name],[Density]) values(9,'Poultry litter',0.5)
+    INSERT INTO [SolidManureTypes] (ID,[Name],[Density]) values(10,'Other poultry litter(usually from layers)',0.9)
+    INSERT INTO [SolidManureTypes] (ID,[Name],[Density]) values(11,'Other solid manures',0.7)
+    SET IDENTITY_INSERT [dbo].[SolidManureTypes] OFF
+END
+
+GO
+
+IF NOT EXISTS (SELECT 1 FROM [dbo].[BankSlopeAngles])
+BEGIN
+    SET IDENTITY_INSERT [dbo].[BankSlopeAngles] ON
+    INSERT INTO [BankSlopeAngles] (ID,[Name],[Angle],[Slope]) values(1,'1:0.5 (63 degrees)',63,0.5)
+    INSERT INTO [BankSlopeAngles] (ID,[Name],[Angle],[Slope]) values(2,'1:0.75 (53 degrees)',53,0.75)
+    INSERT INTO [BankSlopeAngles] (ID,[Name],[Angle],[Slope]) values(3,'1:1 (45 degrees)',45,1)
+    INSERT INTO [BankSlopeAngles] (ID,[Name],[Angle],[Slope]) values(4,'1:1.5 (33.7 degrees)',33.7,1.5)
+    INSERT INTO [BankSlopeAngles] (ID,[Name],[Angle],[Slope]) values(5,'1:2 (26.5 degrees)',26.5,2)
+    INSERT INTO [BankSlopeAngles] (ID,[Name],[Angle],[Slope]) values(6,'1:2.5 (21.8 degrees)',21.8,2.5)
+    SET IDENTITY_INSERT [dbo].[BankSlopeAngles] OFF
+END
+
+GO
+
+IF EXISTS (SELECT 1 FROM [dbo].[LivestockTypes] where [ID]=29)
+BEGIN
+UPDATE [dbo].[LivestockTypes] SET [Name]=N'1,000 laying hen places, free range, 17 weeks and over' where [ID]=29
+END
+
+IF EXISTS (SELECT 1 FROM [dbo].[CropTypeLinkings] where [CropTypeID]=181)
+BEGIN
+UPDATE [dbo].[CropTypeLinkings] SET [NMaxLimitEngland]=0,[NMaxLimitWales]=0 where [CropTypeID]=181
+END
+
+IF EXISTS (SELECT 1 FROM [dbo].[LivestockTypes] where [ID]=1)
+BEGIN
+UPDATE [dbo].[LivestockTypes] SET [Name]=N'1 calf (all categories except veal) youger than 2 months' where [ID]=1
+END
+
+GO -- do not remove this GO
