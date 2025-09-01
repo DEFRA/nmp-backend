@@ -157,4 +157,41 @@
 --	TRUNCATE TABLE [LivestockGroups];
 --END
 
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'Crops' AND TABLE_SCHEMA = 'dbo')
+BEGIN
+
+    -- Step 1: get all duplicate entries
+    WITH DuplicateCrops AS (
+        SELECT 
+            Id,
+            ROW_NUMBER() OVER (
+                PARTITION BY FieldId, [Year], CropTypeID, CropOrder
+                ORDER BY Id
+            ) AS rn
+        FROM dbo.Crops
+    )
+
+    -- Store duplicate Ids into Id (remove the ist entry)
+    SELECT Id 
+    INTO #DuplicateCropIds
+    FROM DuplicateCrops
+    WHERE rn > 1;
+
+    -- Step 3: delete duplicate ids using stored procedure
+    DECLARE @CropId INT;
+
+    WHILE EXISTS (SELECT 1 FROM #DuplicateCropIds)
+    BEGIN
+        SELECT TOP 1 @CropId = Id FROM #DuplicateCropIds;
+
+        EXEC [spCrops_DeleteCrops] @CropId;
+
+        DELETE FROM #DuplicateCropIds WHERE Id = @CropId;
+    END
+
+    DROP TABLE #DuplicateCropIds;
+END
+
+
+
 GO

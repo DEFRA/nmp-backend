@@ -32,6 +32,7 @@
     [ModifiedByID]          INT             NULL,
     [PreviousID]            INT             NULL,
     CONSTRAINT [PK_Crops] PRIMARY KEY CLUSTERED ([ID] ASC),
+    CONSTRAINT [UQ_Crops_FieldID_Year_CropTypeID_CropOrder] UNIQUE ([FieldID], [Year], [CropTypeID], [CropOrder]),
     CONSTRAINT [FK_Crops_Fields] FOREIGN KEY ([FieldID]) REFERENCES [dbo].[Fields] ([ID]),
     CONSTRAINT [FK_Crops_Users_CreatedBy] FOREIGN KEY ([CreatedByID]) REFERENCES [dbo].[Users] ([ID]),
     CONSTRAINT [FK_Crops_Users_ModifiedBy] FOREIGN KEY ([ModifiedByID]) REFERENCES [dbo].[Users] ([ID])
