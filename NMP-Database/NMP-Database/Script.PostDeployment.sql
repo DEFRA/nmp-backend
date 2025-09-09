@@ -1544,6 +1544,9 @@ BEGIN
     UPDATE [dbo].[Crops] SET [IsBasePlan]=0 WHERE CropTypeID=140 AND [DefoliationSequenceID] IS NOT NULL
     END
 
+    PRINT 'NOW [IsBasePlan] IS NOT NULL';
+    ALTER TABLE DBO.[Crops]
+    ALTER COLUMN [IsBasePlan] BIT NOT NULL; 
 END
 
 GO -- do not remove this GO
