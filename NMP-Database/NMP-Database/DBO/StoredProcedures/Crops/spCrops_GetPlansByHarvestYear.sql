@@ -22,6 +22,7 @@ BEGIN
 		[Crops].SwardManagementID AS SwardManagementID,
 		[Crops].DefoliationSequenceID AS DefoliationSequenceID,
 		[Crops].Establishment AS Establishment,
+		[Crops].IsBasePlan AS IsBasePlan,
         CASE
             WHEN [Crops].[ModifiedOn] >= [Crops].[CreatedOn] THEN [Crops].[ModifiedOn]
             ELSE [Crops].[CreatedOn]
