@@ -26,6 +26,7 @@
     [SwardTypeID]           INT             NULL,
     [SwardManagementID]     INT             NULL,
     [PotentialCut]          INT             NULL,
+    [IsBasePlan]            BIT             NULL,
     [CreatedOn]             DATETIME2       NULL DEFAULT GETDATE(), 
     [CreatedByID]           INT             NULL,
     [ModifiedOn]            DATETIME2    NULL,
