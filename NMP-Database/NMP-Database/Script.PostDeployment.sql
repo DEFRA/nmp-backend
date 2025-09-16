@@ -1574,4 +1574,25 @@ GO
 --UPDATE [dbo].[LivestockTypes] SET [Name]=N'1 calf (all categories except veal) youger than 2 months' where [ID]=1
 --END
 
+
+IF EXISTS (SELECT 1 FROM [dbo].[Crops] WHERE [IsBasePlan] IS NULL)
+BEGIN
+
+    UPDATE [dbo].[Crops] SET [IsBasePlan]=1 WHERE [Yield] IS NULL AND [CropInfo1] IS NULL AND [DefoliationSequenceID] IS NULL
+
+    IF EXISTS (SELECT 1 FROM [dbo].[Crops] WHERE CropTypeID!=140 AND ([Yield] IS NOT NULL OR [CropInfo1] IS NOT NULL))
+    BEGIN
+    UPDATE [dbo].[Crops] SET [IsBasePlan]=0 WHERE CropTypeID!=140 AND ([Yield] IS NOT NULL OR [CropInfo1] IS NOT NULL)
+    END
+
+    IF EXISTS (SELECT 1 FROM [dbo].[Crops] WHERE CropTypeID=140 AND [DefoliationSequenceID] IS NOT NULL)
+    BEGIN
+    UPDATE [dbo].[Crops] SET [IsBasePlan]=0 WHERE CropTypeID=140 AND [DefoliationSequenceID] IS NOT NULL
+    END
+
+    PRINT 'NOW [IsBasePlan] IS NOT NULL';
+    ALTER TABLE DBO.[Crops]
+    ALTER COLUMN [IsBasePlan] BIT NOT NULL; 
+END
+
 GO -- do not remove this GO
