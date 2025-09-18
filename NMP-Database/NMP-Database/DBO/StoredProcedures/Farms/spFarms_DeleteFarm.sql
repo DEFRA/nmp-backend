@@ -1,4 +1,5 @@
-﻿CREATE PROCEDURE [dbo].[spFarms_DeleteFarm]
+﻿
+CREATE   PROCEDURE [dbo].[spFarms_DeleteFarm]
     @FarmID INT
 AS
 BEGIN
@@ -22,6 +23,11 @@ BEGIN
         DECLARE @NutrientsLoadingFarmDetailIDs TABLE (ID INT);
         DECLARE @NutrientsLoadingManuresIDs TABLE (ID INT);
         DECLARE @NutrientsLoadingLiveStocksIDs TABLE (ID INT);
+        DECLARE @StoreCapacityIDs TABLE (ID INT);
+
+        -- Fetch IDs for StoreCapacities
+        INSERT INTO @StoreCapacityIDs (ID)
+        SELECT ID FROM StoreCapacities WHERE FarmID = @FarmID;
 
         -- Fetch and store Field IDs
         INSERT INTO @FieldIDs (ID)
@@ -47,11 +53,11 @@ BEGIN
         INSERT INTO @SoilAnalysisIDs (ID)
         SELECT ID FROM SoilAnalyses WHERE FieldID IN (SELECT ID FROM @FieldIDs);
 
-		-- Fetch and store NutrientsLoadingFarmDetail IDs
+        -- Fetch and store NutrientsLoadingFarmDetail IDs
         INSERT INTO @NutrientsLoadingFarmDetailIDs (ID)
         SELECT ID FROM NutrientsLoadingFarmDetails WHERE FarmID = @FarmID;
 
-		-- Fetch and store NutrientsLoadingManures IDs
+        -- Fetch and store NutrientsLoadingManures IDs
         INSERT INTO @NutrientsLoadingManuresIDs (ID)
         SELECT ID FROM NutrientsLoadingManures WHERE FarmID = @FarmID;
 
@@ -59,10 +65,26 @@ BEGIN
         INSERT INTO @NutrientsLoadingLiveStocksIDs (ID)
         SELECT ID FROM NutrientsLoadingLiveStocks WHERE FarmID = @FarmID;
 
-        -- Delete related RecommendationComments using existing SP
+        -- ==================================================
+        -- Delete related StoreCapacities using existing SP
+        -- ==================================================
+        DECLARE @StoreCapacityID INT;
+        DECLARE sc_cursor CURSOR FOR SELECT ID FROM @StoreCapacityIDs;
+        OPEN sc_cursor;
+        FETCH NEXT FROM sc_cursor INTO @StoreCapacityID;
+        WHILE @@FETCH_STATUS = 0
+        BEGIN
+            EXEC spStoreCapacities_DeleteStoreCapacities @StoreCapacityID;
+            FETCH NEXT FROM sc_cursor INTO @StoreCapacityID;
+        END
+        CLOSE sc_cursor;
+        DEALLOCATE sc_cursor;
+
+        -- ==================================================
+        -- Delete related RecommendationComments
+        -- ==================================================
         DECLARE @RecommendationID INT;
         DECLARE rec_cursor CURSOR FOR SELECT ID FROM @RecommendationIDs;
-
         OPEN rec_cursor;
         FETCH NEXT FROM rec_cursor INTO @RecommendationID;
         WHILE @@FETCH_STATUS = 0
@@ -73,7 +95,7 @@ BEGIN
         CLOSE rec_cursor;
         DEALLOCATE rec_cursor;
 
-        -- Delete related Recommendations using existing SP
+        -- Delete related Recommendations
         DECLARE rec_cursor2 CURSOR FOR SELECT ID FROM @RecommendationIDs;
         OPEN rec_cursor2;
         FETCH NEXT FROM rec_cursor2 INTO @RecommendationID;
@@ -85,7 +107,7 @@ BEGIN
         CLOSE rec_cursor2;
         DEALLOCATE rec_cursor2;
 
-        -- Delete related OrganicManures using existing SP
+        -- Delete related OrganicManures
         DECLARE @ManagementPeriodID INT;
         DECLARE mp_cursor CURSOR FOR SELECT ID FROM @ManagementPeriodIDs;
         OPEN mp_cursor;
@@ -98,7 +120,7 @@ BEGIN
         CLOSE mp_cursor;
         DEALLOCATE mp_cursor;
 
-        -- Delete related SoilAnalyses using existing SP
+        -- Delete related SoilAnalyses
         DECLARE @SoilAnalysisID INT;
         DECLARE sa_cursor CURSOR FOR SELECT ID FROM @SoilAnalysisIDs;
         OPEN sa_cursor;
@@ -111,7 +133,7 @@ BEGIN
         CLOSE sa_cursor;
         DEALLOCATE sa_cursor;
 
-        -- Delete related FarmManureTypes using existing SP
+        -- Delete related FarmManureTypes
         DECLARE @FarmManureTypeID INT;
         DECLARE fm_cursor CURSOR FOR SELECT ID FROM @FarmManureTypeIDs;
         OPEN fm_cursor;
@@ -124,7 +146,7 @@ BEGIN
         CLOSE fm_cursor;
         DEALLOCATE fm_cursor;
 
-        -- Delete related ManagementPeriods using existing SP
+        -- Delete related ManagementPeriods
         DECLARE mp_cursor2 CURSOR FOR SELECT ID FROM @ManagementPeriodIDs;
         OPEN mp_cursor2;
         FETCH NEXT FROM mp_cursor2 INTO @ManagementPeriodID;
@@ -136,7 +158,7 @@ BEGIN
         CLOSE mp_cursor2;
         DEALLOCATE mp_cursor2;
 
-        -- Delete related Crops using existing SP
+        -- Delete related Crops
         DECLARE @CropID INT;
         DECLARE crop_cursor CURSOR FOR SELECT ID FROM @CropIDs;
         OPEN crop_cursor;
@@ -149,7 +171,7 @@ BEGIN
         CLOSE crop_cursor;
         DEALLOCATE crop_cursor;
 
-        -- Delete related Fields using existing SP
+        -- Delete related Fields
         DECLARE field_cursor CURSOR FOR SELECT ID FROM @FieldIDs;
         OPEN field_cursor;
         FETCH NEXT FROM field_cursor INTO @FieldID;
@@ -161,46 +183,46 @@ BEGIN
         CLOSE field_cursor;
         DEALLOCATE field_cursor;
 
-        -- Check if records exist in ExcessRainfalls for the given FarmID
+        -- Delete related ExcessRainfalls if exist
         IF EXISTS (SELECT 1 FROM ExcessRainfalls WHERE FarmID = @FarmID)
         BEGIN
-            -- Delete related ExcessRainfalls if records are found
             DELETE FROM ExcessRainfalls WHERE FarmID = @FarmID;
         END
-		 -- Delete related NutrientsLoadingFarmDetails using existing SP
-		 DECLARE @NutrientsLoadingFarmDetailID INT;
+
+        -- Delete related NutrientsLoadingFarmDetails
+        DECLARE @NutrientsLoadingFarmDetailID INT;
         DECLARE nutrientsLoadingFarmDetail_cursor CURSOR FOR SELECT ID FROM @NutrientsLoadingFarmDetailIDs;
         OPEN nutrientsLoadingFarmDetail_cursor;
         FETCH NEXT FROM nutrientsLoadingFarmDetail_cursor INTO @NutrientsLoadingFarmDetailID;
         WHILE @@FETCH_STATUS = 0
         BEGIN
-            EXEC [spNutrientsLoadingFarmDetails_DeleteNutrientsLoadingFarmDetails] @NutrientsLoadingFarmDetailID;
+            EXEC spNutrientsLoadingFarmDetails_DeleteNutrientsLoadingFarmDetails @NutrientsLoadingFarmDetailID;
             FETCH NEXT FROM nutrientsLoadingFarmDetail_cursor INTO @NutrientsLoadingFarmDetailID;
         END
         CLOSE nutrientsLoadingFarmDetail_cursor;
         DEALLOCATE nutrientsLoadingFarmDetail_cursor;
 
-		 -- Delete related NutrientsLoadingManures using existing SP
-		 DECLARE @NutrientsLoadingManuresID INT;
+        -- Delete related NutrientsLoadingManures
+        DECLARE @NutrientsLoadingManuresID INT;
         DECLARE nutrientsLoadingManures_cursor CURSOR FOR SELECT ID FROM @NutrientsLoadingManuresIDs;
         OPEN nutrientsLoadingManures_cursor;
         FETCH NEXT FROM nutrientsLoadingManures_cursor INTO @NutrientsLoadingManuresID;
         WHILE @@FETCH_STATUS = 0
         BEGIN
-            EXEC [spNutrientsLoadingManures_DeleteNutrientsLoadingManures] @NutrientsLoadingManuresID;
+            EXEC spNutrientsLoadingManures_DeleteNutrientsLoadingManures @NutrientsLoadingManuresID;
             FETCH NEXT FROM nutrientsLoadingManures_cursor INTO @NutrientsLoadingManuresID;
         END
         CLOSE nutrientsLoadingManures_cursor;
         DEALLOCATE nutrientsLoadingManures_cursor;
 
-        -- Delete related NutrientsLoadingLiveStocks using existing SP
-		 DECLARE @NutrientsLoadingLiveStockID INT;
+        -- Delete related NutrientsLoadingLiveStocks
+        DECLARE @NutrientsLoadingLiveStockID INT;
         DECLARE nutrientsLoadingLivestocks_cursor CURSOR FOR SELECT ID FROM @NutrientsLoadingLiveStocksIDs;
         OPEN nutrientsLoadingLivestocks_cursor;
         FETCH NEXT FROM nutrientsLoadingLivestocks_cursor INTO @NutrientsLoadingLiveStockID;
         WHILE @@FETCH_STATUS = 0
         BEGIN
-            EXEC [spNutrientsLoadingLiveStocks_DeleteNutrientsLoadingLiveStocks] @NutrientsLoadingLiveStockID;
+            EXEC spNutrientsLoadingLiveStocks_DeleteNutrientsLoadingLiveStocks @NutrientsLoadingLiveStockID;
             FETCH NEXT FROM nutrientsLoadingLivestocks_cursor INTO @NutrientsLoadingLiveStockID;
         END
         CLOSE nutrientsLoadingLivestocks_cursor;
@@ -212,8 +234,11 @@ BEGIN
         COMMIT TRANSACTION;
     END TRY
     BEGIN CATCH
-        ROLLBACK TRANSACTION;
-        SELECT 
+        -- ✅ Rollback only if transaction is still active
+        IF XACT_STATE() <> 0
+            ROLLBACK TRANSACTION;
+
+        SELECT
             @ErrorMessage = ERROR_MESSAGE(),
             @ErrorSeverity = ERROR_SEVERITY(),
             @ErrorState = ERROR_STATE();
