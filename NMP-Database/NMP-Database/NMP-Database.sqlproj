@@ -77,6 +77,7 @@
     <Folder Include="DBO\StoredProcedures\NutrientsLoadingFarmDetails" />
     <Folder Include="DBO\StoredProcedures\NutrientsLoadingManures" />
     <Folder Include="DBO\StoredProcedures\NutrientsLoadingLiveStocks" />
+    <Folder Include="DBO\StoredProcedures\StoreCapacities" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="DBO\Tables\Farms.sql" />
@@ -149,6 +150,7 @@
     <Build Include="DBO\Tables\StoreCapacities.sql" />
     <Build Include="DBO\Tables\SolidManureTypes.sql" />
     <Build Include="DBO\Tables\BankSlopeAngles.sql" />
+    <Build Include="DBO\StoredProcedures\StoreCapacities\spStoreCapacities_DeleteStoreCapacities.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Script.PostDeployment.sql">
