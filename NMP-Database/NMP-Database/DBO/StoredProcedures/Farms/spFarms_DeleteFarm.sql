@@ -1,5 +1,4 @@
-﻿
-CREATE   PROCEDURE [dbo].[spFarms_DeleteFarm]
+﻿CREATE PROCEDURE [dbo].[spFarms_DeleteFarm]
     @FarmID INT
 AS
 BEGIN
@@ -24,10 +23,6 @@ BEGIN
         DECLARE @NutrientsLoadingManuresIDs TABLE (ID INT);
         DECLARE @NutrientsLoadingLiveStocksIDs TABLE (ID INT);
         DECLARE @StoreCapacityIDs TABLE (ID INT);
-
-        -- Fetch IDs for StoreCapacities
-        INSERT INTO @StoreCapacityIDs (ID)
-        SELECT ID FROM StoreCapacities WHERE FarmID = @FarmID;
 
         -- Fetch and store Field IDs
         INSERT INTO @FieldIDs (ID)
@@ -65,24 +60,11 @@ BEGIN
         INSERT INTO @NutrientsLoadingLiveStocksIDs (ID)
         SELECT ID FROM NutrientsLoadingLiveStocks WHERE FarmID = @FarmID;
 
-        -- ==================================================
-        -- Delete related StoreCapacities using existing SP
-        -- ==================================================
-        DECLARE @StoreCapacityID INT;
-        DECLARE sc_cursor CURSOR FOR SELECT ID FROM @StoreCapacityIDs;
-        OPEN sc_cursor;
-        FETCH NEXT FROM sc_cursor INTO @StoreCapacityID;
-        WHILE @@FETCH_STATUS = 0
-        BEGIN
-            EXEC spStoreCapacities_DeleteStoreCapacities @StoreCapacityID;
-            FETCH NEXT FROM sc_cursor INTO @StoreCapacityID;
-        END
-        CLOSE sc_cursor;
-        DEALLOCATE sc_cursor;
+        -- Fetch and store StoreCapacity IDs
+        INSERT INTO @StoreCapacityIDs (ID)
+        SELECT ID FROM StoreCapacities WHERE FarmID = @FarmID;
 
-        -- ==================================================
         -- Delete related RecommendationComments
-        -- ==================================================
         DECLARE @RecommendationID INT;
         DECLARE rec_cursor CURSOR FOR SELECT ID FROM @RecommendationIDs;
         OPEN rec_cursor;
@@ -183,7 +165,7 @@ BEGIN
         CLOSE field_cursor;
         DEALLOCATE field_cursor;
 
-        -- Delete related ExcessRainfalls if exist
+        -- Delete related ExcessRainfalls
         IF EXISTS (SELECT 1 FROM ExcessRainfalls WHERE FarmID = @FarmID)
         BEGIN
             DELETE FROM ExcessRainfalls WHERE FarmID = @FarmID;
@@ -228,22 +210,33 @@ BEGIN
         CLOSE nutrientsLoadingLivestocks_cursor;
         DEALLOCATE nutrientsLoadingLivestocks_cursor;
 
+        -- Delete related StoreCapacities
+        DECLARE @StoreCapacityID INT;
+        DECLARE sc_cursor CURSOR FOR SELECT ID FROM @StoreCapacityIDs;
+        OPEN sc_cursor;
+        FETCH NEXT FROM sc_cursor INTO @StoreCapacityID;
+        WHILE @@FETCH_STATUS = 0
+        BEGIN
+            EXEC spStoreCapacities_DeleteStoreCapacities @StoreCapacityID;
+            FETCH NEXT FROM sc_cursor INTO @StoreCapacityID;
+        END
+        CLOSE sc_cursor;
+        DEALLOCATE sc_cursor;
+
         -- Finally, delete the Farm itself
         DELETE FROM Farms WHERE ID = @FarmID;
 
         COMMIT TRANSACTION;
     END TRY
     BEGIN CATCH
-        -- ✅ Rollback only if transaction is still active
-        IF XACT_STATE() <> 0
-            ROLLBACK TRANSACTION;
-
+        ROLLBACK TRANSACTION;
         SELECT
             @ErrorMessage = ERROR_MESSAGE(),
             @ErrorSeverity = ERROR_SEVERITY(),
             @ErrorState = ERROR_STATE();
-
         RAISERROR(@ErrorMessage, @ErrorSeverity, @ErrorState);
     END CATCH
-END;
+END
 GO
+
+
