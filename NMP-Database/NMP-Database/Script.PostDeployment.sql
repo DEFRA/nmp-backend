@@ -1385,7 +1385,7 @@ BEGIN
     SET IDENTITY_INSERT [dbo].[LivestockTypes] ON 
     INSERT [dbo].[LivestockTypes] ([ID], [LivestockGroupID], [Name], [NByUnit], [NByUnitCalc], [P2o5], [P2o5Calc], [Occupancy], [IsGrazing], [OrderBy]) VALUES
     (1, 1, N'Calf (all categories except veal) youger than 2 months', 8.4, 8.4, 4.6, 4.6, NULL, 1, 1),
-    (2, 1, N'N-loading, comment screen - content amendeal calf', 8.4, 8.4, 4.6, 4.6, NULL,0,2),
+    (2, 1, N'Veal calf', 8.4, 8.4, 4.6, 4.6, NULL,0,2),
     (3, 1, N'Dairy cow from 2 months and less than 12 months', 35, 35, 12.4, 12.4, NULL,1, 3),
     (4, 1, N'Dairy cow from 12 months up to first calf', 61, 61, 25, 25, NULL,1, 4),
     (5, 1, N'Dairy cow after first calf (over 9,000 litres milk yield)', 115, 115, 52, 52, NULL,1, 5),
@@ -1436,7 +1436,7 @@ END
 ELSE
 BEGIN
     UPDATE [dbo].[LivestockTypes] SET [Name] = N'Calf (all categories except veal) youger than 2 months',[OrderBy] =1  WHERE ID = 1
-    UPDATE [dbo].[LivestockTypes] SET [Name] = N'N-loading, comment screen - content amendeal calf',[OrderBy] =2 WHERE ID = 2
+    UPDATE [dbo].[LivestockTypes] SET [Name] = N'Veal calf',[OrderBy] =2 WHERE ID = 2
     UPDATE [dbo].[LivestockTypes] SET [Name] = N'Dairy cow from 2 months and less than 12 months',[OrderBy]=3 WHERE ID = 3
     UPDATE [dbo].[LivestockTypes] SET [Name] = N'Dairy cow from 12 months up to first calf',[OrderBy]=4 WHERE ID = 4
     UPDATE [dbo].[LivestockTypes] SET [Name] = N'Dairy cow after first calf (over 9,000 litres milk yield)',[OrderBy]=5 WHERE ID = 5
