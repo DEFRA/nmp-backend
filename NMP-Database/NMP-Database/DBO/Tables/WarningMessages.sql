@@ -1,0 +1,25 @@
+﻿CREATE TABLE [dbo].[WarningMessages]
+(
+	[ID] INT IDENTITY(1,1) NOT NULL,
+	[FieldID] INT NOT NULL,
+	[CropID] INT NOT NULL,
+	[JoiningID] INT NOT NULL,
+	[Header] NVARCHAR(250) NULL,
+	[Para1] NVARCHAR(MAX) NULL,
+	[Para2] NVARCHAR(MAX) NULL,
+	[Para3] NVARCHAR(MAX) NULL,
+	[WarningCodeID] INT NOT NULL,
+	[WarningLevelID] INT NOT NULL,
+	[CreatedOn]             DATETIME2       NULL DEFAULT GETDATE(), 
+    [CreatedByID]           INT             NULL,
+    [ModifiedOn]            DATETIME2    NULL,
+    [ModifiedByID]          INT             NULL,
+    [PreviousID]            INT             NULL,
+	CONSTRAINT [PK_WarningMessages] PRIMARY KEY ([ID] ASC),
+    CONSTRAINT [FK_WarningMessages_Fields] FOREIGN KEY ([FieldID]) REFERENCES [dbo].[Fields] ([ID]),
+    CONSTRAINT [FK_WarningMessages_Crops] FOREIGN KEY ([CropID]) REFERENCES [dbo].[Crops] ([ID]),
+    CONSTRAINT [FK_WarningMessages_WarningCodes] FOREIGN KEY ([WarningCodeID]) REFERENCES [dbo].[WarningCodes] ([ID]),
+    CONSTRAINT [FK_WarningMessages_WarningLevels] FOREIGN KEY ([WarningLevelID]) REFERENCES [dbo].[WarningLevels] ([ID]),
+    CONSTRAINT [FK_WarningMessages_Users_CreatedBy] FOREIGN KEY ([CreatedByID]) REFERENCES [dbo].[Users] ([ID]),
+    CONSTRAINT [FK_WarningMessages_Users_ModifiedBy] FOREIGN KEY ([ModifiedByID]) REFERENCES [dbo].[Users] ([ID])
+)
