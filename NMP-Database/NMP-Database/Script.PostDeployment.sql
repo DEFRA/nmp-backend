@@ -1595,4 +1595,38 @@ BEGIN
     ALTER COLUMN [IsBasePlan] BIT NOT NULL; 
 END
 
+IF NOT EXISTS (SELECT 1 FROM [dbo].[WarningCodes])
+BEGIN
+    SET IDENTITY_INSERT [dbo].[WarningCodes] ON
+    INSERT INTO [WarningCodes] (ID,[Name]) values(0,'Field app limit')
+    INSERT INTO [WarningCodes] (ID,[Name]) values(1,'Closed period OM')
+    INSERT INTO [WarningCodes] (ID,[Name]) values(2,'App rate side closed')
+    INSERT INTO [WarningCodes] (ID,[Name]) values(3,'High N manures bare')
+    INSERT INTO [WarningCodes] (ID,[Name]) values(4,'Three week period')
+    INSERT INTO [WarningCodes] (ID,[Name]) values(5,'Closed period fert')
+    INSERT INTO [WarningCodes] (ID,[Name]) values(6,'N max limit')
+    INSERT INTO [WarningCodes] (ID,[Name]) values(7,'Organic farm high N')
+    INSERT INTO [WarningCodes] (ID,[Name]) values(8,'Manure app limit close Feb2013_50')
+    INSERT INTO [WarningCodes] (ID,[Name]) values(81,'Manure app limit close Feb2013_30')
+    INSERT INTO [WarningCodes] (ID,[Name]) values(9,'Field app limit green compost 2 Year')
+    INSERT INTO [WarningCodes] (ID,[Name]) values(10,'Field app limit green compost 4 Year')
+    INSERT INTO [WarningCodes] (ID,[Name]) values(11,'Manure app limit close Feb 2014')
+    INSERT INTO [WarningCodes] (ID,[Name]) values(12,'Manure app limit close Feb 2014')
+
+    SET IDENTITY_INSERT [dbo].[WarningCodes] OFF
+END
+
+
+IF NOT EXISTS (SELECT 1 FROM [dbo].[WarningLevels])
+BEGIN
+    SET IDENTITY_INSERT [dbo].[WarningLevels] ON
+    INSERT INTO [WarningLevels] (ID,[Name]) values(0,'Field')
+    INSERT INTO [WarningLevels] (ID,[Name]) values(1,'Manure')
+    INSERT INTO [WarningLevels] (ID,[Name]) values(2,'Fertiliser')
+    INSERT INTO [WarningLevels] (ID,[Name]) values(3,'Crop')
+    INSERT INTO [WarningLevels] (ID,[Name]) values(4,'RainFall')
+SET IDENTITY_INSERT [dbo].[WarningLevels] OFF
+END
+
+
 GO -- do not remove this GO
