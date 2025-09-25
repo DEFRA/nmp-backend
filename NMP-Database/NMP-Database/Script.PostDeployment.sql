@@ -1611,7 +1611,7 @@ BEGIN
     INSERT INTO [WarningCodes] (ID,[Name]) values(10,'Field application limit green compost 4 Year')
     INSERT INTO [WarningCodes] (ID,[Name]) values(11,'Manure application limit close Feb 2014')
     INSERT INTO [WarningCodes] (ID,[Name]) values(12,'Organic manure field limit composts')
-    INSERT INTO [WarningCodes] (ID,[Name]) values(81,'Manure application limit between the end of the closed period and the end of February')
+    INSERT INTO [WarningCodes] (ID,[Name]) values(81,'Manure application limit close Feb2013_30')
 
     SET IDENTITY_INSERT [dbo].[WarningCodes] OFF
 END
