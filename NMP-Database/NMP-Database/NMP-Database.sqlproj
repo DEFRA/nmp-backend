@@ -151,6 +151,9 @@
     <Build Include="DBO\Tables\SolidManureTypes.sql" />
     <Build Include="DBO\Tables\BankSlopeAngles.sql" />
     <Build Include="DBO\StoredProcedures\StoreCapacities\spStoreCapacities_DeleteStoreCapacities.sql" />
+    <Build Include="DBO\Tables\WarningMessages.sql" />
+    <Build Include="DBO\Tables\WarningCodes.sql" />
+    <Build Include="DBO\Tables\WarningLevels.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Script.PostDeployment.sql">

@@ -1,0 +1,6 @@
+﻿CREATE TABLE [dbo].[WarningLevels]
+(
+	[ID] INT NOT NULL IDENTITY(0,1),
+	[Name] NVARCHAR(10) NOT NULL,
+	CONSTRAINT [PK_WarningLevels] PRIMARY KEY ([ID] ASC)
+)
