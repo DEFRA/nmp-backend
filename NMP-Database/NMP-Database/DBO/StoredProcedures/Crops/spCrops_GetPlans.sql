@@ -4,18 +4,42 @@
 AS
 BEGIN
     SELECT
-        [Crops].[Year],
-        CASE
-        WHEN MAX([Crops].[ModifiedOn]) IS NULL THEN MAX([Crops].[CreatedOn])
-        ELSE MAX([Crops].[ModifiedOn])
-    END AS LastModifiedOn
+        c.[Year],
+        MAX(
+            COALESCE(
+                c.[ModifiedOn], c.[CreatedOn],
+                fi.[ModifiedOn], fi.[CreatedOn],
+                sa.[ModifiedOn], sa.[CreatedOn],
+                f.[ModifiedOn], f.[CreatedOn],
+                mp.[ModifiedOn], mp.[CreatedOn],
+                om.[ModifiedOn], om.[CreatedOn],
+                fm.[ModifiedOn], fm.[CreatedOn],
+                r.[ModifiedOn], r.[CreatedOn]
+            )
+        ) AS [LastModifiedOn]
+        --CASE
+        --WHEN MAX(c.[ModifiedOn]) IS NULL THEN MAX(c.[CreatedOn])
+        --ELSE MAX(c.[ModifiedOn])
+        --END AS LastModifiedOn
     FROM
-        [Crops]
+        [Crops] c
     INNER JOIN
-        [Fields] ON [Fields].[ID] = [Crops].[FieldID]
+        [Fields] fi ON fi.[ID] = c.[FieldID]
+    INNER JOIN
+        [SoilAnalyses] sa ON sa.[FieldID] = fi.[ID]
+    INNER JOIN
+        [Farms] f ON f.[ID] = fi.[FarmID]
+    INNER JOIN
+        [ManagementPeriods] mp ON mp.[CropID] = c.[ID]
+    LEFT JOIN
+        [OrganicManures] om ON om.[ManagementPeriodID] = mp.[ID]
+    LEFT JOIN
+        [FertiliserManures] fm ON fm.[ManagementPeriodID] = mp.[ID]
+    LEFT JOIN
+        [Recommendations] r ON r.[ManagementPeriodID] = mp.[ID]
     WHERE
-        [Fields].[FarmID] = @farmId
-    AND [Crops].[Confirm] = @confirm
+        f.[ID] = @farmId
+    AND c.[Confirm] = @confirm
     GROUP BY 
-        [Crops].[Year]
+        c.[Year]
 END
