@@ -101,7 +101,7 @@ BEGIN
 END
 IF NOT EXISTS (SELECT 1 FROM [dbo].[CropInfoQuestions] WHERE [ID] = 12)
 BEGIN
-    INSERT [dbo].[CropInfoQuestions] ([ID], [CropInfoQuestion]) VALUES (12, N'Select the length of growing season')
+    INSERT [dbo].[CropInfoQuestions] ([ID], [CropInfoQuestion]) VALUES (12, N'Select the length of the growing season')
 END
 IF NOT EXISTS (SELECT 1 FROM [dbo].[CropInfoQuestions] WHERE [ID] = 13)
 BEGIN
@@ -110,6 +110,13 @@ END
 SET IDENTITY_INSERT [dbo].[CropInfoQuestions] OFF
 
 GO
+
+
+-- Update question text for ID 12 if it exists
+IF EXISTS (SELECT 1 FROM [dbo].[CropInfoQuestions] WHERE [ID] = 12)
+BEGIN
+    UPDATE [dbo].[CropInfoQuestions] SET [CropInfoQuestion] = N'Select the length of the growing season' WHERE [ID] = 12
+END
 
 IF NOT EXISTS (SELECT 1 FROM [dbo].[CropTypeLinkings])
 BEGIN
