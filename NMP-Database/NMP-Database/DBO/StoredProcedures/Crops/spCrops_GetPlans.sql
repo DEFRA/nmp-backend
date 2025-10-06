@@ -3,19 +3,34 @@
     @confirm INT
 AS
 BEGIN
-    SELECT
-        [Crops].[Year],
-        CASE
-        WHEN MAX([Crops].[ModifiedOn]) IS NULL THEN MAX([Crops].[CreatedOn])
-        ELSE MAX([Crops].[ModifiedOn])
-    END AS LastModifiedOn
+
+SELECT
+        t.[Year],
+        ca.LastModifiedOn
     FROM
-        [Crops]
-    INNER JOIN
-        [Fields] ON [Fields].[ID] = [Crops].[FieldID]
-    WHERE
-        [Fields].[FarmID] = @farmId
-    AND [Crops].[Confirm] = @confirm
-    GROUP BY 
-        [Crops].[Year]
+    (
+        SELECT 
+            c.[Year],
+            MAX(COALESCE(c.ModifiedOn, c.CreatedOn))    AS mx_c,            
+            MAX(COALESCE(mp.ModifiedOn, mp.CreatedOn))  AS mx_mp,
+            MAX(COALESCE(om.ModifiedOn, om.CreatedOn))  AS mx_om,
+            MAX(COALESCE(fm.ModifiedOn, fm.CreatedOn))  AS mx_fm,
+			MAX(COALESCE(r.ModifiedOn, r.CreatedOn))  AS mx_r
+
+        FROM Crops c
+        INNER JOIN Fields f ON f.ID = c.FieldID
+        INNER JOIN ManagementPeriods mp ON mp.CropID = c.ID
+        LEFT JOIN OrganicManures om ON om.ManagementPeriodID = mp.ID
+        LEFT JOIN FertiliserManures fm ON fm.ManagementPeriodID = mp.ID
+		LEFT JOIN Recommendations r ON r.ManagementPeriodID = mp.ID
+        WHERE f.FarmID = @farmId
+          AND c.Confirm = @confirm
+        GROUP BY c.[Year]
+    ) t
+    CROSS APPLY
+    (
+        SELECT MAX(v) AS LastModifiedOn
+        FROM (VALUES (t.mx_c),(t.mx_mp),(t.mx_om),(t.mx_fm),(t.mx_r)) AS value(v)
+    ) ca
+    ORDER BY t.[Year];
 END
