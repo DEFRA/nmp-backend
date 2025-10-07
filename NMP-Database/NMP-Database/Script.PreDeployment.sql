@@ -218,4 +218,22 @@ BEGIN
 END
 
 
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'OrganicManures' AND TABLE_SCHEMA = 'DBO')
+BEGIN
+    IF EXISTS(SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'OrganicManures' AND COLUMN_NAME = 'AutumnCropNitrogenUptake' AND TABLE_SCHEMA = 'DBO')
+    BEGIN 
+        PRINT 'Dropped existing default constraint';
+        ALTER TABLE DBO.OrganicManures
+        DROP CONSTRAINT DF_OrganicManures_AutumnCropNitrogenUptake;
+        
+		PRINT 'Column data type change';
+        ALTER TABLE DBO.OrganicManures
+        ALTER COLUMN AutumnCropNitrogenUptake INT; 
+
+		PRINT 'Add default constraint';
+		ALTER TABLE DBO.OrganicManures
+        ADD CONSTRAINT DF_OrganicManures_AutumnCropNitrogenUptake DEFAULT 0 FOR AutumnCropNitrogenUptake;
+    END
+END
+
 GO
