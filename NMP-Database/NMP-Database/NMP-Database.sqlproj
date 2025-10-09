@@ -78,6 +78,7 @@
     <Folder Include="DBO\StoredProcedures\NutrientsLoadingManures" />
     <Folder Include="DBO\StoredProcedures\NutrientsLoadingLiveStocks" />
     <Folder Include="DBO\StoredProcedures\StoreCapacities" />
+    <Folder Include="dbo\Stored Procedures\" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="DBO\Tables\Farms.sql" />
@@ -154,6 +155,7 @@
     <Build Include="DBO\Tables\WarningMessages.sql" />
     <Build Include="DBO\Tables\WarningCodes.sql" />
     <Build Include="DBO\Tables\WarningLevels.sql" />
+    <Build Include="dbo\Stored Procedures\spWarningMessages_DeleteWarningMessage.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Script.PostDeployment.sql">
