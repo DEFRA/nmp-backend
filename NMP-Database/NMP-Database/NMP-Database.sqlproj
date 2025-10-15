@@ -156,6 +156,7 @@
     <Build Include="DBO\Tables\WarningCodes.sql" />
     <Build Include="DBO\Tables\WarningLevels.sql" />
     <Build Include="dbo\Stored Procedures\spWarningMessages_DeleteWarningMessage.sql" />
+    <Build Include="DBO\Tables\PreviousCroppings.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Script.PostDeployment.sql">
