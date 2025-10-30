@@ -1,6 +1,5 @@
-﻿
-CREATE   PROCEDURE [dbo].[spWarningMessages_DeleteWarningMessage]
-    @WarningMessageID INT
+﻿CREATE PROCEDURE [dbo].[spPreviousCroppings_DeletePreviousCroppings]
+    @PreviousCroppingID INT
 AS
 BEGIN
     SET NOCOUNT ON;
@@ -8,9 +7,8 @@ BEGIN
     BEGIN TRY
         BEGIN TRANSACTION;
 
-        -- Delete the specified WarningMessages record
-        DELETE FROM [dbo].[WarningMessages]
-        WHERE [ID] = @WarningMessageID;
+        -- Delete the specified PreviousCroppings record
+        DELETE FROM PreviousCroppings WHERE ID = @PreviousCroppingID;
 
         COMMIT TRANSACTION;
     END TRY
@@ -30,3 +28,4 @@ BEGIN
         RAISERROR(@ErrorMessage, @ErrorSeverity, @ErrorState);
     END CATCH
 END;
+GO
