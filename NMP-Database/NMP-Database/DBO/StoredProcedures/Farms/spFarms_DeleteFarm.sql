@@ -24,7 +24,6 @@ BEGIN
         DECLARE @NutrientsLoadingLiveStocksIDs TABLE (ID INT);
         DECLARE @StoreCapacityIDs TABLE (ID INT);
         DECLARE @WarningMessageIDs TABLE (ID INT);
-        DECLARE @PreviousCroppingIDs TABLE (ID INT);
 
         -- Fetch and store Field IDs
         INSERT INTO @FieldIDs (ID)
@@ -69,10 +68,6 @@ BEGIN
         -- Fetch and store WarningMessage IDs
         INSERT INTO @WarningMessageIDs (ID)
         SELECT ID FROM WarningMessages WHERE FieldID IN (SELECT ID FROM @FieldIDs);
-
-        -- Fetch and store PreviousCropping IDs
-        INSERT INTO @PreviousCroppingIDs (ID)
-        SELECT ID FROM PreviousCroppings WHERE FieldID IN (SELECT ID FROM @FieldIDs);
 
         -- Delete related RecommendationComments
         DECLARE @RecommendationID INT;
@@ -174,20 +169,7 @@ BEGIN
             FETCH NEXT FROM wm_cursor INTO @WarningMessageID;
         END
         CLOSE wm_cursor;
-        DEALLOCATE wm_cursor;
-
-        -- Delete related PreviousCroppings
-        DECLARE @PreviousCroppingID INT;
-        DECLARE pc_cursor CURSOR FOR SELECT ID FROM @PreviousCroppingIDs;
-        OPEN pc_cursor;
-        FETCH NEXT FROM pc_cursor INTO @PreviousCroppingID;
-        WHILE @@FETCH_STATUS = 0
-        BEGIN
-            EXEC spPreviousCroppings_DeletePreviousCroppings @PreviousCroppingID;
-            FETCH NEXT FROM pc_cursor INTO @PreviousCroppingID;
-        END
-        CLOSE pc_cursor;
-        DEALLOCATE pc_cursor;
+        DEALLOCATE wm_cursor;     
 
         -- Delete related Fields
         DECLARE field_cursor CURSOR FOR SELECT ID FROM @FieldIDs;
