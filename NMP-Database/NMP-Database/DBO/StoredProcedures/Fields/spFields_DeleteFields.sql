@@ -21,6 +21,7 @@ BEGIN
         DECLARE @SoilAnalysesIDs TABLE (ID INT);
         DECLARE @PreviousGrassIDs TABLE (ID INT);
         DECLARE @PKBalanceIDs TABLE (ID INT);
+        DECLARE @PreviousCroppingIDs TABLE (ID INT);
 
         -- Fetch and store Crop IDs associated with the Field
         INSERT INTO @CropIDs (ID)
@@ -37,6 +38,10 @@ BEGIN
         -- Fetch and store PKBalance IDs associated with the Field
         INSERT INTO @PKBalanceIDs (ID)
         SELECT ID FROM PKBalances WHERE FieldID = @FieldID;
+
+		 -- Fetch and store PreviousCroppings IDs associated with the Field
+        INSERT INTO @PreviousCroppingIDs (ID)
+        SELECT ID FROM PreviousCroppings WHERE FieldID = @FieldID;
 
         -- Step 2: Delete each crop using the existing stored procedure
         DECLARE @CropID INT;
@@ -94,10 +99,27 @@ BEGIN
         -- Step 7: Just before deleting the Field, first delete from InprogressCalculations table using FieldID
         EXEC spInprogressCalculations_DeleteByFieldID @FieldID;
 
-        -- Step 8: Now delete the Field
+		 -- Step 8: Delete PreviousCroppings records only if any exist
+        IF EXISTS (SELECT 1 FROM @PreviousCroppingIDs)
+        BEGIN
+            DECLARE @PreviousCroppingID INT;
+            DECLARE pc_cursor CURSOR FOR SELECT ID FROM @PreviousCroppingIDs;
+            OPEN pc_cursor;
+            FETCH NEXT FROM pc_cursor INTO @PreviousCroppingID;
+            WHILE @@FETCH_STATUS = 0
+            BEGIN
+                EXEC spPreviousCroppings_DeletePreviousCroppings @PreviousCroppingID;
+                FETCH NEXT FROM pc_cursor INTO @PreviousCroppingID;
+            END
+            CLOSE pc_cursor;
+            DEALLOCATE pc_cursor;
+        END
+
+
+        -- Step 9: Now delete the Field
         DELETE FROM Fields WHERE ID = @FieldID;
 
-        -- Step 9: Commit the transaction if this procedure started it
+        -- Step 10: Commit the transaction if this procedure started it
         IF @IsLocalTransaction = 1
         BEGIN
             COMMIT TRANSACTION;
@@ -121,4 +143,3 @@ BEGIN
         RAISERROR(@ErrorMessage, @ErrorSeverity, @ErrorState);
     END CATCH
 END;
-GO
