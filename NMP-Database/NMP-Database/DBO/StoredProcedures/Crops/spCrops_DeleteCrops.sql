@@ -1,4 +1,5 @@
 ﻿
+
 CREATE PROCEDURE [dbo].[spCrops_DeleteCrops]
     @CropsID INT
 AS
@@ -27,7 +28,7 @@ BEGIN
 
         WHILE @@FETCH_STATUS = 0
         BEGIN
-            EXEC [dbo].[spWarningMessages_DeleteWarningMessage] @WarningMessageID;
+            EXEC [dbo].[spWarningMessages_DeleteWarningMessages] @WarningMessageID;
             FETCH NEXT FROM cur_WarningMessages INTO @WarningMessageID;
         END;
 
