@@ -1763,5 +1763,40 @@ BEGIN CATCH
 END CATCH;
 END
 
+IF EXISTS (SELECT 1 FROM [dbo].[Crops] WHERE IsBasePlan = 1)
+BEGIN
+  DECLARE @CropID INT
+
+-- Declare the cursor to get all CropIDs where IsBasePlan = 1
+    DECLARE CropCursor CURSOR FOR
+    SELECT ID
+    FROM Crops
+    WHERE IsBasePlan = 1
+
+    -- Open the cursor
+    OPEN CropCursor
+
+    -- Fetch the first row
+    FETCH NEXT FROM CropCursor INTO @CropID
+
+    -- Loop through all rows
+    WHILE @@FETCH_STATUS = 0
+    BEGIN
+        -- Call the stored procedure with the current CropID
+        EXEC [dbo].[spCrops_DeleteCrops] @CropID
+
+        -- Fetch the next row
+        FETCH NEXT FROM CropCursor INTO @CropID
+    END
+
+    -- Clean up the cursor
+    CLOSE CropCursor
+    DEALLOCATE CropCursor
+
+    END
+    ELSE
+    BEGIN
+        PRINT 'No records with IsBasePlan = 1 found.';
+    END
 
 GO -- do not remove this GO
