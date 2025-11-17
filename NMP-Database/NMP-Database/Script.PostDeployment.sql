@@ -1545,7 +1545,7 @@ IF NOT EXISTS (SELECT 1 FROM [dbo].[SolidManureTypes])
 BEGIN
     SET IDENTITY_INSERT [dbo].[SolidManureTypes] ON
     INSERT INTO [SolidManureTypes] (ID,[Name],[Density]) values(9,'Poultry litter',0.5)
-    INSERT INTO [SolidManureTypes] (ID,[Name],[Density]) values(10,'Other poultry litter(usually from layers)',0.9)
+    INSERT INTO [SolidManureTypes] (ID,[Name],[Density]) values(10,'Other poultry litter (usually from layers)',0.9)
     INSERT INTO [SolidManureTypes] (ID,[Name],[Density]) values(11,'Other solid manures',0.7)
     SET IDENTITY_INSERT [dbo].[SolidManureTypes] OFF
 END
@@ -1798,5 +1798,12 @@ BEGIN
     BEGIN
         PRINT 'No records with IsBasePlan = 1 found.';
     END
+
+-- Update [SolidManureTypes] table data for ID 10 if it exists
+IF EXISTS (SELECT 1 FROM [dbo].[SolidManureTypes] WHERE [ID] = 10 AND [Name] = N'Other poultry litter(usually from layers)')
+BEGIN
+    UPDATE [dbo].[SolidManureTypes] SET [Name] = N'Other poultry litter (usually from layers)' WHERE [ID] = 10
+END
+
 
 GO -- do not remove this GO
