@@ -1635,5 +1635,168 @@ BEGIN
 SET IDENTITY_INSERT [dbo].[WarningLevels] OFF
 END
 
+IF EXISTS (SELECT 1 FROM [dbo].[PreviousGrasses]) AND OBJECT_ID('dbo.PreviousCroppings', 'U') IS NOT NULL
+BEGIN
+BEGIN TRANSACTION;
+
+BEGIN TRY
+    CREATE TABLE #CropTypeGroupMap (
+        CropTypeID INT,
+        CropGroupID INT
+    );
+
+    INSERT INTO #CropTypeGroupMap (CropTypeID, CropGroupID)
+    VALUES
+    (0,0),(1,0),(2,0),(3,0),(4,0),(5,0),(6,0),(7,0),(8,0),(9,0),(171,0),(172,0),(173,0),(174,0),(199,0),
+    (20,1),(21,1),(22,1),(23,1),(24,1),(25,1),(26,1),(28,1),(175,1),(176,1),(187,1),(196,1),
+    (27,2),(40,2),(41,2),(43,2),(44,2),(45,2),(50,2),(51,2),(52,2),(53,2),(54,2),(55,2),(56,2),(57,2),(58,2),(59,2),
+    (188,2),(189,2),(191,2),(194,2),(195,2),(197,2),(198,2),
+    (60,3),(61,3),(62,3),(63,3),(64,3),(65,3),(66,3),(67,3),(68,3),(69,3),(70,3),(71,3),(72,3),(73,3),(74,3),(75,3),
+    (77,3),(78,3),(181,3),
+    (90,4),(91,4),(92,4),(93,4),(94,4),(182,4),
+    (110,5),(111,5),(112,5),(113,5),(114,5),(115,5),(116,5),(117,5),(118,5),(119,5),(120,5),(121,5),(122,5),(123,5),
+    (124,5),(125,5),(177,5),(178,5),
+    (140,6),
+    (160,7),(161,7),(162,7),(163,7),
+    (170,8),
+    (184,10),(185,10),
+    (192,11),(193,11),
+    (76,12),(179,12),(180,12);
+
+  
+    INSERT INTO [dbo].[PreviousCroppings]
+    (
+        [FieldID],
+        [CropGroupID],
+        [CropTypeID],
+        [HasGrassInLastThreeYear],
+        [HarvestYear],
+        [LayDuration],
+        [GrassManagementOptionID],
+        [HasGreaterThan30PercentClover],
+        [SoilNitrogenSupplyItemID],
+        [CreatedOn],
+        [CreatedByID],
+        [ModifiedOn],
+        [ModifiedByID]
+    )
+    SELECT 
+        g.[FieldID],
+        m.[CropGroupID],
+        m.[CropTypeID],
+        g.[HasGrassInLastThreeYear],
+        g.[HarvestYear],
+        g.[LayDuration],
+        g.[GrassManagementOptionID],
+        g.[HasGreaterThan30PercentClover],
+        g.[SoilNitrogenSupplyItemID],
+        g.[CreatedOn],
+        g.[CreatedByID],
+        g.[ModifiedOn],
+        g.[ModifiedByID]
+    FROM [dbo].[PreviousGrasses] g
+    INNER JOIN #CropTypeGroupMap m ON m.CropTypeID = 140
+    WHERE NOT EXISTS (
+        SELECT 1 
+        FROM [dbo].[PreviousCroppings] p
+        WHERE p.[FieldID] = g.[FieldID]
+          AND p.[CropTypeID] = m.[CropTypeID]
+          AND p.[HarvestYear] = g.[HarvestYear]
+    );
+
+   
+   INSERT INTO [dbo].[PreviousCroppings]
+   (
+       [FieldID],
+       [CropGroupID],
+       [CropTypeID],
+       [HasGrassInLastThreeYear],
+       [HarvestYear],
+       [LayDuration],
+       [GrassManagementOptionID],
+       [HasGreaterThan30PercentClover],
+       [SoilNitrogenSupplyItemID],
+       [CreatedOn],
+       [CreatedByID],
+       [ModifiedOn],
+       [ModifiedByID]
+   )
+   SELECT
+       c.[FieldID],
+       m.[CropGroupID],
+       c.[CropTypeID],
+       0 AS [HasGrassInLastThreeYear],
+       c.[Year] AS [HarvestYear],
+       NULL AS [LayDuration],
+       NULL AS [GrassManagementOptionID],
+       NULL AS [HasGreaterThan30PercentClover],
+       NULL AS [SoilNitrogenSupplyItemID],
+       c.[CreatedOn],
+       c.[CreatedByID],
+       c.[ModifiedOn],
+       c.[ModifiedByID]
+   FROM [dbo].[Crops] c
+   LEFT JOIN #CropTypeGroupMap m
+       ON c.[CropTypeID] = m.[CropTypeID]
+   WHERE c.[IsBasePlan] = 1
+     AND c.[CropTypeID] IS NOT NULL
+     AND c.[FieldType] = 1
+     AND NOT EXISTS (
+           SELECT 1
+           FROM [dbo].[PreviousCroppings] p
+           WHERE p.[FieldID] = c.[FieldID]
+             AND p.[CropTypeID] = c.[CropTypeID]
+             AND p.[HarvestYear] = c.[Year]
+     );
+
+
+   
+    DROP TABLE IF EXISTS #CropTypeGroupMap;
+
+    COMMIT TRANSACTION;
+    PRINT 'Previous grasses and arable base plan data migrated successfully in PreviousCroppings table';
+
+END TRY
+BEGIN CATCH
+    ROLLBACK TRANSACTION;
+    PRINT 'Error: ' + ERROR_MESSAGE();
+END CATCH;
+END
+
+IF EXISTS (SELECT 1 FROM [dbo].[Crops] WHERE IsBasePlan = 1)
+BEGIN
+  DECLARE @CropID INT
+
+-- Declare the cursor to get all CropIDs where IsBasePlan = 1
+    DECLARE CropCursor CURSOR FOR
+    SELECT ID
+    FROM Crops
+    WHERE IsBasePlan = 1
+
+    -- Open the cursor
+    OPEN CropCursor
+
+    -- Fetch the first row
+    FETCH NEXT FROM CropCursor INTO @CropID
+
+    -- Loop through all rows
+    WHILE @@FETCH_STATUS = 0
+    BEGIN
+        -- Call the stored procedure with the current CropID
+        EXEC [dbo].[spCrops_DeleteCrops] @CropID
+
+        -- Fetch the next row
+        FETCH NEXT FROM CropCursor INTO @CropID
+    END
+
+    -- Clean up the cursor
+    CLOSE CropCursor
+    DEALLOCATE CropCursor
+
+    END
+    ELSE
+    BEGIN
+        PRINT 'No records with IsBasePlan = 1 found.';
+    END
 
 GO -- do not remove this GO
