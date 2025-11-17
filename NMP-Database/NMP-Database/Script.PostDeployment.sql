@@ -1799,4 +1799,11 @@ BEGIN
         PRINT 'No records with IsBasePlan = 1 found.';
     END
 
+-- Update [SolidManureTypes] table data for ID 10 if it exists
+IF EXISTS (SELECT 1 FROM [dbo].[SolidManureTypes] WHERE [ID] = 10 AND [Name] = N'Other poultry litter(usually from layers)')
+BEGIN
+    UPDATE [dbo].[SolidManureTypes] SET [Name] = N'Other poultry litter (usually from layers)' WHERE [ID] = 10
+END
+
+
 GO -- do not remove this GO
