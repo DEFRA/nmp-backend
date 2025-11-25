@@ -1602,25 +1602,87 @@ GO
 --    ALTER COLUMN [IsBasePlan] BIT NOT NULL; 
 --END
 
+--IF NOT EXISTS (SELECT 1 FROM [dbo].[WarningCodes])
+--BEGIN
+--    SET IDENTITY_INSERT [dbo].[WarningCodes] ON
+--    INSERT INTO [WarningCodes] (ID,[Name]) values(0,'Field app limit')
+--    INSERT INTO [WarningCodes] (ID,[Name]) values(1,'Closed period organic manure')
+--    INSERT INTO [WarningCodes] (ID,[Name]) values(2,'Application rate side closed')
+--    INSERT INTO [WarningCodes] (ID,[Name]) values(3,'High N manures bare')
+--    INSERT INTO [WarningCodes] (ID,[Name]) values(4,'Three week period')
+--    INSERT INTO [WarningCodes] (ID,[Name]) values(5,'Closed period fertiliser')
+--    INSERT INTO [WarningCodes] (ID,[Name]) values(6,'N-max limit')
+--    INSERT INTO [WarningCodes] (ID,[Name]) values(7,'Organic farm high N')
+--    INSERT INTO [WarningCodes] (ID,[Name]) values(8,'Manure application limit close Feb2013_50')
+--    INSERT INTO [WarningCodes] (ID,[Name]) values(9,'Field application limit green compost 2 Year')
+--    INSERT INTO [WarningCodes] (ID,[Name]) values(10,'Field application limit green compost 4 Year')
+--    INSERT INTO [WarningCodes] (ID,[Name]) values(11,'Manure application limit close Feb 2014')
+--    INSERT INTO [WarningCodes] (ID,[Name]) values(12,'Organic manure field limit composts')
+--    INSERT INTO [WarningCodes] (ID,[Name]) values(81,'Manure application limit close Feb2013_30')
+
+--    SET IDENTITY_INSERT [dbo].[WarningCodes] OFF
+--END
+
 IF NOT EXISTS (SELECT 1 FROM [dbo].[WarningCodes])
 BEGIN
     SET IDENTITY_INSERT [dbo].[WarningCodes] ON
-    INSERT INTO [WarningCodes] (ID,[Name]) values(0,'Field app limit')
-    INSERT INTO [WarningCodes] (ID,[Name]) values(1,'Closed period organic manure')
-    INSERT INTO [WarningCodes] (ID,[Name]) values(2,'Application rate side closed')
+    INSERT INTO [WarningCodes] (ID,[Name]) values(0,'Organic Manure N field limit')
+    INSERT INTO [WarningCodes] (ID,[Name]) values(1,'Closed spreading period for the application of readily available nitrogen organic manure')
+    INSERT INTO [WarningCodes] (ID,[Name]) values(2,'Maximum application rate for high readily available nitrogen organic manure during the closed spreading period')
     INSERT INTO [WarningCodes] (ID,[Name]) values(3,'High N manures bare')
-    INSERT INTO [WarningCodes] (ID,[Name]) values(4,'Three week period')
-    INSERT INTO [WarningCodes] (ID,[Name]) values(5,'Closed period fertiliser')
-    INSERT INTO [WarningCodes] (ID,[Name]) values(6,'N-max limit')
+    INSERT INTO [WarningCodes] (ID,[Name]) values(4,'Minimum of 3 weeks between applications from the end of the closed spreading period to the end of February')
+    INSERT INTO [WarningCodes] (ID,[Name]) values(5,'Closed spreading period for the application of inorganic nitrogen fertiliser')
+    INSERT INTO [WarningCodes] (ID,[Name]) values(6,'N max limit')
     INSERT INTO [WarningCodes] (ID,[Name]) values(7,'Organic farm high N')
-    INSERT INTO [WarningCodes] (ID,[Name]) values(8,'Manure application limit close Feb2013_50')
+    INSERT INTO [WarningCodes] (ID,[Name]) values(8,'Maximum application rate for high readily available nitrogen organic manure during your closed spreading period')
     INSERT INTO [WarningCodes] (ID,[Name]) values(9,'Field application limit green compost 2 Year')
     INSERT INTO [WarningCodes] (ID,[Name]) values(10,'Field application limit green compost 4 Year')
     INSERT INTO [WarningCodes] (ID,[Name]) values(11,'Manure application limit close Feb 2014')
     INSERT INTO [WarningCodes] (ID,[Name]) values(12,'Organic manure field limit composts')
-    INSERT INTO [WarningCodes] (ID,[Name]) values(81,'Manure application limit close Feb2013_30')
+    INSERT INTO [WarningCodes] (ID,[Name]) values(51,'Maximum application rate for inorganic nitrogen fertiliser to this crop during the closed spreading period')
+    INSERT INTO [WarningCodes] (ID,[Name]) values(81,'Maximum application rate for slurry or poultry manure between the end of the closed spreading period and the end of February')
 
     SET IDENTITY_INSERT [dbo].[WarningCodes] OFF
+END
+
+IF NOT EXISTS (SELECT 1 FROM [dbo].[WarningCodes] WHERE [ID] = 51)
+BEGIN
+SET IDENTITY_INSERT [dbo].[WarningCodes] ON
+    INSERT [dbo].[WarningCodes] ([ID], [Name]) VALUES (51, 'Maximum application rate for inorganic nitrogen fertiliser to this crop during the closed spreading period')
+SET IDENTITY_INSERT [dbo].[WarningCodes] OFF
+END
+
+IF EXISTS (SELECT 1 FROM [dbo].[WarningCodes] where [ID]=0)
+BEGIN
+UPDATE [dbo].[WarningCodes] SET [Name]='Organic Manure N field limit' where [ID]=0
+END
+IF EXISTS (SELECT 1 FROM [dbo].[WarningCodes] where [ID]=1)
+BEGIN
+UPDATE [dbo].[WarningCodes] SET [Name]='Closed spreading period for the application of readily available nitrogen organic manure' where [ID]=1
+END
+IF EXISTS (SELECT 1 FROM [dbo].[WarningCodes] where [ID]=2)
+BEGIN
+UPDATE [dbo].[WarningCodes] SET [Name]='Maximum application rate for high readily available nitrogen organic manure during the closed spreading period' where [ID]=2
+END
+IF EXISTS (SELECT 1 FROM [dbo].[WarningCodes] where [ID]=4)
+BEGIN
+UPDATE [dbo].[WarningCodes] SET [Name]='Minimum of 3 weeks between applications from the end of the closed spreading period to the end of February' where [ID]=4
+END
+IF EXISTS (SELECT 1 FROM [dbo].[WarningCodes] where [ID]=5)
+BEGIN
+UPDATE [dbo].[WarningCodes] SET [Name]='Closed spreading period for the application of inorganic nitrogen fertiliser' where [ID]=5
+END
+IF EXISTS (SELECT 1 FROM [dbo].[WarningCodes] where [ID]=6)
+BEGIN
+UPDATE [dbo].[WarningCodes] SET [Name]='N max limit' where [ID]=6
+END
+IF EXISTS (SELECT 1 FROM [dbo].[WarningCodes] where [ID]=8)
+BEGIN
+UPDATE [dbo].[WarningCodes] SET [Name]='Maximum application rate for high readily available nitrogen organic manure during your closed spreading period' where [ID]=8
+END
+IF EXISTS (SELECT 1 FROM [dbo].[WarningCodes] where [ID]=81)
+BEGIN
+UPDATE [dbo].[WarningCodes] SET [Name]='Maximum application rate for slurry or poultry manure between the end of the closed spreading period and the end of February' where [ID]=81
 END
 
 
