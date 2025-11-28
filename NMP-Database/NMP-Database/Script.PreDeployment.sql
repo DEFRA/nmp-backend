@@ -192,30 +192,29 @@
 --    DROP TABLE #DuplicateCropIds;
 --END
 
-IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'NutrientsLoadingLiveStocks' AND TABLE_SCHEMA = 'DBO')
-BEGIN
-    IF EXISTS(SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'NutrientsLoadingLiveStocks' AND COLUMN_NAME = 'NByUnit'  AND (
-           DATA_TYPE <> 'decimal'
-           OR NUMERIC_PRECISION <> 18
-           OR NUMERIC_SCALE <> 6
-      ) AND TABLE_SCHEMA = 'DBO')
-    BEGIN 
-        PRINT 'Column data type change';
-        ALTER TABLE DBO.NutrientsLoadingLiveStocks
-        ALTER COLUMN NByUnit DECIMAL(18,6); 
-    END
+--IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'NutrientsLoadingLiveStocks' AND TABLE_SCHEMA = 'DBO')
+--BEGIN
+--    IF EXISTS(SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'NutrientsLoadingLiveStocks' AND COLUMN_NAME = 'NByUnit'  AND (
+--           DATA_TYPE <> 'decimal'
+--           OR NUMERIC_PRECISION <> 18
+--           OR NUMERIC_SCALE <> 6
+--      ) AND TABLE_SCHEMA = 'DBO')
+--    BEGIN 
+--        PRINT 'Column data type change';
+--        ALTER TABLE DBO.NutrientsLoadingLiveStocks
+--        ALTER COLUMN NByUnit DECIMAL(18,6); 
+--    END
 
-       IF EXISTS(SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'NutrientsLoadingLiveStocks' AND COLUMN_NAME = 'PByUnit'  AND (
-           DATA_TYPE <> 'decimal'
-           OR NUMERIC_PRECISION <> 18
-           OR NUMERIC_SCALE <> 6
-      ) AND TABLE_SCHEMA = 'DBO')
-    BEGIN 
-        PRINT 'Column data type change';
-        ALTER TABLE DBO.NutrientsLoadingLiveStocks
-        ALTER COLUMN PByUnit DECIMAL(18,6); 
-    END
-END
-
+--       IF EXISTS(SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'NutrientsLoadingLiveStocks' AND COLUMN_NAME = 'PByUnit'  AND (
+--           DATA_TYPE <> 'decimal'
+--           OR NUMERIC_PRECISION <> 18
+--           OR NUMERIC_SCALE <> 6
+--      ) AND TABLE_SCHEMA = 'DBO')
+--    BEGIN 
+--        PRINT 'Column data type change';
+--        ALTER TABLE DBO.NutrientsLoadingLiveStocks
+--        ALTER COLUMN PByUnit DECIMAL(18,6); 
+--    END
+--END
 
 GO

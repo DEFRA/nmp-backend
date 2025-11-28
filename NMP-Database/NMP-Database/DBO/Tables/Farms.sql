@@ -23,7 +23,6 @@
     [EnglishRules]       BIT             NOT NULL CONSTRAINT DF_Farms_EnglishRules DEFAULT 1,
     [NVZFields]          INT             NOT NULL CONSTRAINT DF_Farms_NVZFields DEFAULT 0,
     [FieldsAbove300SeaLevel]   INT       NOT NULL CONSTRAINT DF_Farms_FieldsAbove300SeaLevel DEFAULT 0,
-    [LastHarvestYear]    INT NULL,
     [OrganisationID] UNIQUEIDENTIFIER NOT NULL,
     [CountryID]           INT  NOT NULL,
     [ClimateDataPostCode]    NVARCHAR(50)  NULL ,

@@ -78,6 +78,8 @@
     <Folder Include="DBO\StoredProcedures\NutrientsLoadingManures" />
     <Folder Include="DBO\StoredProcedures\NutrientsLoadingLiveStocks" />
     <Folder Include="DBO\StoredProcedures\StoreCapacities" />
+    <Folder Include="DBO\StoredProcedures\WarningMessages" />
+    <Folder Include="DBO\StoredProcedures\PreviousCroppings" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="DBO\Tables\Farms.sql" />
@@ -151,6 +153,12 @@
     <Build Include="DBO\Tables\SolidManureTypes.sql" />
     <Build Include="DBO\Tables\BankSlopeAngles.sql" />
     <Build Include="DBO\StoredProcedures\StoreCapacities\spStoreCapacities_DeleteStoreCapacities.sql" />
+    <Build Include="DBO\Tables\WarningMessages.sql" />
+    <Build Include="DBO\Tables\WarningCodes.sql" />
+    <Build Include="DBO\Tables\WarningLevels.sql" />
+    <Build Include="DBO\Tables\PreviousCroppings.sql" />
+    <Build Include="DBO\StoredProcedures\WarningMessages\spWarningMessages_DeleteWarningMessages.sql" />
+    <Build Include="DBO\StoredProcedures\PreviousCroppings\spPreviousCroppings_DeletePreviousCroppings.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Script.PostDeployment.sql">
