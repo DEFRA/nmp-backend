@@ -1,0 +1,6 @@
+﻿CREATE TABLE [dbo].[WarningCodes]
+(
+	[ID] INT NOT NULL IDENTITY(0,1),
+	[Name] NVARCHAR(200) NOT NULL,
+	CONSTRAINT [PK_WarningCodes] PRIMARY KEY ([ID] ASC)
+)

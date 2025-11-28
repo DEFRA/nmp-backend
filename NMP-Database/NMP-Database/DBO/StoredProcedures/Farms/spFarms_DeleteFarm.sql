@@ -23,6 +23,7 @@ BEGIN
         DECLARE @NutrientsLoadingManuresIDs TABLE (ID INT);
         DECLARE @NutrientsLoadingLiveStocksIDs TABLE (ID INT);
         DECLARE @StoreCapacityIDs TABLE (ID INT);
+        DECLARE @WarningMessageIDs TABLE (ID INT);
 
         -- Fetch and store Field IDs
         INSERT INTO @FieldIDs (ID)
@@ -63,6 +64,10 @@ BEGIN
         -- Fetch and store StoreCapacity IDs
         INSERT INTO @StoreCapacityIDs (ID)
         SELECT ID FROM StoreCapacities WHERE FarmID = @FarmID;
+
+        -- Fetch and store WarningMessage IDs
+        INSERT INTO @WarningMessageIDs (ID)
+        SELECT ID FROM WarningMessages WHERE FieldID IN (SELECT ID FROM @FieldIDs);
 
         -- Delete related RecommendationComments
         DECLARE @RecommendationID INT;
@@ -152,6 +157,19 @@ BEGIN
         END
         CLOSE crop_cursor;
         DEALLOCATE crop_cursor;
+
+         -- Delete related WarningMessages
+        DECLARE @WarningMessageID INT;
+        DECLARE wm_cursor CURSOR FOR SELECT ID FROM @WarningMessageIDs;
+        OPEN wm_cursor;
+        FETCH NEXT FROM wm_cursor INTO @WarningMessageID;
+        WHILE @@FETCH_STATUS = 0
+        BEGIN
+            EXEC spWarningMessages_DeleteWarningMessages @WarningMessageID;
+            FETCH NEXT FROM wm_cursor INTO @WarningMessageID;
+        END
+        CLOSE wm_cursor;
+        DEALLOCATE wm_cursor;     
 
         -- Delete related Fields
         DECLARE field_cursor CURSOR FOR SELECT ID FROM @FieldIDs;

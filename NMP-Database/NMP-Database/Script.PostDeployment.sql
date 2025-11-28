@@ -101,7 +101,7 @@ BEGIN
 END
 IF NOT EXISTS (SELECT 1 FROM [dbo].[CropInfoQuestions] WHERE [ID] = 12)
 BEGIN
-    INSERT [dbo].[CropInfoQuestions] ([ID], [CropInfoQuestion]) VALUES (12, N'Select the length of growing season')
+    INSERT [dbo].[CropInfoQuestions] ([ID], [CropInfoQuestion]) VALUES (12, N'Select the length of the growing season')
 END
 IF NOT EXISTS (SELECT 1 FROM [dbo].[CropInfoQuestions] WHERE [ID] = 13)
 BEGIN
@@ -110,6 +110,13 @@ END
 SET IDENTITY_INSERT [dbo].[CropInfoQuestions] OFF
 
 GO
+
+
+-- Update question text for ID 12 if it exists
+IF EXISTS (SELECT 1 FROM [dbo].[CropInfoQuestions] WHERE [ID] = 12)
+BEGIN
+    UPDATE [dbo].[CropInfoQuestions] SET [CropInfoQuestion] = N'Select the length of the growing season' WHERE [ID] = 12
+END
 
 IF NOT EXISTS (SELECT 1 FROM [dbo].[CropTypeLinkings])
 BEGIN
@@ -1538,7 +1545,7 @@ IF NOT EXISTS (SELECT 1 FROM [dbo].[SolidManureTypes])
 BEGIN
     SET IDENTITY_INSERT [dbo].[SolidManureTypes] ON
     INSERT INTO [SolidManureTypes] (ID,[Name],[Density]) values(9,'Poultry litter',0.5)
-    INSERT INTO [SolidManureTypes] (ID,[Name],[Density]) values(10,'Other poultry litter(usually from layers)',0.9)
+    INSERT INTO [SolidManureTypes] (ID,[Name],[Density]) values(10,'Other poultry litter (usually from layers)',0.9)
     INSERT INTO [SolidManureTypes] (ID,[Name],[Density]) values(11,'Other solid manures',0.7)
     SET IDENTITY_INSERT [dbo].[SolidManureTypes] OFF
 END
@@ -1575,24 +1582,290 @@ GO
 --END
 
 
-IF EXISTS (SELECT 1 FROM [dbo].[Crops] WHERE [IsBasePlan] IS NULL)
+--IF EXISTS (SELECT 1 FROM [dbo].[Crops] WHERE [IsBasePlan] IS NULL)
+--BEGIN
+
+--    UPDATE [dbo].[Crops] SET [IsBasePlan]=1 WHERE [Yield] IS NULL AND [CropInfo1] IS NULL AND [DefoliationSequenceID] IS NULL
+
+--    IF EXISTS (SELECT 1 FROM [dbo].[Crops] WHERE CropTypeID!=140 AND ([Yield] IS NOT NULL OR [CropInfo1] IS NOT NULL))
+--    BEGIN
+--    UPDATE [dbo].[Crops] SET [IsBasePlan]=0 WHERE CropTypeID!=140 AND ([Yield] IS NOT NULL OR [CropInfo1] IS NOT NULL)
+--    END
+
+--    IF EXISTS (SELECT 1 FROM [dbo].[Crops] WHERE CropTypeID=140 AND [DefoliationSequenceID] IS NOT NULL)
+--    BEGIN
+--    UPDATE [dbo].[Crops] SET [IsBasePlan]=0 WHERE CropTypeID=140 AND [DefoliationSequenceID] IS NOT NULL
+--    END
+
+--    PRINT 'NOW [IsBasePlan] IS NOT NULL';
+--    ALTER TABLE DBO.[Crops]
+--    ALTER COLUMN [IsBasePlan] BIT NOT NULL; 
+--END
+
+--IF NOT EXISTS (SELECT 1 FROM [dbo].[WarningCodes])
+--BEGIN
+--    SET IDENTITY_INSERT [dbo].[WarningCodes] ON
+--    INSERT INTO [WarningCodes] (ID,[Name]) values(0,'Field app limit')
+--    INSERT INTO [WarningCodes] (ID,[Name]) values(1,'Closed period organic manure')
+--    INSERT INTO [WarningCodes] (ID,[Name]) values(2,'Application rate side closed')
+--    INSERT INTO [WarningCodes] (ID,[Name]) values(3,'High N manures bare')
+--    INSERT INTO [WarningCodes] (ID,[Name]) values(4,'Three week period')
+--    INSERT INTO [WarningCodes] (ID,[Name]) values(5,'Closed period fertiliser')
+--    INSERT INTO [WarningCodes] (ID,[Name]) values(6,'N-max limit')
+--    INSERT INTO [WarningCodes] (ID,[Name]) values(7,'Organic farm high N')
+--    INSERT INTO [WarningCodes] (ID,[Name]) values(8,'Manure application limit close Feb2013_50')
+--    INSERT INTO [WarningCodes] (ID,[Name]) values(9,'Field application limit green compost 2 Year')
+--    INSERT INTO [WarningCodes] (ID,[Name]) values(10,'Field application limit green compost 4 Year')
+--    INSERT INTO [WarningCodes] (ID,[Name]) values(11,'Manure application limit close Feb 2014')
+--    INSERT INTO [WarningCodes] (ID,[Name]) values(12,'Organic manure field limit composts')
+--    INSERT INTO [WarningCodes] (ID,[Name]) values(81,'Manure application limit close Feb2013_30')
+
+--    SET IDENTITY_INSERT [dbo].[WarningCodes] OFF
+--END
+
+IF NOT EXISTS (SELECT 1 FROM [dbo].[WarningCodes])
 BEGIN
+    SET IDENTITY_INSERT [dbo].[WarningCodes] ON
+    INSERT INTO [WarningCodes] (ID,[Name]) values(0,'Organic Manure N field limit')
+    INSERT INTO [WarningCodes] (ID,[Name]) values(1,'Closed spreading period for the application of readily available nitrogen organic manure')
+    INSERT INTO [WarningCodes] (ID,[Name]) values(2,'Maximum application rate for high readily available nitrogen organic manure during the closed spreading period')
+    INSERT INTO [WarningCodes] (ID,[Name]) values(3,'High N manures bare')
+    INSERT INTO [WarningCodes] (ID,[Name]) values(4,'Minimum of 3 weeks between applications from the end of the closed spreading period to the end of February')
+    INSERT INTO [WarningCodes] (ID,[Name]) values(5,'Closed spreading period for the application of inorganic nitrogen fertiliser')
+    INSERT INTO [WarningCodes] (ID,[Name]) values(6,'N max limit')
+    INSERT INTO [WarningCodes] (ID,[Name]) values(7,'Organic farm high N')
+    INSERT INTO [WarningCodes] (ID,[Name]) values(8,'Maximum application rate for high readily available nitrogen organic manure during your closed spreading period')
+    INSERT INTO [WarningCodes] (ID,[Name]) values(9,'Field application limit green compost 2 Year')
+    INSERT INTO [WarningCodes] (ID,[Name]) values(10,'Field application limit green compost 4 Year')
+    INSERT INTO [WarningCodes] (ID,[Name]) values(11,'Manure application limit close Feb 2014')
+    INSERT INTO [WarningCodes] (ID,[Name]) values(12,'Organic manure field limit composts')
+    INSERT INTO [WarningCodes] (ID,[Name]) values(51,'Maximum application rate for inorganic nitrogen fertiliser to this crop during the closed spreading period')
+    INSERT INTO [WarningCodes] (ID,[Name]) values(81,'Maximum application rate for slurry or poultry manure between the end of the closed spreading period and the end of February')
 
-    UPDATE [dbo].[Crops] SET [IsBasePlan]=1 WHERE [Yield] IS NULL AND [CropInfo1] IS NULL AND [DefoliationSequenceID] IS NULL
-
-    IF EXISTS (SELECT 1 FROM [dbo].[Crops] WHERE CropTypeID!=140 AND ([Yield] IS NOT NULL OR [CropInfo1] IS NOT NULL))
-    BEGIN
-    UPDATE [dbo].[Crops] SET [IsBasePlan]=0 WHERE CropTypeID!=140 AND ([Yield] IS NOT NULL OR [CropInfo1] IS NOT NULL)
-    END
-
-    IF EXISTS (SELECT 1 FROM [dbo].[Crops] WHERE CropTypeID=140 AND [DefoliationSequenceID] IS NOT NULL)
-    BEGIN
-    UPDATE [dbo].[Crops] SET [IsBasePlan]=0 WHERE CropTypeID=140 AND [DefoliationSequenceID] IS NOT NULL
-    END
-
-    PRINT 'NOW [IsBasePlan] IS NOT NULL';
-    ALTER TABLE DBO.[Crops]
-    ALTER COLUMN [IsBasePlan] BIT NOT NULL; 
+    SET IDENTITY_INSERT [dbo].[WarningCodes] OFF
 END
+
+IF NOT EXISTS (SELECT 1 FROM [dbo].[WarningCodes] WHERE [ID] = 51)
+BEGIN
+SET IDENTITY_INSERT [dbo].[WarningCodes] ON
+    INSERT [dbo].[WarningCodes] ([ID], [Name]) VALUES (51, 'Maximum application rate for inorganic nitrogen fertiliser to this crop during the closed spreading period')
+SET IDENTITY_INSERT [dbo].[WarningCodes] OFF
+END
+
+IF EXISTS (SELECT 1 FROM [dbo].[WarningCodes] where [ID]=0)
+BEGIN
+UPDATE [dbo].[WarningCodes] SET [Name]='Organic Manure N field limit' where [ID]=0
+END
+IF EXISTS (SELECT 1 FROM [dbo].[WarningCodes] where [ID]=1)
+BEGIN
+UPDATE [dbo].[WarningCodes] SET [Name]='Closed spreading period for the application of readily available nitrogen organic manure' where [ID]=1
+END
+IF EXISTS (SELECT 1 FROM [dbo].[WarningCodes] where [ID]=2)
+BEGIN
+UPDATE [dbo].[WarningCodes] SET [Name]='Maximum application rate for high readily available nitrogen organic manure during the closed spreading period' where [ID]=2
+END
+IF EXISTS (SELECT 1 FROM [dbo].[WarningCodes] where [ID]=4)
+BEGIN
+UPDATE [dbo].[WarningCodes] SET [Name]='Minimum of 3 weeks between applications from the end of the closed spreading period to the end of February' where [ID]=4
+END
+IF EXISTS (SELECT 1 FROM [dbo].[WarningCodes] where [ID]=5)
+BEGIN
+UPDATE [dbo].[WarningCodes] SET [Name]='Closed spreading period for the application of inorganic nitrogen fertiliser' where [ID]=5
+END
+IF EXISTS (SELECT 1 FROM [dbo].[WarningCodes] where [ID]=6)
+BEGIN
+UPDATE [dbo].[WarningCodes] SET [Name]='N max limit' where [ID]=6
+END
+IF EXISTS (SELECT 1 FROM [dbo].[WarningCodes] where [ID]=8)
+BEGIN
+UPDATE [dbo].[WarningCodes] SET [Name]='Maximum application rate for high readily available nitrogen organic manure during your closed spreading period' where [ID]=8
+END
+IF EXISTS (SELECT 1 FROM [dbo].[WarningCodes] where [ID]=81)
+BEGIN
+UPDATE [dbo].[WarningCodes] SET [Name]='Maximum application rate for slurry or poultry manure between the end of the closed spreading period and the end of February' where [ID]=81
+END
+
+
+IF NOT EXISTS (SELECT 1 FROM [dbo].[WarningLevels])
+BEGIN
+    SET IDENTITY_INSERT [dbo].[WarningLevels] ON
+    INSERT INTO [WarningLevels] (ID,[Name]) values(0,'Field')
+    INSERT INTO [WarningLevels] (ID,[Name]) values(1,'Manure')
+    INSERT INTO [WarningLevels] (ID,[Name]) values(2,'Fertiliser')
+    INSERT INTO [WarningLevels] (ID,[Name]) values(3,'Crop')
+    INSERT INTO [WarningLevels] (ID,[Name]) values(4,'Rainfall')
+SET IDENTITY_INSERT [dbo].[WarningLevels] OFF
+END
+
+IF EXISTS (SELECT 1 FROM [dbo].[PreviousGrasses]) AND OBJECT_ID('dbo.PreviousCroppings', 'U') IS NOT NULL
+BEGIN
+BEGIN TRANSACTION;
+
+BEGIN TRY
+    CREATE TABLE #CropTypeGroupMap (
+        CropTypeID INT,
+        CropGroupID INT
+    );
+
+    INSERT INTO #CropTypeGroupMap (CropTypeID, CropGroupID)
+    VALUES
+    (0,0),(1,0),(2,0),(3,0),(4,0),(5,0),(6,0),(7,0),(8,0),(9,0),(171,0),(172,0),(173,0),(174,0),(199,0),
+    (20,1),(21,1),(22,1),(23,1),(24,1),(25,1),(26,1),(28,1),(175,1),(176,1),(187,1),(196,1),
+    (27,2),(40,2),(41,2),(43,2),(44,2),(45,2),(50,2),(51,2),(52,2),(53,2),(54,2),(55,2),(56,2),(57,2),(58,2),(59,2),
+    (188,2),(189,2),(191,2),(194,2),(195,2),(197,2),(198,2),
+    (60,3),(61,3),(62,3),(63,3),(64,3),(65,3),(66,3),(67,3),(68,3),(69,3),(70,3),(71,3),(72,3),(73,3),(74,3),(75,3),
+    (77,3),(78,3),(181,3),
+    (90,4),(91,4),(92,4),(93,4),(94,4),(182,4),
+    (110,5),(111,5),(112,5),(113,5),(114,5),(115,5),(116,5),(117,5),(118,5),(119,5),(120,5),(121,5),(122,5),(123,5),
+    (124,5),(125,5),(177,5),(178,5),
+    (140,6),
+    (160,7),(161,7),(162,7),(163,7),
+    (170,8),
+    (184,10),(185,10),
+    (192,11),(193,11),
+    (76,12),(179,12),(180,12);
+
+  
+    INSERT INTO [dbo].[PreviousCroppings]
+    (
+        [FieldID],
+        [CropGroupID],
+        [CropTypeID],
+        [HasGrassInLastThreeYear],
+        [HarvestYear],
+        [LayDuration],
+        [GrassManagementOptionID],
+        [HasGreaterThan30PercentClover],
+        [SoilNitrogenSupplyItemID],
+        [CreatedOn],
+        [CreatedByID],
+        [ModifiedOn],
+        [ModifiedByID]
+    )
+    SELECT 
+        g.[FieldID],
+        m.[CropGroupID],
+        m.[CropTypeID],
+        g.[HasGrassInLastThreeYear],
+        g.[HarvestYear],
+        g.[LayDuration],
+        g.[GrassManagementOptionID],
+        g.[HasGreaterThan30PercentClover],
+        g.[SoilNitrogenSupplyItemID],
+        g.[CreatedOn],
+        g.[CreatedByID],
+        g.[ModifiedOn],
+        g.[ModifiedByID]
+    FROM [dbo].[PreviousGrasses] g
+    INNER JOIN #CropTypeGroupMap m ON m.CropTypeID = 140
+    WHERE NOT EXISTS (
+        SELECT 1 
+        FROM [dbo].[PreviousCroppings] p
+        WHERE p.[FieldID] = g.[FieldID]
+          AND p.[CropTypeID] = m.[CropTypeID]
+          AND p.[HarvestYear] = g.[HarvestYear]
+    );
+
+   
+   INSERT INTO [dbo].[PreviousCroppings]
+   (
+       [FieldID],
+       [CropGroupID],
+       [CropTypeID],
+       [HasGrassInLastThreeYear],
+       [HarvestYear],
+       [LayDuration],
+       [GrassManagementOptionID],
+       [HasGreaterThan30PercentClover],
+       [SoilNitrogenSupplyItemID],
+       [CreatedOn],
+       [CreatedByID],
+       [ModifiedOn],
+       [ModifiedByID]
+   )
+   SELECT
+       c.[FieldID],
+       m.[CropGroupID],
+       c.[CropTypeID],
+       0 AS [HasGrassInLastThreeYear],
+       c.[Year] AS [HarvestYear],
+       NULL AS [LayDuration],
+       NULL AS [GrassManagementOptionID],
+       NULL AS [HasGreaterThan30PercentClover],
+       NULL AS [SoilNitrogenSupplyItemID],
+       c.[CreatedOn],
+       c.[CreatedByID],
+       c.[ModifiedOn],
+       c.[ModifiedByID]
+   FROM [dbo].[Crops] c
+   LEFT JOIN #CropTypeGroupMap m
+       ON c.[CropTypeID] = m.[CropTypeID]
+   WHERE c.[IsBasePlan] = 1
+     AND c.[CropTypeID] IS NOT NULL
+     AND c.[FieldType] = 1
+     AND NOT EXISTS (
+           SELECT 1
+           FROM [dbo].[PreviousCroppings] p
+           WHERE p.[FieldID] = c.[FieldID]
+             AND p.[CropTypeID] = c.[CropTypeID]
+             AND p.[HarvestYear] = c.[Year]
+     );
+
+
+   
+    DROP TABLE IF EXISTS #CropTypeGroupMap;
+
+    COMMIT TRANSACTION;
+    PRINT 'Previous grasses and arable base plan data migrated successfully in PreviousCroppings table';
+
+END TRY
+BEGIN CATCH
+    ROLLBACK TRANSACTION;
+    PRINT 'Error: ' + ERROR_MESSAGE();
+END CATCH;
+END
+
+IF EXISTS (SELECT 1 FROM [dbo].[Crops] WHERE IsBasePlan = 1)
+BEGIN
+  DECLARE @CropID INT
+
+-- Declare the cursor to get all CropIDs where IsBasePlan = 1
+    DECLARE CropCursor CURSOR FOR
+    SELECT ID
+    FROM Crops
+    WHERE IsBasePlan = 1
+
+    -- Open the cursor
+    OPEN CropCursor
+
+    -- Fetch the first row
+    FETCH NEXT FROM CropCursor INTO @CropID
+
+    -- Loop through all rows
+    WHILE @@FETCH_STATUS = 0
+    BEGIN
+        -- Call the stored procedure with the current CropID
+        EXEC [dbo].[spCrops_DeleteCrops] @CropID
+
+        -- Fetch the next row
+        FETCH NEXT FROM CropCursor INTO @CropID
+    END
+
+    -- Clean up the cursor
+    CLOSE CropCursor
+    DEALLOCATE CropCursor
+
+    END
+    ELSE
+    BEGIN
+        PRINT 'No records with IsBasePlan = 1 found.';
+    END
+
+-- Update [SolidManureTypes] table data for ID 10 if it exists
+IF EXISTS (SELECT 1 FROM [dbo].[SolidManureTypes] WHERE [ID] = 10 AND [Name] = N'Other poultry litter(usually from layers)')
+BEGIN
+    UPDATE [dbo].[SolidManureTypes] SET [Name] = N'Other poultry litter (usually from layers)' WHERE [ID] = 10
+END
+
 
 GO -- do not remove this GO

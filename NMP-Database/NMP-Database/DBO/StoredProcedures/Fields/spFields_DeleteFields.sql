@@ -1,4 +1,5 @@
-﻿CREATE PROCEDURE [dbo].[spFields_DeleteFields]
+﻿
+CREATE PROCEDURE [dbo].[spFields_DeleteFields]
     @FieldID INT
 AS
 BEGIN
@@ -7,38 +8,43 @@ BEGIN
     -- Variables to track whether this procedure started the transaction
     DECLARE @IsLocalTransaction BIT = 0;
 
-    -- Check if we're in a transaction already (i.e., this was called from another procedure)
+    -- Check if we're in a transaction already
     IF @@TRANCOUNT = 0
     BEGIN
-        -- No active transaction, so we start our own transaction
         BEGIN TRANSACTION;
         SET @IsLocalTransaction = 1;
     END
 
     BEGIN TRY
-        -- Step 1: Use temporary tables to store intermediate results if needed
+        -- Step 1: Temporary tables for related IDs
         DECLARE @CropIDs TABLE (ID INT);
         DECLARE @SoilAnalysesIDs TABLE (ID INT);
         DECLARE @PreviousGrassIDs TABLE (ID INT);
         DECLARE @PKBalanceIDs TABLE (ID INT);
+        DECLARE @PreviousCroppingIDs TABLE (ID INT);
+        DECLARE @WarningMessageIDs TABLE (ID INT);
 
-        -- Fetch and store Crop IDs associated with the Field
+        -- Step 2: Fetch related entity IDs
         INSERT INTO @CropIDs (ID)
         SELECT ID FROM Crops WHERE FieldID = @FieldID;
 
-        -- Fetch and store SoilAnalysis IDs associated with the Field
         INSERT INTO @SoilAnalysesIDs (ID)
         SELECT ID FROM SoilAnalyses WHERE FieldID = @FieldID;
 
-        -- Fetch and store PreviousGrasses IDs associated with the Field
         INSERT INTO @PreviousGrassIDs (ID)
         SELECT ID FROM PreviousGrasses WHERE FieldID = @FieldID;
 
-        -- Fetch and store PKBalance IDs associated with the Field
         INSERT INTO @PKBalanceIDs (ID)
         SELECT ID FROM PKBalances WHERE FieldID = @FieldID;
 
-        -- Step 2: Delete each crop using the existing stored procedure
+        INSERT INTO @PreviousCroppingIDs (ID)
+        SELECT ID FROM PreviousCroppings WHERE FieldID = @FieldID;
+
+        -- 🔹 NEW: Fetch WarningMessages related to this Field
+        INSERT INTO @WarningMessageIDs (ID)
+        SELECT ID FROM WarningMessages WHERE FieldID = @FieldID;
+
+        -- Step 3: Delete Crops
         DECLARE @CropID INT;
         DECLARE crop_cursor CURSOR FOR SELECT ID FROM @CropIDs;
         OPEN crop_cursor;
@@ -51,7 +57,7 @@ BEGIN
         CLOSE crop_cursor;
         DEALLOCATE crop_cursor;
 
-        -- Step 3: Delete SoilAnalysis records only if any exist
+        -- Step 4: Delete SoilAnalyses
         IF EXISTS (SELECT 1 FROM @SoilAnalysesIDs)
         BEGIN
             DECLARE @SoilAnalysesID INT;
@@ -67,8 +73,7 @@ BEGIN
             DEALLOCATE sa_cursor;
         END
 
-      
-        -- Step 5: Delete PreviousGrasses records using the stored procedure
+        -- Step 5: Delete PreviousGrasses
         IF EXISTS (SELECT 1 FROM @PreviousGrassIDs)
         BEGIN
             DECLARE @PreviousGrassID INT;
@@ -84,20 +89,51 @@ BEGIN
             DEALLOCATE pg_cursor;
         END
 
-        -- Step 6: Delete PKBalances records only if any exist, using FieldID instead of PKBalanceID
+        -- Step 6: Delete PKBalances by FieldID
         IF EXISTS (SELECT 1 FROM @PKBalanceIDs)
         BEGIN
-            -- Call spPKBalances_DeleteByFieldID with @FieldID directly
             EXEC spPKBalances_DeleteByFieldID @FieldID;
         END
 
-        -- Step 7: Just before deleting the Field, first delete from InprogressCalculations table using FieldID
+        -- Step 7: Delete InprogressCalculations
         EXEC spInprogressCalculations_DeleteByFieldID @FieldID;
 
-        -- Step 8: Now delete the Field
+        -- Step 8: Delete PreviousCroppings
+        IF EXISTS (SELECT 1 FROM @PreviousCroppingIDs)
+        BEGIN
+            DECLARE @PreviousCroppingID INT;
+            DECLARE pc_cursor CURSOR FOR SELECT ID FROM @PreviousCroppingIDs;
+            OPEN pc_cursor;
+            FETCH NEXT FROM pc_cursor INTO @PreviousCroppingID;
+            WHILE @@FETCH_STATUS = 0
+            BEGIN
+                EXEC spPreviousCroppings_DeletePreviousCroppings @PreviousCroppingID;
+                FETCH NEXT FROM pc_cursor INTO @PreviousCroppingID;
+            END
+            CLOSE pc_cursor;
+            DEALLOCATE pc_cursor;
+        END
+
+        -- 🔹 Step 9: Delete WarningMessages (NEW SECTION)
+        IF EXISTS (SELECT 1 FROM @WarningMessageIDs)
+        BEGIN
+            DECLARE @WarningMessageID INT;
+            DECLARE wm_cursor CURSOR FOR SELECT ID FROM @WarningMessageIDs;
+            OPEN wm_cursor;
+            FETCH NEXT FROM wm_cursor INTO @WarningMessageID;
+            WHILE @@FETCH_STATUS = 0
+            BEGIN
+                EXEC spWarningMessages_DeleteWarningMessages @WarningMessageID;
+                FETCH NEXT FROM wm_cursor INTO @WarningMessageID;
+            END
+            CLOSE wm_cursor;
+            DEALLOCATE wm_cursor;
+        END
+
+        -- Step 10: Finally delete the Field record
         DELETE FROM Fields WHERE ID = @FieldID;
 
-        -- Step 9: Commit the transaction if this procedure started it
+        -- Step 11: Commit if we started the transaction
         IF @IsLocalTransaction = 1
         BEGIN
             COMMIT TRANSACTION;
@@ -107,7 +143,6 @@ BEGIN
         -- Rollback if there was an error
         IF @IsLocalTransaction = 1
         BEGIN
-            -- We started the transaction, so rollback
             ROLLBACK TRANSACTION;
         END
 
@@ -120,5 +155,4 @@ BEGIN
         -- Rethrow the error
         RAISERROR(@ErrorMessage, @ErrorSeverity, @ErrorState);
     END CATCH
-END;
-GO
+END
