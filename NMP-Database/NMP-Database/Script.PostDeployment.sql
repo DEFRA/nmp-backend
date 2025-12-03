@@ -179,8 +179,14 @@ BEGIN
     INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [SNSCategoryID], [CropInfoOneQuestionID]) VALUES (193, 9, NULL, 1, NULL, NULL, 4, 5)
     INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [SNSCategoryID], [CropInfoOneQuestionID]) VALUES (194, 9, NULL, 0, NULL, NULL, 3, NULL)
     INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [SNSCategoryID], [CropInfoOneQuestionID]) VALUES (195, 9, NULL, 0, NULL, NULL, 3, NULL)
+    INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [SNSCategoryID], [CropInfoOneQuestionID]) VALUES (196, 9, NULL, 0, NULL, NULL, 3, NULL)
 END
 GO
+
+IF NOT EXISTS (SELECT 1 FROM [dbo].[CropTypeLinkings] WHERE [CropTypeID]=196)
+BEGIN
+  INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [SNSCategoryID], [CropInfoOneQuestionID]) VALUES (196, 9, NULL, 0, NULL, NULL, 3, NULL)
+END
 
 IF NOT EXISTS (SELECT 1 FROM [dbo].[InOrganicManureDurations])
 BEGIN
