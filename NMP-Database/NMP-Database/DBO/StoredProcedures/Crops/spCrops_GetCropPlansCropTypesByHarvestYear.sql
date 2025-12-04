@@ -5,7 +5,8 @@ AS
 BEGIN
     SELECT
         [Crops].[CropTypeID],
-        [Crops].[CropOrder]
+        [Crops].[CropOrder],
+		[Crops].[CropGroupName]
     FROM
         [Crops]
     INNER JOIN
@@ -16,5 +17,6 @@ BEGIN
     AND [Crops].[Confirm] = 0
     GROUP BY
         [Crops].[CropTypeID],
-        [Crops].[CropOrder]
+        [Crops].[CropOrder],
+		[Crops].[CropGroupName]
 END
