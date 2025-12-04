@@ -1,10 +1,10 @@
 ﻿CREATE PROCEDURE [dbo].[spCrops_GetCropPlansFieldsByHarvestYear]
     @farmId INT,
     @harvestYear INT,
-    @cropTypeId INT = NULL
+    @cropGroupName NVARCHAR(120) = NULL
 AS
 BEGIN
-    IF @cropTypeId IS NOT NULL
+    IF @cropGroupName IS NOT NULL
     BEGIN
         SELECT DISTINCT
             [Fields].[ID],
@@ -16,7 +16,7 @@ BEGIN
         WHERE
             [Fields].[FarmID] = @farmId
         AND [Crops].[Year] = @harvestYear
-        AND [Crops].[CropTypeID] = @cropTypeId
+        AND [Crops].[CropGroupName] = @cropGroupName
         AND [Crops].[Confirm] = 0
     END
     ELSE
