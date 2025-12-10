@@ -1,7 +1,4 @@
-﻿
-
-
-CREATE PROCEDURE [dbo].[spWarning_CheckClosedPeriodTwentyEightDayLimit]
+﻿CREATE PROCEDURE [dbo].[spWarning_CheckClosedPeriodTwentyEightDayLimit]
     @OrganicManureId INT
 AS
 BEGIN
