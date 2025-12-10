@@ -80,6 +80,7 @@
     <Folder Include="DBO\StoredProcedures\StoreCapacities" />
     <Folder Include="DBO\StoredProcedures\WarningMessages" />
     <Folder Include="DBO\StoredProcedures\PreviousCroppings" />
+    <Folder Include="dbo\Stored Procedures\" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="DBO\Tables\Farms.sql" />
@@ -159,6 +160,28 @@
     <Build Include="DBO\Tables\PreviousCroppings.sql" />
     <Build Include="DBO\StoredProcedures\WarningMessages\spWarningMessages_DeleteWarningMessages.sql" />
     <Build Include="DBO\StoredProcedures\PreviousCroppings\spPreviousCroppings_DeletePreviousCroppings.sql" />
+    <Build Include="DBO\Tables\Warnings.sql" />
+    <Build Include="dbo\Stored Procedures\spWarning_OrganicManureNFieldLimitCompostsCropTypeSpecific.sql" />
+    <Build Include="dbo\Stored Procedures\spWarning_GetAllManuresByManagementPeriod.sql" />
+    <Build Include="dbo\Stored Procedures\spWarning_ComputeNMaxRateCombined.sql" />
+    <Build Include="dbo\Stored Procedures\spWarning_CheckOrganicManureNFieldLimitYear.sql" />
+    <Build Include="dbo\Stored Procedures\spWarning_CheckOrganicManureNFieldLimitComposts.sql" />
+    <Build Include="dbo\Stored Procedures\spWarning_CheckFertiliserClosedPeriodTwentyEightDayLimit.sql" />
+    <Build Include="dbo\Stored Procedures\spWarning_CheckFertiliserClosedPeriodToOctoberLimit.sql" />
+    <Build Include="dbo\Stored Procedures\spWarning_CheckFertiliserClosedPeriodOctoberGrassHighN.sql" />
+    <Build Include="dbo\Stored Procedures\spWarning_CheckFertiliserClosedPeriodOct31ToClosedPeriod.sql" />
+    <Build Include="dbo\Stored Procedures\spWarning_CheckFertiliserClosedPeriodNitrogenLimit.sql" />
+    <Build Include="dbo\Stored Procedures\spWarning_CheckFertiliserClosedPeriodCropRestriction.sql" />
+    <Build Include="dbo\Stored Procedures\spWarning_CheckClosedPeriodTwentyEightDayLimit.sql" />
+    <Build Include="dbo\Stored Procedures\spWarning_CheckClosedPeriodOrganicManureExclusion.sql" />
+    <Build Include="dbo\Stored Procedures\spWarning_CheckClosedPeriodOrganicManure.sql" />
+    <Build Include="dbo\Stored Procedures\spWarning_CheckClosedPeriodOctoberWinterOilSeedRapeLimit.sql" />
+    <Build Include="dbo\Stored Procedures\spWarning_CheckClosedPeriodOctoberGrassLimit.sql" />
+    <Build Include="dbo\Stored Procedures\spWarning_CheckClosedPeriodOctoberGrassAndWinterOilSeedRape.sql" />
+    <Build Include="dbo\Stored Procedures\spWarning_CheckClosedPeriodFebNLimit.sql" />
+    <Build Include="dbo\Stored Procedures\spWarning_CheckClosedPeriodEndFebruaryPoultryManure.sql" />
+    <Build Include="dbo\Stored Procedures\spWarning_CheckClosedPeriodEndFebruaryPoultryAndSlurryTypesTwentyDays.sql" />
+    <Build Include="dbo\Stored Procedures\spWarning_CheckClosedPeriodEndFebruaryManureRate.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Script.PostDeployment.sql">
