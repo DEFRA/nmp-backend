@@ -5,8 +5,8 @@ Post-Deployment Script Template
  Use SQLCMD syntax to include a file in the post-deployment script.			
  Example:      :r .\myfile.sql								
  Use SQLCMD syntax to reference a variable in the post-deployment script.		
- Example:      :setvar TableName MyTable							
-               SELECT * FROM [$(TableName)]					
+ Example:      :setvar TableName MyTable						
+ 					
 --------------------------------------------------------------------------------------
 */
 
@@ -24,31 +24,31 @@ GO
 
 IF NOT EXISTS (SELECT 1 FROM [dbo].[SoilTypeSoilTextures])
 BEGIN
-INSERT [dbo].[SoilTypeSoilTextures] ([SoilTypeID], [TopSoilID], [SubSoilID]) VALUES (0, 3, 2)
-INSERT [dbo].[SoilTypeSoilTextures] ([SoilTypeID], [TopSoilID], [SubSoilID]) VALUES (1, 3, 16)
-INSERT [dbo].[SoilTypeSoilTextures] ([SoilTypeID], [TopSoilID], [SubSoilID]) VALUES (2, 3, 8)
-INSERT [dbo].[SoilTypeSoilTextures] ([SoilTypeID], [TopSoilID], [SubSoilID]) VALUES (3, 9, 12)
-INSERT [dbo].[SoilTypeSoilTextures] ([SoilTypeID], [TopSoilID], [SubSoilID]) VALUES (4, 6, 6)
-INSERT [dbo].[SoilTypeSoilTextures] ([SoilTypeID], [TopSoilID], [SubSoilID]) VALUES (5, 13, 12)
-INSERT [dbo].[SoilTypeSoilTextures] ([SoilTypeID], [TopSoilID], [SubSoilID]) VALUES (6, 15, 15)
-INSERT [dbo].[SoilTypeSoilTextures] ([SoilTypeID], [TopSoilID], [SubSoilID]) VALUES (10, 2, 2)
-INSERT [dbo].[SoilTypeSoilTextures] ([SoilTypeID], [TopSoilID], [SubSoilID]) VALUES (11, 3, 17)
-INSERT [dbo].[SoilTypeSoilTextures] ([SoilTypeID], [TopSoilID], [SubSoilID]) VALUES (12, 3, 3)
-INSERT [dbo].[SoilTypeSoilTextures] ([SoilTypeID], [TopSoilID], [SubSoilID]) VALUES (13, 8, 8)
-INSERT [dbo].[SoilTypeSoilTextures] ([SoilTypeID], [TopSoilID], [SubSoilID]) VALUES (14, 13, 13)
-INSERT [dbo].[SoilTypeSoilTextures] ([SoilTypeID], [TopSoilID], [SubSoilID]) VALUES (15, 14, 14)
+    INSERT [dbo].[SoilTypeSoilTextures] ([SoilTypeID], [TopSoilID], [SubSoilID]) VALUES (0, 3, 2)
+    INSERT [dbo].[SoilTypeSoilTextures] ([SoilTypeID], [TopSoilID], [SubSoilID]) VALUES (1, 3, 16)
+    INSERT [dbo].[SoilTypeSoilTextures] ([SoilTypeID], [TopSoilID], [SubSoilID]) VALUES (2, 3, 8)
+    INSERT [dbo].[SoilTypeSoilTextures] ([SoilTypeID], [TopSoilID], [SubSoilID]) VALUES (3, 9, 12)
+    INSERT [dbo].[SoilTypeSoilTextures] ([SoilTypeID], [TopSoilID], [SubSoilID]) VALUES (4, 6, 6)
+    INSERT [dbo].[SoilTypeSoilTextures] ([SoilTypeID], [TopSoilID], [SubSoilID]) VALUES (5, 13, 12)
+    INSERT [dbo].[SoilTypeSoilTextures] ([SoilTypeID], [TopSoilID], [SubSoilID]) VALUES (6, 15, 15)
+    INSERT [dbo].[SoilTypeSoilTextures] ([SoilTypeID], [TopSoilID], [SubSoilID]) VALUES (10, 2, 2)
+    INSERT [dbo].[SoilTypeSoilTextures] ([SoilTypeID], [TopSoilID], [SubSoilID]) VALUES (11, 3, 17)
+    INSERT [dbo].[SoilTypeSoilTextures] ([SoilTypeID], [TopSoilID], [SubSoilID]) VALUES (12, 3, 3)
+    INSERT [dbo].[SoilTypeSoilTextures] ([SoilTypeID], [TopSoilID], [SubSoilID]) VALUES (13, 8, 8)
+    INSERT [dbo].[SoilTypeSoilTextures] ([SoilTypeID], [TopSoilID], [SubSoilID]) VALUES (14, 13, 13)
+    INSERT [dbo].[SoilTypeSoilTextures] ([SoilTypeID], [TopSoilID], [SubSoilID]) VALUES (15, 14, 14)
 END
 GO
 
 IF NOT EXISTS (SELECT 1 FROM [dbo].[SNSCategories])
 BEGIN
-SET IDENTITY_INSERT [dbo].[SNSCategories] ON 
-INSERT [dbo].[SNSCategories] ([ID], [Name]) VALUES (1, N'Winter cereals')
-INSERT [dbo].[SNSCategories] ([ID], [Name]) VALUES (2, N'Winter oilseed rape')
-INSERT [dbo].[SNSCategories] ([ID], [Name]) VALUES (3, N'Other arable/potatoes')
-INSERT [dbo].[SNSCategories] ([ID], [Name]) VALUES (4, N'Vegetables')
---INSERT [dbo].[SNSCategories] ([ID], [Name]) VALUES (5, N'Fruit')
-SET IDENTITY_INSERT [dbo].[SNSCategories] OFF
+    SET IDENTITY_INSERT [dbo].[SNSCategories] ON 
+    INSERT [dbo].[SNSCategories] ([ID], [Name]) VALUES (1, N'Winter cereals')
+    INSERT [dbo].[SNSCategories] ([ID], [Name]) VALUES (2, N'Winter oilseed rape')
+    INSERT [dbo].[SNSCategories] ([ID], [Name]) VALUES (3, N'Other arable/potatoes')
+    INSERT [dbo].[SNSCategories] ([ID], [Name]) VALUES (4, N'Vegetables')
+    --INSERT [dbo].[SNSCategories] ([ID], [Name]) VALUES (5, N'Fruit')
+    SET IDENTITY_INSERT [dbo].[SNSCategories] OFF
 END
 
 GO
@@ -1085,7 +1085,7 @@ END
 
 GO
 IF NOT EXISTS (SELECT 1 FROM [dbo].[PreviousGrassIdMapping])
-BEGIN
+BEGIN    
     SET IDENTITY_INSERT [dbo].[PreviousGrassIdMapping] ON
     INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, [IsCutOnly], [IsGrazedNCut], IsHighClover, NitrogenUse, PreviousGrassID) VALUES (1, 2, 2, 2, 2, 1,0,0, 1, 'High', 9);
     INSERT INTO PreviousGrassIdMapping (ID, FirstHYFieldType, SecondHYFieldType, ThirdHYFieldType, LayDuration, IsGrazedOnly, [IsCutOnly], [IsGrazedNCut], IsHighClover, NitrogenUse, PreviousGrassID) VALUES (2, 2, 2, 2, 2, 0,1,0, 1, 'High', 5);
@@ -1183,17 +1183,18 @@ END
 GO
 IF NOT EXISTS (SELECT 1 FROM [dbo].[GrassHistoryIdMapping])
 BEGIN
+    DECLARE @Moderate  NVARCHAR(10) = 'Moderate';
     SET IDENTITY_INSERT [dbo].[GrassHistoryIdMapping] ON
     INSERT INTO [GrassHistoryIdMapping] ([ID], [FirstHYFieldType], [SecondHYFieldType], [IsReseeded], [IsHighClover], [NitrogenUse], [SoilGroupCategoryID], [CropGroupCategoryID], [GrassHistoryID]) VALUES (1, 2, NULL, 0, 0, 'High', NULL, NULL, 0);
-    INSERT INTO [GrassHistoryIdMapping] ([ID], [FirstHYFieldType], [SecondHYFieldType], [IsReseeded], [IsHighClover], [NitrogenUse], [SoilGroupCategoryID], [CropGroupCategoryID], [GrassHistoryID]) VALUES (2, 2, NULL, 0, 0, 'Moderate', NULL, NULL, 1);
+    INSERT INTO [GrassHistoryIdMapping] ([ID], [FirstHYFieldType], [SecondHYFieldType], [IsReseeded], [IsHighClover], [NitrogenUse], [SoilGroupCategoryID], [CropGroupCategoryID], [GrassHistoryID]) VALUES (2, 2, NULL, 0, 0, @Moderate, NULL, NULL, 1);
     INSERT INTO [GrassHistoryIdMapping] ([ID], [FirstHYFieldType], [SecondHYFieldType], [IsReseeded], [IsHighClover], [NitrogenUse], [SoilGroupCategoryID], [CropGroupCategoryID], [GrassHistoryID]) VALUES (3, 2, NULL, 0, 0, 'Low', NULL, NULL, 2);
     INSERT INTO [GrassHistoryIdMapping] ([ID], [FirstHYFieldType], [SecondHYFieldType], [IsReseeded], [IsHighClover], [NitrogenUse], [SoilGroupCategoryID], [CropGroupCategoryID], [GrassHistoryID]) VALUES (4, 2, NULL, 0, 1, NULL, NULL, NULL, 3);
     INSERT INTO [GrassHistoryIdMapping] ([ID], [FirstHYFieldType], [SecondHYFieldType], [IsReseeded], [IsHighClover], [NitrogenUse], [SoilGroupCategoryID], [CropGroupCategoryID], [GrassHistoryID]) VALUES (5, 2, NULL, 1, 0, 'High', NULL, NULL, 4);
-    INSERT INTO [GrassHistoryIdMapping] ([ID], [FirstHYFieldType], [SecondHYFieldType], [IsReseeded], [IsHighClover], [NitrogenUse], [SoilGroupCategoryID], [CropGroupCategoryID], [GrassHistoryID]) VALUES (6, 2, NULL, 1, 0, 'Moderate', NULL, NULL, 5);
+    INSERT INTO [GrassHistoryIdMapping] ([ID], [FirstHYFieldType], [SecondHYFieldType], [IsReseeded], [IsHighClover], [NitrogenUse], [SoilGroupCategoryID], [CropGroupCategoryID], [GrassHistoryID]) VALUES (6, 2, NULL, 1, 0, @Moderate, NULL, NULL, 5);
     INSERT INTO [GrassHistoryIdMapping] ([ID], [FirstHYFieldType], [SecondHYFieldType], [IsReseeded], [IsHighClover], [NitrogenUse], [SoilGroupCategoryID], [CropGroupCategoryID], [GrassHistoryID]) VALUES (7, 2, NULL, 1, 0, 'Low', NULL, NULL, 6);
     INSERT INTO [GrassHistoryIdMapping] ([ID], [FirstHYFieldType], [SecondHYFieldType], [IsReseeded], [IsHighClover], [NitrogenUse], [SoilGroupCategoryID], [CropGroupCategoryID], [GrassHistoryID]) VALUES (8, 2, NULL, 1, 1, NULL, NULL, NULL, 3);
     INSERT INTO [GrassHistoryIdMapping] ([ID], [FirstHYFieldType], [SecondHYFieldType], [IsReseeded], [IsHighClover], [NitrogenUse], [SoilGroupCategoryID], [CropGroupCategoryID], [GrassHistoryID]) VALUES (9, 1, 2, NULL, 0, 'High', NULL, NULL, 4);
-    INSERT INTO [GrassHistoryIdMapping] ([ID], [FirstHYFieldType], [SecondHYFieldType], [IsReseeded], [IsHighClover], [NitrogenUse], [SoilGroupCategoryID], [CropGroupCategoryID], [GrassHistoryID]) VALUES (10, 1, 2, NULL, 0, 'Moderate', NULL, NULL, 5);
+    INSERT INTO [GrassHistoryIdMapping] ([ID], [FirstHYFieldType], [SecondHYFieldType], [IsReseeded], [IsHighClover], [NitrogenUse], [SoilGroupCategoryID], [CropGroupCategoryID], [GrassHistoryID]) VALUES (10, 1, 2, NULL, 0, @Moderate, NULL, NULL, 5);
     INSERT INTO [GrassHistoryIdMapping] ([ID], [FirstHYFieldType], [SecondHYFieldType], [IsReseeded], [IsHighClover], [NitrogenUse], [SoilGroupCategoryID], [CropGroupCategoryID], [GrassHistoryID]) VALUES (11, 1, 2, NULL, 0, 'Low', NULL, NULL, 6);
     INSERT INTO [GrassHistoryIdMapping] ([ID], [FirstHYFieldType], [SecondHYFieldType], [IsReseeded], [IsHighClover], [NitrogenUse], [SoilGroupCategoryID], [CropGroupCategoryID], [GrassHistoryID]) VALUES (12, 1, 2, NULL, 1, NULL, NULL, NULL, 5);
     INSERT INTO [GrassHistoryIdMapping] ([ID], [FirstHYFieldType], [SecondHYFieldType], [IsReseeded], [IsHighClover], [NitrogenUse], [SoilGroupCategoryID], [CropGroupCategoryID], [GrassHistoryID]) VALUES (13, 1, 1, NULL, NULL, NULL, 1, NULL, 9);
@@ -1203,72 +1204,79 @@ BEGIN
 END
 
 GO
+
+
 IF NOT EXISTS (SELECT 1 FROM [dbo].[SoilGroupCategories])
-BEGIN    
+BEGIN
+    DECLARE @ALL_OTHER_SOIL_TYPES  NVARCHAR(50) = 'All other soil types (other than light sand)';
+    
     INSERT INTO [SoilGroupCategories] (ID,SoilTypeID,SoilGroupDescription) values(1,0,'Light sand')
-    INSERT INTO [SoilGroupCategories] (ID,SoilTypeID,SoilGroupDescription) values(2,1,'All other soil types (other than light sand)')
-    INSERT INTO [SoilGroupCategories] (ID,SoilTypeID,SoilGroupDescription) values(2,2,'All other soil types (other than light sand)')
-    INSERT INTO [SoilGroupCategories] (ID,SoilTypeID,SoilGroupDescription) values(2,3,'All other soil types (other than light sand)')
-    INSERT INTO [SoilGroupCategories] (ID,SoilTypeID,SoilGroupDescription) values(2,4,'All other soil types (other than light sand)')
-    INSERT INTO [SoilGroupCategories] (ID,SoilTypeID,SoilGroupDescription) values(2,5,'All other soil types (other than light sand)')
-    INSERT INTO [SoilGroupCategories] (ID,SoilTypeID,SoilGroupDescription) values(2,6,'All other soil types (other than light sand)')
-    INSERT INTO [SoilGroupCategories] (ID,SoilTypeID,SoilGroupDescription) values(2,10,'All other soil types (other than light sand)')
-    INSERT INTO [SoilGroupCategories] (ID,SoilTypeID,SoilGroupDescription) values(2,11,'All other soil types (other than light sand)')
-    INSERT INTO [SoilGroupCategories] (ID,SoilTypeID,SoilGroupDescription) values(2,12,'All other soil types (other than light sand)')
-    INSERT INTO [SoilGroupCategories] (ID,SoilTypeID,SoilGroupDescription) values(2,13,'All other soil types (other than light sand)')
-    INSERT INTO [SoilGroupCategories] (ID,SoilTypeID,SoilGroupDescription) values(2,14,'All other soil types (other than light sand)')
-    INSERT INTO [SoilGroupCategories] (ID,SoilTypeID,SoilGroupDescription) values(2,15,'All other soil types (other than light sand)')
+    INSERT INTO [SoilGroupCategories] (ID,SoilTypeID,SoilGroupDescription) values(2,1,@ALL_OTHER_SOIL_TYPES)
+    INSERT INTO [SoilGroupCategories] (ID,SoilTypeID,SoilGroupDescription) values(2,2,@ALL_OTHER_SOIL_TYPES)
+    INSERT INTO [SoilGroupCategories] (ID,SoilTypeID,SoilGroupDescription) values(2,3,@ALL_OTHER_SOIL_TYPES)
+    INSERT INTO [SoilGroupCategories] (ID,SoilTypeID,SoilGroupDescription) values(2,4,@ALL_OTHER_SOIL_TYPES)
+    INSERT INTO [SoilGroupCategories] (ID,SoilTypeID,SoilGroupDescription) values(2,5,@ALL_OTHER_SOIL_TYPES)
+    INSERT INTO [SoilGroupCategories] (ID,SoilTypeID,SoilGroupDescription) values(2,6,@ALL_OTHER_SOIL_TYPES)
+    INSERT INTO [SoilGroupCategories] (ID,SoilTypeID,SoilGroupDescription) values(2,10,@ALL_OTHER_SOIL_TYPES)
+    INSERT INTO [SoilGroupCategories] (ID,SoilTypeID,SoilGroupDescription) values(2,11,@ALL_OTHER_SOIL_TYPES)
+    INSERT INTO [SoilGroupCategories] (ID,SoilTypeID,SoilGroupDescription) values(2,12,@ALL_OTHER_SOIL_TYPES)
+    INSERT INTO [SoilGroupCategories] (ID,SoilTypeID,SoilGroupDescription) values(2,13,@ALL_OTHER_SOIL_TYPES)
+    INSERT INTO [SoilGroupCategories] (ID,SoilTypeID,SoilGroupDescription) values(2,14,@ALL_OTHER_SOIL_TYPES)
+    INSERT INTO [SoilGroupCategories] (ID,SoilTypeID,SoilGroupDescription) values(2,15,@ALL_OTHER_SOIL_TYPES)
 END
 
 GO
 IF NOT EXISTS (SELECT 1 FROM [dbo].[CropGroupCategories])
-BEGIN    
-    INSERT INTO [CropGroupCategories] (ID,CropTypeID,CropGroupDescription) values(1,0,'Group 1')      
-    INSERT INTO [CropGroupCategories] (ID,CropTypeID,CropGroupDescription) values(1,1,'Group 1')      
-    INSERT INTO [CropGroupCategories] (ID,CropTypeID,CropGroupDescription) values(1,2,'Group 1')      
-    INSERT INTO [CropGroupCategories] (ID,CropTypeID,CropGroupDescription) values(1,3,'Group 1')      
-    INSERT INTO [CropGroupCategories] (ID,CropTypeID,CropGroupDescription) values(1,4,'Group 1')      
-    INSERT INTO [CropGroupCategories] (ID,CropTypeID,CropGroupDescription) values(1,5,'Group 1')      
-    INSERT INTO [CropGroupCategories] (ID,CropTypeID,CropGroupDescription) values(1,6,'Group 1')      
-    INSERT INTO [CropGroupCategories] (ID,CropTypeID,CropGroupDescription) values(1,7,'Group 1')      
-    INSERT INTO [CropGroupCategories] (ID,CropTypeID,CropGroupDescription) values(1,8,'Group 1')      
-    INSERT INTO [CropGroupCategories] (ID,CropTypeID,CropGroupDescription) values(1,9,'Group 1')      
-    INSERT INTO [CropGroupCategories] (ID,CropTypeID,CropGroupDescription) values(1,171,'Group 1')    
-    INSERT INTO [CropGroupCategories] (ID,CropTypeID,CropGroupDescription) values(1,172,'Group 1')    
-    INSERT INTO [CropGroupCategories] (ID,CropTypeID,CropGroupDescription) values(1,173,'Group 1')    
-    INSERT INTO [CropGroupCategories] (ID,CropTypeID,CropGroupDescription) values(1,174,'Group 1')
-    INSERT INTO [CropGroupCategories] (ID,CropTypeID,CropGroupDescription) values(1,110,'Group 1')
-    INSERT INTO [CropGroupCategories] (ID,CropTypeID,CropGroupDescription) values(1,111,'Group 1')
-    INSERT INTO [CropGroupCategories] (ID,CropTypeID,CropGroupDescription) values(1,112,'Group 1')
-    INSERT INTO [CropGroupCategories] (ID,CropTypeID,CropGroupDescription) values(1,113,'Group 1')
-    INSERT INTO [CropGroupCategories] (ID,CropTypeID,CropGroupDescription) values(1,114,'Group 1')
-    INSERT INTO [CropGroupCategories] (ID,CropTypeID,CropGroupDescription) values(1,115,'Group 1')
-    INSERT INTO [CropGroupCategories] (ID,CropTypeID,CropGroupDescription) values(1,116,'Group 1')
-    INSERT INTO [CropGroupCategories] (ID,CropTypeID,CropGroupDescription) values(1,117,'Group 1')
-    INSERT INTO [CropGroupCategories] (ID,CropTypeID,CropGroupDescription) values(1,118,'Group 1')
-    INSERT INTO [CropGroupCategories] (ID,CropTypeID,CropGroupDescription) values(1,119,'Group 1')
-    INSERT INTO [CropGroupCategories] (ID,CropTypeID,CropGroupDescription) values(1,120,'Group 1')
-    INSERT INTO [CropGroupCategories] (ID,CropTypeID,CropGroupDescription) values(1,121,'Group 1')
-    INSERT INTO [CropGroupCategories] (ID,CropTypeID,CropGroupDescription) values(1,122,'Group 1')
-    INSERT INTO [CropGroupCategories] (ID,CropTypeID,CropGroupDescription) values(1,123,'Group 1')
-    INSERT INTO [CropGroupCategories] (ID,CropTypeID,CropGroupDescription) values(1,124,'Group 1')
-    INSERT INTO [CropGroupCategories] (ID,CropTypeID,CropGroupDescription) values(1,125,'Group 1')
-    INSERT INTO [CropGroupCategories] (ID,CropTypeID,CropGroupDescription) values(1,170,'Group 1')
-    INSERT INTO [CropGroupCategories] (ID,CropTypeID,CropGroupDescription) values(1,184,'Group 1')
-    INSERT INTO [CropGroupCategories] (ID,CropTypeID,CropGroupDescription) values(1,185,'Group 1')
-    INSERT INTO [CropGroupCategories] (ID,CropTypeID,CropGroupDescription) values(1,196,'Group 1')
-    INSERT INTO [CropGroupCategories] (ID,CropTypeID,CropGroupDescription) values(1,26,'Group 1')     
-    INSERT INTO [CropGroupCategories] (ID,CropTypeID,CropGroupDescription) values(1,22,'Group 1')
-    INSERT INTO [CropGroupCategories] (ID,CropTypeID,CropGroupDescription) values(2,160,'Group 2')  
-    INSERT INTO [CropGroupCategories] (ID,CropTypeID,CropGroupDescription) values(2,161,'Group 2')  
-    INSERT INTO [CropGroupCategories] (ID,CropTypeID,CropGroupDescription) values(2,162,'Group 2')  
-    INSERT INTO [CropGroupCategories] (ID,CropTypeID,CropGroupDescription) values(2,163,'Group 2')
-    INSERT INTO [CropGroupCategories] (ID,CropTypeID,CropGroupDescription) values(2,20,'Group 2')   
-    INSERT INTO [CropGroupCategories] (ID,CropTypeID,CropGroupDescription) values(2,21,'Group 2')
-    INSERT INTO [CropGroupCategories] (ID,CropTypeID,CropGroupDescription) values(2,23,'Group 2')   
-    INSERT INTO [CropGroupCategories] (ID,CropTypeID,CropGroupDescription) values(2,181,'Group 2')
-    INSERT INTO [CropGroupCategories] (ID,CropTypeID,CropGroupDescription) values(2,24,'Group 2')  
-    INSERT INTO [CropGroupCategories] (ID,CropTypeID,CropGroupDescription) values(2,25,'Group 2')
+BEGIN
+    DECLARE @Group_1  NVARCHAR(10) = 'Group 1';
+    DECLARE @Group_2  NVARCHAR(10) = 'Group 2';
+    
+    INSERT INTO [CropGroupCategories] (ID,CropTypeID,CropGroupDescription) values(1,0,@Group_1)      
+    INSERT INTO [CropGroupCategories] (ID,CropTypeID,CropGroupDescription) values(1,1,@Group_1)      
+    INSERT INTO [CropGroupCategories] (ID,CropTypeID,CropGroupDescription) values(1,2,@Group_1)      
+    INSERT INTO [CropGroupCategories] (ID,CropTypeID,CropGroupDescription) values(1,3,@Group_1)      
+    INSERT INTO [CropGroupCategories] (ID,CropTypeID,CropGroupDescription) values(1,4,@Group_1)      
+    INSERT INTO [CropGroupCategories] (ID,CropTypeID,CropGroupDescription) values(1,5,@Group_1)      
+    INSERT INTO [CropGroupCategories] (ID,CropTypeID,CropGroupDescription) values(1,6,@Group_1)      
+    INSERT INTO [CropGroupCategories] (ID,CropTypeID,CropGroupDescription) values(1,7,@Group_1)      
+    INSERT INTO [CropGroupCategories] (ID,CropTypeID,CropGroupDescription) values(1,8,@Group_1)      
+    INSERT INTO [CropGroupCategories] (ID,CropTypeID,CropGroupDescription) values(1,9,@Group_1)      
+    INSERT INTO [CropGroupCategories] (ID,CropTypeID,CropGroupDescription) values(1,171,@Group_1)    
+    INSERT INTO [CropGroupCategories] (ID,CropTypeID,CropGroupDescription) values(1,172,@Group_1)    
+    INSERT INTO [CropGroupCategories] (ID,CropTypeID,CropGroupDescription) values(1,173,@Group_1)    
+    INSERT INTO [CropGroupCategories] (ID,CropTypeID,CropGroupDescription) values(1,174,@Group_1)
+    INSERT INTO [CropGroupCategories] (ID,CropTypeID,CropGroupDescription) values(1,110,@Group_1)
+    INSERT INTO [CropGroupCategories] (ID,CropTypeID,CropGroupDescription) values(1,111,@Group_1)
+    INSERT INTO [CropGroupCategories] (ID,CropTypeID,CropGroupDescription) values(1,112,@Group_1)
+    INSERT INTO [CropGroupCategories] (ID,CropTypeID,CropGroupDescription) values(1,113,@Group_1)
+    INSERT INTO [CropGroupCategories] (ID,CropTypeID,CropGroupDescription) values(1,114,@Group_1)
+    INSERT INTO [CropGroupCategories] (ID,CropTypeID,CropGroupDescription) values(1,115,@Group_1)
+    INSERT INTO [CropGroupCategories] (ID,CropTypeID,CropGroupDescription) values(1,116,@Group_1)
+    INSERT INTO [CropGroupCategories] (ID,CropTypeID,CropGroupDescription) values(1,117,@Group_1)
+    INSERT INTO [CropGroupCategories] (ID,CropTypeID,CropGroupDescription) values(1,118,@Group_1)
+    INSERT INTO [CropGroupCategories] (ID,CropTypeID,CropGroupDescription) values(1,119,@Group_1)
+    INSERT INTO [CropGroupCategories] (ID,CropTypeID,CropGroupDescription) values(1,120,@Group_1)
+    INSERT INTO [CropGroupCategories] (ID,CropTypeID,CropGroupDescription) values(1,121,@Group_1)
+    INSERT INTO [CropGroupCategories] (ID,CropTypeID,CropGroupDescription) values(1,122,@Group_1)
+    INSERT INTO [CropGroupCategories] (ID,CropTypeID,CropGroupDescription) values(1,123,@Group_1)
+    INSERT INTO [CropGroupCategories] (ID,CropTypeID,CropGroupDescription) values(1,124,@Group_1)
+    INSERT INTO [CropGroupCategories] (ID,CropTypeID,CropGroupDescription) values(1,125,@Group_1)
+    INSERT INTO [CropGroupCategories] (ID,CropTypeID,CropGroupDescription) values(1,170,@Group_1)
+    INSERT INTO [CropGroupCategories] (ID,CropTypeID,CropGroupDescription) values(1,184,@Group_1)
+    INSERT INTO [CropGroupCategories] (ID,CropTypeID,CropGroupDescription) values(1,185,@Group_1)
+    INSERT INTO [CropGroupCategories] (ID,CropTypeID,CropGroupDescription) values(1,196,@Group_1)
+    INSERT INTO [CropGroupCategories] (ID,CropTypeID,CropGroupDescription) values(1,26,@Group_1)     
+    INSERT INTO [CropGroupCategories] (ID,CropTypeID,CropGroupDescription) values(1,22,@Group_1)
+    INSERT INTO [CropGroupCategories] (ID,CropTypeID,CropGroupDescription) values(2,160,@Group_2)  
+    INSERT INTO [CropGroupCategories] (ID,CropTypeID,CropGroupDescription) values(2,161,@Group_2)  
+    INSERT INTO [CropGroupCategories] (ID,CropTypeID,CropGroupDescription) values(2,162,@Group_2)  
+    INSERT INTO [CropGroupCategories] (ID,CropTypeID,CropGroupDescription) values(2,163,@Group_2)
+    INSERT INTO [CropGroupCategories] (ID,CropTypeID,CropGroupDescription) values(2,20,@Group_2)   
+    INSERT INTO [CropGroupCategories] (ID,CropTypeID,CropGroupDescription) values(2,21,@Group_2)
+    INSERT INTO [CropGroupCategories] (ID,CropTypeID,CropGroupDescription) values(2,23,@Group_2)   
+    INSERT INTO [CropGroupCategories] (ID,CropTypeID,CropGroupDescription) values(2,181,@Group_2)
+    INSERT INTO [CropGroupCategories] (ID,CropTypeID,CropGroupDescription) values(2,24,@Group_2)  
+    INSERT INTO [CropGroupCategories] (ID,CropTypeID,CropGroupDescription) values(2,25,@Group_2)
 END
 
 IF NOT EXISTS (SELECT 1 FROM [dbo].[LivestockGroups])
@@ -1410,6 +1418,117 @@ BEGIN
     INSERT INTO [WarningLevels] (ID,[Name]) values(3,'Crop')
     INSERT INTO [WarningLevels] (ID,[Name]) values(4,'Rainfall')
     SET IDENTITY_INSERT [dbo].[WarningLevels] OFF
+END
+
+GO
+IF NOT EXISTS (SELECT 1 FROM [dbo].[Warnings])
+BEGIN
+    SET IDENTITY_INSERT [dbo].[Warnings] ON
+    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3]) VALUES (1, N'ORGANICMANURENFIELDLIMIT', 1, N'Organic Manure N field limit message', N'This application will take you over the organic manure nitrogen field limit', N'The Nitrate Vulnerable Zone (NVZ) rules state that the total amount of nitrogen from all organic manures you apply in any 12 month period on any single hectare of your land must not exceed 250kg.', N'It is an offence to breach the Nitrate Vulnerable Zone rules, and you should consider reducing the amount of nitrogen from organic manures.')
+
+    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3]) VALUES (2, N'ORGANICMANURENFIELDLIMITCOMPOST', 1, N'Organic Manure N Field Limit for compost worked into the soil', N'This application will take you over the organic manure nitrogen field limit for compost', N'The Nitrate Vulnerable Zone (NVZ) rules state that the total amount of nitrogen from all green and green/food compost you apply in any 2-year period on any single hectare of your land must not exceed 500kg.', N'It is an offence to breach the Nitrate Vulnerable Zone rules, and you should consider reducing the amount of nitrogen from organic manures.')
+
+    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3]) VALUES (3, N'ORGANICMANURENFIELDLIMITCOMPOSTMULCH', 1, N'Organic Manure N Field Limit for compost applied as a mulch', N'This application will take you over the organic manure nitrogen field limit for compost applied to orchard land', N'The Nitrate Vulnerable Zone (NVZ) rules state that the total amount of nitrogen from all green and green/food compost you apply in any 4-year period on any single hectare of orchard land must not exceed 1000kg.', N'It is an offence to breach the Nitrate Vulnerable Zone rules, and you should consider reducing the amount of nitrogen from organic manures.')
+    
+    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3]) VALUES (4, N'NMAXLIMIT', 1, N'N max limit message', N'This application may take you over the maximum nitrogen rate limit (N-max) for this crop', N'The Nitrate Vulnerable Zone (NVZ) rules state that the amount of crop available nitrogen from inorganic fertilisers and organic manures that you apply to this crop averaged across your whole farm must not exceed {0}kg per hectare.', N'It is an offence to breach the Nitrate Vulnerable Zone rules, and you should consider reducing the amount of crop available nitrogen from inorganic fertilisers and organic manures you apply.')
+    
+    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3]) VALUES (5, N'HIGHNORGANICMANURECLOSEDPERIOD', 1, N'Closed period for the application of high N organic manure message', N'The application date you entered is inside your closed spreading period for applying high readily available nitrogen organic manure', NULL, N'It is an offence to breach the Nitrate Vulnerable Zone rules, and you should consider applying outside the closed spreading period.')
+    
+    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3]) VALUES (6, N'HIGHNORGANICMANURECLOSEDPERIODORGANICFARM', 1, N'Closed period for the application of high N organic manure on a registered organic farm message', N'The application date you entered is inside your closed spreading period for applying high readily available nitrogen organic manure', NULL, N'It is an offence to breach the Nitrate Vulnerable Zone rules, and you should consider applying outside the closed spreading period.')
+    
+    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3]) VALUES (7, N'HIGHNORGANICMANUREMAXRATE', 1, N'Closed period for the application of high N organic manure message', N'This application will take you over the maximum application rate for high readily available nitrogen organic manure during your closed spreading period', N'The Nitrate Vulnerable Zone (NVZ) rules state that on organic farms the application rate of high readily available nitrogen manures on this crop type between the start of the closed spreading period and the end of February must not exceed 150kg of total nitrogen per hectare.', N'It is an offence to breach the Nitrate Vulnerable Zone rules, and you should consider reducing the application rate of high readily available nitrogen manures.')
+    
+    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3]) VALUES (8, N'HIGHNORGANICMANUREMAXRATEWEEKS', 1, N'Closed period for the application of high N organic manure message', N'This application will take you over the maximum application rate for high readily available nitrogen organic manure during your closed spreading period', N'The Nitrate Vulnerable Zone (NVZ) rules state that on organic farms the application rate of high readily available nitrogen manures on this crop type between the start of the closed spreading period and the end of February must not exceed 150kg of total nitrogen per hectare, and that no more than 50kg of total nitrogen can be applied every 4 weeks.', N'It is an offence to breach the Nitrate Vulnerable Zone rules, and you should consider reducing the application rate of high readily available nitrogen manures.')
+    
+    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3]) VALUES (9, N'HIGHNORGANICMANUREMAXRATEGRASS', 1, N'Closed period for the application of high N organic manure message', N'This application will take you over the maximum application rate for high readily available nitrogen organic manure during your closed spreading period', N'The Nitrate Vulnerable Zone (NVZ) rules state that on organic farms the application rate of high readily available nitrogen manures on grass between the start of the closed spreading period and end of October must not exceed 150kg of total nitrogen per hectare, and that no more than 40kg of total nitrogen can be applied at any one time.', N'It is an offence to breach the Nitrate Vulnerable Zone rules, and you should consider reducing the application rate of high readily available nitrogen manures.')
+    
+    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3]) VALUES (10, N'HIGHNORGANICMANUREMAXRATEOSR', 1, N'Closed period for the application of high N organic manure message', N'This application will take you over the maximum application rate for high readily available nitrogen organic manure during your closed spreading period', N'The Nitrate Vulnerable Zone (NVZ) rules state that on organic farms the application rate of high readily available nitrogen manures on winter oilseed rape between the start of the closed spreading period and end of October must not exceed 150kg of total nitrogen per hectare.', N'It is an offence to breach the Nitrate Vulnerable Zone rules, and you should consider reducing the application rate of high readily available nitrogen manures.')
+    
+    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3]) VALUES (11, N'HIGHNORGANICMANUREDATEONLY', 1, N'Closed period for the application of high N organic manure message', N'The application date you entered is inside your closed spreading period for applying high readily available nitrogen organic manure', NULL, N'It is an offence to breach the Nitrate Vulnerable Zone rules, and you should consider applying outside the closed spreading period.')
+    
+    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3]) VALUES (12, N'SLURRYMAXRATE', 1, N'Manure application limit between the end of the closed spreading period and the end of February message', N'This application will take you over the maximum application rate for slurry between the end of the closed spreading period and the end of February', N'The Nitrate Vulnerable Zone (NVZ) rules state you must not spread more than 30 cubic meters per hectare of slurry in a single application from the end of the closed spreading period until the end of February.', N'It is an offence to breach the Nitrate Vulnerable Zone rules, and you should consider reducing the application rate of slurry.')
+    
+    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3]) VALUES (13, N'POULTRYMANUREMAXAPPLICATIONRATE', 1, N'Manure application limit between the end of the closed spreading period and the end of February message', N'This application will take you over the maximum application rate for poultry manure between the end of the closed spreading period and the end of February', N'The Nitrate Vulnerable Zone (NVZ) rules state you must not spread more than 8 tonnes per hectare of poultry manure in a single application from the end of the closed spreading period until the end of February.', N'It is an offence to breach the Nitrate Vulnerable Zone rules, and you should consider reducing the application rate of poultry manure.')
+    
+    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3]) VALUES (14, N'ALLOWWEEKSBETWEENSLURRYPOULTRYAPPLICATIONS', 1, N'Manure application limit between the end of the closed spreading period and the end of February message', N'You must allow at least 3 weeks between applications from the end of the closed spreading period to the end of February', N'The Nitrate Vulnerable Zone (NVZ) rules state that, between the end of the closed spreading period and the end of February, you must allow at least 3 weeks between each individual application of slurry or poultry manure.', N'It is an offence to breach the Nitrate Vulnerable Zone rules, and you should consider allowing more time between applications.')
+    
+    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3]) VALUES (15, N'NITROFERTCLOSEDPERIOD', 1, N'Closed period for the application of manufactured nitrogen fertiliser message', N'The application date you entered is inside your closed spreading period for applying inorganic nitrogen fertiliser', NULL, N'It is an offence to breach the Nitrate Vulnerable Zone rules, and you should consider applying outside the closed spreading period.')
+    
+    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3]) VALUES (16, N'INORGNMAXRATE', 1, N'Closed period for the application of manufactured nitrogen fertiliser message', N'This application will take you over the maximum application rate for inorganic nitrogen fertiliser to this crop during the closed spreading period', N'The Nitrate Vulnerable Zone (NVZ) rules state that the application rate of inorganic nitrogen fertiliser to this crop between {0} and {1} must not exceed {2}kg of nitrogen per hectare.', N'It is an offence to breach the Nitrate Vulnerable Zone rules, and you should consider reducing the application rate of inorganic nitrogen fertiliser.')
+    
+    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3]) VALUES (17, N'INORGNMAXRATEBRASSICA', 1, N'Closed period for the application of manufactured nitrogen fertiliser message', N'This application will take you over the maximum application rate for inorganic nitrogen fertiliser to this crop during the closed spreading period', N'The Nitrate Vulnerable Zone (NVZ) rules state that the application rate of inorganic nitrogen fertiliser on brassica crops between {0} and {1} must not exceed 100kg of nitrogen per hectare and that no more than 50kg of nitrogen per hectare can be applied every 4 weeks, up to the date on which you harvest the crop.', N'It is an offence to breach the Nitrate Vulnerable Zone rules, and you should consider reducing the application rate of inorganic nitrogen fertiliser.')
+    
+    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3]) VALUES (18, N'INORGNMAXRATEOSR', 1, N'Closed spreading period for the application of manufactured nitrogen fertiliser message', N'This application will take you over the maximum application rate for inorganic nitrogen fertiliser to this crop during the closed spreading period', N'The Nitrate Vulnerable Zone (NVZ) rules state that the application rate of inorganic nitrogen fertiliser on winter oilseed rape between {0} and end of October must not exceed 30kg of nitrogen per hectare.', N'It is an offence to breach the Nitrate Vulnerable Zone rules, and you should consider reducing the application rate of inorganic nitrogen fertiliser.')
+    
+    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3]) VALUES (19, N'INORGNMAXRATEGRASS', 1, N'Closed spreading period for the application of manufactured nitrogen fertiliser message', N'This application will take you over the maximum application rate for inorganic nitrogen fertiliser to this crop during the closed spreading period', N'The Nitrate Vulnerable Zone (NVZ) rules state that the application rate of inorganic nitrogen fertiliser on grass between {0} and end of October must not exceed 80kg of nitrogen per hectare, and that no more than 40kg of nitrogen per hectare can be applied at any one time.', N'It is an offence to breach the Nitrate Vulnerable Zone rules, and you should consider reducing the application rate of inorganic nitrogen fertiliser.')
+    
+    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3]) VALUES (20, N'INORGFERTDATEONLY', 1, N'Closed period for the application of manufactured nitrogen fertiliser message', N'The application date you entered is inside your closed spreading period for applying inorganic nitrogen fertiliser', NULL, N'It is an offence to breach the Nitrate Vulnerable Zone rules, and you should consider changing your application date.')
+    
+    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3]) VALUES (21, N'ORGANICMANURENFIELDLIMIT', 2, N'The individual hectare limit for spreading organic manure', N'This application will take you over the individual hectare limit for spreading of organic manure', N'The Water Resources Regulations apply a limit of 250kg of total nitrogen per individual hectare to the spreading of organic manure in any 12 month rolling period.', N'It is an offence to breach the Water Resources Regulations, and you should consider reducing the amount of nitrogen from organic manures.')
+    
+    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3]) VALUES (22, N'ORGANICMANURENFIELDLIMITCOMPOST', 2, N'The individual hectare limit for spreading certified green/food compost', N'This application will take you over the individual hectare limit for spreading certified green and green/food compost', N'The Water Resources Regulations apply a limit of 500kg of total nitrogen per individual hectare to the spreading of certified green and green/food compost in any rolling two year period.', N'It is an offence to breach the Water Resources Regulations, and you should consider reducing the amount of nitrogen from organic manures.')
+    
+    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3]) VALUES (23, N'ORGANICMANURENFIELDLIMITCOMPOSTMULCH', 2, N'The individual hectare limit for spreading certified green/food compost applied as a mulch to orchard land', N'This application will take you over the individual hectare limit for spreading certified green and green/food compost as a mulch to orchard land', N'The Water Resources Regulations apply a limit of 1000kg of total nitrogen per individual hectare to the spreading of certified green and green/food compost to orchard land in any rolling four year period.', N'It is an offence to breach the Water Resources Regulations, and you should consider reducing the amount of nitrogen from organic manures.')
+    
+    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3]) VALUES (24, N'NMAXLIMIT', 2, N'Maximum nitrogen limits', N'This application may take you over the maximum nitrogen limit for this crop', N'The Water Resources Regulations state that the amount of crop available nitrogen from inorganic fertilisers and organic manures that you apply to this crop averaged across your whole farm must not exceed {0}kg per hectare.', N'It is an offence to breach the Water Resources Regulations, and you should consider reducing the amount of crop available nitrogen from inorganic fertilisers and organic manures you apply.')
+    
+    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3]) VALUES (25, N'HIGHNORGANICMANURECLOSEDPERIOD', 2, N'Closed spreading period for the application of high readily available nitrogen organic manures', N'The application date you entered is inside your closed spreading period for applying manure with a high readily available nitrogen content', NULL, N'It is an offence to breach the Water Resources Regulations, and you should consider applying outside the closed spreading period. Before spreading fertiliser, a field inspection should be carried out to consider the risk of causing pollution or damage to the soil.')
+    
+    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3]) VALUES (26, N'HIGHNORGANICMANURECLOSEDPERIODORGANICFARM', 2, N'Closed spreading period for the application of high readily available nitrogen organic manures on a registered organic farm', N'The application date you entered is inside your closed spreading period for applying manure with a high readily available nitrogen content', NULL, N'It is an offence to breach the Water Resources Regulations, and you should consider applying outside the closed spreading period. Before spreading organic manure, a field inspection should be carried out to consider the risk of causing pollution or damage to the soil.')
+    
+    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3]) VALUES (27, N'HIGHNORGANICMANUREMAXRATE', 2, N'Closed spreading period for the application of high readily available nitrogen organic manures on a registered organic farm', N'This application will take you over the maximum application rate for high readily available nitrogen organic manure during your closed spreading period', N'The Water Resources Regulations state that the application rate of high readily available nitrogen manures on this crop type between the start of the closed spreading period and the end of February must not exceed 150kg per hectare.', N'It is an offence to breach the Water Resources Regulations, and you should consider reducing the application rate of high readily available nitrogen organic manure.')
+    
+    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3]) VALUES (28, N'MANURESLURRYMAXAPPLICATIONRATE', 2, N'Manure application limit between the end of the closed spreading period and the end of February message', N'This application will take you over the maximum application rate for slurry between the end of the closed spreading period and the end of February', N'The Water Resources Regulations state you must not spread more than 30 cubic meters per hectare of slurry in a single application from the end of the closed spreading period until the end of February.', N'It is an offence to breach the Water Resources Regulations, and you should consider reducing the application rate of slurry.')
+    
+    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3]) VALUES (29, N'MANURESPOULTRYMANUREMAXAPPLICATIONRATE', 2, N'Manure application limit between the end of the closed spreading period and the end of February message', N'This application will take you over the maximum application rate for poultry manure between the end of the closed spreading period and the end of February', N'The Water Resources Regulations state you must not spread more than 8 tonnes per hectare of poultry manure in a single application from the end of the closed spreading period until the end of February.', N'It is an offence to breach the Water Resources Regulations, and you should consider reducing the application rate of poultry manure.')
+    
+    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3]) VALUES (30, N'ALLOWWEEKSBETWEENSLURRYPOULTRYAPPLICATIONS', 2, N'Manure application limit between the end of the closed spreading period and the end of February message', N'You must allow at least {0} weeks between applications from the end of the closed spreading period to the end of February', N'The Water Resources Regulations state that, between the end of the closed spreading period and the end of February, you must allow at least {1} weeks between each individual application of slurry or poultry manure.', N'It is an offence to breach the Water Resources Regulations, and you should consider allowing more time between applications.')
+    
+    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3]) VALUES (31, N'NITROFERTCLOSEDPERIOD', 2, N'Closed spreading period for the application of manufactured nitrogen fertiliser message', N'The application date you entered is inside your closed spreading period for applying inorganic nitrogen fertiliser', NULL, N'It is an offence to breach the Water Resources Regulations, and you should consider applying outside the closed spreading period. Before spreading fertiliser, a field inspection should be carried out to consider the risk of causing pollution or damage to the soil.')
+    
+    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3]) VALUES (32, N'INORGNMAXRATE', 2, N'Closed spreading period for the application of manufactured nitrogen fertiliser message', N'This application will take you over the maximum application rate for manufactured nitrogen fertiliser to this crop during the closed spreading period', NULL, N'It is an offence to breach the Water Resources Regulations, and you should consider reducing the application rate of inorganic nitrogen fertiliser.')
+    
+    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3]) VALUES (33, N'INORGNMAXRATEBRASSICA', 2, N'Closed spreading period for the application of manufactured nitrogen fertiliser message', N'This application will take you over the maximum application rate for inorganic nitrogen fertiliser to this crop during the closed spreading period', N'The Water Resources Regulations state that the application rate of inorganic nitrogen fertiliser on brassica crops between {0} and {1} must not exceed 100kg of nitrogen per hectare, and that no more than 50kg of nitrogen per hectare can be applied every 4 weeks, up to the date on which you harvest the crop.', N'It is an offence to breach the Water Resources Regulations, and you should consider reducing the application rate of inorganic nitrogen fertiliser.')
+    
+    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3]) VALUES (34, N'INORGNMAXRATEOSR', 2, N'Closed spreading period for the application of manufactured nitrogen fertiliser message', N'This application will take you over the maximum application rate for inorganic nitrogen fertiliser to this crop during the closed spreading period', N'The Water Resources Regulations state that the application rate of inorganic nitrogen fertiliser on winter oilseed rape between {0} and end of October must not exceed 30kg of nitrogen per hectare.', N'It is an offence to breach the Water Resources Regulations, and you should consider reducing the application rate of inorganic nitrogen fertiliser.')
+    
+    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3]) VALUES (35, N'INORGNMAXRATEGRASS', 2, N'Closed spreading period for the application of manufactured nitrogen fertiliser message', N'This application will take you over the maximum application rate for inorganic nitrogen fertiliser to this crop during the closed spreading period', N'The Water Resources Regulations state that the application rate of inorganic nitrogen fertiliser on grass between {0} and end of October must not exceed 80kg of nitrogen per hectare, and that no more than 40kg can be applied at any one time.', N'It is an offence to breach the Water Resources Regulations, and you should consider reducing the application rate of inorganic nitrogen fertiliser.')
+    
+    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3]) VALUES (36, N'INORGFERTDATEONLY', 2, N'Closed spreading period for the application of manufactured nitrogen fertiliser message', N'The application date you entered is inside your closed spreading period for applying inorganic nitrogen fertiliser', NULL, N'It is an offence to breach the Water Resources Regulations, and you should consider changing your application date.')
+    
+    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3]) VALUES (41, N'ORGANICMANURENFIELDLIMIT', 3, N'The individual hectare limit for spreading organic manure', N'This application will take you over the individual hectare limit for spreading of organic manure', N'The Water Resources (Control of Agricultural Pollution) Regulations 2021 (Wales) apply a limit of 250kg of total nitrogen per individual hectare to the spreading of organic manure in any 12 month rolling period.', N'It is an offence to breach the Water Resources (Control of Agricultural Pollution) Regulations 2021 (Wales), and you should consider reducing the amount of nitrogen from organic manures.')
+    
+    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3]) VALUES (42, N'ORGANICMANURENFIELDLIMITCOMPOST', 3, N'The individual hectare limit for spreading certified green/food compost', N'This application will take you over the individual hectare limit for spreading certified green and green/food compost', N'The Water Resources (Control of Agricultural Pollution) Regulations 2021 (Wales) apply a limit of 500kg of total nitrogen per individual hectare to the spreading of certified green and green/food compost in any rolling two year period.', N'It is an offence to breach the Water Resources (Control of Agricultural Pollution) Regulations 2021 (Wales), and you should consider reducing the amount of nitrogen from organic manures.')
+    
+    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3]) VALUES (43, N'ORGANICMANURENFIELDLIMITCOMPOSTMULCH', 3, N'The individual hectare limit for spreading certified green/food compost applied as a mulch to orchard land', N'This application will take you over the individual hectare limit for spreading certified green and green/food compost as a mulch to orchard land', N'The Water Resources (Control of Agricultural Pollution) Regulations 2021 (Wales) apply a limit of 1000kg of total nitrogen per individual hectare to the spreading of certified green and green/food compost to orchard land in any rolling four year period.', N'It is an offence to breach the Water Resources (Control of Agricultural Pollution) Regulations 2021 (Wales), and you should consider reducing the amount of nitrogen from organic manures.')
+    
+    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3]) VALUES (44, N'NMAXLIMIT', 3, N'Maximum nitrogen limits', N'This application may take you over the maximum nitrogen limit for this crop', N'The Water Resources (Control of Agricultural Pollution) Regulations 2021 (Wales) state that the amount of crop available nitrogen from inorganic fertilisers and organic manures that you apply to this crop averaged across your whole farm must not exceed {0}kg per hectare.', N'It is an offence to breach the Water Resources (Control of Agricultural Pollution) Regulations 2021 (Wales), and you should consider reducing the amount of crop available nitrogen from inorganic fertilisers and organic manures you apply.')
+    
+    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3]) VALUES (45, N'HIGHNORGANICMANURECLOSEDPERIOD', 3, N'Closed spreading period for the application of high readily available nitrogen organic manures', N'The application date you entered is inside your closed spreading period for applying manure with a high readily available nitrogen content', NULL, N'It is an offence to breach the Water Resources (Control of Agricultural Pollution) Regulations 2021 (Wales), and you should consider applying outside the closed spreading period. Before spreading fertiliser, a field inspection should be carried out to consider the risk of causing pollution or damage to the soil.')
+    
+    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3]) VALUES (46, N'HIGHNORGANICMANURECLOSEDPERIODORGANICFARM', 3, N'Closed spreading period for the application of high readily available nitrogen organic manures on a registered organic farm', N'The application date you entered is inside your closed spreading period for applying manure with a high readily available nitrogen content', NULL, N'It is an offence to breach the Water Resources (Control of Agricultural Pollution) Regulations 2021 (Wales), and you should consider applying outside the closed spreading period. Before spreading organic manure, a field inspection should be carried out to consider the risk of causing pollution or damage to the soil.')
+    
+    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3]) VALUES (47, N'HIGHNORGANICMANUREMAXRATE', 3, N'Closed spreading period for the application of high readily available nitrogen organic manures on a registered organic farm', N'This application will take you over the maximum application rate for high readily available nitrogen organic manure during your closed spreading period', N'The Water Resources (Control of Agricultural Pollution) Regulations 2021 (Wales) state that the application rate of high readily available nitrogen manures on this crop type between the start of the closed spreading period and the end of February must not exceed 150kg per hectare.', N'It is an offence to breach the Water Resources (Control of Agricultural Pollution) Regulations 2021 (Wales), and you should consider reducing the application rate of high readily available nitrogen organic manure.')
+    
+    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3]) VALUES (52, N'SLURRYMAXRATE', 3, N'Manure application limit between the end of the closed spreading period and the end of February message', N'This application will take you over the maximum application rate for slurry between the end of the closed spreading period and the end of February', N'The Water Resources (Control of Agricultural Pollution) Regulations 2021 (Wales) state you must not spread more than 30 cubic meters per hectare of slurry in a single application from the end of the closed spreading period until the end of February.', N'It is an offence to breach the Water Resources (Control of Agricultural Pollution) Regulations 2021 (Wales), and you should consider reducing the application rate of slurry.')
+    
+    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3]) VALUES (53, N'POULTRYMANUREMAXAPPLICATIONRATE', 3, N'Manure application limit between the end of the closed spreading period and the end of February message', N'This application will take you over the maximum application rate for poultry manure between the end of the closed spreading period and the end of February', N'The Water Resources (Control of Agricultural Pollution) Regulations 2021 (Wales) state you must not spread more than 8 tonnes per hectare of poultry manure in a single application from the end of the closed spreading period until the end of February.', N'It is an offence to breach the Water Resources (Control of Agricultural Pollution) Regulations 2021 (Wales), and you should consider reducing the application rate of poultry manure.')
+    
+    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3]) VALUES (54, N'ALLOWWEEKSBETWEENSLURRYPOULTRYAPPLICATIONS', 3, N'Manure application limit between the end of the closed spreading period and the end of February message', N'You must allow at least 3 weeks between applications from the end of the closed spreading period to the end of February', N'The Water Resources (Control of Agricultural Pollution) Regulations 2021 (Wales) state that, between the end of the closed spreading period and the end of February, you must allow at least 3 weeks between each individual application of slurry or poultry manure.', N'It is an offence to breach the Water Resources (Control of Agricultural Pollution) Regulations 2021 (Wales), and you should consider allowing more time between applications.')
+    
+    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3]) VALUES (55, N'NITROFERTCLOSEDPERIOD', 3, N'Closed spreading period for the application of manufactured nitrogen fertiliser message', N'The application date you entered is inside your closed spreading period for applying inorganic nitrogen fertiliser', NULL, N'It is an offence to breach the Water Resources (Control of Agricultural Pollution) Regulations 2021 (Wales), and you should consider applying outside the closed spreading period. Before spreading fertiliser, a field inspection should be carried out to consider the risk of causing pollution or damage to the soil.')
+    
+    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3]) VALUES (56, N'INORGNMAXRATE', 3, N'Closed period for the application of manufactured nitrogen fertiliser message', N'This application will take you over the maximum application rate for manufactured nitrogen fertiliser to this crop during the closed spreading period', NULL, N'It is an offence to breach the Water Resources (Control of Agricultural Pollution) Regulations 2021 (Wales), and you should consider reducing the application rate of inorganic nitrogen fertiliser.')
+    
+    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3]) VALUES (57, N'INORGNMAXRATEBRASSICA', 3, N'Closed spreading period for the application of manufactured nitrogen fertiliser message', N'This application will take you over the maximum application rate for inorganic nitrogen fertiliser to this crop during the closed spreading period', N'The Water Resources (Control of Agricultural Pollution) Regulations 2021 (Wales) state that the application rate of inorganic nitrogen fertiliser on brassica crops between {0} and {1} must not exceed 100kg of nitrogen per hectare, and that no more than 50kg of nitrogen per hectare can be applied every 4 weeks, up to the date on which you harvest the crop.', N'It is an offence to breach the Water Resources (Control of Agricultural Pollution) Regulations 2021 (Wales), and you should consider reducing the application rate of inorganic nitrogen fertiliser.')
+    
+    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3]) VALUES (58, N'INORGNMAXRATEOSR', 3, N'Closed spreading period for the application of manufactured nitrogen fertiliser message', N'This application will take you over the maximum application rate for inorganic nitrogen fertiliser to this crop during the closed spreading period', N'The Water Resources (Control of Agricultural Pollution) Regulations 2021 (Wales) state that the application rate of inorganic nitrogen fertiliser on winter oilseed rape between {0} and end of October must not exceed 30kg of nitrogen per hectare.', N'It is an offence to breach the Water Resources (Control of Agricultural Pollution) Regulations 2021 (Wales), and you should consider reducing the application rate of inorganic nitrogen fertiliser.')
+    
+    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3]) VALUES (59, N'INORGNMAXRATEGRASS', 3, N'Closed spreading period for the application of manufactured nitrogen fertiliser message', N'This application will take you over the maximum application rate for inorganic nitrogen fertiliser to this crop during the closed spreading period', N'The Water Resources (Control of Agricultural Pollution) Regulations 2021 (Wales) state that the application rate of inorganic nitrogen fertiliser on grass between {0} and end of October must not exceed 80kg of nitrogen per hectare, and that no more than 40kg of nitrogen per hectare can be applied at any one time.', N'It is an offence to breach the Water Resources (Control of Agricultural Pollution) Regulations 2021 (Wales), and you should consider reducing the application rate of inorganic nitrogen fertiliser.')
+    
+    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3]) VALUES (60, N'INORGFERTDATEONLY', 3, N'Closed spreading period for the application of manufactured nitrogen fertiliser message', N'The application date you entered is inside your closed spreading period for applying inorganic nitrogen fertiliser', NULL, N'It is an offence to breach the Water Resources (Control of Agricultural Pollution) Regulations 2021 (Wales), and you should consider changing your application date.')
+
+    SET IDENTITY_INSERT [dbo].[Warnings] OFF
 END
 
 GO -- do not remove this GO

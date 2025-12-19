@@ -26,16 +26,11 @@ BEGIN
         CASE
             WHEN [Crops].[ModifiedOn] >= [Crops].[CreatedOn] THEN [Crops].[ModifiedOn]
             ELSE [Crops].[CreatedOn]
-        END AS LastModifiedOn
-		--,
-  --      (SELECT COUNT(DISTINCT [OrganicManures].[ID]) FROM [OrganicManures] WHERE [OrganicManures].[ManagementPeriodID] = [ManagementPeriods].[ID]) AS TotalOrganicManures,
-  --      (SELECT COUNT(DISTINCT [FertiliserManures].[ID])  FROM [FertiliserManures]  WHERE [FertiliserManures].[ManagementPeriodID] = [ManagementPeriods].[ID]) AS TotalFertiliserManures
+        END AS LastModifiedOn		
    FROM
         [Crops]
     INNER JOIN
-        [Fields] ON [Fields].[ID] = [Crops].[FieldID]
-    --INNER JOIN
-    --	[ManagementPeriods] ON [ManagementPeriods].[CropID] = [Crops].[ID]
+        [Fields] ON [Fields].[ID] = [Crops].[FieldID]    
     WHERE
         [Fields].[FarmID] = @farmId
     AND 
