@@ -63,7 +63,7 @@ BEGIN
     INSERT [dbo].[CropInfoQuestions] ([ID], [CropInfoQuestion]) VALUES (5, N'Is this the establishment year?')
     INSERT [dbo].[CropInfoQuestions] ([ID], [CropInfoQuestion]) VALUES (6, N'Select the type of cabbage')
     INSERT [dbo].[CropInfoQuestions] ([ID], [CropInfoQuestion]) VALUES (7, N'Select the type of cauliflower')
-    INSERT [dbo].[CropInfoQuestions] ([ID], [CropInfoQuestion]) VALUES (8, N'What type of spring onions are you sowing?')
+    INSERT [dbo].[CropInfoQuestions] ([ID], [CropInfoQuestion]) VALUES (8, N'What type of {0} are you sowing?')
     INSERT [dbo].[CropInfoQuestions] ([ID], [CropInfoQuestion]) VALUES (9, N'Select current orchard management')
     INSERT [dbo].[CropInfoQuestions] ([ID], [CropInfoQuestion]) VALUES (10, N'Select crop stage')
     INSERT [dbo].[CropInfoQuestions] ([ID], [CropInfoQuestion]) VALUES (11, N'Select crop stage and type (for established crops)')
@@ -73,6 +73,12 @@ BEGIN
 END
 
 GO
+
+IF EXISTS (SELECT 1 FROM [dbo].[CropInfoQuestions] WHERE [ID]=8)
+BEGIN
+    UPDATE [dbo].[CropInfoQuestions] SET [CropInfoQuestion]=N'What type of {0} are you sowing?' WHERE [ID]=8
+END
+
 
 IF NOT EXISTS (SELECT 1 FROM [dbo].[CropTypeLinkings])
 BEGIN
