@@ -7,6 +7,10 @@
     [Para1] [nvarchar](max) NULL,
     [Para2] [nvarchar](max) NULL,
     [Para3] [nvarchar](max) NULL,
+    [WarningCodeID] INT NOT NULL,
+	[WarningLevelID] INT NOT NULL,
     CONSTRAINT [PK_Warnings] PRIMARY KEY ([ID] ASC),
-    CONSTRAINT UQ_Warnings_WarningKey_CountryID UNIQUE (WarningKey, CountryID)
+    CONSTRAINT UQ_Warnings_WarningKey_CountryID UNIQUE (WarningKey, CountryID),
+    CONSTRAINT [FK_Warnings_WarningCodes] FOREIGN KEY ([WarningCodeID]) REFERENCES [dbo].[WarningCodes] ([ID]),
+    CONSTRAINT [FK_Warnings_WarningLevels] FOREIGN KEY ([WarningLevelID]) REFERENCES [dbo].[WarningLevels] ([ID]),
 )
