@@ -1490,4 +1490,11 @@ BEGIN
     SET IDENTITY_INSERT [dbo].[Warnings] OFF
 END
 
+IF EXISTS (SELECT 1 FROM [dbo].[Warnings] where [Header] LIKE '% message')
+BEGIN
+    UPDATE dbo.Warnings
+SET [Header] = LEFT([Header], LEN([Header]) - LEN(' message'))
+WHERE [Header] LIKE '% message';
+END
+
 GO -- do not remove this GO
