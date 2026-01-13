@@ -1,6 +1,8 @@
 ﻿
 
 
+
+
 CREATE   PROCEDURE [dbo].[spWarning_ComputeNMaxRateCombined]
 (
     @ManureID INT
@@ -176,20 +178,27 @@ BEGIN
     --------------------------------------------------------------------
     DECLARE @PrevYear INT = @CropYear - 1;
 
-    IF EXISTS (
-        SELECT 1
-        FROM OrganicManures om2
-        INNER JOIN ManagementPeriods mp2 ON om2.ManagementPeriodID = mp2.ID
-        INNER JOIN Crops c2 ON mp2.CropID = c2.ID
-        WHERE 
-            c2.FieldID = @FieldID
-            AND c2.Year IN (@CropYear, @PrevYear)
-            AND om2.ManureTypeID IN (33,34,40)
-    )
-    BEGIN
-        SET @HasPrevCurrSpecialManure = 1;
-        SET @NMaxRate = @NMaxRate + 80;
-    END
+   IF @CropTypeID IN (
+     0,1,2,3,20,23,24,25,26,40,50,51,52,
+	 53,60,61,62,63,64,65,67,68,69,70,71,
+	 72,73,74,75,77,90,91,92,93,94,140,160,
+	 161,162,163,181
+)
+AND EXISTS (
+    SELECT 1
+    FROM OrganicManures om2
+    INNER JOIN ManagementPeriods mp2 ON om2.ManagementPeriodID = mp2.ID
+    INNER JOIN Crops c2 ON mp2.CropID = c2.ID
+    WHERE 
+        c2.FieldID = @FieldID
+        AND c2.Year IN (@CropYear, @PrevYear)
+        AND om2.ManureTypeID IN (33,34,40)
+)
+BEGIN
+    SET @HasPrevCurrSpecialManure = 1;
+    SET @NMaxRate = @NMaxRate + 80;
+END
+
 
 
     --------------------------------------------------------------------
