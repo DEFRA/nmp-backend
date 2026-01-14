@@ -3,6 +3,7 @@
 
 
 
+
 CREATE   PROCEDURE [dbo].[spWarning_ComputeNMaxRateCombined]
 (
     @ManureID INT
@@ -213,7 +214,8 @@ END
     SELECT @TotalOrganicN =
         SUM(COALESCE(om.AvailableNForNMax, om.AvailableN))
     FROM OrganicManures om
-    WHERE om.ManagementPeriodID = @ManagementPeriodID;
+    WHERE om.ManagementPeriodID = @ManagementPeriodID
+	AND om.ManureTypeID NOT IN (33,34,40);
 
     SELECT @TotalFertiliserN =
         ISNULL(SUM(fm.N),0)
