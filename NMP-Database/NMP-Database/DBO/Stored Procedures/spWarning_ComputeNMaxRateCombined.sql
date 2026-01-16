@@ -4,6 +4,7 @@
 
 
 
+
 CREATE   PROCEDURE [dbo].[spWarning_ComputeNMaxRateCombined]
 (
     @ManureID INT
@@ -33,6 +34,7 @@ BEGIN
         @NMaxLimitWales DECIMAL(18,3) = 0,
         @DefaultYield DECIMAL(18,3) = 0,
 
+		@BaseNMaxRate DECIMAL(18,3) = 0,
         @NMaxRate DECIMAL(18,3) = 0,
         @YieldDelta DECIMAL(18,6) = 0,
         @YieldSteps INT = 0,
@@ -127,13 +129,13 @@ BEGIN
     -- 8) Base NMaxRate
     --------------------------------------------------------------------
     IF @CountryID = 1 
-        SET @NMaxRate = @NMaxLimitEngland;
+        SET @BaseNMaxRate = @NMaxLimitEngland;
     ELSE IF @CountryID = 3
-        SET @NMaxRate = @NMaxLimitWales;
+        SET @BaseNMaxRate = @NMaxLimitWales;
     ELSE
-        SET @NMaxRate = @NMaxLimitEngland;
+        SET @BaseNMaxRate = @NMaxLimitEngland;
 
-
+    SET @NMaxRate = @BaseNMaxRate;
     --------------------------------------------------------------------
     -- 9) Yield-based increments
     --------------------------------------------------------------------
@@ -256,6 +258,7 @@ END
         @CombinedTotalN             AS CombinedTotalN,
 
         @NMaxRate                   AS ComputedNMaxRate,
+		@BaseNMaxRate               AS BaseNMaxRate,
         @IsCropTypeHasNMax          AS IsCropTypeHasNMax,
         @HasPrevCurrSpecialManure   AS HasPrevOrCurrSpecialManure,
         @IsNExceeding               AS IsNExceeding;
