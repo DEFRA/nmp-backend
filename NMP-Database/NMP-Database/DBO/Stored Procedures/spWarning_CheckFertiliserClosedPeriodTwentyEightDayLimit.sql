@@ -1,6 +1,7 @@
 ﻿
 
 
+
 CREATE PROCEDURE [dbo].[spWarning_CheckFertiliserClosedPeriodTwentyEightDayLimit]
     @FertiliserID INT
 AS
@@ -214,7 +215,7 @@ BEGIN
     FROM FertiliserManures fm3
     WHERE fm3.ManagementPeriodID = @ManagementPeriodID
       AND fm3.ID <> @FertiliserID
-      AND fm3.ApplicationDate BETWEEN DATEADD(DAY,-28,@ApplicationDate) AND @ApplicationDate
+      AND fm3.ApplicationDate BETWEEN DATEADD(DAY,-27,@ApplicationDate) AND @ApplicationDate
       AND fm3.ApplicationDate BETWEEN @ClosedPeriodStart AND @ClosedPeriodEnd;
 
     --------------------------------------------------------------------
