@@ -1367,12 +1367,22 @@ END
 IF NOT EXISTS (SELECT 1 FROM [dbo].[StorageTypes])
 BEGIN
     SET IDENTITY_INSERT [dbo].[StorageTypes] ON
-    INSERT INTO [StorageTypes] (ID,[Name],[FreeBoardheight]) values(1,'Square or rectangular tank',0.3)
-    INSERT INTO [StorageTypes] (ID,[Name],[FreeBoardheight]) values(2,'Circular tank',0.3)
+    INSERT INTO [StorageTypes] (ID,[Name],[FreeBoardheight]) values(1,'Square or rectangular store',0.3)
+    INSERT INTO [StorageTypes] (ID,[Name],[FreeBoardheight]) values(2,'Circular store',0.3)
     INSERT INTO [StorageTypes] (ID,[Name],[FreeBoardheight]) values(3,'Earth banked lagoon',0.75)
     INSERT INTO [StorageTypes] (ID,[Name],[FreeBoardheight]) values(4,'Storage bag',0)
     SET IDENTITY_INSERT [dbo].[StorageTypes] OFF
 END
+
+IF EXISTS (SELECT 1 FROM [dbo].[StorageTypes] where [ID]=1)
+BEGIN
+    UPDATE dbo.[StorageTypes] SET [Name] = 'Square or rectangular store' WHERE [ID] = 1;
+END
+IF EXISTS (SELECT 1 FROM [dbo].[StorageTypes] where [ID]=2)
+BEGIN
+    UPDATE dbo.[StorageTypes] SET [Name] = 'Circular store' WHERE [ID] = 2;
+END
+
 
 IF NOT EXISTS (SELECT 1 FROM [dbo].[SolidManureTypes])
 BEGIN
