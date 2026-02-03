@@ -1,4 +1,5 @@
 ﻿
+
 CREATE PROCEDURE [dbo].[spWarning_CheckOrganicManureNFieldLimitYear]
     @OrganicManureId INT
 AS
@@ -75,7 +76,7 @@ BEGIN
     --------------------------------------------------------------------
     -- 6) 1-Year Window
     --------------------------------------------------------------------
-    SET @OneYearBefore = DATEADD(DAY, -365, @ApplicationDate);
+    SET @OneYearBefore = DATEADD(DAY, -364, @ApplicationDate);
 
 
     --------------------------------------------------------------------

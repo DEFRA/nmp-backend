@@ -1,5 +1,6 @@
 ﻿
 
+
 CREATE PROCEDURE [dbo].[spWarning_OrganicManureNFieldLimitCompostsCropTypeSpecific]
     @OrganicManureID INT
 AS
@@ -103,7 +104,7 @@ BEGIN
     -------------------------------------------------------------------------
     -- 8️⃣ 4-YEAR WINDOW
     -------------------------------------------------------------------------
-    SET @FourYearsBefore = DATEADD(DAY, -1460, @ApplicationDate);
+    SET @FourYearsBefore = DATEADD(DAY, -1459, @ApplicationDate);
 
 
     -------------------------------------------------------------------------
@@ -117,7 +118,6 @@ BEGIN
     INNER JOIN Crops c ON mp.CropID = c.ID
     WHERE
         c.FieldID = @FieldID
-        AND c.CropTypeID IN (110,111,112,113,114,115)
         AND om.ManureTypeID IN (24, 32)
         AND om.ApplicationDate BETWEEN @FourYearsBefore AND @ApplicationDate;
 
