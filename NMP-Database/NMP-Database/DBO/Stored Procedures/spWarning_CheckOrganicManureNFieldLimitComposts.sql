@@ -1,6 +1,7 @@
 ﻿
 
 
+
 CREATE PROCEDURE [dbo].[spWarning_CheckOrganicManureNFieldLimitComposts]
     @OrganicManureID INT
 AS
@@ -65,7 +66,7 @@ BEGIN
     --------------------------------------------------------------------
     -- 4️⃣ TWO-YEAR WINDOW
     --------------------------------------------------------------------
-    SET @TwoYearsBefore = DATEADD(DAY, -730, @ApplicationDate);
+    SET @TwoYearsBefore = DATEADD(DAY, -729, @ApplicationDate);
 
     --------------------------------------------------------------------
     -- 5️⃣ RESTRICTED CROP TYPES CHECK (110–115)

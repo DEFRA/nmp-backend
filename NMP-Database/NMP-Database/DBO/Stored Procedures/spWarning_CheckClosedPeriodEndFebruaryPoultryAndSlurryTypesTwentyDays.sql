@@ -1,4 +1,5 @@
 ﻿
+
 CREATE PROCEDURE [dbo].[spWarning_CheckClosedPeriodEndFebruaryPoultryAndSlurryTypesTwentyDays]
     @OrganicManureId INT
 AS
@@ -134,7 +135,7 @@ BEGIN
           AND omPrev.ID <> @OrganicManureId
           AND omPrev.ManureTypeID IN (8,12,45,13,14,15,18)
           AND DATEDIFF(DAY, omPrev.ApplicationDate, @ApplicationDate)
-                 BETWEEN 0 AND 20
+                 BETWEEN 0 AND 19
     )
         SET @IsPreviousApplicationWithinTwentyDays = 1;
 
