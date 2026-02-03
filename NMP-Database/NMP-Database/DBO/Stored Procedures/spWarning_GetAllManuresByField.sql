@@ -1,5 +1,6 @@
 ﻿
-CREATE PROCEDURE dbo.spWarning_GetAllManuresByManagementPeriod
+
+CREATE PROCEDURE [dbo].[spWarning_GetAllManuresByField]
 (
     @FieldID INT,
     @ApplicationDate DATE,
@@ -11,7 +12,19 @@ AS
 BEGIN
     SET NOCOUNT ON;
 
-    -- Get all ManagementPeriods for the Field
+    ;WITH CropCTE AS
+    (
+        SELECT c.ID AS CropID
+        FROM Crops c
+        WHERE c.FieldID = @FieldID
+    ),
+    ManagementPeriodCTE AS
+    (
+        SELECT mp.ID AS ManagementPeriodID
+        FROM ManagementPeriods mp
+        INNER JOIN CropCTE c
+            ON c.CropID = mp.CropID
+    )
     SELECT *
     FROM
     (
@@ -23,15 +36,12 @@ BEGIN
             om.N,
             om.ApplicationRate,
             'Organic' AS ManureSource,
-            CAST(0 AS BIT) AS isFertiliserManure,
-            CAST(1 AS BIT) AS isOrganicManure
+            CAST(0 AS BIT) AS IsFertiliserManure,
+            CAST(1 AS BIT) AS IsOrganicManure
         FROM OrganicManures om
-        INNER JOIN ManagementPeriods mp 
-            ON mp.ID = om.ManagementPeriodID
-        INNER JOIN Crops c 
-            ON c.ID = mp.CropID
-        WHERE c.FieldID = @FieldID
-          AND om.ApplicationDate >= @ApplicationDate
+        INNER JOIN ManagementPeriodCTE mp
+            ON mp.ManagementPeriodID = om.ManagementPeriodID
+        WHERE om.ApplicationDate >= @ApplicationDate
           AND (
                 @IsCurrentOrganicManure = 0
                 OR om.ID <> @ExcludeID
@@ -47,15 +57,12 @@ BEGIN
             fm.N,
             fm.ApplicationRate,
             'Fertiliser' AS ManureSource,
-            CAST(1 AS BIT) AS isFertiliserManure,
-            CAST(0 AS BIT) AS isOrganicManure
+            CAST(1 AS BIT) AS IsFertiliserManure,
+            CAST(0 AS BIT) AS IsOrganicManure
         FROM FertiliserManures fm
-        INNER JOIN ManagementPeriods mp 
-            ON mp.ID = fm.ManagementPeriodID
-        INNER JOIN Crops c 
-            ON c.ID = mp.CropID
-        WHERE c.FieldID = @FieldID
-          AND fm.ApplicationDate >= @ApplicationDate
+        INNER JOIN ManagementPeriodCTE mp
+            ON mp.ManagementPeriodID = fm.ManagementPeriodID
+        WHERE fm.ApplicationDate >= @ApplicationDate
           AND (
                 @IsCurrentFertiliser = 0
                 OR fm.ID <> @ExcludeID

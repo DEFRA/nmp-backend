@@ -182,6 +182,10 @@
     <Build Include="dbo\Stored Procedures\spWarning_CheckClosedPeriodEndFebruaryPoultryManure.sql" />
     <Build Include="dbo\Stored Procedures\spWarning_CheckClosedPeriodEndFebruaryPoultryAndSlurryTypesTwentyDays.sql" />
     <Build Include="dbo\Stored Procedures\spWarning_CheckClosedPeriodEndFebruaryManureRate.sql" />
+    <Build Include="dbo\Stored Procedures\spWarning_GetAllManuresByFieldOnly.sql" />
+    <Build Include="dbo\Stored Procedures\spWarning_GetAllManuresByField.sql" />
+    <Build Include="dbo\Stored Procedures\spWarning_GetAllManuresByFarm.sql" />
+    <Build Include="dbo\Stored Procedures\spWarning_GetAllManuresByCrop.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Script.PostDeployment.sql">
