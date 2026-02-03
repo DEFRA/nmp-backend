@@ -1417,8 +1417,13 @@ BEGIN
     SET IDENTITY_INSERT [dbo].[MaterialStates] ON
     INSERT INTO [MaterialStates] (ID,Name) values(1,'Dirty water storage')
     INSERT INTO [MaterialStates] (ID,Name) values(2,'Slurry storage')
-    INSERT INTO [MaterialStates] (ID,Name) values(3,'Solid manure storage')
+    INSERT INTO [MaterialStates] (ID,Name) values(3,'Solid manure storage (on concrete or in livestock housing)')
     SET IDENTITY_INSERT [dbo].[MaterialStates] OFF
+END
+
+IF EXISTS (SELECT 1 FROM [dbo].[MaterialStates] WHERE [ID]=3)
+BEGIN
+    UPDATE [dbo].[MaterialStates] SET [Name] ='Solid manure storage (on concrete or in livestock housing)' WHERE [ID]=3;
 END
 
 IF NOT EXISTS (SELECT 1 FROM [dbo].[StorageTypes])
