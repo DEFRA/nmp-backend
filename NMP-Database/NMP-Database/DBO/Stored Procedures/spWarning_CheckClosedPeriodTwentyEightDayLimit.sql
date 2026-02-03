@@ -1,4 +1,5 @@
 ﻿
+
 CREATE PROCEDURE [dbo].[spWarning_CheckClosedPeriodTwentyEightDayLimit]
     @OrganicManureId INT
 AS
@@ -240,7 +241,7 @@ BEGIN
         FROM OrganicManures om3
         WHERE om3.ManagementPeriodID = @ManagementPeriodId
           AND om3.ID <> @OrganicManureId
-          AND om3.ApplicationDate BETWEEN DATEADD(DAY,-28,@ApplicationDate)
+          AND om3.ApplicationDate BETWEEN DATEADD(DAY,-27,@ApplicationDate)
                                       AND @ApplicationDate
           AND om3.ApplicationDate BETWEEN @ClosedPeriodStart AND @FebruaryEnd
     )

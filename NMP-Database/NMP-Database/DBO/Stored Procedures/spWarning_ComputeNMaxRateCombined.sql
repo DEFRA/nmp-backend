@@ -1,10 +1,5 @@
 ﻿
-
-
-
-
-
-CREATE   PROCEDURE [dbo].[spWarning_ComputeNMaxRateCombined]
+CREATE PROCEDURE [dbo].[spWarning_ComputeNMaxRateCombined]
 (
     @ManureID INT
 )
@@ -26,6 +21,7 @@ BEGIN
         @CropYield DECIMAL(18,3) = 0,
         @CropInfo1 INT = NULL,
         @PotentialCut DECIMAL(18,3) = 0,
+        @SwardTypeID INT = NULL,
         @SoilTypeID INT = NULL,
         @IsFieldWithinNVZ BIT = 0,
 
@@ -33,6 +29,7 @@ BEGIN
         @NMaxLimitWales DECIMAL(18,3) = 0,
         @DefaultYield DECIMAL(18,3) = 0,
 
+        @BaseNMaxRate DECIMAL(18,3) = 0,
         @NMaxRate DECIMAL(18,3) = 0,
         @YieldDelta DECIMAL(18,6) = 0,
         @YieldSteps INT = 0,
@@ -48,9 +45,8 @@ BEGIN
         @IsFieldEngland BIT = 0,
         @IsFieldWales BIT = 0;
 
-
     --------------------------------------------------------------------
-    -- 1) Find ManagementPeriodID (organic → fertiliser fallback)
+    -- 1) Resolve ManagementPeriodID
     --------------------------------------------------------------------
     SELECT TOP (1) @ManagementPeriodID = ManagementPeriodID
     FROM OrganicManures WHERE ID = @ManureID;
@@ -63,10 +59,9 @@ BEGIN
 
     IF @ManagementPeriodID IS NULL
     BEGIN
-        RAISERROR('ManureID not found in either OrganicManures or FertiliserManures.', 16, 1);
+        RAISERROR('ManureID not found.', 16, 1);
         RETURN;
     END
-
 
     --------------------------------------------------------------------
     -- 2) Load CropID
@@ -84,9 +79,39 @@ BEGIN
         @CropTypeID   = c.CropTypeID,
         @CropYield    = ISNULL(c.Yield,0),
         @CropInfo1    = c.CropInfo1,
-        @PotentialCut = ISNULL(c.PotentialCut,0)
+        @PotentialCut = ISNULL(c.PotentialCut,0),
+        @SwardTypeID  = c.SwardTypeID
     FROM Crops c
     WHERE c.ID = @CropID;
+
+    --------------------------------------------------------------------
+    -- Grass-only rule (CropTypeID = 140)
+    --------------------------------------------------------------------
+    IF @CropTypeID = 140 AND ISNULL(@SwardTypeID,0) <> 1
+    BEGIN
+        SELECT
+            @ManureID AS ManureID,
+            @ManagementPeriodID AS ManagementPeriodID,
+            @CropID AS CropID,
+            @FieldID AS FieldID,
+            @FarmID AS FarmID,
+            @CountryID AS CountryID,
+            0 AS IsFieldEngland,
+            0 AS IsFieldWales,
+            0 AS IsFieldWithinNVZ,
+            @CropTypeID AS CropTypeID,
+            @CropYear AS CropYear,
+            @CropYield AS CropYield,
+            0 AS TotalOrganicN,
+            0 AS TotalFertiliserN,
+            0 AS CombinedTotalN,
+            0 AS ComputedNMaxRate,
+            0 AS BaseNMaxRate,
+            0 AS IsCropTypeHasNMax,
+            0 AS HasPrevOrCurrSpecialManure,
+            0 AS IsNExceeding;
+        RETURN;
+    END
 
     --------------------------------------------------------------------
     -- 4) Load Field
@@ -111,9 +136,8 @@ BEGIN
     SET @IsFieldEngland = CASE WHEN @CountryID = 1 THEN 1 ELSE 0 END;
     SET @IsFieldWales   = CASE WHEN @CountryID = 3 THEN 1 ELSE 0 END;
 
-
     --------------------------------------------------------------------
-    -- 7) Load CropTypeLinking rules
+    -- 7) Load CropTypeLinkings
     --------------------------------------------------------------------
     SELECT
         @NMaxLimitEngland = ISNULL(NMaxLimitEngland,0),
@@ -122,22 +146,22 @@ BEGIN
     FROM CropTypeLinkings
     WHERE CropTypeID = @CropTypeID;
 
-
     --------------------------------------------------------------------
     -- 8) Base NMaxRate
     --------------------------------------------------------------------
     IF @CountryID = 1 
-        SET @NMaxRate = @NMaxLimitEngland;
+        SET @BaseNMaxRate = @NMaxLimitEngland;
     ELSE IF @CountryID = 3
-        SET @NMaxRate = @NMaxLimitWales;
+        SET @BaseNMaxRate = @NMaxLimitWales;
     ELSE
-        SET @NMaxRate = @NMaxLimitEngland;
+        SET @BaseNMaxRate = @NMaxLimitEngland;
 
+    SET @NMaxRate = @BaseNMaxRate;
 
     --------------------------------------------------------------------
     -- 9) Yield-based increments
     --------------------------------------------------------------------
-    IF @CropTypeID IN (0,2,1,3,20)
+    IF @CropTypeID IN (0,1,2,3,20)
     BEGIN
         SET @YieldDelta = @CropYield - @DefaultYield;
 
@@ -146,84 +170,79 @@ BEGIN
             SET @YieldSteps = FLOOR(@YieldDelta * 10);
 
             IF @CropTypeID = 20
-                SET @NMaxRate = @NMaxRate + (@YieldSteps * 6);
+                SET @NMaxRate += (@YieldSteps * 6);
             ELSE
-                SET @NMaxRate = @NMaxRate + (@YieldSteps * 2);
+                SET @NMaxRate += (@YieldSteps * 2);
         END
     END
-
 
     --------------------------------------------------------------------
     -- 10) SoilType increments
     --------------------------------------------------------------------
     IF @CropTypeID IN (0,53,1,52) AND @SoilTypeID = 1
-        SET @NMaxRate = @NMaxRate + 20;
-
+        SET @NMaxRate += 20;
 
     --------------------------------------------------------------------
     -- 11) CropInfo1 increments
     --------------------------------------------------------------------
     IF @CropTypeID IN (0,2) AND @CropInfo1 = 2
-        SET @NMaxRate = @NMaxRate + 40;
-
+        SET @NMaxRate += 40;
 
     --------------------------------------------------------------------
     -- 12) PotentialCut increment (grass)
     --------------------------------------------------------------------
     IF @CropTypeID = 140 AND @PotentialCut > 2
-        SET @NMaxRate = @NMaxRate + 40;
-
+        SET @NMaxRate += 40;
 
     --------------------------------------------------------------------
-    -- 13) Special manure types (33,34,40)
+    -- 13) Special manure increment
     --------------------------------------------------------------------
     DECLARE @PrevYear INT = @CropYear - 1;
 
-   IF @CropTypeID IN (
-     0,1,2,3,20,23,24,25,26,40,50,51,52,
-	 53,60,61,62,63,64,65,67,68,69,70,71,
-	 72,73,74,75,77,90,91,92,93,94,140,160,
-	 161,162,163,181
-)
-AND EXISTS (
-    SELECT 1
-    FROM OrganicManures om2
-    INNER JOIN ManagementPeriods mp2 ON om2.ManagementPeriodID = mp2.ID
-    INNER JOIN Crops c2 ON mp2.CropID = c2.ID
-    WHERE 
-        c2.FieldID = @FieldID
-        AND c2.Year IN (@CropYear, @PrevYear)
-        AND om2.ManureTypeID IN (33,34,40)
-)
-BEGIN
-    SET @HasPrevCurrSpecialManure = 1;
-    SET @NMaxRate = @NMaxRate + 80;
-END
-
-
+    IF @CropTypeID IN (
+        0,1,2,3,20,23,24,25,26,40,50,51,52,53,
+        60,61,62,63,64,65,67,68,69,70,71,72,
+        73,74,75,77,90,91,92,93,94,140,160,
+        161,162,163,181
+    )
+    AND EXISTS (
+        SELECT 1
+        FROM OrganicManures om2
+        JOIN ManagementPeriods mp2 ON om2.ManagementPeriodID = mp2.ID
+        JOIN Crops c2 ON mp2.CropID = c2.ID
+        WHERE c2.FieldID = @FieldID
+          AND c2.Year IN (@CropYear, @PrevYear)
+          AND om2.ManureTypeID IN (33,34,40)
+    )
+    BEGIN
+        SET @HasPrevCurrSpecialManure = 1;
+        SET @NMaxRate += 80;
+    END
 
     --------------------------------------------------------------------
-    -- 14) Check if crop has NMax
+    -- 14) Crop has NMax
     --------------------------------------------------------------------
     SET @IsCropTypeHasNMax = CASE WHEN @NMaxRate > 0 THEN 1 ELSE 0 END;
 
-
     --------------------------------------------------------------------
-    -- 15) Combined Total N
+    -- 15) Combined Total N (ALL ManagementPeriods of the Crop)
     --------------------------------------------------------------------
-    SELECT @TotalOrganicN =
-        SUM(COALESCE(om.AvailableNForNMax, om.AvailableN))
+    SELECT
+        @TotalOrganicN =
+            ISNULL(SUM(COALESCE(om.AvailableNForNMax, om.AvailableN)),0)
     FROM OrganicManures om
-    WHERE om.ManagementPeriodID = @ManagementPeriodID
-	AND om.ManureTypeID NOT IN (33,34,40);
+    JOIN ManagementPeriods mp ON om.ManagementPeriodID = mp.ID
+    WHERE mp.CropID = @CropID
+      AND om.ManureTypeID NOT IN (33,34,40);
 
-    SELECT @TotalFertiliserN =
-        ISNULL(SUM(fm.N),0)
+    SELECT
+        @TotalFertiliserN =
+            ISNULL(SUM(fm.N),0)
     FROM FertiliserManures fm
-    WHERE fm.ManagementPeriodID = @ManagementPeriodID;
+    JOIN ManagementPeriods mp ON fm.ManagementPeriodID = mp.ID
+    WHERE mp.CropID = @CropID;
 
     SET @CombinedTotalN = @TotalOrganicN + @TotalFertiliserN;
-
 
     --------------------------------------------------------------------
     -- 16) Exceed check
@@ -231,9 +250,8 @@ END
     IF @CombinedTotalN > @NMaxRate
         SET @IsNExceeding = 1;
 
-
     --------------------------------------------------------------------
-    -- 17) Final Output (UPDATED)
+    -- 17) Final Output
     --------------------------------------------------------------------
     SELECT
         @ManureID                   AS ManureID,
@@ -242,20 +260,17 @@ END
         @FieldID                    AS FieldID,
         @FarmID                     AS FarmID,
         @CountryID                  AS CountryID,
-
         @IsFieldEngland             AS IsFieldEngland,
         @IsFieldWales               AS IsFieldWales,
         @IsFieldWithinNVZ           AS IsFieldWithinNVZ,
-
         @CropTypeID                 AS CropTypeID,
         @CropYear                   AS CropYear,
         @CropYield                  AS CropYield,
-
         @TotalOrganicN              AS TotalOrganicN,
         @TotalFertiliserN           AS TotalFertiliserN,
         @CombinedTotalN             AS CombinedTotalN,
-
         @NMaxRate                   AS ComputedNMaxRate,
+        @BaseNMaxRate               AS BaseNMaxRate,
         @IsCropTypeHasNMax          AS IsCropTypeHasNMax,
         @HasPrevCurrSpecialManure   AS HasPrevOrCurrSpecialManure,
         @IsNExceeding               AS IsNExceeding;
