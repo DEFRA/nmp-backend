@@ -2,7 +2,6 @@
 (
 	[ID]	INT  IDENTITY (1, 1) NOT NULL,
 	[FarmID] INT NOT NULL,
-	[Year] INT NOT NULL,
 	[StoreName] NVARCHAR(128) NOT NULL,
 	[MaterialStateID] INT NOT NULL,
 	[StorageTypeID] INT  NULL,
