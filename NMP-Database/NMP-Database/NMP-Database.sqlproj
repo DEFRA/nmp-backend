@@ -186,6 +186,8 @@
     <Build Include="DBO\StoredProcedures\Warnings\spWarning_GetAllManuresByFieldOnly.sql" />
     <Build Include="DBO\StoredProcedures\Warnings\spWarning_GetAllManuresByManagementPeriod.sql" />
     <Build Include="DBO\StoredProcedures\Warnings\spWarning_OrganicManureNFieldLimitCompostsCropTypeSpecific.sql" />
+    <Build Include="DBO\Tables\MannerEstimations.sql" />
+    <Build Include="DBO\Tables\MannerEstimationApplications.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Script.PostDeployment.sql">
