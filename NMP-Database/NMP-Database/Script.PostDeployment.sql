@@ -1417,13 +1417,13 @@ BEGIN
     SET IDENTITY_INSERT [dbo].[MaterialStates] ON
     INSERT INTO [MaterialStates] (ID,Name) values(1,'Dirty water storage')
     INSERT INTO [MaterialStates] (ID,Name) values(2,'Slurry storage')
-    INSERT INTO [MaterialStates] (ID,Name) values(3,'Solid manure storage (on concrete or in livestock housing)')
+    INSERT INTO [MaterialStates] (ID,Name) values(3,'Solid manure storage (on yards or in livestock housing)')
     SET IDENTITY_INSERT [dbo].[MaterialStates] OFF
 END
 
 IF EXISTS (SELECT 1 FROM [dbo].[MaterialStates] WHERE [ID]=3)
 BEGIN
-    UPDATE [dbo].[MaterialStates] SET [Name] ='Solid manure storage (on concrete or in livestock housing)' WHERE [ID]=3;
+    UPDATE [dbo].[MaterialStates] SET [Name] ='Solid manure storage (on yards or in livestock housing)' WHERE [ID]=3;
 END
 
 IF NOT EXISTS (SELECT 1 FROM [dbo].[StorageTypes])
@@ -1459,15 +1459,24 @@ GO
 IF NOT EXISTS (SELECT 1 FROM [dbo].[BankSlopeAngles])
 BEGIN
     SET IDENTITY_INSERT [dbo].[BankSlopeAngles] ON
-    INSERT INTO [BankSlopeAngles] (ID,[Name],[Angle],[Slope]) values(1,'1:0.5 (63 degrees)',63,0.5)
-    INSERT INTO [BankSlopeAngles] (ID,[Name],[Angle],[Slope]) values(2,'1:0.75 (53 degrees)',53,0.75)
-    INSERT INTO [BankSlopeAngles] (ID,[Name],[Angle],[Slope]) values(3,'1:1 (45 degrees)',45,1)
-    INSERT INTO [BankSlopeAngles] (ID,[Name],[Angle],[Slope]) values(4,'1:1.5 (33.7 degrees)',33.7,1.5)
-    INSERT INTO [BankSlopeAngles] (ID,[Name],[Angle],[Slope]) values(5,'1:2 (26.5 degrees)',26.5,2)
-    INSERT INTO [BankSlopeAngles] (ID,[Name],[Angle],[Slope]) values(6,'1:2.5 (21.8 degrees)',21.8,2.5)
+    INSERT INTO [BankSlopeAngles] (ID,[Name],[Angle],[Slope]) values(1,'1:0.5 (63 degrees)',63,1)
+    INSERT INTO [BankSlopeAngles] (ID,[Name],[Angle],[Slope]) values(2,'1:0.75 (53 degrees)',53,1.5)
+    INSERT INTO [BankSlopeAngles] (ID,[Name],[Angle],[Slope]) values(3,'1:1 (45 degrees)',45,2)
+    INSERT INTO [BankSlopeAngles] (ID,[Name],[Angle],[Slope]) values(4,'1:1.5 (33.7 degrees)',33.7,3)
+    INSERT INTO [BankSlopeAngles] (ID,[Name],[Angle],[Slope]) values(5,'1:2 (26.5 degrees)',26.5,4)
+    INSERT INTO [BankSlopeAngles] (ID,[Name],[Angle],[Slope]) values(6,'1:2.5 (21.8 degrees)',21.8,5)
     SET IDENTITY_INSERT [dbo].[BankSlopeAngles] OFF
 END
 
+IF EXISTS (SELECT 1 FROM [dbo].[BankSlopeAngles])
+BEGIN
+    UPDATE [BankSlopeAngles] SET [Slope] =1 WHERE [ID] = 1
+    UPDATE [BankSlopeAngles] SET [Slope] =1.5 WHERE [ID] = 2
+    UPDATE [BankSlopeAngles] SET [Slope] =2 WHERE [ID] = 3
+    UPDATE [BankSlopeAngles] SET [Slope] =3 WHERE [ID] = 4
+    UPDATE [BankSlopeAngles] SET [Slope] =4 WHERE [ID] = 5
+    UPDATE [BankSlopeAngles] SET [Slope] =5 WHERE [ID] = 6
+END
 GO
 
 IF NOT EXISTS (SELECT 1 FROM [dbo].[WarningCodes])
