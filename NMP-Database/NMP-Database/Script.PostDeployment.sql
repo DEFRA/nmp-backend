@@ -1456,7 +1456,7 @@ IF NOT EXISTS (SELECT 1 FROM [dbo].[SolidManureTypes])
 BEGIN
     SET IDENTITY_INSERT [dbo].[SolidManureTypes] ON
     INSERT INTO [SolidManureTypes] (ID,[Name],[Density]) values(9,'Poultry litter',0.5)
-    INSERT INTO [SolidManureTypes] (ID,[Name],[Density]) values(10,'Other poultry litter (usually from layers)',0.9)
+    --INSERT INTO [SolidManureTypes] (ID,[Name],[Density]) values(10,'Other poultry litter (usually from layers)',0.9)
     INSERT INTO [SolidManureTypes] (ID,[Name],[Density]) values(11,'Other solid manures',0.7)
     SET IDENTITY_INSERT [dbo].[SolidManureTypes] OFF
 END
