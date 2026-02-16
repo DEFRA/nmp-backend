@@ -1,6 +1,5 @@
 ﻿
-
-CREATE PROCEDURE [dbo].[spWarning_GetAllManuresByField]
+CREATE PROCEDURE dbo.spWarning_GetAllManuresByField
 (
     @FieldID INT,
     @ApplicationDate DATE,
@@ -36,8 +35,8 @@ BEGIN
             om.N,
             om.ApplicationRate,
             'Organic' AS ManureSource,
-            CAST(0 AS BIT) AS IsFertiliserManure,
-            CAST(1 AS BIT) AS IsOrganicManure
+            CAST(0 AS BIT) AS isFertiliserManure,
+            CAST(1 AS BIT) AS isOrganicManure
         FROM OrganicManures om
         INNER JOIN ManagementPeriodCTE mp
             ON mp.ManagementPeriodID = om.ManagementPeriodID
@@ -57,8 +56,8 @@ BEGIN
             fm.N,
             fm.ApplicationRate,
             'Fertiliser' AS ManureSource,
-            CAST(1 AS BIT) AS IsFertiliserManure,
-            CAST(0 AS BIT) AS IsOrganicManure
+            CAST(1 AS BIT) AS isFertiliserManure,
+            CAST(0 AS BIT) AS isOrganicManure
         FROM FertiliserManures fm
         INNER JOIN ManagementPeriodCTE mp
             ON mp.ManagementPeriodID = fm.ManagementPeriodID
