@@ -1455,10 +1455,25 @@ END
 IF NOT EXISTS (SELECT 1 FROM [dbo].[SolidManureTypes])
 BEGIN
     SET IDENTITY_INSERT [dbo].[SolidManureTypes] ON
-    INSERT INTO [SolidManureTypes] (ID,[Name],[Density]) values(9,'Poultry litter',0.5)
-    --INSERT INTO [SolidManureTypes] (ID,[Name],[Density]) values(10,'Other poultry litter (usually from layers)',0.9)
-    INSERT INTO [SolidManureTypes] (ID,[Name],[Density]) values(11,'Other solid manures',0.7)
+    INSERT INTO [SolidManureTypes] (ID,[Name],[Density]) values(9,'Manure from other poultry',0.5)
+    INSERT INTO [SolidManureTypes] (ID,[Name],[Density]) values(10,'Manure from laying hens',0.9)
+    INSERT INTO [SolidManureTypes] (ID,[Name],[Density]) values(11,'Solid livestock manure (not from poultry)',0.7)
     SET IDENTITY_INSERT [dbo].[SolidManureTypes] OFF
+END
+
+IF EXISTS (SELECT 1 FROM [dbo].[SolidManureTypes] where [ID]=9)
+BEGIN
+    UPDATE dbo.[SolidManureTypes] SET [Name] = 'Manure from other poultry' WHERE [ID] = 9;
+END
+IF EXISTS (SELECT 1 FROM [dbo].[SolidManureTypes] where [ID]=11)
+BEGIN
+    UPDATE dbo.[SolidManureTypes] SET [Name] = 'Solid livestock manure (not from poultry)' WHERE [ID] = 11;
+END
+IF NOT EXISTS (SELECT 1 FROM [dbo].[SolidManureTypes] where [ID]=10)
+BEGIN
+	  SET IDENTITY_INSERT [dbo].[SolidManureTypes] ON
+      INSERT INTO [SolidManureTypes] ([ID],[Name],[Density]) values(10,'Manure from laying hens',0.9)
+	  SET IDENTITY_INSERT [dbo].[SolidManureTypes] OFF
 END
 
 GO
