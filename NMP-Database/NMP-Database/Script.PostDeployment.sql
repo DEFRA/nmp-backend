@@ -1675,5 +1675,17 @@ SET [Header] = 'Closed period for the application of inorganic nitrogen fertilis
 where [WarningKey] = 'INORGNMAXRATEOSR' OR [WarningKey]='INORGNMAXRATEGRASS' and [CountryID] IN(1,2);
 END
 
+IF NOT EXISTS (SELECT 1 FROM [dbo].[ScotlandNitrateVulnerableZones])
+BEGIN
+    SET IDENTITY_INSERT [dbo].[ScotlandNitrateVulnerableZones] ON
+    INSERT INTO [ScotlandNitrateVulnerableZones] (ID,[Name]) values(1,'Lower Nithsdale')
+    INSERT INTO [ScotlandNitrateVulnerableZones] (ID,[Name]) values(2,'Lothian and Borders')
+    INSERT INTO [ScotlandNitrateVulnerableZones] (ID,[Name]) values(3,'Strathmore and Fife (including Finavon)')
+    INSERT INTO [ScotlandNitrateVulnerableZones] (ID,[Name]) values(4,'Moray, Aberdeenshire/Banff and Buchan')
+    INSERT INTO [ScotlandNitrateVulnerableZones] (ID,[Name]) values(5,'Stranraer Lowlands')
+    SET IDENTITY_INSERT [dbo].[ScotlandNitrateVulnerableZones] OFF
+END
+
+GO
 
 GO -- do not remove this GO

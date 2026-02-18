@@ -10,6 +10,8 @@
     [CPH]                NVARCHAR (50)   NULL,
     [FarmerName]         NVARCHAR (128)  NULL,
     [BusinessName]       NVARCHAR (128)  NULL,
+    [BusinessReferenceNumber]  INT       NULL,
+    [MainLocationCode]       NVARCHAR (128)  NULL,
     [SBI]                NVARCHAR (20)   NULL,
     [STD]                NVARCHAR (6)    NULL,
     [Telephone]          NVARCHAR (15)   NULL,
