@@ -188,8 +188,7 @@
     <Build Include="DBO\StoredProcedures\Warnings\spWarning_OrganicManureNFieldLimitCompostsCropTypeSpecific.sql" />
     <Build Include="DBO\Tables\MannerEstimations.sql" />
     <Build Include="DBO\Tables\MannerEstimationApplications.sql" />
-    <Build Include="DBO\Tables\ScotlandNitrateVulnerableZones.sql" />
-    <Build Include="DBO\Tables\ScotlandFarmNVZs.sql" />
+    <Build Include="DBO\Tables\FarmsNVZ.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Script.PostDeployment.sql">

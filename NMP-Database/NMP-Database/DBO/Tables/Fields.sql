@@ -15,7 +15,6 @@
 [SoilReleasingClay] BIT NULL CONSTRAINT DF_Fields_SoilReleasingClay DEFAULT 0,
 [SoilOverChalk] BIT NULL CONSTRAINT DF_Fields_SoilOverChalk DEFAULT 0,
 [NVZProgrammeID] INT NULL CONSTRAINT DF_Fields_NVZProgrammeID DEFAULT 1, --RB209	
-[ScotlandNitrateVulnerableZoneID] INT NULL,
 [PSCIndex] INT NULL,
 [IsActive] BIT NOT NULL  CONSTRAINT DF_Fields_IsActive DEFAULT 1,
 [CreatedOn] DATETIME2 NULL CONSTRAINT DF_Fields_CreatedOn DEFAULT GETDATE(), 
@@ -28,8 +27,6 @@ CONSTRAINT [FK_Fields_Farms] FOREIGN KEY ([FarmID]) REFERENCES [Farms]([ID]),
 --CONSTRAINT [FK_Fields_SubSoils] FOREIGN KEY ([SubSoilID]) REFERENCES [SubSoils]([ID]),
 CONSTRAINT [FK_Fields_Users_CreatedBy] FOREIGN KEY ([CreatedByID]) REFERENCES [Users]([ID]),
 CONSTRAINT [FK_Fields_Users_ModifiedBy] FOREIGN KEY ([ModifiedByID]) REFERENCES [Users]([ID]),
-CONSTRAINT [UC_Fields_FarmName] UNIQUE ([FarmID], [Name]),
-CONSTRAINT [FK_Fields_ScotlandNitrateVulnerableZones] FOREIGN KEY ([ScotlandNitrateVulnerableZoneID]) REFERENCES [ScotlandNitrateVulnerableZones]([ID])
-
+CONSTRAINT [UC_Fields_FarmName] UNIQUE ([FarmID], [Name])
 
 )
