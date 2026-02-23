@@ -1,6 +1,7 @@
 ﻿
 
 
+
 CREATE PROCEDURE [dbo].[spWarning_CheckFertiliserClosedPeriodOctoberGrassHighN]
     @FertiliserID INT
 AS
@@ -119,13 +120,13 @@ BEGIN
     BEGIN
         IF @SoilTypeID IN (0,1)  -- sandy / shallow soils
         BEGIN
-            SET @ClosedStartDate = DATEFROMPARTS(@AppYear,9,1);
-            SET @ClosedEndDate   = DATEFROMPARTS(@AppYear,12,31);
+            SET @ClosedStartDate = DATEFROMPARTS(@AppYear,9,15);
+            SET @ClosedEndDate   = DATEFROMPARTS(@AppYear+1,1,15);
         END
         ELSE
         BEGIN
-            SET @ClosedStartDate = DATEFROMPARTS(@AppYear,10,15);
-            SET @ClosedEndDate   = DATEFROMPARTS(@AppYear+1,1,31);
+            SET @ClosedStartDate = DATEFROMPARTS(@AppYear,9,15);
+            SET @ClosedEndDate   = DATEFROMPARTS(@AppYear+1,1,15);
         END
     END
     ELSE
@@ -143,22 +144,22 @@ BEGIN
             IF @SoilTypeID IN (0,1)
             BEGIN
                 IF @SowMMDD IS NULL OR @SowMMDD >= 916
-                    SET @ClosedStartDate = DATEFROMPARTS(YEAR(@YearCycleStart),8,1);
+                    SET @ClosedStartDate = DATEFROMPARTS(YEAR(@YearCycleStart),9,1);
                 ELSE
-                    SET @ClosedStartDate = DATEFROMPARTS(YEAR(@YearCycleStart),9,16);
+                    SET @ClosedStartDate = DATEFROMPARTS(YEAR(@YearCycleStart),9,1);
 
-                SET @ClosedEndDate = DATEFROMPARTS(YEAR(@YearCycleStart),12,31);
+                SET @ClosedEndDate = DATEFROMPARTS(YEAR(@YearCycleStart)+1,1,15);
             END
             ELSE
             BEGIN
-                SET @ClosedStartDate = DATEFROMPARTS(YEAR(@YearCycleStart),10,1);
-                SET @ClosedEndDate   = DATEFROMPARTS(YEAR(@YearCycleStart)+1,1,31);
+                SET @ClosedStartDate = DATEFROMPARTS(YEAR(@YearCycleStart),9,1);
+                SET @ClosedEndDate   = DATEFROMPARTS(YEAR(@YearCycleStart)+1,1,15);
             END
         END
         ELSE
         BEGIN
-            SET @ClosedStartDate = DATEFROMPARTS(YEAR(@YearCycleStart),8,1);
-            SET @ClosedEndDate   = DATEFROMPARTS(YEAR(@YearCycleStart),12,31);
+            SET @ClosedStartDate = DATEFROMPARTS(YEAR(@YearCycleStart),9,1);
+            SET @ClosedEndDate   = DATEFROMPARTS(YEAR(@YearCycleStart)+1,1,15);
         END
     END;
 
