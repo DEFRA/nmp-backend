@@ -1,6 +1,7 @@
 ﻿
 
 
+
 CREATE PROCEDURE [dbo].[spWarning_CheckFertiliserClosedPeriodOct31ToClosedPeriod]
     @FertiliserID INT
 AS
@@ -161,7 +162,7 @@ BEGIN
         -- Grass rules
         IF @SoilTypeID IN (0,1)
         BEGIN
-            SET @ClosedStart = DATEFROMPARTS(YEAR(@YearCycleStart),9,1);
+            SET @ClosedStart = DATEFROMPARTS(YEAR(@YearCycleStart),9,15);
             SET @ClosedEnd   = DATEFROMPARTS(YEAR(@YearCycleStart)+1,1,15);
         END
         ELSE
@@ -180,13 +181,13 @@ BEGIN
                 IF @SowMMDD IS NULL OR @SowMMDD >= 916
                     SET @ClosedStart = DATEFROMPARTS(YEAR(@YearCycleStart),9,1);
                 ELSE
-                    SET @ClosedStart = DATEFROMPARTS(YEAR(@YearCycleStart),9,16);
+                    SET @ClosedStart = DATEFROMPARTS(YEAR(@YearCycleStart),9,1);
 
                 SET @ClosedEnd = DATEFROMPARTS(YEAR(@YearCycleStart)+1,1,15);
             END
             ELSE
             BEGIN
-                SET @ClosedStart = DATEFROMPARTS(YEAR(@YearCycleStart),10,1);
+                SET @ClosedStart = DATEFROMPARTS(YEAR(@YearCycleStart),9,1);
                 SET @ClosedEnd   = DATEFROMPARTS(YEAR(@YearCycleStart)+1,1,15);
             END
         END
@@ -200,13 +201,13 @@ BEGIN
 
                 IF @HasPriorYearPlantings = 1
                 BEGIN
-                    SET @ClosedStart = DATEFROMPARTS(YEAR(@YearCycleStart),9,16);
+                    SET @ClosedStart = DATEFROMPARTS(YEAR(@YearCycleStart),9,1);
                     SET @ClosedEnd   = DATEFROMPARTS(YEAR(@YearCycleStart)+1,1,15);
                 END
             END
             ELSE
             BEGIN
-                SET @ClosedStart = DATEFROMPARTS(YEAR(@YearCycleStart),10,1);
+                SET @ClosedStart = DATEFROMPARTS(YEAR(@YearCycleStart),9,1);
                 SET @ClosedEnd   = DATEFROMPARTS(YEAR(@YearCycleStart)+1,1,15);
             END
         END

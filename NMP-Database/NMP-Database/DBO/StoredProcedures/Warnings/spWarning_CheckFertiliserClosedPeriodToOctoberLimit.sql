@@ -2,6 +2,7 @@
 
 
 
+
 CREATE PROCEDURE [dbo].[spWarning_CheckFertiliserClosedPeriodToOctoberLimit]
     @FertiliserID INT
 AS
@@ -142,13 +143,13 @@ BEGIN
     BEGIN
         IF @SoilTypeID IN (0,1)
         BEGIN
-            SET @ClosedPeriodStart = DATEFROMPARTS(YEAR(@YearCycleStart), 9, 1);
-            SET @ClosedPeriodEnd   = DATEFROMPARTS(YEAR(@YearCycleStart),12,31);
+            SET @ClosedPeriodStart = DATEFROMPARTS(YEAR(@YearCycleStart),9,15);
+            SET @ClosedPeriodEnd   = DATEFROMPARTS(YEAR(@YearCycleStart)+1,1,15);
         END
         ELSE
         BEGIN
-            SET @ClosedPeriodStart = DATEFROMPARTS(YEAR(@YearCycleStart),10,15);
-            SET @ClosedPeriodEnd   = DATEFROMPARTS(YEAR(@YearCycleStart)+1,1,31);
+            SET @ClosedPeriodStart = DATEFROMPARTS(YEAR(@YearCycleStart),9,15);
+            SET @ClosedPeriodEnd   = DATEFROMPARTS(YEAR(@YearCycleStart)+1,1,15);
         END
     END
     ELSE
@@ -158,16 +159,16 @@ BEGIN
             IF @SoilTypeID IN (0,1)
             BEGIN
                 IF @SowMMDD IS NULL OR @SowMMDD >= 916
-                    SET @ClosedPeriodStart = DATEFROMPARTS(YEAR(@YearCycleStart),8,1);
+                    SET @ClosedPeriodStart = DATEFROMPARTS(YEAR(@YearCycleStart),9,1);
                 ELSE
-                    SET @ClosedPeriodStart = DATEFROMPARTS(YEAR(@YearCycleStart),9,16);
+                    SET @ClosedPeriodStart = DATEFROMPARTS(YEAR(@YearCycleStart),9,1);
 
-                SET @ClosedPeriodEnd = DATEFROMPARTS(YEAR(@YearCycleStart),12,31);
+                SET @ClosedPeriodEnd = DATEFROMPARTS(YEAR(@YearCycleStart)+1,1,15);
             END
             ELSE
             BEGIN
-                SET @ClosedPeriodStart = DATEFROMPARTS(YEAR(@YearCycleStart),10,1);
-                SET @ClosedPeriodEnd = DATEFROMPARTS(YEAR(@YearCycleStart)+1,1,31);
+                SET @ClosedPeriodStart = DATEFROMPARTS(YEAR(@YearCycleStart),9,1);
+                SET @ClosedPeriodEnd = DATEFROMPARTS(YEAR(@YearCycleStart)+1,1,15);
             END
         END
         ELSE    -- PERENNIAL
@@ -175,23 +176,23 @@ BEGIN
             IF @SoilTypeID IN (0,1)
             BEGIN
                 IF @SowMMDD IS NULL OR @SowMMDD >= 916
-                    SET @ClosedPeriodStart = DATEFROMPARTS(YEAR(@YearCycleStart),8,1);
+                    SET @ClosedPeriodStart = DATEFROMPARTS(YEAR(@YearCycleStart),9,1);
                 ELSE
-                    SET @ClosedPeriodStart = DATEFROMPARTS(YEAR(@YearCycleStart),9,16);
+                    SET @ClosedPeriodStart = DATEFROMPARTS(YEAR(@YearCycleStart),9,1);
 
-                SET @ClosedPeriodEnd = DATEFROMPARTS(YEAR(@YearCycleStart),12,31);
+                SET @ClosedPeriodEnd = DATEFROMPARTS(YEAR(@YearCycleStart)+1,1,15);
 
                 -- PRIOR YEAR PERENNIAL OVERRIDE
                 IF @HasPriorYearPlantings = 1
                 BEGIN
-                    SET @ClosedPeriodStart = DATEFROMPARTS(YEAR(@YearCycleStart),9,16);
-                    SET @ClosedPeriodEnd   = DATEFROMPARTS(YEAR(@YearCycleStart),12,31);
+                    SET @ClosedPeriodStart = DATEFROMPARTS(YEAR(@YearCycleStart),9,1);
+                    SET @ClosedPeriodEnd   = DATEFROMPARTS(YEAR(@YearCycleStart)+1,1,15);
                 END
             END
             ELSE
             BEGIN
-                SET @ClosedPeriodStart = DATEFROMPARTS(YEAR(@YearCycleStart),10,1);
-                SET @ClosedPeriodEnd = DATEFROMPARTS(YEAR(@YearCycleStart)+1,1,31);
+                SET @ClosedPeriodStart = DATEFROMPARTS(YEAR(@YearCycleStart),9,1);
+                SET @ClosedPeriodEnd = DATEFROMPARTS(YEAR(@YearCycleStart)+1,1,15);
             END
         END
     END

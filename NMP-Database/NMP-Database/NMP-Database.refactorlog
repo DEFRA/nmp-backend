@@ -91,4 +91,25 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="P2O5Calc" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="b4a6afb8-57cc-4fc8-9bfe-d775d155d28b" ChangeDateTime="02/18/2026 13:11:17">
+    <Property Name="ElementName" Value="[dbo].[ScotlandNitrateVulnerableZones].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[ScotlandNitrateVulnerableZones]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="ID" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="4d7594e4-3b01-4ba2-8307-1de5ba1039c1" ChangeDateTime="02/18/2026 13:11:25">
+    <Property Name="ElementName" Value="[dbo].[ScotlandFarmNVZs].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[ScotlandFarmNVZs]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="ID" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="909dfeda-943e-4c3f-afdd-6e3bc92a09b2" ChangeDateTime="02/18/2026 13:12:09">
+    <Property Name="ElementName" Value="[dbo].[ScotlandFarmNVZs].[ScotlandNitrateVulnerableZonesID]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[ScotlandFarmNVZs]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="ScotlandNitrateVulnerableZoneID" />
+  </Operation>
 </Operations>
