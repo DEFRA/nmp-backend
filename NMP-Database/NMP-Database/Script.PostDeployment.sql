@@ -1421,15 +1421,23 @@ GO
 IF NOT EXISTS (SELECT 1 FROM [dbo].[MaterialStates])
 BEGIN
     SET IDENTITY_INSERT [dbo].[MaterialStates] ON
-    INSERT INTO [MaterialStates] (ID,Name) values(1,'Dirty water storage')
-    INSERT INTO [MaterialStates] (ID,Name) values(2,'Slurry storage')
-    INSERT INTO [MaterialStates] (ID,Name) values(3,'Solid manure storage (on yards or in livestock housing)')
+    INSERT INTO [MaterialStates] (ID,Name) values(1,'Dirty water store')
+    INSERT INTO [MaterialStates] (ID,Name) values(2,'Slurry store')
+    INSERT INTO [MaterialStates] (ID,Name) values(3,'Solid manure store (on yards or in livestock housing)')
     SET IDENTITY_INSERT [dbo].[MaterialStates] OFF
 END
 
+IF EXISTS (SELECT 1 FROM [dbo].[MaterialStates] WHERE [ID]=1)
+BEGIN
+    UPDATE [dbo].[MaterialStates] SET [Name] ='Dirty water store' WHERE [ID]=1;
+END
+IF EXISTS (SELECT 1 FROM [dbo].[MaterialStates] WHERE [ID]=2)
+BEGIN
+    UPDATE [dbo].[MaterialStates] SET [Name] ='Slurry store' WHERE [ID]=2;
+END
 IF EXISTS (SELECT 1 FROM [dbo].[MaterialStates] WHERE [ID]=3)
 BEGIN
-    UPDATE [dbo].[MaterialStates] SET [Name] ='Solid manure storage (on yards or in livestock housing)' WHERE [ID]=3;
+    UPDATE [dbo].[MaterialStates] SET [Name] ='Solid manure store (on yards or in livestock housing)' WHERE [ID]=3;
 END
 
 IF NOT EXISTS (SELECT 1 FROM [dbo].[StorageTypes])
