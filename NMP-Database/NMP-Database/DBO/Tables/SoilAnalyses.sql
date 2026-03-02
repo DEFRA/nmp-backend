@@ -25,7 +25,7 @@
     [MagnesiumStatus]           NVARCHAR (20)   NULL,
     [NitrogenResidueGroup]      NVARCHAR (20)   NULL,
     [SoilAnalysisMethod]        INT             NULL,
-    [OrganicMatterPercentage]   DECIMAL(18, 3)  NULL,
+    [OrganicMatterPercentage]   INT  NULL,
     [Comments]                  NVARCHAR (255)  NULL,
     [CreatedOn] DATETIME2 NULL DEFAULT GETDATE(), 
     [CreatedByID] INT NULL, 
