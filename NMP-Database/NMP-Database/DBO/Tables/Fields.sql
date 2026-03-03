@@ -15,7 +15,7 @@
 	[SoilReleasingClay] BIT NULL CONSTRAINT DF_Fields_SoilReleasingClay DEFAULT 0,
 	[SoilOverChalk] BIT NULL CONSTRAINT DF_Fields_SoilOverChalk DEFAULT 0,
 	[NVZProgrammeID] INT NULL CONSTRAINT DF_Fields_NVZProgrammeID DEFAULT 1, --RB209
-	[PSCIndex] INT NULL,
+	[PscIndexID] INT NULL,
 	[IsActive] BIT NOT NULL  CONSTRAINT DF_Fields_IsActive DEFAULT 1,
     [CreatedOn] DATETIME2 NULL CONSTRAINT DF_Fields_CreatedOn DEFAULT GETDATE(), 
     [CreatedByID] INT NULL,
@@ -23,7 +23,7 @@
 	[ModifiedByID] INT NULL,
     CONSTRAINT [PK_Fields] PRIMARY KEY ([ID] ASC), 
     CONSTRAINT [FK_Fields_Farms] FOREIGN KEY ([FarmID]) REFERENCES [Farms]([ID]),
-	--CONSTRAINT [FK_Fields_TopSoils] FOREIGN KEY ([TopSoilID]) REFERENCES [TopSoils]([ID]),
+	CONSTRAINT [FK_Fields_PscIndexes] FOREIGN KEY ([PscIndexID]) REFERENCES [PscIndexes]([ID]),
 	--CONSTRAINT [FK_Fields_SubSoils] FOREIGN KEY ([SubSoilID]) REFERENCES [SubSoils]([ID]),
     CONSTRAINT [FK_Fields_Users_CreatedBy] FOREIGN KEY ([CreatedByID]) REFERENCES [Users]([ID]),
     CONSTRAINT [FK_Fields_Users_ModifiedBy] FOREIGN KEY ([ModifiedByID]) REFERENCES [Users]([ID]),

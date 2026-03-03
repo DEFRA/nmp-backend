@@ -1683,5 +1683,13 @@ SET [Header] = 'Closed period for the application of inorganic nitrogen fertilis
 where [WarningKey] = 'INORGNMAXRATEOSR' OR [WarningKey]='INORGNMAXRATEGRASS' and [CountryID] IN(1,2);
 END
 
+IF NOT EXISTS (SELECT 1 FROM [dbo].[PscIndexes])
+BEGIN
+    SET IDENTITY_INSERT [dbo].[PscIndexes] ON
+    INSERT INTO [PscIndexes] (ID,[Name]) values(1,'PSC Index 1 (including peat and humose soils)')
+    INSERT INTO [PscIndexes] (ID,[Name]) values(2,'PSC Index 2')
+    INSERT INTO [PscIndexes] (ID,[Name]) values(3,'PSC Index 3 (including calcareous soils)')
+    SET IDENTITY_INSERT [dbo].[PscIndexes] OFF
+END
 
 GO -- do not remove this GO
