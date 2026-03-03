@@ -23,7 +23,7 @@
 	[ModifiedByID] INT NULL,
     CONSTRAINT [PK_Fields] PRIMARY KEY ([ID] ASC), 
     CONSTRAINT [FK_Fields_Farms] FOREIGN KEY ([FarmID]) REFERENCES [Farms]([ID]),
-	--CONSTRAINT [FK_Fields_TopSoils] FOREIGN KEY ([TopSoilID]) REFERENCES [TopSoils]([ID]),
+	CONSTRAINT [FK_Fields_PscIndexes] FOREIGN KEY ([PscIndexID]) REFERENCES [PscIndexes]([ID]),
 	--CONSTRAINT [FK_Fields_SubSoils] FOREIGN KEY ([SubSoilID]) REFERENCES [SubSoils]([ID]),
     CONSTRAINT [FK_Fields_Users_CreatedBy] FOREIGN KEY ([CreatedByID]) REFERENCES [Users]([ID]),
     CONSTRAINT [FK_Fields_Users_ModifiedBy] FOREIGN KEY ([ModifiedByID]) REFERENCES [Users]([ID]),
