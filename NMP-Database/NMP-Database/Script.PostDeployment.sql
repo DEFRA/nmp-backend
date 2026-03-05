@@ -1692,4 +1692,12 @@ BEGIN
     SET IDENTITY_INSERT [dbo].[PscIndexes] OFF
 END
 
+IF NOT EXISTS (SELECT 1 FROM [dbo].[SoilAnalysesMethods])
+BEGIN
+    SET IDENTITY_INSERT [dbo].[SoilAnalysesMethods] ON
+    INSERT INTO [SoilAnalysesMethods] (ID,[Name]) VALUES(1,'RB209')
+    INSERT INTO [SoilAnalysesMethods] (ID, [Name]) VALUES (2, 'SAC (Modified Morgan''s extraction)');
+    SET IDENTITY_INSERT [dbo].[SoilAnalysesMethods] OFF
+END
+
 GO -- do not remove this GO

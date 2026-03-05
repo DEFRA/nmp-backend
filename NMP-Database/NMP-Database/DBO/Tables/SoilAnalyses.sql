@@ -24,7 +24,7 @@
     [MagnesiumAnalysis]         NVARCHAR (20)   NULL,
     [MagnesiumStatus]           NVARCHAR (20)   NULL,
     [NitrogenResidueGroup]      NVARCHAR (20)   NULL,
-    [SoilAnalysisMethod]        INT             NULL,
+    [SoilAnalysesMethodID]        INT             NULL,
     [OrganicMatterPercentage]   INT  NULL,
     [Comments]                  NVARCHAR (255)  NULL,
     [CreatedOn] DATETIME2 NULL DEFAULT GETDATE(), 
@@ -34,6 +34,7 @@
     [PreviousID]                INT             NULL,
     CONSTRAINT [PK_SoilAnalyses] PRIMARY KEY CLUSTERED ([ID] ASC),
     CONSTRAINT [FK_SoilAnalyses_Fields] FOREIGN KEY([FieldID]) REFERENCES [dbo].[Fields] ([ID]),
+    CONSTRAINT [FK_SoilAnalyses_SoilAnalysesMethods] FOREIGN KEY([SoilAnalysesMethodID]) REFERENCES [dbo].[SoilAnalysesMethods] ([ID]),
     CONSTRAINT [FK_SoilAnalyses_Users_CreatedBy] FOREIGN KEY([CreatedByID]) REFERENCES [dbo].[Users] ([ID]),
     CONSTRAINT [FK_SoilAnalyses_Users_ModifiedBy] FOREIGN KEY([ModifiedByID]) REFERENCES [dbo].[Users] ([ID])
 
