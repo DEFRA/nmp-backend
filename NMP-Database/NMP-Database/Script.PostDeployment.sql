@@ -1369,7 +1369,7 @@ IF NOT EXISTS (SELECT 1 FROM [dbo].[LivestockTypes])
 BEGIN
     SET IDENTITY_INSERT [dbo].[LivestockTypes] ON 
     INSERT [dbo].[LivestockTypes] ([ID], [LivestockGroupID], [Name], [NByUnit], [NByUnitCalc], [P2O5], [P2O5Calc], [Occupancy], [IsGrazing], [OrderBy]) VALUES
-    (1, 1, N'Calf (all categories except veal) youger than 2 months', 8.4, 8.4, 4.6, 4.6, NULL, 1, 1),
+    (1, 1, N'Calf (all categories except veal) younger than 2 months', 8.4, 8.4, 4.6, 4.6, NULL, 1, 1),
     (2, 1, N'Veal calf', 8.4, 8.4, 4.6, 4.6, NULL,0,2),
     (3, 1, N'Dairy cow from 2 months and less than 12 months', 35, 35, 12.4, 12.4, NULL,1, 3),
     (4, 1, N'Dairy cow from 12 months up to first calf', 61, 61, 25, 25, NULL,1, 4),
@@ -1393,7 +1393,7 @@ BEGIN
     (22, 2, N'Maiden gilt place, 66 kg and over', 11.1, 11.1, 5.8, 5.8, 80,0, 22),
     (23, 2, N'Sow place, 66 kg and over, with litter, up to 7 kg, fed on diet supplement with synthetic amino acids', 16, 16, 13.5, 13.5, 100,0, 23),
     (24, 2, N'Sow place, 66 kg and over, with litter, up to 7 kg, diet without synthetic amino acids (low protein diet)', 18, 18, 13.5, 13.5, 100,0, 24),
-    (25, 2, N'Breeding boar from 66 kg to 150 kg', 12, 12, 6.5, 6.5, 100,0, 25),
+    (25, 2, N'Breeding boar, 66 to 150 kg', 12, 12, 6.5, 6.5, 100,0, 25),
     (26, 2, N'Breeding boar, 150 kg and over', 17.5, 17.5, 10.2, 10.2, 100,0, 26),
     (27, 3, N'Replacement layer pullet places, up to 17 weeks', 210, 210, 150, 150, 89,0, 27), 
     (28, 3, N'Laying hens in cages, 17 weeks and over', 400, 400, 350, 350, 97,0, 28), 
@@ -1415,8 +1415,14 @@ BEGIN
     (44, 5, N'Horse', 21, 21, 20, 20, NULL,1, 44);
     SET IDENTITY_INSERT [dbo].[LivestockTypes] OFF
 END
-
 GO
+
+IF  EXISTS (SELECT 1 FROM [dbo].[LivestockTypes] WHERE [Name] IN ('Calf (all categories except veal) youger than 2 months','Breeding boar from 66 kg to 150 kg'))
+BEGIN
+    UPDATE [LivestockTypes] SET [Name]=N'Breeding boar, 66 to 150 kg' WHERE ID=25
+    UPDATE [LivestockTypes] SET [Name]=N'Calf (all categories except veal) younger than 2 months' WHERE ID=1
+END
+
 
 IF NOT EXISTS (SELECT 1 FROM [dbo].[MaterialStates])
 BEGIN
