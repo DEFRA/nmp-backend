@@ -1494,23 +1494,23 @@ GO
 IF NOT EXISTS (SELECT 1 FROM [dbo].[BankSlopeAngles])
 BEGIN
     SET IDENTITY_INSERT [dbo].[BankSlopeAngles] ON
-    INSERT INTO [BankSlopeAngles] (ID,[Name],[Angle],[Slope]) values(1,'1:0.5 (63 degrees)',63,1)
-    INSERT INTO [BankSlopeAngles] (ID,[Name],[Angle],[Slope]) values(2,'1:0.75 (53 degrees)',53,1.5)
-    INSERT INTO [BankSlopeAngles] (ID,[Name],[Angle],[Slope]) values(3,'1:1 (45 degrees)',45,2)
-    INSERT INTO [BankSlopeAngles] (ID,[Name],[Angle],[Slope]) values(4,'1:1.5 (33.7 degrees)',33.7,3)
-    INSERT INTO [BankSlopeAngles] (ID,[Name],[Angle],[Slope]) values(5,'1:2 (26.5 degrees)',26.5,4)
-    INSERT INTO [BankSlopeAngles] (ID,[Name],[Angle],[Slope]) values(6,'1:2.5 (21.8 degrees)',21.8,5)
+    INSERT INTO [BankSlopeAngles] (ID,[Name],[Angle],[Slope]) values(1,'1 in 0.5 (63 degrees)',63,1)
+    INSERT INTO [BankSlopeAngles] (ID,[Name],[Angle],[Slope]) values(2,'1 in 0.75 (53 degrees)',53,1.5)
+    INSERT INTO [BankSlopeAngles] (ID,[Name],[Angle],[Slope]) values(3,'1 in 1 (45 degrees)',45,2)
+    INSERT INTO [BankSlopeAngles] (ID,[Name],[Angle],[Slope]) values(4,'1 in 1.5 (33.7 degrees)',33.7,3)
+    INSERT INTO [BankSlopeAngles] (ID,[Name],[Angle],[Slope]) values(5,'1 in 2 (26.5 degrees)',26.5,4)
+    INSERT INTO [BankSlopeAngles] (ID,[Name],[Angle],[Slope]) values(6,'1 in 2.5 (21.8 degrees)',21.8,5)
     SET IDENTITY_INSERT [dbo].[BankSlopeAngles] OFF
 END
 
 IF EXISTS (SELECT 1 FROM [dbo].[BankSlopeAngles])
 BEGIN
-    UPDATE [BankSlopeAngles] SET [Slope] =1 WHERE [ID] = 1
-    UPDATE [BankSlopeAngles] SET [Slope] =1.5 WHERE [ID] = 2
-    UPDATE [BankSlopeAngles] SET [Slope] =2 WHERE [ID] = 3
-    UPDATE [BankSlopeAngles] SET [Slope] =3 WHERE [ID] = 4
-    UPDATE [BankSlopeAngles] SET [Slope] =4 WHERE [ID] = 5
-    UPDATE [BankSlopeAngles] SET [Slope] =5 WHERE [ID] = 6
+    UPDATE [BankSlopeAngles] SET [Slope] =1, [Name]='1 in 0.5 (63 degrees)' WHERE [ID] = 1
+    UPDATE [BankSlopeAngles] SET [Slope] =1.5, [Name]='1 in 0.75 (53 degrees)' WHERE [ID] = 2
+    UPDATE [BankSlopeAngles] SET [Slope] =2, [Name]='1 in 1 (45 degrees)' WHERE [ID] = 3
+    UPDATE [BankSlopeAngles] SET [Slope] =3, [Name]='1 in 1.5 (33.7 degrees)' WHERE [ID] = 4
+    UPDATE [BankSlopeAngles] SET [Slope] =4, [Name]='1 in 2 (26.5 degrees)' WHERE [ID] = 5
+    UPDATE [BankSlopeAngles] SET [Slope] =5, [Name]='1 in 2.5 (21.8 degrees)' WHERE [ID] = 6
 END
 GO
 
