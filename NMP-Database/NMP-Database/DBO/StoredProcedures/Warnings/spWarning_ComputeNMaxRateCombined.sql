@@ -21,6 +21,7 @@ BEGIN
         @CropYield DECIMAL(18,3) = 0,
         @CropInfo1 INT = NULL,
         @PotentialCut DECIMAL(18,3) = 0,
+        @DefoliationSequenceID INT = NULL,
         @SwardTypeID INT = NULL,
         @SoilTypeID INT = NULL,
         @IsFieldWithinNVZ BIT = 0,
@@ -80,6 +81,7 @@ BEGIN
         @CropYield    = ISNULL(c.Yield,0),
         @CropInfo1    = c.CropInfo1,
         @PotentialCut = ISNULL(c.PotentialCut,0),
+        @DefoliationSequenceID= c.DefoliationSequenceID,
         @SwardTypeID  = c.SwardTypeID
     FROM Crops c
     WHERE c.ID = @CropID;
@@ -191,7 +193,7 @@ BEGIN
     --------------------------------------------------------------------
     -- 12) PotentialCut increment (grass)
     --------------------------------------------------------------------
-    IF @CropTypeID = 140 AND @PotentialCut > 2
+    IF @CropTypeID = 140 AND @DefoliationSequenceID IS NOT NULL AND @DefoliationSequenceID IN (10,11,32,33,56,57,78,79)
         SET @NMaxRate += 40;
 
     --------------------------------------------------------------------
