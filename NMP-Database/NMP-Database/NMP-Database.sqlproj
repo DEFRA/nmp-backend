@@ -191,6 +191,7 @@
     <Build Include="DBO\Tables\FarmsNVZ.sql" />
     <Build Include="DBO\Tables\PscIndexes.sql" />
     <Build Include="DBO\Tables\SoilAnalysesMethods.sql" />
+    <Build Include="DBO\Tables\CropInfoScotlandQuestions.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Script.PostDeployment.sql">
