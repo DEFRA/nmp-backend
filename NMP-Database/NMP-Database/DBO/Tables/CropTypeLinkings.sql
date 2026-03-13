@@ -14,7 +14,7 @@
     CONSTRAINT [PK_CropTypeLinkings] PRIMARY KEY CLUSTERED ([CropTypeID] ASC, [MannerCropTypeID] ASC),
     CONSTRAINT [FK_CropTypeLinkings_SNSCategories] FOREIGN KEY ([SNSCategoryID]) REFERENCES [dbo].[SNSCategories] ([ID]),
     CONSTRAINT [FK_CropTypeLinkings_CropInfoOneQuestions] FOREIGN KEY ([CropInfoOneQuestionID]) REFERENCES [dbo].[CropInfoQuestions] ([ID]),
-    CONSTRAINT [FK_CropTypeLinkings_CropInfoOneScotlandQuestions] FOREIGN KEY ([CropInfoOneScotlandQuestionID]) REFERENCES [dbo].[CropInfoScotlandQuestions] ([ID])
+    CONSTRAINT [FK_CropTypeLinkings_CropInfoOneScotlandQuestions] FOREIGN KEY ([CropInfoOneScotlandQuestionID]) REFERENCES [dbo].[CropInfoQuestions] ([ID])
 );
 
 
