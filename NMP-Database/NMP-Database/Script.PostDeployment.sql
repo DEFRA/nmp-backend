@@ -98,6 +98,7 @@ END
 
 IF NOT EXISTS (SELECT 1 FROM [dbo].[CropInfoQuestions] WHERE [ID]>13)
 BEGIN
+SET IDENTITY_INSERT [dbo].[CropInfoQuestions] ON
    INSERT [dbo].[CropInfoQuestions] ([ID], [CropInfoQuestion]) VALUES (14, N'How do you plan to use the straw?')
     INSERT [dbo].[CropInfoQuestions] ([ID], [CropInfoQuestion]) VALUES (15, N'How will you harvest or use the crop?')
     INSERT [dbo].[CropInfoQuestions] ([ID], [CropInfoQuestion]) VALUES (16, N'Is the crop undersown?')
@@ -105,6 +106,7 @@ BEGIN
     INSERT [dbo].[CropInfoQuestions] ([ID], [CropInfoQuestion]) VALUES (18, N'Is this the establishment year or is the crop established?')
     INSERT [dbo].[CropInfoQuestions] ([ID], [CropInfoQuestion]) VALUES (19, N'What is the crop stage or type for established crops?')
     INSERT [dbo].[CropInfoQuestions] ([ID], [CropInfoQuestion]) VALUES (20, N'What type of beetroot are you growing?')
+    SET IDENTITY_INSERT [dbo].[CropInfoQuestions] OFF
 END
 
 
