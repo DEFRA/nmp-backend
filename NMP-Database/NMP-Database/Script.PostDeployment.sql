@@ -1783,27 +1783,4 @@ BEGIN
     INSERT INTO [SoilAnalysesMethods] (ID, [Name]) VALUES (2, 'SAC (Modified Morgan''s extraction)');
     SET IDENTITY_INSERT [dbo].[SoilAnalysesMethods] OFF
 END
-
-
-IF NOT EXISTS (SELECT 1 FROM [dbo].[CropInfoScotlandQuestions])
-BEGIN
-    SET IDENTITY_INSERT [dbo].[CropInfoScotlandQuestions] ON 
-    INSERT [dbo].[CropInfoScotlandQuestions] ([ID], [CropInfoQuestion]) VALUES (1, N'How do you plan to use the grain?')
-    INSERT [dbo].[CropInfoScotlandQuestions] ([ID], [CropInfoQuestion]) VALUES (2, N'How do you plan to use the straw?')
-    INSERT [dbo].[CropInfoScotlandQuestions] ([ID], [CropInfoQuestion]) VALUES (3, N'What type of peas are you growing?')
-    INSERT [dbo].[CropInfoScotlandQuestions] ([ID], [CropInfoQuestion]) VALUES (4, N'Will you harvest and remove both the roots and tops?')
-    INSERT [dbo].[CropInfoScotlandQuestions] ([ID], [CropInfoQuestion]) VALUES (5, N'Is this the establishment year?')
-    INSERT [dbo].[CropInfoScotlandQuestions] ([ID], [CropInfoQuestion]) VALUES (6, N'What is the crop stage?')
-    INSERT [dbo].[CropInfoScotlandQuestions] ([ID], [CropInfoQuestion]) VALUES (7, N'How will you harvest or use the crop?')
-    INSERT [dbo].[CropInfoScotlandQuestions] ([ID], [CropInfoQuestion]) VALUES (8, N'Is the crop undersown?')
-    INSERT [dbo].[CropInfoScotlandQuestions] ([ID], [CropInfoQuestion]) VALUES (9, N'Is this the establishment year or is the crop established?')
-    INSERT [dbo].[CropInfoScotlandQuestions] ([ID], [CropInfoQuestion]) VALUES (10, N'Is this the establishment year or is it an established crop?')
-    INSERT [dbo].[CropInfoScotlandQuestions] ([ID], [CropInfoQuestion]) VALUES (11, N'What is the crop stage or type for established crops?')
-    INSERT [dbo].[CropInfoScotlandQuestions] ([ID], [CropInfoQuestion]) VALUES (12, N'What is the length of the growing season?')
-    INSERT [dbo].[CropInfoScotlandQuestions] ([ID], [CropInfoQuestion]) VALUES (13, N'What type of beetroot are you growing?')
-    SET IDENTITY_INSERT [dbo].[CropInfoScotlandQuestions] OFF
-END
-
-
-
 GO -- do not remove this GO
