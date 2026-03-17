@@ -1281,7 +1281,7 @@ END
 GO
 
 
-IF EXISTS (SELECT 1 FROM [dbo].[SecondCropLinkings] WHERE RB209CountryID IS NULL)
+IF (SELECT COUNT(*) FROM [dbo].[SecondCropLinkings]) = (SELECT COUNT(*) FROM [dbo].[SecondCropLinkings] WHERE RB209CountryID = 3)
 BEGIN
     
     INSERT INTO SecondCropLinkings (FirstCropID,SecondCropID,RB209CountryID) VALUES(0,195,2)
@@ -1416,11 +1416,6 @@ INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryI
     UPDATE SecondCropLinkings SET RB209CountryID=3 where  FirstCropID=140 and SecondCropID in (2,3,5,7,9,23,25,40,43,45,189)
     UPDATE SecondCropLinkings SET RB209CountryID=3 where  FirstCropID=170 
 
-    IF (SELECT COUNT(*)  FROM SecondCropLinkings WHERE RB209CountryID IS NULL) = 0
-    BEGIN
-    ALTER TABLE SecondCropLinkings
-    ALTER COLUMN RB209CountryID INT NOT NULL
-    END
 END
 GO
 
