@@ -191,6 +191,8 @@
     <Build Include="DBO\Tables\FarmsNVZ.sql" />
     <Build Include="DBO\Tables\PscIndexes.sql" />
     <Build Include="DBO\Tables\SoilAnalysesMethods.sql" />
+    <Build Include="DBO\StoredProcedures\Warnings\spWarning_GetOrganicManureClosedPeriod.sql" />
+    <Build Include="DBO\StoredProcedures\Warnings\spWarning_GetFertiliserManureClosedPeriod.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Script.PostDeployment.sql">
