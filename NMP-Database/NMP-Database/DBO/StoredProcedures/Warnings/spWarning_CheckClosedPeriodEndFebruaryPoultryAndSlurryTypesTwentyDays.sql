@@ -185,8 +185,11 @@ BEGIN
             ELSE
             BEGIN
                 SET @ClosedPeriodStart = DATEFROMPARTS(YEAR(@YearCycleStart),10,15);
-                SET @ClosedPeriodEnd   = DATEFROMPARTS(YEAR(@YearCycleStart)+1,1,31);
-            END
+                IF @CountryId = 3
+                 SET @ClosedPeriodEnd = DATEFROMPARTS(YEAR(@YearCycleStart)+1,1,15);
+                ELSE
+                 SET @ClosedPeriodEnd = DATEFROMPARTS(YEAR(@YearCycleStart)+1,1,31);
+                 END
         END
         ELSE
         BEGIN

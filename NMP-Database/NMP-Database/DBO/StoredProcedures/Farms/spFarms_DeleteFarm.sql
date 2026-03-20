@@ -1,4 +1,5 @@
-﻿CREATE PROCEDURE [dbo].[spFarms_DeleteFarm]
+﻿
+CREATE PROCEDURE [dbo].[spFarms_DeleteFarm]
     @FarmID INT
 AS
 BEGIN
@@ -240,6 +241,14 @@ BEGIN
         END
         CLOSE sc_cursor;
         DEALLOCATE sc_cursor;
+
+		-- Delete related FarmsNVZ 
+      IF EXISTS (SELECT 1 FROM FarmsNVZ WHERE FarmID = @FarmID)
+
+      BEGIN
+       DELETE FROM FarmsNVZ 
+       WHERE FarmID = @FarmID;
+      END
 
         -- Finally, delete the Farm itself
         DELETE FROM Farms WHERE ID = @FarmID;

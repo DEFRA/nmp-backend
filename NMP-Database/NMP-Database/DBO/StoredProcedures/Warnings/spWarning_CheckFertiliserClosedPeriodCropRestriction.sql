@@ -1,5 +1,6 @@
 ﻿
 
+
 CREATE PROCEDURE [dbo].[spWarning_CheckFertiliserClosedPeriodCropRestriction]
     @FertiliserID INT
 AS
@@ -159,7 +160,7 @@ BEGIN
         END
         ELSE
         BEGIN
-            SET @ClosedPeriodStart = DATEFROMPARTS(YEAR(@YearCycleStart),10,15);
+            SET @ClosedPeriodStart = DATEFROMPARTS(YEAR(@YearCycleStart),9,15);
             SET @ClosedPeriodEnd   = DATEFROMPARTS(YEAR(@YearCycleStart)+1,1,15);
         END
     END

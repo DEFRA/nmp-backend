@@ -219,7 +219,10 @@ BEGIN
             BEGIN
                 -- 15 Oct -> 31 Jan (crosses to next calendar year)
                 SET @ClosedStartDate = DATEFROMPARTS(YEAR(@YearCycleStart),10,15);
-                SET @ClosedEndDate   = DATEFROMPARTS(YEAR(@YearCycleStart)+1,1,31);
+                IF @CountryId = 3
+                    SET @ClosedEndDate = DATEFROMPARTS(YEAR(@YearCycleStart)+1,1,15);
+                ELSE
+                    SET @ClosedEndDate = DATEFROMPARTS(YEAR(@YearCycleStart)+1,1,31);
             END
         END
         ELSE
