@@ -35,7 +35,7 @@
     CONSTRAINT [FK_Farms_Countries] FOREIGN KEY([CountryID]) REFERENCES [dbo].[Countries] ([ID]),
     CONSTRAINT [FK_Farms_Users_CreatedBy] FOREIGN KEY([CreatedByID]) REFERENCES [dbo].[Users] ([ID]),
     CONSTRAINT [FK_Farms_Users_ModifiedBy] FOREIGN KEY([ModifiedByID]) REFERENCES [dbo].[Users] ([ID]),
-    CONSTRAINT [UC_Farms_NamePostcode] UNIQUE ([Name], [Postcode])
+    CONSTRAINT [UC_Farms_NamePostcodeOrganisationID] UNIQUE ([Name], [Postcode], OrganisationID)
 
 )
 
