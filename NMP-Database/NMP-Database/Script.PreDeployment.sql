@@ -28,4 +28,20 @@ BEGIN
      END
 END
 
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'Warnings' AND TABLE_SCHEMA = 'DBO')
+BEGIN
+     IF EXISTS(SELECT 1 FROM Warnings WHERE ID = 38)
+     BEGIN
+         DELETE FROM Warnings WHERE ID = 38
+     END
+     IF EXISTS(SELECT 1 FROM Warnings WHERE ID = 39)
+     BEGIN
+         DELETE FROM Warnings WHERE ID = 39
+     END
+     IF EXISTS(SELECT 1 FROM Warnings WHERE ID = 40)
+     BEGIN
+         DELETE FROM Warnings WHERE ID = 40
+     END
+END
+
 GO -- do not remove this GO
