@@ -28,4 +28,12 @@ BEGIN
      END
 END
 
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'Warnings' AND TABLE_SCHEMA = 'dbo')
+BEGIN
+    IF (SELECT COUNT(*) FROM Warnings) = 56
+    BEGIN
+        TRUNCATE TABLE Warnings
+    END
+END
+
 GO -- do not remove this GO
