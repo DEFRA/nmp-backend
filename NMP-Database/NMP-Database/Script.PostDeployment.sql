@@ -2029,10 +2029,14 @@ END
 IF NOT EXISTS (SELECT 1 FROM [dbo].[PscIndexes])
 BEGIN
     SET IDENTITY_INSERT [dbo].[PscIndexes] ON
-    INSERT INTO [PscIndexes] (ID,[Name]) values(1,'PSC Index 1 (including peat and humose soils)')
+    INSERT INTO [PscIndexes] (ID,[Name]) values(1,'PSC Index 1 (including peaty and humose soils)')
     INSERT INTO [PscIndexes] (ID,[Name]) values(2,'PSC Index 2')
     INSERT INTO [PscIndexes] (ID,[Name]) values(3,'PSC Index 3 (including calcareous soils)')
     SET IDENTITY_INSERT [dbo].[PscIndexes] OFF
+END
+ELSE
+BEGIN
+    UPDATE [dbo].[PscIndexes] SET [Name] = 'PSC Index 1 (including peaty and humose soils)' WHERE ID = 1
 END
 
 IF NOT EXISTS (SELECT 1 FROM [dbo].[SoilAnalysesMethods])
