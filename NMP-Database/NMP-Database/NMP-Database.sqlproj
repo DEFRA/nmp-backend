@@ -193,6 +193,15 @@
     <Build Include="DBO\Tables\SoilAnalysesMethods.sql" />
     <Build Include="DBO\StoredProcedures\Warnings\spWarning_GetOrganicManureClosedPeriod.sql" />
     <Build Include="DBO\StoredProcedures\Warnings\spWarning_GetFertiliserManureClosedPeriod.sql" />
+    <Build Include="DBO\StoredProcedures\Warnings\spConvertClosedPeriodTextToDates.sql" />
+    <Build Include="DBO\StoredProcedures\Warnings\spWarning_CheckOrganicManureNFieldLimitYearGreenCompostOnly.sql" />
+    <Build Include="DBO\StoredProcedures\Warnings\spWarning_CheckScotlandHighRANAugSepRestriction.sql" />
+    <Build Include="DBO\StoredProcedures\Warnings\spWarning_CheckScotlandHighRANJulyRestriction.sql" />
+    <Build Include="DBO\StoredProcedures\Warnings\spWarning_CheckScotlandHighRANPreClosedPeriod.sql" />
+    <Build Include="DBO\StoredProcedures\Warnings\spWarning_CheckScotlandLivestock20DayGap.sql" />
+    <Build Include="DBO\StoredProcedures\Warnings\spWarning_CheckScotlandNFertiliserClosedPeriod.sql" />
+    <Build Include="DBO\StoredProcedures\Warnings\spWarning_CheckScotlandNFertiliserHighNClosedPeriod.sql" />
+    <Build Include="DBO\StoredProcedures\Warnings\spWarning_CheckScotlandPoultryManureLimit.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Script.PostDeployment.sql">
