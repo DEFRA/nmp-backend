@@ -19,4 +19,15 @@ BEGIN
     END
 END
 
+-- 01-04-2026
+IF EXISTS (SELECT 1 
+           FROM INFORMATION_SCHEMA.COLUMNS 
+           WHERE TABLE_NAME = 'CropTypeLinkings' 
+             AND TABLE_SCHEMA = 'dbo' 
+             AND COLUMN_NAME = 'NMaxLimitScotland')
+BEGIN
+    ALTER TABLE dbo.CropTypeLinkings
+    DROP COLUMN NMaxLimitScotland;
+END
+
 GO -- do not remove this GO
