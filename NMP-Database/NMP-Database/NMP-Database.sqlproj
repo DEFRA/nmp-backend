@@ -202,6 +202,7 @@
     <Build Include="DBO\StoredProcedures\Warnings\spWarning_CheckScotlandNFertiliserClosedPeriod.sql" />
     <Build Include="DBO\StoredProcedures\Warnings\spWarning_CheckScotlandNFertiliserHighNClosedPeriod.sql" />
     <Build Include="DBO\StoredProcedures\Warnings\spWarning_CheckScotlandPoultryManureLimit.sql" />
+    <Build Include="DBO\StoredProcedures\Warnings\spWarning_CheckScotlandFertiliserNResidueGroup.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Script.PostDeployment.sql">

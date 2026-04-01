@@ -1,5 +1,6 @@
 ﻿
-create PROCEDURE [dbo].[spConvertClosedPeriodTextToDates]
+
+CREATE PROCEDURE [dbo].[spConvertClosedPeriodTextToDates]
 (
     @ClosedPeriodText NVARCHAR(100),
     @HarvestYear INT
@@ -30,7 +31,7 @@ SET @EndText =
 ------------------------------------------------
 -- Default years
 ------------------------------------------------
-SET @StartYear = @HarvestYear - 1;
+SET @StartYear = @HarvestYear;
 SET @EndYear = @HarvestYear - 1;
 
 ------------------------------------------------
