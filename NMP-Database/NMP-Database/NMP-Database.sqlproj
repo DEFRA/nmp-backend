@@ -81,6 +81,7 @@
     <Folder Include="DBO\StoredProcedures\WarningMessages" />
     <Folder Include="DBO\StoredProcedures\PreviousCroppings" />
     <Folder Include="DBO\StoredProcedures\Warnings" />
+    <Folder Include="dbo\Stored Procedures\" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="DBO\Tables\Farms.sql" />
@@ -202,6 +203,7 @@
     <Build Include="DBO\StoredProcedures\Warnings\spWarning_CheckScotlandNFertiliserClosedPeriod.sql" />
     <Build Include="DBO\StoredProcedures\Warnings\spWarning_CheckScotlandNFertiliserHighNClosedPeriod.sql" />
     <Build Include="DBO\StoredProcedures\Warnings\spWarning_CheckScotlandPoultryManureLimit.sql" />
+    <Build Include="dbo\Stored Procedures\spWarning_CheckScotlandFertiliserNResidueGroup.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Script.PostDeployment.sql">
