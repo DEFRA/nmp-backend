@@ -204,6 +204,7 @@
     <Build Include="DBO\StoredProcedures\Warnings\spWarning_CheckScotlandPoultryManureLimit.sql" />
     <Build Include="DBO\StoredProcedures\Warnings\spWarning_CheckScotlandFertiliserNResidueGroup.sql" />
     <Build Include="DBO\Tables\ScotlandNMaxValues.sql" />
+    <Build Include="DBO\StoredProcedures\Warnings\spWarning_ComputeScotlandNMaxRate.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Script.PostDeployment.sql">
