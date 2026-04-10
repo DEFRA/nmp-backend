@@ -30,4 +30,13 @@ BEGIN
     DROP COLUMN NMaxLimitScotland;
 END
 
+--10-04-2026
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'ScotlandNMaxValues' AND TABLE_SCHEMA = 'dbo')
+BEGIN
+    IF (SELECT COUNT(*) FROM ScotlandNMaxValues) = 162
+    BEGIN
+        TRUNCATE TABLE ScotlandNMaxValues
+    END
+END
+
 GO -- do not remove this GO
