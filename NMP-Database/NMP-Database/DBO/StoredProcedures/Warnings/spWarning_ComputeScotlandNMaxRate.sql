@@ -115,8 +115,8 @@ BEGIN
     --------------------------------------------------------------------
     IF @CropTypeID = 20 
        AND @IsOrganic = 0 
-       AND @ApplicationDate >= DATEFROMPARTS(YEAR(@ApplicationDate),1,1)
-       AND @ApplicationDate <= DATEFROMPARTS(YEAR(@ApplicationDate),7,31)
+       AND @ApplicationDate >= DATEFROMPARTS(YEAR(@ApplicationDate),8,1)
+       AND @ApplicationDate <= DATEFROMPARTS(YEAR(@ApplicationDate),12,31)
     BEGIN
         SELECT TOP 1
             @BaseNMaxRate =
@@ -197,8 +197,8 @@ BEGIN
     BEGIN
         IF @IsOrganic = 1 
            OR (
-                @ApplicationDate >= DATEFROMPARTS(YEAR(@ApplicationDate),8,1)
-            AND @ApplicationDate <= DATEFROMPARTS(YEAR(@ApplicationDate),12,31)
+                @ApplicationDate >= DATEFROMPARTS(YEAR(@ApplicationDate),1,1)
+            AND @ApplicationDate <= DATEFROMPARTS(YEAR(@ApplicationDate),7,31)
               )
         BEGIN
             IF @CropYield > @DefaultYield
