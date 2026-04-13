@@ -1,5 +1,4 @@
-﻿
-CREATE PROCEDURE [dbo].[spWarning_ComputeScotlandNMaxRate]
+﻿CREATE PROCEDURE [dbo].[spWarning_ComputeScotlandNMaxRate]
 (
     @ManureID INT
 )
@@ -12,6 +11,9 @@ BEGIN
     --------------------------------------------------------------------
     DECLARE
         @ManagementPeriodID INT,
+        @ApplicationDate DATE,
+        @IsOrganic BIT = 0,
+
         @CropID INT,
         @FieldID INT,
         @FarmID INT,
@@ -22,33 +24,37 @@ BEGIN
         @IsFieldWithinScotland BIT = 0,
 
         @NIndex INT,
-        @BaseNMaxRate DECIMAL(18,3) = 0,
-        @NMaxRate DECIMAL(18,3) = 0,
+        @BaseNMaxRate DECIMAL(18,3),
+        @NMaxRate DECIMAL(18,3),
 
-        @CropYield DECIMAL(18,3) = 0,
-        @DefaultYield DECIMAL(18,3) = 0,
-        @CropInfo1 INT = 0,
-        @WinterRainfall DECIMAL(18,3) = 0,
-        @YieldDiff DECIMAL(18,3) = 0,
-        @YieldSteps INT = 0,
-
+        @CropYield DECIMAL(18,3),
+        @DefaultYield DECIMAL(18,3),
+        @CropInfo1 INT,
+        @WinterRainfall DECIMAL(18,3),
         @CropYear INT,
+
         @IsFallbackCrop BIT = 0,
 
-        @TotalOrganicN DECIMAL(18,3) = 0,
-        @TotalFertiliserN DECIMAL(18,3) = 0,
-        @CombinedTotalN DECIMAL(18,3) = 0,
+        @TotalOrganicN DECIMAL(18,3),
+        @TotalFertiliserN DECIMAL(18,3),
+        @CombinedTotalN DECIMAL(18,3),
         @IsNExceeding BIT = 0;
 
     --------------------------------------------------------------------
-    -- 1) ManagementPeriodID
+    -- 1) Get ManagementPeriod + ApplicationDate
     --------------------------------------------------------------------
-    SELECT @ManagementPeriodID = ManagementPeriodID
+    SELECT 
+        @ManagementPeriodID = ManagementPeriodID,
+        @ApplicationDate = ApplicationDate,
+        @IsOrganic = 1
     FROM OrganicManures WHERE ID = @ManureID;
 
     IF @ManagementPeriodID IS NULL
     BEGIN
-        SELECT @ManagementPeriodID = ManagementPeriodID
+        SELECT 
+            @ManagementPeriodID = ManagementPeriodID,
+            @ApplicationDate = ApplicationDate,
+            @IsOrganic = 0
         FROM FertiliserManures WHERE ID = @ManureID;
     END
 
@@ -59,15 +65,12 @@ BEGIN
     END
 
     --------------------------------------------------------------------
-    -- 2) CropID
+    -- 2) Crop
     --------------------------------------------------------------------
     SELECT @CropID = CropID
     FROM ManagementPeriods
     WHERE ID = @ManagementPeriodID;
 
-    --------------------------------------------------------------------
-    -- 3) Crop
-    --------------------------------------------------------------------
     SELECT 
         @FieldID = c.FieldID,
         @CropTypeID = c.CropTypeID,
@@ -78,7 +81,7 @@ BEGIN
     WHERE c.ID = @CropID;
 
     --------------------------------------------------------------------
-    -- 4) Field
+    -- 3) Field
     --------------------------------------------------------------------
     SELECT 
         @SoilTypeID = f.SoilTypeID,
@@ -88,11 +91,9 @@ BEGIN
     WHERE f.ID = @FieldID;
 
     --------------------------------------------------------------------
-    -- 5) Country → Scotland
+    -- 4) Scotland check
     --------------------------------------------------------------------
-    SELECT @CountryID = CountryID
-    FROM Farms
-    WHERE ID = @FarmID;
+    SELECT @CountryID = CountryID FROM Farms WHERE ID = @FarmID;
 
     SET @IsFieldWithinScotland = CASE WHEN @CountryID = 2 THEN 1 ELSE 0 END;
 
@@ -103,99 +104,132 @@ BEGIN
     END
 
     --------------------------------------------------------------------
-    -- 6) NIndex
+    -- 5) NIndex
     --------------------------------------------------------------------
-  SELECT TOP 1 @NIndex = r.NIndex
-  FROM Recommendations r
-  WHERE r.ManagementPeriodID = @ManagementPeriodID;
+    SELECT TOP 1 @NIndex = r.NIndex
+    FROM Recommendations r
+    WHERE r.ManagementPeriodID = @ManagementPeriodID;
 
     --------------------------------------------------------------------
-    -- 7) Base NMaxRate (ResidueGroup)
+    -- 6) Base NMaxRate (UPDATED for CropTypeID 20 Jan–Jul)
     --------------------------------------------------------------------
-    SELECT TOP 1
-        @BaseNMaxRate =
-            CASE @NIndex
-                WHEN 1 THEN sn.ResidueGroup1
-                WHEN 2 THEN sn.ResidueGroup2
-                WHEN 3 THEN sn.ResidueGroup3
-                WHEN 4 THEN sn.ResidueGroup4
-                WHEN 5 THEN sn.ResidueGroup5
-                WHEN 6 THEN sn.ResidueGroup6
-                ELSE 0
-            END
-    FROM ScotlandNMaxValues sn
-    WHERE sn.CropTypeID = @CropTypeID
-      AND sn.SoilTypeID = @SoilTypeID;
+    IF @CropTypeID = 20 
+       AND @IsOrganic = 0 
+       AND @ApplicationDate >= DATEFROMPARTS(YEAR(@ApplicationDate),8,1)
+       AND @ApplicationDate <= DATEFROMPARTS(YEAR(@ApplicationDate),12,31)
+    BEGIN
+        SELECT TOP 1
+            @BaseNMaxRate =
+                CASE @NIndex
+                    WHEN 1 THEN sn.ResidueGroup1
+                    WHEN 2 THEN sn.ResidueGroup2
+                    WHEN 3 THEN sn.ResidueGroup3
+                    WHEN 4 THEN sn.ResidueGroup4
+                    WHEN 5 THEN sn.ResidueGroup5
+                    WHEN 6 THEN sn.ResidueGroup6
+                END
+        FROM ScotlandNMaxValues sn
+        WHERE sn.CropTypeID = @CropTypeID
+          AND sn.SoilTypeID = -1;
+    END
+    ELSE
+    BEGIN
+        SELECT TOP 1
+            @BaseNMaxRate =
+                CASE @NIndex
+                    WHEN 1 THEN sn.ResidueGroup1
+                    WHEN 2 THEN sn.ResidueGroup2
+                    WHEN 3 THEN sn.ResidueGroup3
+                    WHEN 4 THEN sn.ResidueGroup4
+                    WHEN 5 THEN sn.ResidueGroup5
+                    WHEN 6 THEN sn.ResidueGroup6
+                END
+        FROM ScotlandNMaxValues sn
+        WHERE sn.CropTypeID = @CropTypeID
+          AND sn.SoilTypeID = @SoilTypeID;
+    END
 
-    -- Initialize working NMaxRate
     SET @NMaxRate = @BaseNMaxRate;
 
     --------------------------------------------------------------------
-    -- 8) Default Yield
+    -- 7) Default Yield
     --------------------------------------------------------------------
-    SELECT 
-        @DefaultYield = ISNULL(DefaultYieldScotland,0)
+    SELECT @DefaultYield = DefaultYieldScotland
     FROM CropTypeLinkings
     WHERE CropTypeID = @CropTypeID;
 
-    SET @YieldDiff = @CropYield - @DefaultYield;
-
-    IF @YieldDiff > 0
-        SET @YieldSteps = FLOOR(@YieldDiff * 10);
-
     --------------------------------------------------------------------
-    -- 9) Yield Adjustments
+    -- 8) Yield Adjustments (UNCHANGED except CropTypeID 20)
     --------------------------------------------------------------------
     IF @CropTypeID IN (0,53)
     BEGIN
-        SET @NMaxRate += (@YieldSteps * 2);
+        DECLARE @s1 INT = FLOOR((@CropYield - @DefaultYield) * 10);
+        IF @s1 > 0 SET @NMaxRate += (@s1 * 2);
         IF @CropInfo1 = 2 SET @NMaxRate += 40;
     END
     ELSE IF @CropTypeID IN (1,52)
-        SET @NMaxRate += (@YieldSteps * 1.5);
-
+    BEGIN
+        DECLARE @s2 INT = FLOOR((@CropYield - @DefaultYield) * 10);
+        IF @s2 > 0 SET @NMaxRate += (@s2 * 1.5);
+    END
     ELSE IF @CropTypeID IN (2,51,174)
     BEGIN
-        SET @NMaxRate += (@YieldSteps * 2);
+        DECLARE @s3 INT = FLOOR((@CropYield - @DefaultYield) * 10);
+        IF @s3 > 0 SET @NMaxRate += (@s3 * 2);
         IF @CropInfo1 = 2 SET @NMaxRate += 40;
     END
-
     ELSE IF @CropTypeID IN (3,50,171)
     BEGIN
-        SET @NMaxRate += (@YieldSteps * 1.5);
+        DECLARE @s4 INT = FLOOR((@CropYield - @DefaultYield) * 10);
+        IF @s4 > 0 SET @NMaxRate += (@s4 * 1.5);
         IF @CropInfo1 = 5 SET @NMaxRate += 15;
     END
-
     ELSE IF @CropTypeID IN (4,57,5,54,172)
-        SET @NMaxRate += (@YieldSteps * 1.5);
-
-    ELSE IF @CropTypeID = 21
     BEGIN
-        IF @CropYield > @DefaultYield
-            SET @NMaxRate += 30;
+        DECLARE @s5 INT = FLOOR((@CropYield - @DefaultYield) * 10);
+        IF @s5 > 0 SET @NMaxRate += (@s5 * 1.5);
     END
 
+    --------------------------------------------------------------------
+    -- ✅ CropTypeID = 20 (UPDATED)
+    --------------------------------------------------------------------
+    ELSE IF @CropTypeID = 20
+    BEGIN
+        IF @IsOrganic = 1 
+           OR (
+                @ApplicationDate >= DATEFROMPARTS(YEAR(@ApplicationDate),1,1)
+            AND @ApplicationDate <= DATEFROMPARTS(YEAR(@ApplicationDate),7,31)
+              )
+        BEGIN
+            IF @CropYield > @DefaultYield
+                SET @NMaxRate += 30;
+        END
+    END
+
+    --------------------------------------------------------------------
+    -- 9) Fallback
+    --------------------------------------------------------------------
     ELSE IF @CropTypeID NOT IN (
         0,53,1,52,2,51,174,3,50,171,4,57,5,54,172,
-        20,21,160,161,162,163,7,55,199,9,56,173
+        20,160,161,162,163,7,55,199,9,56,173
     )
     BEGIN
         SET @IsFallbackCrop = 1;
 
-        SELECT TOP 1 @NMaxRate = ISNULL(r.FertilizerN,0)
+        SELECT TOP 1 @NMaxRate = r.FertilizerN
         FROM Recommendations r
         WHERE r.ManagementPeriodID = @ManagementPeriodID;
 
-        SET @BaseNMaxRate = @NMaxRate; 
+        SET @BaseNMaxRate = @NMaxRate;
     END
 
     --------------------------------------------------------------------
-    -- 10) Rainfall (skip for fallback)
+    -- 10) Rainfall (UNCHANGED)
     --------------------------------------------------------------------
     IF @IsFallbackCrop = 0
     BEGIN
         SELECT TOP 1 
-            @WinterRainfall = ISNULL(er.WinterRainfall,0)
+            @WinterRainfall = er.WinterRainfall
         FROM ExcessRainfalls er
         WHERE er.FarmID = @FarmID
           AND er.Year = @CropYear;
@@ -244,7 +278,7 @@ BEGIN
         @ManureID AS ManureID,
         @CropID AS CropID,
         @CropTypeID AS CropTypeID,
-		@IsFieldWithinScotland AS IsFieldWithinScotland,
+        @IsFieldWithinScotland AS IsFieldWithinScotland,
         @IsWithinNVZ AS IsWithinNVZ,
         @NIndex AS NIndex,
         @BaseNMaxRate AS BaseNMaxRate,
