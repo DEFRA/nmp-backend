@@ -1,6 +1,5 @@
 ﻿
-
-CREATE PROCEDURE [dbo].[spWarning_CheckScotlandFertiliserNResidueGroup]
+CREATE PROCEDURE [dbo].[spWarning_CheckScotlandFertiliserNResidueGroupSpecific]
     @FertiliserID INT
 AS
 BEGIN
@@ -25,32 +24,14 @@ BEGIN
         @ClosedStartDate DATE,
         @ClosedEndDate DATE,
 
-        @TotalFertiliserN DECIMAL(18,3) = 0,
-
         -- Flags
         @IsFieldScotland BIT = 0,
         @IsWinterOSR BIT = 0,
         @IsWithinClosedPeriod BIT = 0,
+        @IsNResidueGroup456 BIT = 0,
 
-        -- Rule handling
         @NIndex INT,
-        @Threshold DECIMAL(18,3) = 0,
-        @IsThresholdBreached BIT = 0,
-
         @IsTriggered BIT = 0;
-
-    --------------------------------------------------------------------
-    -- Threshold Mapping
-    --------------------------------------------------------------------
-    DECLARE @ThresholdTable TABLE (
-        NIndex INT,
-        Threshold DECIMAL(18,3)
-    );
-
-    INSERT INTO @ThresholdTable VALUES
-        (1, 30),
-        (2, 20),
-        (3, 10);
 
     --------------------------------------------------------------------
     -- Temp Tables
@@ -108,16 +89,11 @@ BEGIN
     FROM Recommendations r
     WHERE r.ManagementPeriodID = @ManagementPeriodID;
 
-    --------------------------------------------------------------------
-    -- 4) Get Threshold Dynamically
-    --------------------------------------------------------------------
-    SELECT 
-        @Threshold = t.Threshold
-    FROM @ThresholdTable t
-    WHERE t.NIndex = @NIndex;
+    IF @NIndex IN (4,5,6)
+        SET @IsNResidueGroup456 = 1;
 
     --------------------------------------------------------------------
-    -- 5) Get Closed Period
+    -- 4) Get Closed Period
     --------------------------------------------------------------------
     INSERT INTO @ClosedPeriodTable
     EXEC dbo.spWarning_GetFertiliserManureClosedPeriod
@@ -141,51 +117,32 @@ BEGIN
     FROM @ClosedPeriodDates;
 
     --------------------------------------------------------------------
-    -- 6) Check Application within Closed Period
+    -- 5) Check Application within Closed Period
     --------------------------------------------------------------------
     IF @ApplicationDate BETWEEN @ClosedStartDate AND @ClosedEndDate
         SET @IsWithinClosedPeriod = 1;
 
     --------------------------------------------------------------------
-    -- 7) SUM Fertiliser N (FIELD LEVEL, ALL MPs)
-    --------------------------------------------------------------------
-    SELECT
-        @TotalFertiliserN = ISNULL(SUM(f.N), 0)
-    FROM FertiliserManures f
-    INNER JOIN ManagementPeriods mp ON f.ManagementPeriodID = mp.ID
-    INNER JOIN Crops c ON mp.CropID = c.ID
-    WHERE 
-        c.FieldID = @FieldID
-        AND f.ApplicationDate BETWEEN @ClosedStartDate AND @ClosedEndDate;
-
-    --------------------------------------------------------------------
-    -- 8) Threshold Check
-    --------------------------------------------------------------------
-    IF @TotalFertiliserN > ISNULL(@Threshold, 0)
-        SET @IsThresholdBreached = 1;
-
-    --------------------------------------------------------------------
-    -- 9) Final Trigger Logic
+    -- 6) Final Trigger Logic
     --------------------------------------------------------------------
     IF @IsFieldScotland = 1
        AND @IsWithinNVZ = 1
        AND @IsWinterOSR = 1
        AND @IsWithinClosedPeriod = 1
-       AND @IsThresholdBreached = 1
+       AND @IsNResidueGroup456 = 1
     BEGIN
         SET @IsTriggered = 1;
     END
 
     --------------------------------------------------------------------
-    -- 10) OUTPUT (DEBUG FRIENDLY)
+    -- 7) OUTPUT (DEBUG FRIENDLY)
     --------------------------------------------------------------------
     SELECT
         @IsTriggered AS IsTriggered,
 
         -- Rule info
         @NIndex AS NIndex,
-        @Threshold AS ThresholdUsed,
-        @IsThresholdBreached AS IsThresholdBreached,
+        @IsNResidueGroup456 AS IsNResidueGroup456,
 
         -- Flags
         @IsFieldScotland AS IsFieldScotland,
@@ -194,7 +151,6 @@ BEGIN
         @IsWithinClosedPeriod AS IsWithinClosedPeriod,
 
         -- Values
-        @TotalFertiliserN AS TotalFertiliserN,
         @ApplicationDate AS ApplicationDate,
         @ClosedPeriod AS ClosedPeriod,
         @ClosedStartDate AS ClosedStartDate,
