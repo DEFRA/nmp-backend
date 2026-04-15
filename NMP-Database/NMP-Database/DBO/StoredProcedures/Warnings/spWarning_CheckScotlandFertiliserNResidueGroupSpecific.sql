@@ -1,4 +1,5 @@
-﻿CREATE PROCEDURE [dbo].[spWarning_CheckScotlandFertiliserNResidueGroupSpecific]
+﻿
+CREATE PROCEDURE [dbo].[spWarning_CheckScotlandFertiliserNResidueGroupSpecific]
     @FertiliserID INT
 AS
 BEGIN
@@ -33,7 +34,7 @@ BEGIN
         @IsTriggered BIT = 0;
 
     --------------------------------------------------------------------
-    -- 1) LOAD ALL CONTEXT IN SINGLE QUERY (🔥 removes duplication)
+    -- 1) LOAD ALL CONTEXT IN SINGLE QUERY (No duplication ✅)
     --------------------------------------------------------------------
     SELECT
         @ApplicationDate = f.ApplicationDate,
@@ -55,7 +56,7 @@ BEGIN
     SET @HarvestYear = YEAR(@ApplicationDate);
 
     --------------------------------------------------------------------
-    -- 2) FLAGS (single place)
+    -- 2) FLAGS
     --------------------------------------------------------------------
     SET @IsFieldScotland = CASE WHEN @CountryID = 2 THEN 1 ELSE 0 END;
     SET @IsWinterOSR = CASE WHEN @CropTypeID = 20 THEN 1 ELSE 0 END;
@@ -71,7 +72,7 @@ BEGIN
     SET @IsNResidueGroup456 = CASE WHEN @NIndex IN (4,5,6) THEN 1 ELSE 0 END;
 
     --------------------------------------------------------------------
-    -- 4) CLOSED PERIOD (compact version)
+    -- 4) CLOSED PERIOD
     --------------------------------------------------------------------
     DECLARE @ClosedPeriodTable TABLE (ClosedPeriod NVARCHAR(100));
 
@@ -84,9 +85,10 @@ BEGIN
     SELECT TOP 1 @ClosedPeriod = ClosedPeriod FROM @ClosedPeriodTable;
 
     --------------------------------------------------------------------
-    -- Convert Closed Period → Dates (no extra duplication)
+    -- 5) Convert Closed Period → Dates (FIXED ✅)
     --------------------------------------------------------------------
     DECLARE @ClosedPeriodDates TABLE (
+        ClosedPeriod NVARCHAR(100),
         ClosedStartDate DATE,
         ClosedEndDate DATE
     );
@@ -102,7 +104,7 @@ BEGIN
     FROM @ClosedPeriodDates;
 
     --------------------------------------------------------------------
-    -- 5) Closed Period Check
+    -- 6) Closed Period Check
     --------------------------------------------------------------------
     SET @IsWithinClosedPeriod =
         CASE 
@@ -111,7 +113,7 @@ BEGIN
         END;
 
     --------------------------------------------------------------------
-    -- 6) Final Trigger Logic
+    -- 7) Final Trigger Logic
     --------------------------------------------------------------------
     SET @IsTriggered =
         CASE 
@@ -125,7 +127,7 @@ BEGIN
         END;
 
     --------------------------------------------------------------------
-    -- 7) OUTPUT
+    -- 8) OUTPUT
     --------------------------------------------------------------------
     SELECT
         @IsTriggered AS IsTriggered,
