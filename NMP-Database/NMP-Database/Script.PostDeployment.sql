@@ -1964,6 +1964,13 @@ N'You can check your compliance with the maximum nitrogen limit for all fields g
     SET IDENTITY_INSERT [dbo].[Warnings] OFF
 END
 
+IF EXISTS (SELECT 1 FROM [dbo].[Warnings] WHERE [WarningKey]='POULTRYMANUREMAXAPPLICATIONRATE' AND [CountryID]=2 )
+BEGIN
+    UPDATE [dbo].[Warnings] SET 
+    [Para1] = N'This application will take you over the maximum application rate for poultry manure between the end of the closed spreading period for applying high readily available nitrogen organic manure and the and the 14th February' ,
+    [Para2] = N'The Nitrate Vulnerable Zone (NVZ) rules state you must not spread more than 5 tonnes per hectare of poultry manure between the end of the closed spreading period for applying high readily available nitrogen organic manure and the 14th February.' 
+    WHERE [WarningKey]='POULTRYMANUREMAXAPPLICATIONRATE' AND [CountryID]=2
+END
 
 IF NOT EXISTS (SELECT 1 FROM [dbo].[PscIndexes])
 BEGIN
