@@ -1,4 +1,5 @@
 ﻿
+
 CREATE PROCEDURE [dbo].[spWarning_ComputeScotlandNMaxRate]
 (
     @ManureID INT
@@ -292,6 +293,8 @@ BEGIN
         @CropID AS CropID,
         @CropTypeID AS CropTypeID,
         @IsFieldWithinScotland AS IsFieldWithinScotland,
+		@CropYield AS Yield,
+		@DefaultYield AS DefaultYield,
         @IsWithinNVZ AS IsWithinNVZ,
         @NIndex AS NIndex,
         @BaseNMaxRate AS BaseNMaxRate,
