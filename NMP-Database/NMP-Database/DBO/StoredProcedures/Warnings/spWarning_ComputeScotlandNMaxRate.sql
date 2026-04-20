@@ -1,4 +1,5 @@
-﻿CREATE PROCEDURE [dbo].[spWarning_ComputeScotlandNMaxRate]
+﻿
+CREATE PROCEDURE [dbo].[spWarning_ComputeScotlandNMaxRate]
 (
     @ManureID INT
 )
@@ -74,7 +75,6 @@ BEGIN
     SELECT 
         @FieldID = c.FieldID,
         @CropTypeID = c.CropTypeID,
-        @CropYield = ISNULL(c.Yield,0),
         @CropInfo1 = ISNULL(c.CropInfo1,0),
         @CropYear = c.Year
     FROM Crops c
@@ -89,6 +89,19 @@ BEGIN
         @IsWithinNVZ = f.IsWithinNVZ
     FROM Fields f
     WHERE f.ID = @FieldID;
+
+	--------------------------------------------------------------------
+    -- 4) Yield from FarmAverageYields
+    --------------------------------------------------------------------
+    SELECT 
+        @CropYield = fay.AverageYield
+    FROM FarmAverageYields fay
+    WHERE fay.FarmID = @FarmID
+      AND fay.HarvestYear = @CropYear
+      AND fay.CropTypeID = @CropTypeID;
+
+    IF @CropYield IS NULL
+        SET @CropYield = 0;
 
     --------------------------------------------------------------------
     -- 4) Scotland check
