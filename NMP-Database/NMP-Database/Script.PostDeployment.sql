@@ -1992,13 +1992,6 @@ BEGIN
     UPDATE [dbo].[PscIndexes] SET [Name] = 'PSC Index 1 (including peaty and humose soils)' WHERE ID = 1
 END
 
-IF NOT EXISTS (SELECT 1 FROM [dbo].[SoilAnalysesMethods])
-BEGIN
-    SET IDENTITY_INSERT [dbo].[SoilAnalysesMethods] ON
-    INSERT INTO [SoilAnalysesMethods] (ID,[Name]) VALUES(1,'RB209')
-    INSERT INTO [SoilAnalysesMethods] (ID, [Name]) VALUES (2, 'SAC (Modified Morgan''s extraction)');
-    SET IDENTITY_INSERT [dbo].[SoilAnalysesMethods] OFF
-END
 
 IF NOT EXISTS (SELECT 1 FROM [dbo].[ScotlandNMaxValues])
 BEGIN
