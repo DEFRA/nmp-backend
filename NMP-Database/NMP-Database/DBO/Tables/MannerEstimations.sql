@@ -1,18 +1,18 @@
 ﻿CREATE TABLE [dbo].[MannerEstimations]
 (
 	[ID] INT NOT NULL IDENTITY(1,1),
-	[Name]  NVARCHAR(250) NOT NULL,
 	[FarmName]     NVARCHAR(250) NOT NULL,
 	[CountryID]    INT  NOT NULL,
 	[Postcode]     NVARCHAR (50)   NOT NULL,
 	[AverageAnuualRainfall]     INT  NOT NULL,
-	[FieldName]    NVARCHAR(250) NOT NULL,
+	[FieldName]    NVARCHAR(50) NOT NULL,
 	[IsWithinNVZ]  BIT NOT NULL,
 	[NVZProgrammeID] INT NULL, --RB209	
-	[SoilTypeID]   INT NOT NULL, --RB209
+	[TopSoilID]   INT NOT NULL, --RB209
+	[SubSoilID]   INT NOT NULL, --RB209
 	[CropTypeID]   INT NOT  NULL,
-	[IsEarlySown]         BIT NULL,
-	[FieldComments]   NVARCHAR(250)  NULL,	
+	[MannerCropTypeID]   INT NOT  NULL,
+	[SowingDate]         DATETIME2 NULL,
     [CreatedOn] DATETIME2 NULL CONSTRAINT DF_MannerEstimations_CreatedOn DEFAULT GETDATE(), 
     [CreatedByID] INT NULL,
 	[ModifiedOn] DATETIME2 NULL,
