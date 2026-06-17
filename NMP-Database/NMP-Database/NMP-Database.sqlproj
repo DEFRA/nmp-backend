@@ -208,6 +208,7 @@
     <Build Include="DBO\Tables\FarmAverageYields.sql" />
     <Build Include="DBO\StoredProcedures\Warnings\spWarning_GetAllManuresBase.sql" />
     <Build Include="DBO\StoredProcedures\Farms\spFarms_GetAllFarmsWithLastUpdatedDate.sql" />
+    <Build Include="DBO\Tables\MannerEstimationFinancialValues.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Script.PostDeployment.sql">
