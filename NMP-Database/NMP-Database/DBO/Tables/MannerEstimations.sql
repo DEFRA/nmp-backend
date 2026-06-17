@@ -7,9 +7,9 @@
 	[AverageAnuualRainfall]     INT  NOT NULL,
 	[FieldName]    NVARCHAR(50) NOT NULL,
 	[IsWithinNVZ]  BIT NOT NULL,
-	[NVZProgrammeID] INT NULL, --RB209	
-	[TopSoilID]   INT NOT NULL, --RB209
-	[SubSoilID]   INT NOT NULL, --RB209
+	[NVZProgrammeID] INT NULL,
+	[TopSoilID]   INT NOT NULL,
+	[SubSoilID]   INT NOT NULL,
 	[CropTypeID]   INT NOT  NULL,
 	[MannerCropTypeID]   INT NOT  NULL,
 	[SowingDate]         DATETIME2 NULL,
