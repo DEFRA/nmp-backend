@@ -1,6 +1,7 @@
 ﻿CREATE TABLE [dbo].[MannerEstimations]
 (
 	[ID] INT NOT NULL IDENTITY(1,1),
+	[OrganisationID] UNIQUEIDENTIFIER NOT NULL,
 	[FarmName]     NVARCHAR(250) NOT NULL,
 	[CountryID]    INT  NOT NULL,
 	[Postcode]     NVARCHAR (50)   NOT NULL,
@@ -19,4 +20,5 @@
 	[ModifiedByID] INT NULL,
 	CONSTRAINT [PK_MannerEstimations] PRIMARY KEY ([ID] ASC),
 	CONSTRAINT [FK_MannerEstimations_Countries] FOREIGN KEY([CountryID]) REFERENCES [dbo].[Countries] ([ID]),
+	CONSTRAINT [FK_MannerEstimations_Organisations] FOREIGN KEY([OrganisationID]) REFERENCES [dbo].[Organisations] ([ID])
 )
