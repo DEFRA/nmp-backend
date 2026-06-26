@@ -27,6 +27,7 @@
     [NitrogenPrice] INT NOT NULL,
     [PhosphatePrice] INT NOT NULL,
     [PotashPrice] INT NOT NULL,
+	[CalculateBasedOnNutrientPrice] BIT NOT NULL CONSTRAINT DF_MannerEstimations_CalculateBasedOnNutrientPrice DEFAULT 1,
     [CreatedOn] DATETIME2 NULL CONSTRAINT DF_MannerEstimations_CreatedOn DEFAULT GETDATE(), 
     [CreatedByID] INT NULL,
 	[ModifiedOn] DATETIME2 NULL,
