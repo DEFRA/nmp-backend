@@ -31,6 +31,7 @@
     [TotalP2O5]        INT NOT NULL,
     [CropAvailableP2O5] INT NOT NULL,
     [TotalSO3]        INT NOT NULL,
+    [CropAvailableSO3] INT NOT NULL,
     [TotalMgO]        INT NOT NULL,
     [TotalK2O]        INT NOT NULL,
     [CropAvailableK2O] INT NOT NULL,
