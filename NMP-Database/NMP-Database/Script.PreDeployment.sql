@@ -42,33 +42,33 @@ END
 
 --26-06-2026
 
-IF EXISTS (SELECT 1  FROM INFORMATION_SCHEMA.TABLES  WHERE TABLE_SCHEMA = 'dbo'
-      AND TABLE_NAME = 'MannerEstimationFinancialValues'
-)
-BEGIN
-    DROP TABLE dbo.MannerEstimationFinancialValues;
-END;
-GO
-IF NOT EXISTS (
-    SELECT 1
-    FROM INFORMATION_SCHEMA.COLUMNS
-    WHERE TABLE_SCHEMA = 'dbo'
-      AND TABLE_NAME = 'MannerEstimationApplications'
-      AND COLUMN_NAME = 'NitrogenValue'
-)
-BEGIN
-    DROP TABLE dbo.MannerEstimationApplications;
-END;
-GO
-IF NOT EXISTS (
-    SELECT 1
-    FROM INFORMATION_SCHEMA.COLUMNS
-    WHERE TABLE_SCHEMA = 'dbo'
-      AND TABLE_NAME = 'MannerEstimations'
-      AND COLUMN_NAME = 'NitrogenPrice'
-)
-BEGIN
-    DROP TABLE dbo.MannerEstimations;
-END;
+--IF EXISTS (SELECT 1  FROM INFORMATION_SCHEMA.TABLES  WHERE TABLE_SCHEMA = 'dbo'
+--      AND TABLE_NAME = 'MannerEstimationFinancialValues'
+--)
+--BEGIN
+--    DROP TABLE dbo.MannerEstimationFinancialValues;
+--END;
+--GO
+--IF NOT EXISTS (
+--    SELECT 1
+--    FROM INFORMATION_SCHEMA.COLUMNS
+--    WHERE TABLE_SCHEMA = 'dbo'
+--      AND TABLE_NAME = 'MannerEstimationApplications'
+--      AND COLUMN_NAME = 'NitrogenValue'
+--)
+--BEGIN
+--    DROP TABLE dbo.MannerEstimationApplications;
+--END;
+--GO
+--IF NOT EXISTS (
+--    SELECT 1
+--    FROM INFORMATION_SCHEMA.COLUMNS
+--    WHERE TABLE_SCHEMA = 'dbo'
+--      AND TABLE_NAME = 'MannerEstimations'
+--      AND COLUMN_NAME = 'NitrogenPrice'
+--)
+--BEGIN
+--    DROP TABLE dbo.MannerEstimations;
+--END;
 
 GO -- do not remove this GO
