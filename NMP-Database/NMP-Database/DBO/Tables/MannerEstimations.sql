@@ -9,7 +9,7 @@
 	[AverageAnuualRainfall]     INT  NOT NULL,
 	[FieldName]    NVARCHAR(50) NOT NULL,
 	[IsWithinNVZ]  BIT NOT NULL,
-	[NVZProgrammeID] INT NULL,
+	[RegisteredOrganicProducer] BIT NOT NULL CONSTRAINT DF_MannerEstimations_RegisteredOrganicProducer DEFAULT 0,
 	[TopSoilID]   INT NOT NULL,
 	[SubSoilID]   INT NOT NULL,
 	[CropTypeID]   INT NOT  NULL,
