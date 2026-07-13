@@ -81,6 +81,8 @@
     <Folder Include="DBO\StoredProcedures\WarningMessages" />
     <Folder Include="DBO\StoredProcedures\PreviousCroppings" />
     <Folder Include="DBO\StoredProcedures\Warnings" />
+    <Folder Include="DBO\StoredProcedures\MannerEstimations" />
+    <Folder Include="DBO\StoredProcedures\MannerEstimationApplications" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="DBO\Tables\Farms.sql" />
@@ -208,6 +210,8 @@
     <Build Include="DBO\Tables\FarmAverageYields.sql" />
     <Build Include="DBO\StoredProcedures\Warnings\spWarning_GetAllManuresBase.sql" />
     <Build Include="DBO\StoredProcedures\Farms\spFarms_GetAllFarmsWithLastUpdatedDate.sql" />
+    <Build Include="DBO\StoredProcedures\MannerEstimations\spMannerEstimations_Delete.sql" />
+    <Build Include="DBO\StoredProcedures\MannerEstimationApplications\spMannerEstimationApplications_Delete.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Script.PostDeployment.sql">
