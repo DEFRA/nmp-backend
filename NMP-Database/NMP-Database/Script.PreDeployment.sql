@@ -13,7 +13,7 @@
  -- 01-04-2026
 IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'Warnings' AND TABLE_SCHEMA = 'dbo')
 BEGIN
-     TRUNCATE TABLE Warnings
+    TRUNCATE TABLE Warnings
 END
 
 -- 01-04-2026
@@ -35,5 +35,6 @@ BEGIN
         TRUNCATE TABLE ScotlandNMaxValues
     END
 END
+
 
 GO -- do not remove this GO
