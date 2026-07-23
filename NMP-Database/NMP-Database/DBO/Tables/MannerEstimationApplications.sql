@@ -28,6 +28,7 @@
     [TotalN]        INT  NOT NULL,
     [CropAvailableNCurrentCrop]        INT NOT NULL,
     [CropAvailableNitrogenFollowingCropYearTwo]   INT NOT NULL,
+    [NextGrassNitrogenCropCurrentYear]   INT NOT NULL DEFAULT 0,
     [TotalP2O5]        INT NOT NULL,
     [CropAvailableP2O5] INT NOT NULL,
     [TotalSO3]        INT NOT NULL,
