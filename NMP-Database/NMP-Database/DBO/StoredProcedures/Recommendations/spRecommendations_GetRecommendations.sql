@@ -1,4 +1,6 @@
-﻿CREATE PROCEDURE [dbo].[spRecommendations_GetRecommendations]
+﻿
+
+CREATE PROCEDURE [dbo].[spRecommendations_GetRecommendations]
     @fieldId INT,
     @harvestYear INT
 AS
@@ -99,6 +101,7 @@ BEGIN
 		[Recommendations].[PBalance] AS Recommendation_PBalance,
         [Recommendations].[KBalance] AS Recommendation_KBalance,
         [Recommendations].[LimeBalance] AS Recommendation_LimeBalance,
+		[Recommendations].[IsSacMethodology] AS Recommendation_IsSacMethodology,
         [Recommendations].[MgBalance] AS Recommendation_MgBalance,
         [Recommendations].[NaBalance] AS Recommendation_NaBalance,
         [Recommendations].[NBalance] AS Recommendation_NBalance,
