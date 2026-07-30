@@ -38,7 +38,7 @@
     [SBalance]              INT  NULL,
     [NaBalance]             INT  NULL,
     [LimeBalance]           INT  NULL,
-    [IsSacMethodology]      BIT  NULL DEFAULT 0,
+    [IsSacMethodology]      BIT  NOT NULL DEFAULT 0,
     [Comments]              NVARCHAR (MAX) NULL,
     [CreatedOn]             DATETIME2      NULL DEFAULT GETDATE(), 
     [CreatedByID]           INT            NULL, 
