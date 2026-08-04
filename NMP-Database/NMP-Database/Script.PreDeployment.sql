@@ -182,25 +182,7 @@ BEGIN TRY
 
 
     /*====================================================
-      Step 5: Validate FarmID
-    ====================================================*/
-
-    IF EXISTS
-    (
-        SELECT 1
-        FROM dbo.MannerEstimations
-        WHERE FarmID IS NULL
-    )
-    BEGIN
-
-        PRINT 'FarmID contains NULL values. Migration aborted.';
-
-    END;
-
-
-
-    /*====================================================
-      Step 6: Make FarmID NOT NULL
+      Step 5: Make FarmID NOT NULL
     ====================================================*/
 
     ALTER TABLE dbo.MannerEstimations
@@ -209,7 +191,7 @@ BEGIN TRY
 
 
     /*====================================================
-      Step 7: Create Farm Foreign Key
+      Step 6: Create Farm Foreign Key
     ====================================================*/
 
     IF NOT EXISTS
@@ -230,7 +212,7 @@ BEGIN TRY
 
 
     /*====================================================
-      Step 8: Drop Old Constraints
+      Step 7: Drop Old Constraints
     ====================================================*/
 IF EXISTS 
 (
@@ -287,7 +269,7 @@ END;
 
 
     /*====================================================
-      Step 9: Drop Old Farm Columns
+      Step 8: Drop Old Farm Columns
     ====================================================*/
 
     IF EXISTS
