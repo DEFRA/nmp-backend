@@ -78,12 +78,11 @@ BEGIN TRY
             CountryID INT NOT NULL,
             Postcode NVARCHAR(50) NULL,
             AverageAnuualRainfall INT NULL,
-            RegisteredOrganicProducer BIT NOT NULL,
-            [CreatedOn] DATETIME2 NULL CONSTRAINT DF_Fields_CreatedOn DEFAULT GETDATE(), 
+             RegisteredOrganicProducer BIT NOT NULL CONSTRAINT DF_MannerFarms_RegisteredOrganicProducer DEFAULT (0),
+            [CreatedOn] DATETIME2 NULL CONSTRAINT DF_MannerFarms_CreatedOn DEFAULT GETDATE(), 
             [CreatedByID] INT NULL,
 	        [ModifiedOn] DATETIME2 NULL,
-	        [ModifiedByID] INT NULL
-            CONSTRAINT DF_MannerFarms_RegisteredOrganicProducer DEFAULT (0),
+	        [ModifiedByID] INT NULL,
 
             CONSTRAINT FK_MannerFarms_Countries
             FOREIGN KEY (CountryID)
