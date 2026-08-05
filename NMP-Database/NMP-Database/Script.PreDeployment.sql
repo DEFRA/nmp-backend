@@ -78,8 +78,12 @@ BEGIN TRY
             CountryID INT NOT NULL,
             Postcode NVARCHAR(50) NULL,
             AverageAnuualRainfall INT NULL,
-            RegisteredOrganicProducer BIT NOT NULL
-                CONSTRAINT DF_MannerFarms_RegisteredOrganicProducer DEFAULT (0),
+            RegisteredOrganicProducer BIT NOT NULL,
+            [CreatedOn] DATETIME2 NULL CONSTRAINT DF_Fields_CreatedOn DEFAULT GETDATE(), 
+            [CreatedByID] INT NULL,
+	        [ModifiedOn] DATETIME2 NULL,
+	        [ModifiedByID] INT NULL
+            CONSTRAINT DF_MannerFarms_RegisteredOrganicProducer DEFAULT (0),
 
             CONSTRAINT FK_MannerFarms_Countries
             FOREIGN KEY (CountryID)
@@ -90,7 +94,9 @@ BEGIN TRY
             REFERENCES dbo.Organisations(ID),
 
             CONSTRAINT UQ_MannerFarms_Name_OrganisationID
-            UNIQUE ([Name], [OrganisationID])
+            UNIQUE ([Name], [OrganisationID]),
+            CONSTRAINT [FK_MannerFarms_Users_CreatedBy] FOREIGN KEY ([CreatedByID]) REFERENCES [Users]([ID]),
+            CONSTRAINT [FK_MannerFarms_Users_ModifiedBy] FOREIGN KEY ([ModifiedByID]) REFERENCES [Users]([ID])
         );
 
     END;
@@ -118,6 +124,8 @@ BEGIN TRY
                 Postcode,
                 AverageAnuualRainfall,
                 RegisteredOrganicProducer,
+                CreatedOn,
+                CreatedByID,
                 ROW_NUMBER() OVER
                 (
                     PARTITION BY OrganisationID, FarmName
@@ -132,7 +140,9 @@ BEGIN TRY
             CountryID,
             Postcode,
             AverageAnuualRainfall,
-            RegisteredOrganicProducer
+            RegisteredOrganicProducer,
+            CreatedOn,
+            CreatedByID
         )
         SELECT
             OrganisationID,
@@ -140,7 +150,9 @@ BEGIN TRY
             CountryID,
             Postcode,
             AverageAnuualRainfall,
-            RegisteredOrganicProducer
+            RegisteredOrganicProducer,
+            CreatedOn,
+            CreatedByID
         FROM FarmCTE
         WHERE RowNum = 1;
 
