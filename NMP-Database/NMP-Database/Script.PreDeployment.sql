@@ -162,13 +162,13 @@ BEGIN TRY
     /*====================================================
       Step 3: Add FarmID Column
     ====================================================*/
-
+    DECLARE @MannerEstimationsTableName SYSNAME = 'dbo.MannerEstimations';
     IF NOT EXISTS
     (
         SELECT 1
         FROM sys.columns
         WHERE name = 'FarmID'
-          AND object_id = OBJECT_ID('dbo.MannerEstimations')
+          AND object_id = OBJECT_ID(@MannerEstimationsTableName)
     )
     BEGIN
 
@@ -229,7 +229,7 @@ IF EXISTS
 (
     SELECT 1 
     FROM sys.columns 
-    WHERE object_id = OBJECT_ID('dbo.MannerEstimations') 
+    WHERE object_id = OBJECT_ID(@MannerEstimationsTableName) 
     AND name = 'RegisteredOrganicProducer'
 )
 BEGIN 
@@ -287,7 +287,7 @@ END;
     (
         SELECT 1
         FROM sys.columns
-        WHERE object_id = OBJECT_ID('dbo.MannerEstimations')
+        WHERE object_id = OBJECT_ID(@MannerEstimationsTableName)
           AND name = 'FarmName'
     )
     BEGIN
