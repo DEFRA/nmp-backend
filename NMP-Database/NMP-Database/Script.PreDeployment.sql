@@ -48,6 +48,9 @@ BEGIN
 END
 
 --04-08-2026
+/*====================================================*
+    Migration: Separate Farm Details into MannerFarms
+*====================================================*/
 
 BEGIN TRY
 
@@ -55,7 +58,7 @@ BEGIN TRY
 
 
     /*====================================================
-      Table Name Constants
+      Constants
     ====================================================*/
 
     DECLARE @MannerFarmsTableName SYSNAME =
@@ -63,6 +66,33 @@ BEGIN TRY
 
     DECLARE @MannerEstimationsTableName SYSNAME =
         N'dbo.MannerEstimations';
+
+    DECLARE @CRLF NVARCHAR(2) =
+        CHAR(13) + CHAR(10);
+
+    DECLARE @MEAlterTable NVARCHAR(100) =
+        N'ALTER TABLE dbo.MannerEstimations ';
+
+    DECLARE @MEAlterTableLine NVARCHAR(100) =
+        N'ALTER TABLE dbo.MannerEstimations';
+
+    DECLARE @OrganisationIDColumn NVARCHAR(100) =
+        N'    OrganisationID,' + @CRLF;
+
+    DECLARE @FarmNameColumn NVARCHAR(100) =
+        N'    FarmName,' + @CRLF;
+
+    DECLARE @CountryIDColumn NVARCHAR(100) =
+        N'    CountryID,' + @CRLF;
+
+    DECLARE @PostcodeColumn NVARCHAR(100) =
+        N'    Postcode,' + @CRLF;
+
+    DECLARE @AverageAnuualRainfallColumn NVARCHAR(100) =
+        N'    AverageAnuualRainfall,' + @CRLF;
+
+    DECLARE @RegisteredOrganicProducerColumn NVARCHAR(100) =
+        N'    RegisteredOrganicProducer;';
 
 
     /*====================================================
@@ -72,7 +102,7 @@ BEGIN TRY
       - Do NOTHING
       - Do not modify MannerEstimations
       - Do not add MannerFarmID
-      - Do not drop any columns
+      - Do not drop old columns
     ====================================================*/
 
     IF OBJECT_ID(@MannerFarmsTableName, 'U') IS NOT NULL
@@ -86,77 +116,62 @@ BEGIN TRY
     BEGIN
 
         PRINT 'MannerFarms table does not exist.';
-        PRINT 'Starting MannerFarms migration...';
+        PRINT 'Starting MannerFarms migration.';
 
 
         /*====================================================
-          Dynamic SQL
-
-          Old MannerEstimations columns are inside dynamic SQL
-          so SQL Server does not compile them when migration
-          is not required.
-
-          CHAR(13) + CHAR(10) is used instead of multiline
-          string literals to avoid Sonar code point 10 error.
+          Dynamic SQL variable
         ====================================================*/
 
         DECLARE @SQL NVARCHAR(MAX);
 
 
-        SET @SQL =
-              N'CREATE TABLE dbo.MannerFarms (' + CHAR(13) + CHAR(10)
-
-            + N'    ID INT IDENTITY(1,1) PRIMARY KEY,' + CHAR(13) + CHAR(10)
-
-            + N'    OrganisationID UNIQUEIDENTIFIER NOT NULL,' + CHAR(13) + CHAR(10)
-
-            + N'    [Name] NVARCHAR(250) NOT NULL,' + CHAR(13) + CHAR(10)
-
-            + N'    CountryID INT NOT NULL,' + CHAR(13) + CHAR(10)
-
-            + N'    Postcode NVARCHAR(50) NULL,' + CHAR(13) + CHAR(10)
-
-            + N'    AverageAnuualRainfall INT NULL,' + CHAR(13) + CHAR(10)
-
-            + N'    RegisteredOrganicProducer BIT NOT NULL' + CHAR(13) + CHAR(10)
-            + N'        CONSTRAINT DF_MannerFarms_RegisteredOrganicProducer' + CHAR(13) + CHAR(10)
-            + N'        DEFAULT (0),' + CHAR(13) + CHAR(10)
-
-            + N'    [CreatedOn] DATETIME2 NULL' + CHAR(13) + CHAR(10)
-            + N'        CONSTRAINT DF_MannerFarms_CreatedOn' + CHAR(13) + CHAR(10)
-            + N'        DEFAULT GETDATE(),' + CHAR(13) + CHAR(10)
-
-            + N'    [CreatedByID] INT NULL,' + CHAR(13) + CHAR(10)
-
-            + N'    [ModifiedOn] DATETIME2 NULL,' + CHAR(13) + CHAR(10)
-
-            + N'    [ModifiedByID] INT NULL,' + CHAR(13) + CHAR(10)
-
-            + N'    CONSTRAINT FK_MannerFarms_Countries' + CHAR(13) + CHAR(10)
-            + N'        FOREIGN KEY (CountryID)' + CHAR(13) + CHAR(10)
-            + N'        REFERENCES dbo.Countries(ID),' + CHAR(13) + CHAR(10)
-
-            + N'    CONSTRAINT FK_MannerFarms_Organisations' + CHAR(13) + CHAR(10)
-            + N'        FOREIGN KEY (OrganisationID)' + CHAR(13) + CHAR(10)
-            + N'        REFERENCES dbo.Organisations(ID),' + CHAR(13) + CHAR(10)
-
-            + N'    CONSTRAINT UQ_MannerFarms_Name_OrganisationID' + CHAR(13) + CHAR(10)
-            + N'        UNIQUE ([Name], [OrganisationID]),' + CHAR(13) + CHAR(10)
-
-            + N'    CONSTRAINT FK_MannerFarms_Users_CreatedBy' + CHAR(13) + CHAR(10)
-            + N'        FOREIGN KEY ([CreatedByID])' + CHAR(13) + CHAR(10)
-            + N'        REFERENCES dbo.Users([ID]),' + CHAR(13) + CHAR(10)
-
-            + N'    CONSTRAINT FK_MannerFarms_Users_ModifiedBy' + CHAR(13) + CHAR(10)
-            + N'        FOREIGN KEY ([ModifiedByID])' + CHAR(13) + CHAR(10)
-            + N'        REFERENCES dbo.Users([ID])' + CHAR(13) + CHAR(10)
-
-            + N');';
-
-
         /*====================================================
           Step 1: Create MannerFarms
         ====================================================*/
+
+        SET @SQL =
+              N'CREATE TABLE dbo.MannerFarms (' + @CRLF
+            + N'    ID INT IDENTITY(1,1) PRIMARY KEY,' + @CRLF
+            + N'    OrganisationID UNIQUEIDENTIFIER NOT NULL,' + @CRLF
+            + N'    [Name] NVARCHAR(250) NOT NULL,' + @CRLF
+            + N'    CountryID INT NOT NULL,' + @CRLF
+            + N'    Postcode NVARCHAR(50) NULL,' + @CRLF
+            + N'    AverageAnuualRainfall INT NULL,' + @CRLF
+
+            + N'    RegisteredOrganicProducer BIT NOT NULL' + @CRLF
+            + N'        CONSTRAINT DF_MannerFarms_RegisteredOrganicProducer' + @CRLF
+            + N'        DEFAULT (0),' + @CRLF
+
+            + N'    [CreatedOn] DATETIME2 NULL' + @CRLF
+            + N'        CONSTRAINT DF_MannerFarms_CreatedOn' + @CRLF
+            + N'        DEFAULT GETDATE(),' + @CRLF
+
+            + N'    [CreatedByID] INT NULL,' + @CRLF
+            + N'    [ModifiedOn] DATETIME2 NULL,' + @CRLF
+            + N'    [ModifiedByID] INT NULL,' + @CRLF
+
+            + N'    CONSTRAINT FK_MannerFarms_Countries' + @CRLF
+            + N'        FOREIGN KEY (CountryID)' + @CRLF
+            + N'        REFERENCES dbo.Countries(ID),' + @CRLF
+
+            + N'    CONSTRAINT FK_MannerFarms_Organisations' + @CRLF
+            + N'        FOREIGN KEY (OrganisationID)' + @CRLF
+            + N'        REFERENCES dbo.Organisations(ID),' + @CRLF
+
+            + N'    CONSTRAINT UQ_MannerFarms_Name_OrganisationID' + @CRLF
+            + N'        UNIQUE ([Name], [OrganisationID]),' + @CRLF
+
+            + N'    CONSTRAINT FK_MannerFarms_Users_CreatedBy' + @CRLF
+            + N'        FOREIGN KEY ([CreatedByID])' + @CRLF
+            + N'        REFERENCES dbo.Users([ID]),' + @CRLF
+
+            + N'    CONSTRAINT FK_MannerFarms_Users_ModifiedBy' + @CRLF
+            + N'        FOREIGN KEY ([ModifiedByID])' + @CRLF
+            + N'        REFERENCES dbo.Users([ID])' + @CRLF
+
+            + N');';
+
 
         EXEC sys.sp_executesql @SQL;
 
@@ -166,50 +181,49 @@ BEGIN TRY
         ====================================================*/
 
         SET @SQL =
-              N';WITH FarmCTE AS (' + CHAR(13) + CHAR(10)
+              N';WITH FarmCTE AS (' + @CRLF
 
-            + N'    SELECT' + CHAR(13) + CHAR(10)
-            + N'        OrganisationID,' + CHAR(13) + CHAR(10)
-            + N'        FarmName,' + CHAR(13) + CHAR(10)
-            + N'        CountryID,' + CHAR(13) + CHAR(10)
-            + N'        Postcode,' + CHAR(13) + CHAR(10)
-            + N'        AverageAnuualRainfall,' + CHAR(13) + CHAR(10)
-            + N'        RegisteredOrganicProducer,' + CHAR(13) + CHAR(10)
-            + N'        CreatedOn,' + CHAR(13) + CHAR(10)
-            + N'        CreatedByID,' + CHAR(13) + CHAR(10)
+            + N'    SELECT' + @CRLF
+            + @OrganisationIDColumn
+            + N'    FarmName,' + @CRLF
+            + @CountryIDColumn
+            + @PostcodeColumn
+            + @AverageAnuualRainfallColumn
+            + N'    RegisteredOrganicProducer,' + @CRLF
+            + N'    CreatedOn,' + @CRLF
+            + N'    CreatedByID,' + @CRLF
 
-            + N'        ROW_NUMBER() OVER (' + CHAR(13) + CHAR(10)
-            + N'            PARTITION BY OrganisationID, FarmName' + CHAR(13) + CHAR(10)
-            + N'            ORDER BY ID' + CHAR(13) + CHAR(10)
-            + N'        ) AS RowNum' + CHAR(13) + CHAR(10)
+            + N'    ROW_NUMBER() OVER (' + @CRLF
+            + N'        PARTITION BY OrganisationID, FarmName' + @CRLF
+            + N'        ORDER BY ID' + @CRLF
+            + N'    ) AS RowNum' + @CRLF
 
-            + N'    FROM dbo.MannerEstimations' + CHAR(13) + CHAR(10)
+            + N'    FROM dbo.MannerEstimations' + @CRLF
+            + N')' + @CRLF
 
-            + N')' + CHAR(13) + CHAR(10)
+            + N'INSERT INTO dbo.MannerFarms' + @CRLF
+            + N'(' + @CRLF
+            + N'    OrganisationID,' + @CRLF
+            + N'    [Name],' + @CRLF
+            + N'    CountryID,' + @CRLF
+            + N'    Postcode,' + @CRLF
+            + N'    AverageAnuualRainfall,' + @CRLF
+            + N'    RegisteredOrganicProducer,' + @CRLF
+            + N'    CreatedOn,' + @CRLF
+            + N'    CreatedByID' + @CRLF
+            + N')' + @CRLF
 
-            + N'INSERT INTO dbo.MannerFarms' + CHAR(13) + CHAR(10)
-            + N'(' + CHAR(13) + CHAR(10)
-            + N'    OrganisationID,' + CHAR(13) + CHAR(10)
-            + N'    [Name],' + CHAR(13) + CHAR(10)
-            + N'    CountryID,' + CHAR(13) + CHAR(10)
-            + N'    Postcode,' + CHAR(13) + CHAR(10)
-            + N'    AverageAnuualRainfall,' + CHAR(13) + CHAR(10)
-            + N'    RegisteredOrganicProducer,' + CHAR(13) + CHAR(10)
-            + N'    CreatedOn,' + CHAR(13) + CHAR(10)
-            + N'    CreatedByID' + CHAR(13) + CHAR(10)
-            + N')' + CHAR(13) + CHAR(10)
+            + N'SELECT' + @CRLF
+            + @OrganisationIDColumn
+            + N'    FarmName,' + @CRLF
+            + @CountryIDColumn
+            + @PostcodeColumn
+            + @AverageAnuualRainfallColumn
+            + N'    RegisteredOrganicProducer,' + @CRLF
+            + N'    CreatedOn,' + @CRLF
+            + N'    CreatedByID' + @CRLF
 
-            + N'SELECT' + CHAR(13) + CHAR(10)
-            + N'    OrganisationID,' + CHAR(13) + CHAR(10)
-            + N'    FarmName,' + CHAR(13) + CHAR(10)
-            + N'    CountryID,' + CHAR(13) + CHAR(10)
-            + N'    Postcode,' + CHAR(13) + CHAR(10)
-            + N'    AverageAnuualRainfall,' + CHAR(13) + CHAR(10)
-            + N'    RegisteredOrganicProducer,' + CHAR(13) + CHAR(10)
-            + N'    CreatedOn,' + CHAR(13) + CHAR(10)
-            + N'    CreatedByID' + CHAR(13) + CHAR(10)
-
-            + N'FROM FarmCTE' + CHAR(13) + CHAR(10)
+            + N'FROM FarmCTE' + @CRLF
             + N'WHERE RowNum = 1;';
 
 
@@ -221,7 +235,7 @@ BEGIN TRY
         ====================================================*/
 
         SET @SQL =
-            N'ALTER TABLE dbo.MannerEstimations ' +
+            @MEAlterTable +
             N'ADD MannerFarmID INT NULL;';
 
         EXEC sys.sp_executesql @SQL;
@@ -232,13 +246,11 @@ BEGIN TRY
         ====================================================*/
 
         SET @SQL =
-              N'UPDATE ME' + CHAR(13) + CHAR(10)
-            + N'SET MannerFarmID = MF.ID' + CHAR(13) + CHAR(10)
-
-            + N'FROM dbo.MannerEstimations AS ME' + CHAR(13) + CHAR(10)
-
-            + N'INNER JOIN dbo.MannerFarms AS MF' + CHAR(13) + CHAR(10)
-            + N'    ON MF.OrganisationID = ME.OrganisationID' + CHAR(13) + CHAR(10)
+              N'UPDATE ME' + @CRLF
+            + N'SET MannerFarmID = MF.ID' + @CRLF
+            + N'FROM dbo.MannerEstimations AS ME' + @CRLF
+            + N'INNER JOIN dbo.MannerFarms AS MF' + @CRLF
+            + N'    ON MF.OrganisationID = ME.OrganisationID' + @CRLF
             + N'   AND MF.[Name] = ME.FarmName;';
 
 
@@ -253,8 +265,8 @@ BEGIN TRY
 
 
         SET @SQL =
-              N'SELECT @Count = COUNT(*)' + CHAR(13) + CHAR(10)
-            + N'FROM dbo.MannerEstimations' + CHAR(13) + CHAR(10)
+              N'SELECT @Count = COUNT(*)' + @CRLF
+            + N'FROM dbo.MannerEstimations' + @CRLF
             + N'WHERE MannerFarmID IS NULL;';
 
 
@@ -268,6 +280,7 @@ BEGIN TRY
         BEGIN
 
             PRINT 'Migration failed.';
+
             PRINT 'Unmapped records: '
                 + CAST(@UnmappedCount AS VARCHAR(20));
 
@@ -283,7 +296,7 @@ BEGIN TRY
         ====================================================*/
 
         SET @SQL =
-            N'ALTER TABLE dbo.MannerEstimations ' +
+            @MEAlterTable +
             N'ALTER COLUMN MannerFarmID INT NOT NULL;';
 
         EXEC sys.sp_executesql @SQL;
@@ -294,9 +307,9 @@ BEGIN TRY
         ====================================================*/
 
         SET @SQL =
-              N'ALTER TABLE dbo.MannerEstimations' + CHAR(13) + CHAR(10)
-            + N'ADD CONSTRAINT FK_MannerEstimations_MannerFarms' + CHAR(13) + CHAR(10)
-            + N'    FOREIGN KEY (MannerFarmID)' + CHAR(13) + CHAR(10)
+              @MEAlterTableLine + @CRLF
+            + N'ADD CONSTRAINT FK_MannerEstimations_MannerFarms' + @CRLF
+            + N'    FOREIGN KEY (MannerFarmID)' + @CRLF
             + N'    REFERENCES dbo.MannerFarms(ID);';
 
 
@@ -308,8 +321,8 @@ BEGIN TRY
         ====================================================*/
 
         SET @SQL =
-              N'ALTER TABLE dbo.MannerEstimations' + CHAR(13) + CHAR(10)
-            + N'ADD CONSTRAINT UQ_MannerEstimations_Name_MannerFarmID' + CHAR(13) + CHAR(10)
+              @MEAlterTableLine + @CRLF
+            + N'ADD CONSTRAINT UQ_MannerEstimations_Name_MannerFarmID' + @CRLF
             + N'    UNIQUE ([Name], MannerFarmID);';
 
 
@@ -332,7 +345,7 @@ BEGIN TRY
         BEGIN
 
             SET @SQL =
-                N'ALTER TABLE dbo.MannerEstimations ' +
+                @MEAlterTable +
                 N'DROP CONSTRAINT DF_MannerEstimations_RegisteredOrganicProducer;';
 
             EXEC sys.sp_executesql @SQL;
@@ -356,7 +369,7 @@ BEGIN TRY
         BEGIN
 
             SET @SQL =
-                N'ALTER TABLE dbo.MannerEstimations ' +
+                @MEAlterTable +
                 N'DROP CONSTRAINT FK_MannerEstimations_Countries;';
 
             EXEC sys.sp_executesql @SQL;
@@ -380,7 +393,7 @@ BEGIN TRY
         BEGIN
 
             SET @SQL =
-                N'ALTER TABLE dbo.MannerEstimations ' +
+                @MEAlterTable +
                 N'DROP CONSTRAINT FK_MannerEstimations_Organisations;';
 
             EXEC sys.sp_executesql @SQL;
@@ -404,7 +417,7 @@ BEGIN TRY
         BEGIN
 
             SET @SQL =
-                N'ALTER TABLE dbo.MannerEstimations ' +
+                @MEAlterTable +
                 N'DROP CONSTRAINT UQ_MannerEstimations_Name_OrganisationID;';
 
             EXEC sys.sp_executesql @SQL;
@@ -417,14 +430,14 @@ BEGIN TRY
         ====================================================*/
 
         SET @SQL =
-              N'ALTER TABLE dbo.MannerEstimations' + CHAR(13) + CHAR(10)
-            + N'DROP COLUMN' + CHAR(13) + CHAR(10)
-            + N'    OrganisationID,' + CHAR(13) + CHAR(10)
-            + N'    FarmName,' + CHAR(13) + CHAR(10)
-            + N'    CountryID,' + CHAR(13) + CHAR(10)
-            + N'    Postcode,' + CHAR(13) + CHAR(10)
-            + N'    AverageAnuualRainfall,' + CHAR(13) + CHAR(10)
-            + N'    RegisteredOrganicProducer;';
+              @MEAlterTableLine + @CRLF
+            + N'DROP COLUMN' + @CRLF
+            + @OrganisationIDColumn
+            + @FarmNameColumn
+            + @CountryIDColumn
+            + @PostcodeColumn
+            + @AverageAnuualRainfallColumn
+            + @RegisteredOrganicProducerColumn;
 
 
         EXEC sys.sp_executesql @SQL;
@@ -454,7 +467,6 @@ BEGIN CATCH
         ROLLBACK TRANSACTION;
     END;
 
-
     PRINT 'Migration failed.';
     PRINT ERROR_MESSAGE();
 
@@ -463,13 +475,12 @@ END CATCH;
 GO
 
 
-GO
-
-
 /*====================================================*
   VERIFICATION
   FarmID -> MannerFarmID
 *====================================================*/
+
+--10-08-2026
 
 DECLARE @MannerEstimationsTableName SYSNAME =
     N'dbo.MannerEstimations';
