@@ -350,10 +350,13 @@ BEGIN TRANSACTION;
 BEGIN TRY
 
     -- Column rename
+  IF COL_LENGTH('dbo.MannerEstimations', 'FarmId') IS NOT NULL
+BEGIN
     EXEC sp_rename
-        'dbo.MannerEstimations.FarmID',
-        'MannerFarmID',
+        'dbo.MannerEstimations.FarmId',
+        'MannerFarmId',
         'COLUMN';
+END
 
  IF EXISTS
 (
