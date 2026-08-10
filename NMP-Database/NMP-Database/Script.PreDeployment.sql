@@ -361,7 +361,7 @@ ELSE IF NOT EXISTS
 (
     SELECT 1
     FROM sys.key_constraints
-    WHERE name = 'UQ_MannerEstimations_Name_FarmID'
+    WHERE name = 'UQ_MannerEstimations_Name_MannerFarmID'
       AND parent_object_id = OBJECT_ID('dbo.MannerEstimations')
 )
 BEGIN
