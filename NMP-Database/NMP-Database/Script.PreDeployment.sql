@@ -52,9 +52,18 @@ END
     Migration: Separate Farm Details into MannerFarms Table
 ========================================================*/
 
+/*====================================================
+  MAIN MIGRATION
+====================================================*/
+
 BEGIN TRY
 
     BEGIN TRANSACTION;
+
+
+    /*====================================================
+      Step 1: Check MannerFarms Table
+    ====================================================*/
 
     IF NOT EXISTS
     (
@@ -66,7 +75,7 @@ BEGIN TRY
     BEGIN
 
         /*====================================================
-          Step 1: Create MannerFarms Table
+          Step 2: Create MannerFarms Table
         ====================================================*/
 
         CREATE TABLE dbo.MannerFarms
@@ -107,19 +116,54 @@ BEGIN TRY
 
 
         /*====================================================
-          Steps 2 - 9
-          Execute dynamically because these steps use
-          old MannerEstimations columns.
+          Steps 3 - 9
+          Dynamic SQL because these steps use OLD
+          MannerEstimations columns.
         ====================================================*/
 
         EXEC(N'
 
         /*====================================================
-          Step 2: Copy Unique Farm Data
+          Step 3: Copy Unique Farm Data
+          Unique based on OrganisationID + FarmName
         ====================================================*/
 
-        ;WITH FarmCTE AS
+        IF NOT EXISTS
         (
+            SELECT 1
+            FROM dbo.MannerFarms
+        )
+        BEGIN
+
+            ;WITH FarmCTE AS
+            (
+                SELECT
+                    OrganisationID,
+                    FarmName,
+                    CountryID,
+                    Postcode,
+                    AverageAnuualRainfall,
+                    RegisteredOrganicProducer,
+                    CreatedOn,
+                    CreatedByID,
+                    ROW_NUMBER() OVER
+                    (
+                        PARTITION BY OrganisationID, FarmName
+                        ORDER BY ID
+                    ) AS RowNum
+                FROM dbo.MannerEstimations
+            )
+            INSERT INTO dbo.MannerFarms
+            (
+                OrganisationID,
+                [Name],
+                CountryID,
+                Postcode,
+                AverageAnuualRainfall,
+                RegisteredOrganicProducer,
+                CreatedOn,
+                CreatedByID
+            )
             SELECT
                 OrganisationID,
                 FarmName,
@@ -128,61 +172,38 @@ BEGIN TRY
                 AverageAnuualRainfall,
                 RegisteredOrganicProducer,
                 CreatedOn,
-                CreatedByID,
-                ROW_NUMBER() OVER
-                (
-                    PARTITION BY OrganisationID, FarmName
-                    ORDER BY ID
-                ) AS RowNum
-            FROM dbo.MannerEstimations
-        )
-        INSERT INTO dbo.MannerFarms
-        (
-            OrganisationID,
-            [Name],
-            CountryID,
-            Postcode,
-            AverageAnuualRainfall,
-            RegisteredOrganicProducer,
-            CreatedOn,
-            CreatedByID
-        )
-        SELECT
-            OrganisationID,
-            FarmName,
-            CountryID,
-            Postcode,
-            AverageAnuualRainfall,
-            RegisteredOrganicProducer,
-            CreatedOn,
-            CreatedByID
-        FROM FarmCTE
-        WHERE RowNum = 1;
+                CreatedByID
+            FROM FarmCTE
+            WHERE RowNum = 1;
+
+        END;
 
 
         /*====================================================
-          Step 3: Add MannerFarmID
+          Step 4: Add FarmID Column
         ====================================================*/
 
         IF NOT EXISTS
         (
             SELECT 1
             FROM sys.columns
-            WHERE name = ''MannerFarmID''
+            WHERE name = ''FarmID''
               AND object_id = OBJECT_ID(''dbo.MannerEstimations'')
         )
         BEGIN
+
             ALTER TABLE dbo.MannerEstimations
-            ADD MannerFarmID INT NULL;
+            ADD FarmID INT NULL;
+
         END;
 
 
         /*====================================================
-          Step 4: Update MannerFarmID
+          Step 5: Update FarmID
         ====================================================*/
 
         UPDATE ME
-        SET MannerFarmID = MF.ID
+        SET FarmID = MF.ID
         FROM dbo.MannerEstimations ME
         INNER JOIN dbo.MannerFarms MF
             ON MF.OrganisationID = ME.OrganisationID
@@ -190,15 +211,15 @@ BEGIN TRY
 
 
         /*====================================================
-          Step 5: Make MannerFarmID NOT NULL
+          Step 6: Make FarmID NOT NULL
         ====================================================*/
 
         ALTER TABLE dbo.MannerEstimations
-        ALTER COLUMN MannerFarmID INT NOT NULL;
+        ALTER COLUMN FarmID INT NOT NULL;
 
 
         /*====================================================
-          Step 6: Foreign Key
+          Step 7: Create Farm Foreign Key
         ====================================================*/
 
         IF NOT EXISTS
@@ -206,31 +227,16 @@ BEGIN TRY
             SELECT 1
             FROM sys.foreign_keys
             WHERE name = ''FK_MannerEstimations_MannerFarms''
-        )
-        BEGIN
-            ALTER TABLE dbo.MannerEstimations
-            ADD CONSTRAINT FK_MannerEstimations_MannerFarms
-            FOREIGN KEY (MannerFarmID)
-            REFERENCES dbo.MannerFarms(ID);
-        END;
-
-
-        /*====================================================
-          Step 7: Unique Constraint
-        ====================================================*/
-
-        IF NOT EXISTS
-        (
-            SELECT 1
-            FROM sys.key_constraints
-            WHERE name = ''UQ_MannerEstimations_Name_MannerFarmID''
               AND parent_object_id =
                   OBJECT_ID(''dbo.MannerEstimations'')
         )
         BEGIN
+
             ALTER TABLE dbo.MannerEstimations
-            ADD CONSTRAINT UQ_MannerEstimations_Name_MannerFarmID
-            UNIQUE ([Name], [MannerFarmID]);
+            ADD CONSTRAINT FK_MannerEstimations_MannerFarms
+            FOREIGN KEY (FarmID)
+            REFERENCES dbo.MannerFarms(ID);
+
         END;
 
 
@@ -246,9 +252,11 @@ BEGIN TRY
                 ''DF_MannerEstimations_RegisteredOrganicProducer''
         )
         BEGIN
+
             ALTER TABLE dbo.MannerEstimations
             DROP CONSTRAINT
                 DF_MannerEstimations_RegisteredOrganicProducer;
+
         END;
 
 
@@ -257,10 +265,14 @@ BEGIN TRY
             SELECT 1
             FROM sys.foreign_keys
             WHERE name = ''FK_MannerEstimations_Countries''
+              AND parent_object_id =
+                  OBJECT_ID(''dbo.MannerEstimations'')
         )
         BEGIN
+
             ALTER TABLE dbo.MannerEstimations
             DROP CONSTRAINT FK_MannerEstimations_Countries;
+
         END;
 
 
@@ -269,10 +281,14 @@ BEGIN TRY
             SELECT 1
             FROM sys.foreign_keys
             WHERE name = ''FK_MannerEstimations_Organisations''
+              AND parent_object_id =
+                  OBJECT_ID(''dbo.MannerEstimations'')
         )
         BEGIN
+
             ALTER TABLE dbo.MannerEstimations
             DROP CONSTRAINT FK_MannerEstimations_Organisations;
+
         END;
 
 
@@ -281,16 +297,20 @@ BEGIN TRY
             SELECT 1
             FROM sys.key_constraints
             WHERE name = ''UQ_MannerEstimations_Name_OrganisationID''
+              AND parent_object_id =
+                  OBJECT_ID(''dbo.MannerEstimations'')
         )
         BEGIN
+
             ALTER TABLE dbo.MannerEstimations
             DROP CONSTRAINT
                 UQ_MannerEstimations_Name_OrganisationID;
+
         END;
 
 
         /*====================================================
-          Step 9: Drop Old Columns
+          Step 9: Drop Old Farm Columns
         ====================================================*/
 
         IF EXISTS
@@ -302,6 +322,7 @@ BEGIN TRY
               AND name = ''FarmName''
         )
         BEGIN
+
             ALTER TABLE dbo.MannerEstimations
             DROP COLUMN
                 OrganisationID,
@@ -310,6 +331,7 @@ BEGIN TRY
                 Postcode,
                 AverageAnuualRainfall,
                 RegisteredOrganicProducer;
+
         END;
 
         ');
@@ -333,68 +355,113 @@ BEGIN CATCH
     IF @@TRANCOUNT > 0
         ROLLBACK TRANSACTION;
 
+    PRINT ERROR_MESSAGE();
+
+    THROW;
+
+END CATCH;
+
+
+/*====================================================
+  VERIFICATION / FINAL COLUMN RENAME
+====================================================*/
+
+BEGIN TRY
+
+    BEGIN TRANSACTION;
+
+
+    /*====================================================
+      Step 10: Rename FarmID -> MannerFarmID
+    ====================================================*/
+
+    IF COL_LENGTH('dbo.MannerEstimations', 'FarmID') IS NOT NULL
+       AND COL_LENGTH('dbo.MannerEstimations', 'MannerFarmID') IS NULL
+    BEGIN
+
+        EXEC sp_rename
+            'dbo.MannerEstimations.FarmID',
+            'MannerFarmID',
+            'COLUMN';
+
+        PRINT 'FarmID renamed to MannerFarmID.';
+
+    END
+    ELSE
+    BEGIN
+
+        PRINT 'FarmID rename skipped.';
+
+    END;
+
+
+    /*====================================================
+      Step 11: Rename / Create Unique Constraint
+    ====================================================*/
+
+    IF EXISTS
+    (
+        SELECT 1
+        FROM sys.key_constraints
+        WHERE name = 'UQ_MannerEstimations_Name_FarmID'
+          AND parent_object_id =
+              OBJECT_ID('dbo.MannerEstimations')
+    )
+    BEGIN
+
+        EXEC sp_rename
+            'dbo.MannerEstimations.UQ_MannerEstimations_Name_FarmID',
+            'UQ_MannerEstimations_Name_MannerFarmID',
+            'OBJECT';
+
+        PRINT 'Unique constraint renamed.';
+
+    END
+    ELSE IF NOT EXISTS
+    (
+        SELECT 1
+        FROM sys.key_constraints
+        WHERE name = 'UQ_MannerEstimations_Name_MannerFarmID'
+          AND parent_object_id =
+              OBJECT_ID('dbo.MannerEstimations')
+    )
+    BEGIN
+
+        ALTER TABLE dbo.MannerEstimations
+        ADD CONSTRAINT UQ_MannerEstimations_Name_MannerFarmID
+        UNIQUE
+        (
+            [Name],
+            [MannerFarmID]
+        );
+
+        PRINT 'New unique constraint created.';
+
+    END
+    ELSE
+    BEGIN
+
+        PRINT 'Unique constraint already exists.';
+
+    END;
+
+
+    COMMIT TRANSACTION;
+
+    PRINT 'Verification completed successfully.';
+
+END TRY
+BEGIN CATCH
+
+    IF @@TRANCOUNT > 0
+        ROLLBACK TRANSACTION;
+
+    PRINT ERROR_MESSAGE();
+
     THROW;
 
 END CATCH;
 
 GO
-
-
-/*====================================================
-  Verification
-====================================================*/
-
-
---10-08-2026
-BEGIN TRANSACTION;
-
-BEGIN TRY
-
-    -- Column rename
-  IF COL_LENGTH('dbo.MannerEstimations', 'FarmId') IS NOT NULL
-BEGIN
-    EXEC sp_rename
-        'dbo.MannerEstimations.FarmId',
-        'MannerFarmID',
-        'COLUMN';
-END
-
- IF EXISTS
-(
-    SELECT 1
-    FROM sys.key_constraints
-    WHERE name = 'UQ_MannerEstimations_Name_FarmID'
-      AND parent_object_id = OBJECT_ID('dbo.MannerEstimations')
-)
-BEGIN
-    -- Old constraint exists -> rename it
-    EXEC sp_rename
-        'dbo.MannerEstimations.UQ_MannerEstimations_Name_FarmID',
-        'UQ_MannerEstimations_Name_MannerFarmID',
-        'OBJECT';
-END
-ELSE IF NOT EXISTS
-(
-    SELECT 1
-    FROM sys.key_constraints
-    WHERE name = 'UQ_MannerEstimations_Name_MannerFarmID'
-      AND parent_object_id = OBJECT_ID('dbo.MannerEstimations')
-)
-BEGIN
-    -- Neither old nor new constraint exists -> add new constraint
-    ALTER TABLE [dbo].[MannerEstimations]
-    ADD CONSTRAINT [UQ_MannerEstimations_Name_MannerFarmID]
-        UNIQUE ([Name], [MannerFarmID]);
-END
-
-    COMMIT TRANSACTION;
-
-END TRY
-BEGIN CATCH
-
-    ROLLBACK TRANSACTION;
-    THROW;
-
-END CATCH;
 
 GO -- do not remove this GO
