@@ -1,7 +1,7 @@
 ﻿CREATE TABLE [dbo].[MannerEstimations]
 (
 	[ID] INT NOT NULL IDENTITY(1,1),
-	[FarmID]   INT NOT NULL,
+	[MannerFarmID]   INT NOT NULL,
 	[Name] NVARCHAR(250) NOT NULL,	
 	[FieldName]    NVARCHAR(50) NOT NULL,
 	[IsWithinNVZ]  BIT NOT NULL,	
@@ -30,6 +30,6 @@
 	[ModifiedOn] DATETIME2 NULL,
 	[ModifiedByID] INT NULL,
 	CONSTRAINT [PK_MannerEstimations] PRIMARY KEY ([ID] ASC),
-    CONSTRAINT [UQ_MannerEstimations_Name_FarmID] UNIQUE ([Name], [FarmID]),
-	CONSTRAINT [FK_MannerEstimations_MannerFarms] FOREIGN KEY([FarmID]) REFERENCES [dbo].[MannerFarms] ([ID]),
+    CONSTRAINT [UQ_MannerEstimations_Name_MannerFarmID] UNIQUE ([Name], [MannerFarmID]),
+	CONSTRAINT [FK_MannerEstimations_MannerFarms] FOREIGN KEY([MannerFarmID]) REFERENCES [dbo].[MannerFarms] ([ID]),
 )

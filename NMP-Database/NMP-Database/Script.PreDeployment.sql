@@ -331,4 +331,54 @@ END CATCH;
   Verification
 ====================================================*/
 
+
+--10-08-2026
+BEGIN TRANSACTION;
+
+BEGIN TRY
+
+    -- Column rename
+    EXEC sp_rename
+        'dbo.MannerEstimations.FarmID',
+        'MannerFarmID',
+        'COLUMN';
+
+ IF EXISTS
+(
+    SELECT 1
+    FROM sys.key_constraints
+    WHERE name = 'UQ_MannerEstimations_Name_FarmID'
+      AND parent_object_id = OBJECT_ID('dbo.MannerEstimations')
+)
+BEGIN
+    -- Old constraint exists -> rename it
+    EXEC sp_rename
+        'dbo.MannerEstimations.UQ_MannerEstimations_Name_FarmID',
+        'UQ_MannerEstimations_Name_MannerFarmID',
+        'OBJECT';
+END
+ELSE IF NOT EXISTS
+(
+    SELECT 1
+    FROM sys.key_constraints
+    WHERE name = 'UQ_MannerEstimations_Name_FarmID'
+      AND parent_object_id = OBJECT_ID('dbo.MannerEstimations')
+)
+BEGIN
+    -- Neither old nor new constraint exists -> add new constraint
+    ALTER TABLE [dbo].[MannerEstimations]
+    ADD CONSTRAINT [UQ_MannerEstimations_Name_MannerFarmID]
+        UNIQUE ([Name], [MannerFarmID]);
+END
+
+    COMMIT TRANSACTION;
+
+END TRY
+BEGIN CATCH
+
+    ROLLBACK TRANSACTION;
+    THROW;
+
+END CATCH;
+
 GO -- do not remove this GO
