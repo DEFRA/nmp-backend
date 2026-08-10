@@ -173,7 +173,7 @@ BEGIN TRY
     BEGIN
 
         ALTER TABLE dbo.MannerEstimations
-        ADD FarmID INT NULL;
+        ADD MannerFarmID INT NULL;
 
     END;
 
@@ -184,7 +184,7 @@ BEGIN TRY
     ====================================================*/
 
     UPDATE ME
-    SET FarmID = MF.ID
+    SET MannerFarmID = MF.ID
     FROM dbo.MannerEstimations ME
     INNER JOIN dbo.MannerFarms MF
         ON MF.OrganisationID = ME.OrganisationID
@@ -197,7 +197,7 @@ BEGIN TRY
     ====================================================*/
 
     ALTER TABLE dbo.MannerEstimations
-    ALTER COLUMN FarmID INT NOT NULL;
+    ALTER COLUMN MannerFarmID INT NOT NULL;
 
 
 
@@ -220,6 +220,18 @@ BEGIN TRY
 
     END;
 
+     IF NOT EXISTS
+    (
+        SELECT 1
+        FROM sys.key_constraints
+        WHERE name = 'UQ_MannerEstimations_Name_MannerFarmID'
+          AND parent_object_id = OBJECT_ID('dbo.MannerEstimations')
+    )
+    BEGIN
+        ALTER TABLE [dbo].[MannerEstimations]
+        ADD CONSTRAINT [UQ_MannerEstimations_Name_MannerFarmID]
+            UNIQUE ([Name], [MannerFarmID]);
+    END
 
 
     /*====================================================
@@ -276,7 +288,7 @@ END;
         DROP CONSTRAINT UQ_MannerEstimations_Name_OrganisationID;
 
     END;
-
+       
 
 
     /*====================================================
