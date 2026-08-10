@@ -48,13 +48,24 @@ BEGIN
 END
 
 --04-08-2026
-/*========================================================
-    Migration: Separate Farm Details into MannerFarms Table
-========================================================*/
 
-/*====================================================
+/*====================================================*
+* Migration: Separate Farm Details into MannerFarms *
+*====================================================*/
+
+
+/*====================================================*
   MAIN MIGRATION
+
+  IMPORTANT:
+  If MannerFarms already exists:
+      NOTHING is executed from the old migration.
+
+  If MannerFarms does NOT exist:
+      Complete migration is executed dynamically so that
+      old columns are only compiled when required.
 ====================================================*/
+
 BEGIN TRY
 
     BEGIN TRANSACTION;
@@ -62,12 +73,6 @@ BEGIN TRY
 
     /*====================================================
       Check if MannerFarms already exists
-
-      If it exists:
-      - Do NOTHING
-      - Do not add MannerFarmID
-      - Do not modify MannerEstimations
-      - Do not drop any columns
     ====================================================*/
 
     IF EXISTS
@@ -82,71 +87,117 @@ BEGIN TRY
         PRINT 'MannerFarms table already exists.';
         PRINT 'Migration skipped. No changes were made.';
 
+
         COMMIT TRANSACTION;
-        RETURN;
 
-    END;
+    END
+    ELSE
+    BEGIN
 
-
-    /*====================================================
-      Step 1: Create MannerFarms Table
-    ====================================================*/
-
-    CREATE TABLE dbo.MannerFarms
-    (
-        ID INT IDENTITY(1,1) PRIMARY KEY,
-
-        OrganisationID UNIQUEIDENTIFIER NOT NULL,
-
-        [Name] NVARCHAR(250) NOT NULL,
-
-        CountryID INT NOT NULL,
-
-        Postcode NVARCHAR(50) NULL,
-
-        AverageAnuualRainfall INT NULL,
-
-        RegisteredOrganicProducer BIT NOT NULL
-            CONSTRAINT DF_MannerFarms_RegisteredOrganicProducer
-            DEFAULT (0),
-
-        [CreatedOn] DATETIME2 NULL
-            CONSTRAINT DF_MannerFarms_CreatedOn
-            DEFAULT GETDATE(),
-
-        [CreatedByID] INT NULL,
-
-        [ModifiedOn] DATETIME2 NULL,
-
-        [ModifiedByID] INT NULL,
-
-        CONSTRAINT FK_MannerFarms_Countries
-            FOREIGN KEY (CountryID)
-            REFERENCES dbo.Countries(ID),
-
-        CONSTRAINT FK_MannerFarms_Organisations
-            FOREIGN KEY (OrganisationID)
-            REFERENCES dbo.Organisations(ID),
-
-        CONSTRAINT UQ_MannerFarms_Name_OrganisationID
-            UNIQUE ([Name], [OrganisationID]),
-
-        CONSTRAINT FK_MannerFarms_Users_CreatedBy
-            FOREIGN KEY ([CreatedByID])
-            REFERENCES dbo.Users([ID]),
-
-        CONSTRAINT FK_MannerFarms_Users_ModifiedBy
-            FOREIGN KEY ([ModifiedByID])
-            REFERENCES dbo.Users([ID])
-    );
+        PRINT 'MannerFarms table does not exist.';
+        PRINT 'Starting MannerFarms migration...';
 
 
-    /*====================================================
-      Step 2: Copy Unique Farm Data
-    ====================================================*/
+        /*====================================================
+          IMPORTANT:
+          Entire old-column migration is inside dynamic SQL.
+          This prevents SQL Server from compiling references to
+          OrganisationID, FarmName, CountryID etc. when the
+          migration is not required.
+        ====================================================*/
 
-    ;WITH FarmCTE AS
-    (
+        EXEC sys.sp_executesql
+        N'
+
+        /*====================================================
+          Step 1: Create MannerFarms
+        ====================================================*/
+
+        CREATE TABLE dbo.MannerFarms
+        (
+            ID INT IDENTITY(1,1) PRIMARY KEY,
+
+            OrganisationID UNIQUEIDENTIFIER NOT NULL,
+
+            [Name] NVARCHAR(250) NOT NULL,
+
+            CountryID INT NOT NULL,
+
+            Postcode NVARCHAR(50) NULL,
+
+            AverageAnuualRainfall INT NULL,
+
+            RegisteredOrganicProducer BIT NOT NULL
+                CONSTRAINT DF_MannerFarms_RegisteredOrganicProducer
+                DEFAULT (0),
+
+            [CreatedOn] DATETIME2 NULL
+                CONSTRAINT DF_MannerFarms_CreatedOn
+                DEFAULT GETDATE(),
+
+            [CreatedByID] INT NULL,
+
+            [ModifiedOn] DATETIME2 NULL,
+
+            [ModifiedByID] INT NULL,
+
+            CONSTRAINT FK_MannerFarms_Countries
+                FOREIGN KEY (CountryID)
+                REFERENCES dbo.Countries(ID),
+
+            CONSTRAINT FK_MannerFarms_Organisations
+                FOREIGN KEY (OrganisationID)
+                REFERENCES dbo.Organisations(ID),
+
+            CONSTRAINT UQ_MannerFarms_Name_OrganisationID
+                UNIQUE ([Name], [OrganisationID]),
+
+            CONSTRAINT FK_MannerFarms_Users_CreatedBy
+                FOREIGN KEY ([CreatedByID])
+                REFERENCES dbo.Users([ID]),
+
+            CONSTRAINT FK_MannerFarms_Users_ModifiedBy
+                FOREIGN KEY ([ModifiedByID])
+                REFERENCES dbo.Users([ID])
+        );
+
+
+        /*====================================================
+          Step 2: Copy Unique Farm Data
+        ====================================================*/
+
+        ;WITH FarmCTE AS
+        (
+            SELECT
+                OrganisationID,
+                FarmName,
+                CountryID,
+                Postcode,
+                AverageAnuualRainfall,
+                RegisteredOrganicProducer,
+                CreatedOn,
+                CreatedByID,
+
+                ROW_NUMBER() OVER
+                (
+                    PARTITION BY OrganisationID, FarmName
+                    ORDER BY ID
+                ) AS RowNum
+
+            FROM dbo.MannerEstimations
+        )
+
+        INSERT INTO dbo.MannerFarms
+        (
+            OrganisationID,
+            [Name],
+            CountryID,
+            Postcode,
+            AverageAnuualRainfall,
+            RegisteredOrganicProducer,
+            CreatedOn,
+            CreatedByID
+        )
         SELECT
             OrganisationID,
             FarmName,
@@ -155,61 +206,26 @@ BEGIN TRY
             AverageAnuualRainfall,
             RegisteredOrganicProducer,
             CreatedOn,
-            CreatedByID,
+            CreatedByID
 
-            ROW_NUMBER() OVER
-            (
-                PARTITION BY OrganisationID, FarmName
-                ORDER BY ID
-            ) AS RowNum
-
-        FROM dbo.MannerEstimations
-    )
-
-    INSERT INTO dbo.MannerFarms
-    (
-        OrganisationID,
-        [Name],
-        CountryID,
-        Postcode,
-        AverageAnuualRainfall,
-        RegisteredOrganicProducer,
-        CreatedOn,
-        CreatedByID
-    )
-    SELECT
-        OrganisationID,
-        FarmName,
-        CountryID,
-        Postcode,
-        AverageAnuualRainfall,
-        RegisteredOrganicProducer,
-        CreatedOn,
-        CreatedByID
-
-    FROM FarmCTE
-    WHERE RowNum = 1;
+        FROM FarmCTE
+        WHERE RowNum = 1;
 
 
-    /*====================================================
-      Step 3: Add MannerFarmID
-    ====================================================*/
+        /*====================================================
+          Step 3: Add MannerFarmID
+        ====================================================*/
 
-    ALTER TABLE dbo.MannerEstimations
-    ADD MannerFarmID INT NULL;
+        ALTER TABLE dbo.MannerEstimations
+        ADD MannerFarmID INT NULL;
 
 
-    /*====================================================
-      Step 4: Update MannerFarmID
+        /*====================================================
+          Step 4: Update MannerFarmID
+        ====================================================*/
 
-      Dynamic SQL is required because MannerFarmID
-      was added immediately before this statement.
-    ====================================================*/
-
-    EXEC
-    (
-        N'
         UPDATE ME
+
         SET MannerFarmID = MF.ID
 
         FROM dbo.MannerEstimations AS ME
@@ -217,199 +233,174 @@ BEGIN TRY
         INNER JOIN dbo.MannerFarms AS MF
             ON MF.OrganisationID = ME.OrganisationID
            AND MF.[Name] = ME.FarmName;
-        '
-    );
 
 
-    /*====================================================
-      Step 5: Check Unmapped Records
-    ====================================================*/
+        /*====================================================
+          Step 5: Check Unmapped Records
+        ====================================================*/
 
-    DECLARE @UnmappedCount INT;
+        DECLARE @UnmappedCount INT;
 
-    SET @UnmappedCount = 0;
 
-    EXEC sys.sp_executesql
-        N'
-        SELECT @Count = COUNT(*)
+        SELECT @UnmappedCount = COUNT(*)
         FROM dbo.MannerEstimations
         WHERE MannerFarmID IS NULL;
-        ',
-        N'@Count INT OUTPUT',
-        @Count = @UnmappedCount OUTPUT;
 
 
-    IF @UnmappedCount > 0
-    BEGIN
+        IF @UnmappedCount > 0
+        BEGIN
 
-        PRINT 'Migration failed: Some records could not be mapped to MannerFarms.';
+            RAISERROR
+            (
+                ''Migration failed. Unmapped MannerEstimations records: %d'',
+                16,
+                1,
+                @UnmappedCount
+            );
 
-        PRINT 'Unmapped records: '
-              + CAST(@UnmappedCount AS VARCHAR(20));
+            RETURN;
 
-        ROLLBACK TRANSACTION;
-
-        RETURN;
-
-    END;
+        END;
 
 
-    /*====================================================
-      Step 6: Make MannerFarmID NOT NULL
-    ====================================================*/
+        /*====================================================
+          Step 6: Make MannerFarmID NOT NULL
+        ====================================================*/
 
-    EXEC
-    (
-        N'
         ALTER TABLE dbo.MannerEstimations
         ALTER COLUMN MannerFarmID INT NOT NULL;
-        '
-    );
 
 
-    /*====================================================
-      Step 7: Create Foreign Key
-    ====================================================*/
+        /*====================================================
+          Step 7: Create Foreign Key
+        ====================================================*/
 
-    EXEC
-    (
-        N'
         ALTER TABLE dbo.MannerEstimations
         ADD CONSTRAINT FK_MannerEstimations_MannerFarms
             FOREIGN KEY (MannerFarmID)
             REFERENCES dbo.MannerFarms(ID);
-        '
-    );
 
 
-    /*====================================================
-      Step 8: Create Unique Constraint
-    ====================================================*/
+        /*====================================================
+          Step 8: Create Unique Constraint
+        ====================================================*/
 
-    EXEC
-    (
-        N'
         ALTER TABLE dbo.MannerEstimations
         ADD CONSTRAINT UQ_MannerEstimations_Name_MannerFarmID
             UNIQUE
             (
                 [Name],
-                [MannerFarmID]
+                MannerFarmID
             );
-        '
-    );
 
 
-    /*====================================================
-      Step 9: Drop Old Default Constraint
-    ====================================================*/
+        /*====================================================
+          Step 9: Drop Old Default Constraint
+        ====================================================*/
 
-    IF EXISTS
-    (
-        SELECT 1
-        FROM sys.default_constraints
-        WHERE name =
-            'DF_MannerEstimations_RegisteredOrganicProducer'
-          AND parent_object_id =
-              OBJECT_ID('dbo.MannerEstimations')
-    )
-    BEGIN
+        IF EXISTS
+        (
+            SELECT 1
+            FROM sys.default_constraints
+            WHERE name =
+                ''DF_MannerEstimations_RegisteredOrganicProducer''
+              AND parent_object_id =
+                  OBJECT_ID(''dbo.MannerEstimations'')
+        )
+        BEGIN
+
+            ALTER TABLE dbo.MannerEstimations
+            DROP CONSTRAINT
+                DF_MannerEstimations_RegisteredOrganicProducer;
+
+        END;
+
+
+        /*====================================================
+          Step 10: Drop Countries FK
+        ====================================================*/
+
+        IF EXISTS
+        (
+            SELECT 1
+            FROM sys.foreign_keys
+            WHERE name = ''FK_MannerEstimations_Countries''
+              AND parent_object_id =
+                  OBJECT_ID(''dbo.MannerEstimations'')
+        )
+        BEGIN
+
+            ALTER TABLE dbo.MannerEstimations
+            DROP CONSTRAINT
+                FK_MannerEstimations_Countries;
+
+        END;
+
+
+        /*====================================================
+          Step 11: Drop Organisations FK
+        ====================================================*/
+
+        IF EXISTS
+        (
+            SELECT 1
+            FROM sys.foreign_keys
+            WHERE name = ''FK_MannerEstimations_Organisations''
+              AND parent_object_id =
+                  OBJECT_ID(''dbo.MannerEstimations'')
+        )
+        BEGIN
+
+            ALTER TABLE dbo.MannerEstimations
+            DROP CONSTRAINT
+                FK_MannerEstimations_Organisations;
+
+        END;
+
+
+        /*====================================================
+          Step 12: Drop Old Unique Constraint
+        ====================================================*/
+
+        IF EXISTS
+        (
+            SELECT 1
+            FROM sys.key_constraints
+            WHERE name =
+                ''UQ_MannerEstimations_Name_OrganisationID''
+              AND parent_object_id =
+                  OBJECT_ID(''dbo.MannerEstimations'')
+        )
+        BEGIN
+
+            ALTER TABLE dbo.MannerEstimations
+            DROP CONSTRAINT
+                UQ_MannerEstimations_Name_OrganisationID;
+
+        END;
+
+
+        /*====================================================
+          Step 13: Drop Old Farm Columns
+        ====================================================*/
 
         ALTER TABLE dbo.MannerEstimations
-        DROP CONSTRAINT
-            DF_MannerEstimations_RegisteredOrganicProducer;
-
-    END;
-
-
-    /*====================================================
-      Step 10: Drop Old Countries Foreign Key
-    ====================================================*/
-
-    IF EXISTS
-    (
-        SELECT 1
-        FROM sys.foreign_keys
-        WHERE name = 'FK_MannerEstimations_Countries'
-          AND parent_object_id =
-              OBJECT_ID('dbo.MannerEstimations')
-    )
-    BEGIN
-
-        ALTER TABLE dbo.MannerEstimations
-        DROP CONSTRAINT
-            FK_MannerEstimations_Countries;
-
-    END;
+        DROP COLUMN
+            OrganisationID,
+            FarmName,
+            CountryID,
+            Postcode,
+            AverageAnuualRainfall,
+            RegisteredOrganicProducer;
 
 
-    /*====================================================
-      Step 11: Drop Old Organisations Foreign Key
-    ====================================================*/
+        PRINT ''MannerFarms migration completed successfully.'';
 
-    IF EXISTS
-    (
-        SELECT 1
-        FROM sys.foreign_keys
-        WHERE name = 'FK_MannerEstimations_Organisations'
-          AND parent_object_id =
-              OBJECT_ID('dbo.MannerEstimations')
-    )
-    BEGIN
-
-        ALTER TABLE dbo.MannerEstimations
-        DROP CONSTRAINT
-            FK_MannerEstimations_Organisations;
-
-    END;
+        ';
 
 
-    /*====================================================
-      Step 12: Drop Old Unique Constraint
-    ====================================================*/
-
-    IF EXISTS
-    (
-        SELECT 1
-        FROM sys.key_constraints
-        WHERE name =
-            'UQ_MannerEstimations_Name_OrganisationID'
-          AND parent_object_id =
-              OBJECT_ID('dbo.MannerEstimations')
-    )
-    BEGIN
-
-        ALTER TABLE dbo.MannerEstimations
-        DROP CONSTRAINT
-            UQ_MannerEstimations_Name_OrganisationID;
-
-    END;
-
-
-    /*====================================================
-      Step 13: Drop Old Farm Columns
-    ====================================================*/
-
-    ALTER TABLE dbo.MannerEstimations
-    DROP COLUMN
-        OrganisationID,
-        FarmName,
-        CountryID,
-        Postcode,
-        AverageAnuualRainfall,
-        RegisteredOrganicProducer;
-
-
-    PRINT 'MannerFarms migration completed successfully.';
-
-
-    /*====================================================
-      Commit Transaction
-    ====================================================*/
-
-    IF @@TRANCOUNT > 0
-    BEGIN
         COMMIT TRANSACTION;
+
     END;
 
 END TRY
@@ -426,8 +417,23 @@ BEGIN CATCH
 
 END CATCH;
 
-/*====================================================
-  VERIFICATION / FINAL COLUMN RENAME
+
+GO
+
+
+/*====================================================*
+  VERIFICATION / OLD DATABASE SUPPORT
+
+  This block handles databases where:
+      FarmID exists
+  and:
+      MannerFarmID does not exist.
+
+  If MannerFarmID already exists:
+      Nothing is changed.
+
+  If neither exists:
+      Nothing is changed.
 ====================================================*/
 
 BEGIN TRY
@@ -436,17 +442,32 @@ BEGIN TRY
 
 
     /*====================================================
-      Step 10: Rename FarmID -> MannerFarmID
+      Step 14: FarmID -> MannerFarmID
     ====================================================*/
 
-    IF COL_LENGTH('dbo.MannerEstimations', 'FarmID') IS NOT NULL
-       AND COL_LENGTH('dbo.MannerEstimations', 'MannerFarmID') IS NULL
+    IF COL_LENGTH
+    (
+        'dbo.MannerEstimations',
+        'FarmID'
+    ) IS NOT NULL
+
+    AND COL_LENGTH
+    (
+        'dbo.MannerEstimations',
+        'MannerFarmID'
+    ) IS NULL
+
     BEGIN
 
-        EXEC sp_rename
-            'dbo.MannerEstimations.FarmID',
-            'MannerFarmID',
-            'COLUMN';
+        EXEC
+        (
+            N'
+            EXEC sp_rename
+                ''dbo.MannerEstimations.FarmID'',
+                ''MannerFarmID'',
+                ''COLUMN'';
+            '
+        );
 
         PRINT 'FarmID renamed to MannerFarmID.';
 
@@ -460,69 +481,112 @@ BEGIN TRY
 
 
     /*====================================================
-      Step 11: Rename / Create Unique Constraint
+      Step 15: Rename Old Unique Constraint
     ====================================================*/
 
     IF EXISTS
     (
         SELECT 1
         FROM sys.key_constraints
-        WHERE name = 'UQ_MannerEstimations_Name_FarmID'
+        WHERE name =
+            'UQ_MannerEstimations_Name_FarmID'
           AND parent_object_id =
               OBJECT_ID('dbo.MannerEstimations')
     )
-    BEGIN
 
-        EXEC sp_rename
-            'dbo.MannerEstimations.UQ_MannerEstimations_Name_FarmID',
-            'UQ_MannerEstimations_Name_MannerFarmID',
-            'OBJECT';
-
-        PRINT 'Unique constraint renamed.';
-
-    END
-    ELSE IF NOT EXISTS
+    AND NOT EXISTS
     (
         SELECT 1
         FROM sys.key_constraints
-        WHERE name = 'UQ_MannerEstimations_Name_MannerFarmID'
+        WHERE name =
+            'UQ_MannerEstimations_Name_MannerFarmID'
           AND parent_object_id =
               OBJECT_ID('dbo.MannerEstimations')
     )
+
     BEGIN
 
-        ALTER TABLE dbo.MannerEstimations
-        ADD CONSTRAINT UQ_MannerEstimations_Name_MannerFarmID
-        UNIQUE
+        EXEC
         (
-            [Name],
-            [MannerFarmID]
+            N'
+            EXEC sp_rename
+                ''dbo.MannerEstimations.UQ_MannerEstimations_Name_FarmID'',
+                ''UQ_MannerEstimations_Name_MannerFarmID'',
+                ''OBJECT'';
+            '
         );
 
-        PRINT 'New unique constraint created.';
+        PRINT 'Unique constraint renamed.';
+
+    END;
+
+
+    /*====================================================
+      Step 16: Create Unique Constraint
+      ONLY when MannerFarmID actually exists
+    ====================================================*/
+
+    IF COL_LENGTH
+    (
+        'dbo.MannerEstimations',
+        'MannerFarmID'
+    ) IS NOT NULL
+
+    AND NOT EXISTS
+    (
+        SELECT 1
+        FROM sys.key_constraints
+        WHERE name =
+            'UQ_MannerEstimations_Name_MannerFarmID'
+          AND parent_object_id =
+              OBJECT_ID('dbo.MannerEstimations')
+    )
+
+    BEGIN
+
+        EXEC
+        (
+            N'
+            ALTER TABLE dbo.MannerEstimations
+            ADD CONSTRAINT UQ_MannerEstimations_Name_MannerFarmID
+                UNIQUE
+                (
+                    [Name],
+                    MannerFarmID
+                );
+            '
+        );
+
+        PRINT 'Unique constraint created.';
 
     END
     ELSE
     BEGIN
 
-        PRINT 'Unique constraint already exists.';
+        PRINT 'Unique constraint creation skipped.';
 
     END;
 
+
+    /*====================================================
+      Commit
+    ====================================================*/
 
     COMMIT TRANSACTION;
 
     PRINT 'Verification completed successfully.';
 
 END TRY
+
 BEGIN CATCH
 
     IF @@TRANCOUNT > 0
+    BEGIN
         ROLLBACK TRANSACTION;
+    END;
 
+    PRINT 'Verification failed.';
     PRINT ERROR_MESSAGE();
-
-    THROW;
 
 END CATCH;
 
