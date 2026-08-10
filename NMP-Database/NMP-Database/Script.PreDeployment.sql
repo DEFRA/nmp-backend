@@ -48,23 +48,21 @@ BEGIN
 END
 
 --04-08-2026
+/*====================================================*
+  Migration: Separate Farm Details into MannerFarms
+*====================================================*/
 
 /*====================================================*
-* Migration: Separate Farm Details into MannerFarms *
+  Table Name Constants
 *====================================================*/
+
+DECLARE @MannerEstimationsTableName SYSNAME = N'dbo.MannerEstimations';
+DECLARE @MannerFarmsTableName SYSNAME = N'dbo.MannerFarms';
 
 
 /*====================================================*
   MAIN MIGRATION
-
-  IMPORTANT:
-  If MannerFarms already exists:
-      NOTHING is executed from the old migration.
-
-  If MannerFarms does NOT exist:
-      Complete migration is executed dynamically so that
-      old columns are only compiled when required.
-====================================================*/
+*====================================================*/
 
 BEGIN TRY
 
@@ -75,20 +73,11 @@ BEGIN TRY
       Check if MannerFarms already exists
     ====================================================*/
 
-    IF EXISTS
-    (
-        SELECT 1
-        FROM sys.tables
-        WHERE name = 'MannerFarms'
-          AND schema_id = SCHEMA_ID('dbo')
-    )
+    IF OBJECT_ID(@MannerFarmsTableName, 'U') IS NOT NULL
     BEGIN
 
         PRINT 'MannerFarms table already exists.';
-        PRINT 'Migration skipped. No changes were made.';
-
-
-        COMMIT TRANSACTION;
+        PRINT 'Main migration skipped. No changes were made.';
 
     END
     ELSE
@@ -99,11 +88,11 @@ BEGIN TRY
 
 
         /*====================================================
-          IMPORTANT:
-          Entire old-column migration is inside dynamic SQL.
-          This prevents SQL Server from compiling references to
-          OrganisationID, FarmName, CountryID etc. when the
-          migration is not required.
+          Entire migration is Dynamic SQL
+
+          This is important because old columns such as
+          OrganisationID, FarmName, CountryID etc. may not
+          exist in newer database versions.
         ====================================================*/
 
         EXEC sys.sp_executesql
@@ -207,7 +196,6 @@ BEGIN TRY
             RegisteredOrganicProducer,
             CreatedOn,
             CreatedByID
-
         FROM FarmCTE
         WHERE RowNum = 1;
 
@@ -225,7 +213,6 @@ BEGIN TRY
         ====================================================*/
 
         UPDATE ME
-
         SET MannerFarmID = MF.ID
 
         FROM dbo.MannerEstimations AS ME
@@ -241,7 +228,6 @@ BEGIN TRY
 
         DECLARE @UnmappedCount INT;
 
-
         SELECT @UnmappedCount = COUNT(*)
         FROM dbo.MannerEstimations
         WHERE MannerFarmID IS NULL;
@@ -250,13 +236,11 @@ BEGIN TRY
         IF @UnmappedCount > 0
         BEGIN
 
-            RAISERROR
-            (
-                ''Migration failed. Unmapped MannerEstimations records: %d'',
-                16,
-                1,
-                @UnmappedCount
-            );
+            PRINT ''Migration failed.''; 
+            PRINT ''Unmapped records: ''
+                  + CAST(@UnmappedCount AS VARCHAR(20));
+
+            ROLLBACK TRANSACTION;
 
             RETURN;
 
@@ -399,8 +383,16 @@ BEGIN TRY
         ';
 
 
-        COMMIT TRANSACTION;
+    END;
 
+
+    /*====================================================
+      Commit Main Migration
+    ====================================================*/
+
+    IF @@TRANCOUNT > 0
+    BEGIN
+        COMMIT TRANSACTION;
     END;
 
 END TRY
@@ -417,24 +409,15 @@ BEGIN CATCH
 
 END CATCH;
 
-
 GO
 
 
 /*====================================================*
   VERIFICATION / OLD DATABASE SUPPORT
+*====================================================*/
 
-  This block handles databases where:
-      FarmID exists
-  and:
-      MannerFarmID does not exist.
+DECLARE @MannerEstimationsTableName SYSNAME = N'dbo.MannerEstimations';
 
-  If MannerFarmID already exists:
-      Nothing is changed.
-
-  If neither exists:
-      Nothing is changed.
-====================================================*/
 
 BEGIN TRY
 
@@ -443,17 +426,21 @@ BEGIN TRY
 
     /*====================================================
       Step 14: FarmID -> MannerFarmID
+
+      Only rename when:
+      - FarmID exists
+      - MannerFarmID does NOT exist
     ====================================================*/
 
     IF COL_LENGTH
     (
-        'dbo.MannerEstimations',
+        @MannerEstimationsTableName,
         'FarmID'
     ) IS NOT NULL
 
     AND COL_LENGTH
     (
-        'dbo.MannerEstimations',
+        @MannerEstimationsTableName,
         'MannerFarmID'
     ) IS NULL
 
@@ -482,6 +469,8 @@ BEGIN TRY
 
     /*====================================================
       Step 15: Rename Old Unique Constraint
+
+      FarmID -> MannerFarmID
     ====================================================*/
 
     IF EXISTS
@@ -491,7 +480,7 @@ BEGIN TRY
         WHERE name =
             'UQ_MannerEstimations_Name_FarmID'
           AND parent_object_id =
-              OBJECT_ID('dbo.MannerEstimations')
+              OBJECT_ID(@MannerEstimationsTableName)
     )
 
     AND NOT EXISTS
@@ -501,7 +490,7 @@ BEGIN TRY
         WHERE name =
             'UQ_MannerEstimations_Name_MannerFarmID'
           AND parent_object_id =
-              OBJECT_ID('dbo.MannerEstimations')
+              OBJECT_ID(@MannerEstimationsTableName)
     )
 
     BEGIN
@@ -523,12 +512,13 @@ BEGIN TRY
 
     /*====================================================
       Step 16: Create Unique Constraint
-      ONLY when MannerFarmID actually exists
+
+      ONLY if MannerFarmID exists.
     ====================================================*/
 
     IF COL_LENGTH
     (
-        'dbo.MannerEstimations',
+        @MannerEstimationsTableName,
         'MannerFarmID'
     ) IS NOT NULL
 
@@ -539,7 +529,7 @@ BEGIN TRY
         WHERE name =
             'UQ_MannerEstimations_Name_MannerFarmID'
           AND parent_object_id =
-              OBJECT_ID('dbo.MannerEstimations')
+              OBJECT_ID(@MannerEstimationsTableName)
     )
 
     BEGIN
@@ -569,10 +559,13 @@ BEGIN TRY
 
 
     /*====================================================
-      Commit
+      Commit Verification
     ====================================================*/
 
-    COMMIT TRANSACTION;
+    IF @@TRANCOUNT > 0
+    BEGIN
+        COMMIT TRANSACTION;
+    END;
 
     PRINT 'Verification completed successfully.';
 
