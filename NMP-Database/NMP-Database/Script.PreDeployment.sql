@@ -98,7 +98,6 @@ BEGIN TRY
             CONSTRAINT [FK_MannerFarms_Users_ModifiedBy] FOREIGN KEY ([ModifiedByID]) REFERENCES [Users]([ID])
         );
 
-    END;
 
 
 
@@ -167,7 +166,7 @@ BEGIN TRY
     (
         SELECT 1
         FROM sys.columns
-        WHERE name = 'FarmID'
+        WHERE name = 'MannerFarmID'
           AND object_id = OBJECT_ID(@MannerEstimationsTableName)
     )
     BEGIN
@@ -215,7 +214,7 @@ BEGIN TRY
 
         ALTER TABLE dbo.MannerEstimations
         ADD CONSTRAINT FK_MannerEstimations_MannerFarms
-        FOREIGN KEY (FarmID)
+        FOREIGN KEY (MannerFarmID)
         REFERENCES dbo.MannerFarms(ID);
 
     END;
@@ -323,6 +322,7 @@ END;
     PRINT 'Migration completed successfully.';
 
 
+    END;
 END TRY
 
 
