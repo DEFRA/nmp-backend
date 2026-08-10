@@ -48,12 +48,9 @@ BEGIN
 END
 
 --04-08-2026
-/*====================================================*
-  Migration: Separate Farm Details into MannerFarms
-*====================================================*/
 
 /*====================================================*
-  Table Name Constants
+  Migration: Separate Farm Details into MannerFarms
 *====================================================*/
 
 DECLARE @MannerEstimationsTableName SYSNAME = N'dbo.MannerEstimations';
@@ -70,34 +67,33 @@ BEGIN TRY
 
 
     /*====================================================
-      Check if MannerFarms already exists
+      If MannerFarms already exists:
+      DO NOTHING
     ====================================================*/
 
     IF OBJECT_ID(@MannerFarmsTableName, 'U') IS NOT NULL
     BEGIN
 
         PRINT 'MannerFarms table already exists.';
-        PRINT 'Main migration skipped. No changes were made.';
+        PRINT 'Main migration skipped.';
 
     END
     ELSE
     BEGIN
 
         PRINT 'MannerFarms table does not exist.';
-        PRINT 'Starting MannerFarms migration...';
+        PRINT 'Starting migration...';
 
 
         /*====================================================
-          Entire migration is Dynamic SQL
+          Entire old-column migration is Dynamic SQL.
 
-          This is important because old columns such as
-          OrganisationID, FarmName, CountryID etc. may not
-          exist in newer database versions.
+          This prevents SQL Server from compiling old columns
+          when this migration is not required.
         ====================================================*/
 
         EXEC sys.sp_executesql
         N'
-
         /*====================================================
           Step 1: Create MannerFarms
         ====================================================*/
@@ -236,11 +232,10 @@ BEGIN TRY
         IF @UnmappedCount > 0
         BEGIN
 
-            PRINT ''Migration failed.''; 
-            PRINT ''Unmapped records: ''
-                  + CAST(@UnmappedCount AS VARCHAR(20));
+            PRINT ''Migration failed.'';
 
-            ROLLBACK TRANSACTION;
+            PRINT ''Unmapped records: ''
+                + CAST(@UnmappedCount AS VARCHAR(20));
 
             RETURN;
 
@@ -289,7 +284,7 @@ BEGIN TRY
             WHERE name =
                 ''DF_MannerEstimations_RegisteredOrganicProducer''
               AND parent_object_id =
-                  OBJECT_ID(''dbo.MannerEstimations'')
+                OBJECT_ID(''dbo.MannerEstimations'')
         )
         BEGIN
 
@@ -310,7 +305,7 @@ BEGIN TRY
             FROM sys.foreign_keys
             WHERE name = ''FK_MannerEstimations_Countries''
               AND parent_object_id =
-                  OBJECT_ID(''dbo.MannerEstimations'')
+                OBJECT_ID(''dbo.MannerEstimations'')
         )
         BEGIN
 
@@ -331,7 +326,7 @@ BEGIN TRY
             FROM sys.foreign_keys
             WHERE name = ''FK_MannerEstimations_Organisations''
               AND parent_object_id =
-                  OBJECT_ID(''dbo.MannerEstimations'')
+                OBJECT_ID(''dbo.MannerEstimations'')
         )
         BEGIN
 
@@ -353,7 +348,7 @@ BEGIN TRY
             WHERE name =
                 ''UQ_MannerEstimations_Name_OrganisationID''
               AND parent_object_id =
-                  OBJECT_ID(''dbo.MannerEstimations'')
+                OBJECT_ID(''dbo.MannerEstimations'')
         )
         BEGIN
 
@@ -382,12 +377,11 @@ BEGIN TRY
 
         ';
 
-
     END;
 
 
     /*====================================================
-      Commit Main Migration
+      Commit
     ====================================================*/
 
     IF @@TRANCOUNT > 0
@@ -409,15 +403,17 @@ BEGIN CATCH
 
 END CATCH;
 
+
 GO
 
 
 /*====================================================*
-  VERIFICATION / OLD DATABASE SUPPORT
+  VERIFICATION
+  FarmID -> MannerFarmID
 *====================================================*/
 
-DECLARE @MannerEstimationsTableName SYSNAME = N'dbo.MannerEstimations';
-
+DECLARE @MannerEstimationsTableName SYSNAME =
+    N'dbo.MannerEstimations';
 
 BEGIN TRY
 
@@ -425,11 +421,12 @@ BEGIN TRY
 
 
     /*====================================================
-      Step 14: FarmID -> MannerFarmID
+      Step 14: Rename FarmID -> MannerFarmID
 
-      Only rename when:
-      - FarmID exists
-      - MannerFarmID does NOT exist
+      Only if:
+      FarmID exists
+      AND
+      MannerFarmID does not exist
     ====================================================*/
 
     IF COL_LENGTH
@@ -446,15 +443,10 @@ BEGIN TRY
 
     BEGIN
 
-        EXEC
-        (
-            N'
-            EXEC sp_rename
-                ''dbo.MannerEstimations.FarmID'',
-                ''MannerFarmID'',
-                ''COLUMN'';
-            '
-        );
+        EXEC sys.sp_rename
+            @objname = 'dbo.MannerEstimations.FarmID',
+            @newname = 'MannerFarmID',
+            @objtype = 'COLUMN';
 
         PRINT 'FarmID renamed to MannerFarmID.';
 
@@ -468,9 +460,11 @@ BEGIN TRY
 
 
     /*====================================================
-      Step 15: Rename Old Unique Constraint
+      Step 15: Rename Existing Unique Constraint
 
-      FarmID -> MannerFarmID
+      FarmID constraint
+      ->
+      MannerFarmID constraint
     ====================================================*/
 
     IF EXISTS
@@ -480,7 +474,7 @@ BEGIN TRY
         WHERE name =
             'UQ_MannerEstimations_Name_FarmID'
           AND parent_object_id =
-              OBJECT_ID(@MannerEstimationsTableName)
+            OBJECT_ID(@MannerEstimationsTableName)
     )
 
     AND NOT EXISTS
@@ -490,20 +484,15 @@ BEGIN TRY
         WHERE name =
             'UQ_MannerEstimations_Name_MannerFarmID'
           AND parent_object_id =
-              OBJECT_ID(@MannerEstimationsTableName)
+            OBJECT_ID(@MannerEstimationsTableName)
     )
 
     BEGIN
 
-        EXEC
-        (
-            N'
-            EXEC sp_rename
-                ''dbo.MannerEstimations.UQ_MannerEstimations_Name_FarmID'',
-                ''UQ_MannerEstimations_Name_MannerFarmID'',
-                ''OBJECT'';
-            '
-        );
+        EXEC sys.sp_rename
+            @objname = 'dbo.MannerEstimations.UQ_MannerEstimations_Name_FarmID',
+            @newname = 'UQ_MannerEstimations_Name_MannerFarmID',
+            @objtype = 'OBJECT';
 
         PRINT 'Unique constraint renamed.';
 
@@ -512,8 +501,6 @@ BEGIN TRY
 
     /*====================================================
       Step 16: Create Unique Constraint
-
-      ONLY if MannerFarmID exists.
     ====================================================*/
 
     IF COL_LENGTH
@@ -529,23 +516,18 @@ BEGIN TRY
         WHERE name =
             'UQ_MannerEstimations_Name_MannerFarmID'
           AND parent_object_id =
-              OBJECT_ID(@MannerEstimationsTableName)
+            OBJECT_ID(@MannerEstimationsTableName)
     )
 
     BEGIN
 
-        EXEC
-        (
-            N'
-            ALTER TABLE dbo.MannerEstimations
-            ADD CONSTRAINT UQ_MannerEstimations_Name_MannerFarmID
-                UNIQUE
-                (
-                    [Name],
-                    MannerFarmID
-                );
-            '
-        );
+        ALTER TABLE dbo.MannerEstimations
+        ADD CONSTRAINT UQ_MannerEstimations_Name_MannerFarmID
+            UNIQUE
+            (
+                [Name],
+                MannerFarmID
+            );
 
         PRINT 'Unique constraint created.';
 
@@ -584,5 +566,4 @@ BEGIN CATCH
 END CATCH;
 
 GO
-
 GO -- do not remove this GO
