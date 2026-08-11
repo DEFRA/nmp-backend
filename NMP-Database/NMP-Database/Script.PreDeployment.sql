@@ -36,16 +36,6 @@ BEGIN
     END
 END
 
---30-07-2026
-IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'Recommendations' AND TABLE_SCHEMA = 'dbo')
-BEGIN   
-            UPDATE Recommendations
-            SET IsSacMethodology = 0
-            WHERE IsSacMethodology IS NULL;
-
-            ALTER TABLE Recommendations
-            ALTER COLUMN IsSacMethodology BIT NOT NULL;
-END
 
 --04-08-2026
 /*====================================================*
