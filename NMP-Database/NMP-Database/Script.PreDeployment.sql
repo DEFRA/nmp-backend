@@ -550,7 +550,7 @@ BEGIN TRY
     BEGIN
 
         EXEC sys.sp_rename
-            @objname = 'dbo.MannerEstimations.UQ_MannerEstimations_Name_FarmID',
+            @objname = 'dbo.UQ_MannerEstimations_Name_FarmID',
             @newname = 'UQ_MannerEstimations_Name_MannerFarmID',
             @objtype = 'OBJECT';
 
