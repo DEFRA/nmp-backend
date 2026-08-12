@@ -83,6 +83,7 @@
     <Folder Include="DBO\StoredProcedures\Warnings" />
     <Folder Include="DBO\StoredProcedures\MannerEstimations" />
     <Folder Include="DBO\StoredProcedures\MannerEstimationApplications" />
+    <Folder Include="DBO\StoredProcedures\MannerFarms" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="DBO\Tables\Farms.sql" />
@@ -213,6 +214,7 @@
     <Build Include="DBO\StoredProcedures\MannerEstimations\spMannerEstimations_Delete.sql" />
     <Build Include="DBO\StoredProcedures\MannerEstimationApplications\spMannerEstimationApplications_Delete.sql" />
     <Build Include="DBO\Tables\MannerFarms.sql" />
+    <Build Include="DBO\StoredProcedures\MannerFarms\spMannerFarms_DeleteByIDs.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Script.PostDeployment.sql">
