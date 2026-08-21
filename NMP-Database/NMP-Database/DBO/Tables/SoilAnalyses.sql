@@ -7,7 +7,7 @@
     [Date]                      DATETIME2        NULL,
     [PH]                        DECIMAL (18, 3) NULL,    
     [PhosphorusMethodologyID]   INT             NULL,
-    [Phosphorus]                INT             NULL,
+    [Phosphorus]                DECIMAL(18,1)             NULL,
     [PhosphorusIndex]           TINYINT         NULL,
     [Potassium]                 INT             NULL,
     [PotassiumIndex]            SMALLINT        NULL, 
