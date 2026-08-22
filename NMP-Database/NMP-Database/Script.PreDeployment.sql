@@ -628,5 +628,19 @@ BEGIN CATCH
 
 END CATCH;
 
+
+--21-08-2026
+IF EXISTS (
+    SELECT 1
+    FROM INFORMATION_SCHEMA.COLUMNS
+    WHERE TABLE_SCHEMA = 'dbo'
+      AND TABLE_NAME = 'SoilAnalyses'
+      AND COLUMN_NAME = 'Phosphorus'
+      AND DATA_TYPE = 'int'
+)
+BEGIN
+    ALTER TABLE dbo.SoilAnalyses
+    ALTER COLUMN Phosphorus DECIMAL(18,1);
+END
 GO
 GO -- do not remove this GO
