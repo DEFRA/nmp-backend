@@ -10,7 +10,7 @@ Post-Deployment Script Template
 --------------------------------------------------------------------------------------
 */
 
-
+    
 IF NOT EXISTS (SELECT 1 FROM [dbo].[Countries])
 BEGIN
     SET IDENTITY_INSERT [dbo].[Countries] ON
@@ -58,153 +58,226 @@ BEGIN
     SET IDENTITY_INSERT [dbo].[CropInfoQuestions] ON
     INSERT [dbo].[CropInfoQuestions] ([ID], [CropInfoQuestion]) VALUES (1, N'How do you plan to use the grain?')
     INSERT [dbo].[CropInfoQuestions] ([ID], [CropInfoQuestion]) VALUES (2, N'Will you harvest and remove both the seed and straw?')
-    INSERT [dbo].[CropInfoQuestions] ([ID], [CropInfoQuestion]) VALUES (3, N'How will you use it?')
+    INSERT [dbo].[CropInfoQuestions] ([ID], [CropInfoQuestion]) VALUES (3, N'What type of peas are you growing?')
     INSERT [dbo].[CropInfoQuestions] ([ID], [CropInfoQuestion]) VALUES (4, N'Will you harvest and remove both the roots and tops?')
     INSERT [dbo].[CropInfoQuestions] ([ID], [CropInfoQuestion]) VALUES (5, N'Is this the establishment year?')
     INSERT [dbo].[CropInfoQuestions] ([ID], [CropInfoQuestion]) VALUES (6, N'Select the type of cabbage')
     INSERT [dbo].[CropInfoQuestions] ([ID], [CropInfoQuestion]) VALUES (7, N'Select the type of cauliflower')
     INSERT [dbo].[CropInfoQuestions] ([ID], [CropInfoQuestion]) VALUES (8, N'What type of {0} are you sowing?')
-    INSERT [dbo].[CropInfoQuestions] ([ID], [CropInfoQuestion]) VALUES (9, N'Select current orchard management')
-    INSERT [dbo].[CropInfoQuestions] ([ID], [CropInfoQuestion]) VALUES (10, N'Select crop stage')
+    INSERT [dbo].[CropInfoQuestions] ([ID], [CropInfoQuestion]) VALUES (9, N'What is the orchard management?')
+    INSERT [dbo].[CropInfoQuestions] ([ID], [CropInfoQuestion]) VALUES (10, N'What is the crop stage?')
     INSERT [dbo].[CropInfoQuestions] ([ID], [CropInfoQuestion]) VALUES (11, N'Select crop stage and type (for established crops)')
-    INSERT [dbo].[CropInfoQuestions] ([ID], [CropInfoQuestion]) VALUES (12, N'Select the length of the growing season')
+    INSERT [dbo].[CropInfoQuestions] ([ID], [CropInfoQuestion]) VALUES (12, N'What is the length of the growing season?')
     INSERT [dbo].[CropInfoQuestions] ([ID], [CropInfoQuestion]) VALUES (13, N'Is the crop in its first two years of establishment?')
+    INSERT [dbo].[CropInfoQuestions] ([ID], [CropInfoQuestion]) VALUES (14, N'How do you plan to use the straw?')
+    INSERT [dbo].[CropInfoQuestions] ([ID], [CropInfoQuestion]) VALUES (15, N'How will you harvest or use the crop?')
+    INSERT [dbo].[CropInfoQuestions] ([ID], [CropInfoQuestion]) VALUES (16, N'Is the crop undersown?')
+    INSERT [dbo].[CropInfoQuestions] ([ID], [CropInfoQuestion]) VALUES (17, N'Is this the establishment year or is it an established crop?')
+    INSERT [dbo].[CropInfoQuestions] ([ID], [CropInfoQuestion]) VALUES (18, N'Is this the establishment year or is the crop established?')
+    INSERT [dbo].[CropInfoQuestions] ([ID], [CropInfoQuestion]) VALUES (19, N'What is the crop stage or type for established crops?')
+    INSERT [dbo].[CropInfoQuestions] ([ID], [CropInfoQuestion]) VALUES (20, N'What type of beetroot are you growing?')
     SET IDENTITY_INSERT [dbo].[CropInfoQuestions] OFF
 END
 
 GO
 
+--01.04.2026
 IF EXISTS (SELECT 1 FROM [dbo].[CropInfoQuestions] WHERE [ID]=8)
 BEGIN
     UPDATE [dbo].[CropInfoQuestions] SET [CropInfoQuestion]=N'What type of {0} are you sowing?' WHERE [ID]=8
 END
 
+--01.04.2026
+IF EXISTS (SELECT 1 FROM [dbo].[CropInfoQuestions] WHERE [ID] IN (3,9,10,12))
+BEGIN
+    UPDATE [dbo].[CropInfoQuestions] SET [CropInfoQuestion]=N'What type of peas are you growing?' WHERE [ID]=3
+    UPDATE [dbo].[CropInfoQuestions] SET [CropInfoQuestion]=N'What is the orchard management?' WHERE [ID]=9
+    UPDATE [dbo].[CropInfoQuestions] SET [CropInfoQuestion]=N'What is the crop stage?' WHERE [ID]=10
+    UPDATE [dbo].[CropInfoQuestions] SET [CropInfoQuestion]=N'What is the length of the growing season?' WHERE [ID]=12
+END
+
+
+IF NOT EXISTS (SELECT 1 FROM [dbo].[CropInfoQuestions] WHERE [ID]>13)
+BEGIN
+SET IDENTITY_INSERT [dbo].[CropInfoQuestions] ON
+   INSERT [dbo].[CropInfoQuestions] ([ID], [CropInfoQuestion]) VALUES (14, N'How do you plan to use the straw?')
+    INSERT [dbo].[CropInfoQuestions] ([ID], [CropInfoQuestion]) VALUES (15, N'How will you harvest or use the crop?')
+    INSERT [dbo].[CropInfoQuestions] ([ID], [CropInfoQuestion]) VALUES (16, N'Is the crop undersown?')
+    INSERT [dbo].[CropInfoQuestions] ([ID], [CropInfoQuestion]) VALUES (17, N'Is this the establishment year or is it an established crop?')
+    INSERT [dbo].[CropInfoQuestions] ([ID], [CropInfoQuestion]) VALUES (18, N'Is this the establishment year or is the crop established?')
+    INSERT [dbo].[CropInfoQuestions] ([ID], [CropInfoQuestion]) VALUES (19, N'What is the crop stage or type for established crops?')
+    INSERT [dbo].[CropInfoQuestions] ([ID], [CropInfoQuestion]) VALUES (20, N'What type of beetroot are you growing?')
+    SET IDENTITY_INSERT [dbo].[CropInfoQuestions] OFF
+END
+
 
 IF NOT EXISTS (SELECT 1 FROM [dbo].[CropTypeLinkings])
 BEGIN
-    INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [LateSownMannerCropTypeID]) VALUES (0, 2, CAST(8.0 AS Decimal(18, 1)), CAST(8.0 AS Decimal(18, 1)), 0, 220, 220, 220, 1, 1, 3)
-    INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [LateSownMannerCropTypeID]) VALUES (1, 2, CAST(6.5 AS Decimal(18, 1)), CAST(6.5 AS Decimal(18, 1)), 0, 180, 180, 180, 1, 1, 3)
-    INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [LateSownMannerCropTypeID]) VALUES (2, 6, CAST(6.0 AS Decimal(18, 1)), CAST(7.0 AS Decimal(18, 1)), 0, 180, 180, 180, 3, 1, 6)
-    INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [LateSownMannerCropTypeID]) VALUES (3, 6, CAST(5.5 AS Decimal(18, 1)), CAST(5.5 AS Decimal(18, 1)), 0, 150, 150, 150, 3, 1, 6)
-    INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [LateSownMannerCropTypeID]) VALUES (4, 2, CAST(6.0 AS Decimal(18, 1)), NULL, 0, NULL, NULL, NULL, 1, NULL, 3)
-    INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [LateSownMannerCropTypeID]) VALUES (5, 6, CAST(6.0 AS Decimal(18, 1)), CAST(5.5 AS Decimal(18, 1)), 0, NULL, NULL, NULL, 3, NULL, 6)
-    INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [LateSownMannerCropTypeID]) VALUES (6, 2, CAST(6.0 AS Decimal(18, 1)), NULL, 0, NULL, NULL, NULL, 1, NULL, 3)
-    INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [LateSownMannerCropTypeID]) VALUES (7, 6, CAST(6.0 AS Decimal(18, 1)), NULL, 0, NULL, NULL, NULL, 3, NULL, 6)
-    INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [LateSownMannerCropTypeID]) VALUES (8, 2, CAST(8.0 AS Decimal(18, 1)), CAST(8.0 AS Decimal(18, 1)), 0, NULL, NULL, NULL, 1, NULL, 3)
-    INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [LateSownMannerCropTypeID]) VALUES (9, 6, CAST(6.0 AS Decimal(18, 1)), CAST(8.0 AS Decimal(18, 1)), 0, NULL, NULL, NULL, 3, NULL, 6)
-    INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [LateSownMannerCropTypeID]) VALUES (20, 4, CAST(3.5 AS Decimal(18, 1)), CAST(4.0 AS Decimal(18, 1)), 0, 250, 250, 250, 2, 2, 5)
-    INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [LateSownMannerCropTypeID]) VALUES (21, 6, NULL, NULL, 0, NULL, NULL, NULL, 3, 2, 6)
-    INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [LateSownMannerCropTypeID]) VALUES (22, 9, NULL, NULL, 0, NULL, NULL, NULL, 3, NULL, 9)
-    INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [LateSownMannerCropTypeID]) VALUES (23, 9, CAST(4.0 AS Decimal(18, 1)), NULL, 0, 0, 0, 0, 3, 3, 9)
-    INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [LateSownMannerCropTypeID]) VALUES (24, 9, CAST(3.5 AS Decimal(18, 1)), NULL, 0, 0, 0, 0, 3, NULL, 9)
-    INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [LateSownMannerCropTypeID]) VALUES (25, 9, CAST(3.5 AS Decimal(18, 1)), NULL, 0, 0, 0, 0, 3, NULL, 9)
-    INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [LateSownMannerCropTypeID]) VALUES (26, 8, CAST(60.0 AS Decimal(18, 1)), NULL, 0, 120, 120, 120, 3, 4, 8)
-    INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [LateSownMannerCropTypeID]) VALUES (27, 9, NULL, NULL, 1, NULL, NULL, NULL, 3, NULL, 9)
-    INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [LateSownMannerCropTypeID]) VALUES (28, 9, NULL, NULL, 0, NULL, NULL, NULL, 3, NULL, 9)
-    INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [LateSownMannerCropTypeID]) VALUES (40, 9, NULL, NULL, 0, 150, 150, 150, 3, NULL, 9)
-    INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [LateSownMannerCropTypeID]) VALUES (41, 9, NULL, NULL, 0, NULL, NULL, NULL, 3, NULL, 9)
-    INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [LateSownMannerCropTypeID]) VALUES (43, 9, NULL, NULL, 0, NULL, NULL, NULL, 3, NULL, 9)
-    INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [LateSownMannerCropTypeID]) VALUES (44, 9, NULL, NULL, 0, NULL, NULL, NULL, 3, NULL, 9)
-    INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [LateSownMannerCropTypeID]) VALUES (45, 9, NULL, NULL, 0, NULL, NULL, NULL, 3, NULL, 9)
-    INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [LateSownMannerCropTypeID]) VALUES (50, 6, NULL, NULL, 0, 150, 150, 150, 3, NULL, 6)
-    INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [LateSownMannerCropTypeID]) VALUES (51, 6, NULL, NULL, 0, 180, 180, 180, 3, NULL, 6)
-    INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [LateSownMannerCropTypeID]) VALUES (52, 2, NULL, NULL, 0, 180, 180, 180, 1, NULL, 3)
-    INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [LateSownMannerCropTypeID]) VALUES (53, 2, NULL, NULL, 0, 220, 220, 220, 1, NULL, 3)
-    INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [LateSownMannerCropTypeID]) VALUES (54, 6, NULL, NULL, 0, NULL, NULL, NULL, 3, NULL, 6)
-    INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [LateSownMannerCropTypeID]) VALUES (55, 6, NULL, NULL, 0, NULL, NULL, NULL, 3, NULL, 6)
-    INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [LateSownMannerCropTypeID]) VALUES (56, 6, NULL, NULL, 0, NULL, NULL, NULL, 3, NULL, 6)
-    INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [LateSownMannerCropTypeID]) VALUES (57, 2, NULL, NULL, 0, NULL, NULL, NULL, 1, NULL, 3)
-    INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [LateSownMannerCropTypeID]) VALUES (58, 2, NULL, CAST(30.0 AS Decimal(18, 1)), 0, NULL, NULL, NULL, 1, NULL, 3)
-    INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [LateSownMannerCropTypeID]) VALUES (59, 2, NULL, NULL, 0, NULL, NULL, NULL, 1, NULL, 3)
-    INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [LateSownMannerCropTypeID]) VALUES (60, 9, NULL, NULL, 1, 180, 150, 180, 4, 5, 9)
-    INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [LateSownMannerCropTypeID]) VALUES (61, 9, NULL, NULL, 0, 370, 350, 370, 4, NULL, 9)
-    INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [LateSownMannerCropTypeID]) VALUES (62, 9, NULL, NULL, 0, 370, 350, 370, 4, 6, 9)
-    INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [LateSownMannerCropTypeID]) VALUES (63, 9, NULL, NULL, 0, 370, 350, 370, 4, 7, 9)
-    INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [LateSownMannerCropTypeID]) VALUES (64, 9, NULL, NULL, 0, 370, 350, 370, 4, NULL, 9)
-    INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [LateSownMannerCropTypeID]) VALUES (65, 9, NULL, NULL, 0, 280, 250, 280, 4, NULL, 9)
-    INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [LateSownMannerCropTypeID]) VALUES (66, 9, NULL, NULL, 0, NULL, NULL, NULL, 4, NULL, 9)
-    INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [LateSownMannerCropTypeID]) VALUES (67, 9, NULL, NULL, 0, 280, 250, 280, 4, NULL, 9)
-    INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [LateSownMannerCropTypeID]) VALUES (68, 9, NULL, NULL, 0, 280, 250, 280, 4, NULL, 9)
-    INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [LateSownMannerCropTypeID]) VALUES (69, 9, NULL, NULL, 0, 280, 250, 280, 4, NULL, 9)
-    INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [LateSownMannerCropTypeID]) VALUES (70, 9, NULL, NULL, 0, 180, 150, 180, 4, NULL, 9)
-    INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [LateSownMannerCropTypeID]) VALUES (71, 9, NULL, NULL, 0, 280, 250, 280, 4, NULL, 9)
-    INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [LateSownMannerCropTypeID]) VALUES (72, 9, NULL, NULL, 0, 280, 250, 280, 4, NULL, 9)
-    INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [LateSownMannerCropTypeID]) VALUES (73, 9, NULL, NULL, 0, 280, 250, 280, 4, 8, 9)
-    INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [LateSownMannerCropTypeID]) VALUES (74, 9, NULL, NULL, 0, 280, 250, 280, 4, 8, 9)
-    INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [LateSownMannerCropTypeID]) VALUES (75, 9, NULL, NULL, 0, 370, 350, 370, 4, NULL, 9)
-    INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [LateSownMannerCropTypeID]) VALUES (76, 9, NULL, NULL, 1, NULL, NULL, NULL, 4, NULL, 9)
-    INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [LateSownMannerCropTypeID]) VALUES (77, 9, NULL, NULL, 0, 280, 250, 280, 4, NULL, 9)
-    INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [LateSownMannerCropTypeID]) VALUES (78, 9, NULL, NULL, 0, NULL, NULL, NULL, 4, NULL, 9)
-    INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [LateSownMannerCropTypeID]) VALUES (79, 9, NULL, NULL, 0, NULL, NULL, NULL, 4, NULL, 9)
-    INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [LateSownMannerCropTypeID]) VALUES (90, 8, NULL, NULL, 0, 370, 350, 370, 4, NULL, 8)
-    INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [LateSownMannerCropTypeID]) VALUES (91, 9, NULL, NULL, 0, 280, 250, 280, 4, NULL, 9)
-    INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [LateSownMannerCropTypeID]) VALUES (92, 9, NULL, NULL, 0, 180, 150, 180, 4, NULL, 9)
-    INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [LateSownMannerCropTypeID]) VALUES (93, 9, NULL, NULL, 0, 280, 250, 280, 4, NULL, 9)
-    INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [LateSownMannerCropTypeID]) VALUES (94, 9, NULL, NULL, 0, 180, 150, 180, 4, NULL, 9)
-    INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [LateSownMannerCropTypeID]) VALUES (110, 9, NULL, NULL, 1, NULL, NULL, NULL, 3, 9, 9)
-    INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [LateSownMannerCropTypeID]) VALUES (111, 9, NULL, NULL, 1, NULL, NULL, NULL, 3, 9, 9)
-    INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [LateSownMannerCropTypeID]) VALUES (112, 9, NULL, NULL, 1, NULL, NULL, NULL, 3, 9, 9)
-    INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [LateSownMannerCropTypeID]) VALUES (113, 9, NULL, NULL, 1, NULL, NULL, NULL, 3, 9, 9)
-    INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [LateSownMannerCropTypeID]) VALUES (114, 9, NULL, NULL, 1, NULL, NULL, NULL, 3, 9, 9)
-    INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [LateSownMannerCropTypeID]) VALUES (115, 9, NULL, NULL, 1, NULL, NULL, NULL, 3, 9, 9)
-    INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [LateSownMannerCropTypeID]) VALUES (116, 9, NULL, NULL, 1, NULL, NULL, NULL, 3, 10, 9)
-    INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [LateSownMannerCropTypeID]) VALUES (117, 9, NULL, NULL, 1, NULL, NULL, NULL, 3, 10, 9)
-    INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [LateSownMannerCropTypeID]) VALUES (118, 9, NULL, NULL, 1, NULL, NULL, NULL, 3, 10, 9)
-    INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [LateSownMannerCropTypeID]) VALUES (119, 9, NULL, NULL, 1, NULL, NULL, NULL, 3, 10, 9)
-    INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [LateSownMannerCropTypeID]) VALUES (120, 9, NULL, NULL, 1, NULL, NULL, NULL, 3, 10, 9)
-    INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [LateSownMannerCropTypeID]) VALUES (121, 9, NULL, NULL, 1, NULL, NULL, NULL, 3, 10, 9)
-    INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [LateSownMannerCropTypeID]) VALUES (122, 9, NULL, NULL, 1, NULL, NULL, NULL, 3, 10, 9)
-    INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [LateSownMannerCropTypeID]) VALUES (123, 9, NULL, NULL, 1, NULL, NULL, NULL, 3, 11, 9)
-    INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [LateSownMannerCropTypeID]) VALUES (124, 9, NULL, NULL, 1, NULL, NULL, NULL, 3, 10, 9)
-    INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [LateSownMannerCropTypeID]) VALUES (125, 9, NULL, NULL, 1, NULL, NULL, NULL, 3, 10, 9)
-    INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [LateSownMannerCropTypeID]) VALUES (140, 1, NULL, NULL, 0, 300, 300, 300, 3, NULL, 1)
-    INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [LateSownMannerCropTypeID]) VALUES (160, 7, CAST(50.0 AS Decimal(18, 1)), NULL, 0, 270, 270, 270, 3, 12, 7)
-    INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [LateSownMannerCropTypeID]) VALUES (161, 7, CAST(50.0 AS Decimal(18, 1)), NULL, 0, 270, 270, 270, 3, 12, 7)
-    INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [LateSownMannerCropTypeID]) VALUES (162, 7, CAST(50.0 AS Decimal(18, 1)), NULL, 0, 270, 270, 270, 3, 12, 7)
-    INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [LateSownMannerCropTypeID]) VALUES (163, 7, CAST(50.0 AS Decimal(18, 1)), NULL, 0, 270, 270, 270, 3, 12, 7)
-    INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [LateSownMannerCropTypeID]) VALUES (170, 9, NULL, NULL, 0, NULL, NULL, NULL, 3, NULL, 9)
-    INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [LateSownMannerCropTypeID]) VALUES (171, 6, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 6)
-    INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [LateSownMannerCropTypeID]) VALUES (172, 6, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 6)
-    INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [LateSownMannerCropTypeID]) VALUES (173, 6, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 6)
-    INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [LateSownMannerCropTypeID]) VALUES (174, 6, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 6)
-    INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [LateSownMannerCropTypeID]) VALUES (175, 9, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 9)
-    INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [LateSownMannerCropTypeID]) VALUES (176, 9, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 9)
-    INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [LateSownMannerCropTypeID]) VALUES (177, 9, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, 9)
-    INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [LateSownMannerCropTypeID]) VALUES (178, 9, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, 9)
-    INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [LateSownMannerCropTypeID]) VALUES (179, 9, NULL, NULL, 1, NULL, NULL, NULL, 4, NULL, 9)
-    INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [LateSownMannerCropTypeID]) VALUES (180, 9, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 9)
-    INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [LateSownMannerCropTypeID]) VALUES (181, 9, NULL, NULL, 0, 0, 0, 0, 4, NULL, 9)
-    INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [LateSownMannerCropTypeID]) VALUES (182, 9, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 9)
-    INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [LateSownMannerCropTypeID]) VALUES (184, 9, NULL, NULL, 1, NULL, NULL, NULL, 3, 13, 9)
-    INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [LateSownMannerCropTypeID]) VALUES (185, 9, NULL, NULL, 1, NULL, NULL, NULL, 3, 5, 9)
-    INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [LateSownMannerCropTypeID]) VALUES (187, 9, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, 9)
-    INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [LateSownMannerCropTypeID]) VALUES (188, 9, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 9)
-    INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [LateSownMannerCropTypeID]) VALUES (189, 9, NULL, NULL, 0, NULL, NULL, NULL, 3, NULL, 9)
-    INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [LateSownMannerCropTypeID]) VALUES (191, 9, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 9)
-    INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [LateSownMannerCropTypeID]) VALUES (192, 9, NULL, NULL, 0, NULL, NULL, NULL, 4, NULL, 9)
-    INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [LateSownMannerCropTypeID]) VALUES (193, 9, NULL, NULL, 1, NULL, NULL, NULL, 4, 5, 9)
-    INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [LateSownMannerCropTypeID]) VALUES (194, 9, NULL, NULL, 0, NULL, NULL, NULL, 3, NULL, 9)
-    INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [LateSownMannerCropTypeID]) VALUES (195, 9, NULL, NULL, 0, NULL, NULL, NULL, 3, NULL, 9)
-    INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [LateSownMannerCropTypeID]) VALUES (196, 9, NULL, NULL, 0, NULL, NULL, NULL, 3, NULL, 9)
+   INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [CropInfoOneScotlandQuestionID], [LateSownMannerCropTypeID]) VALUES (0, 2, CAST(8.0 AS Decimal(18, 1)), CAST(8.0 AS Decimal(18, 1)), 0, 220, 220, 220, 1, 1, 1, 3)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [CropInfoOneScotlandQuestionID], [LateSownMannerCropTypeID]) VALUES (1, 2, CAST(6.5 AS Decimal(18, 1)), CAST(6.5 AS Decimal(18, 1)), 0, 180, 180, 180, 1, 1, 1, 3)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [CropInfoOneScotlandQuestionID], [LateSownMannerCropTypeID]) VALUES (2, 6, CAST(6.0 AS Decimal(18, 1)), CAST(7.0 AS Decimal(18, 1)), 0, 180, 180, 180, 3, 1, 1, 6)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [CropInfoOneScotlandQuestionID], [LateSownMannerCropTypeID]) VALUES (3, 6, CAST(5.5 AS Decimal(18, 1)), CAST(5.5 AS Decimal(18, 1)), 0, 150, 150, 150, 3, 1, 1, 6)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [CropInfoOneScotlandQuestionID], [LateSownMannerCropTypeID]) VALUES (4, 2, CAST(6.0 AS Decimal(18, 1)), CAST(6.0 AS Decimal(18, 1)), 0, NULL, NULL, NULL, 1, NULL, NULL, 3)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [CropInfoOneScotlandQuestionID], [LateSownMannerCropTypeID]) VALUES (5, 6, CAST(6.0 AS Decimal(18, 1)), CAST(5.0 AS Decimal(18, 1)), 0, NULL, NULL, NULL, 3, NULL, NULL, 6)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [CropInfoOneScotlandQuestionID], [LateSownMannerCropTypeID]) VALUES (6, 2, CAST(6.0 AS Decimal(18, 1)), CAST(6.5 AS Decimal(18, 1)), 0, NULL, NULL, NULL, 1, NULL, NULL, 3)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [CropInfoOneScotlandQuestionID], [LateSownMannerCropTypeID]) VALUES (7, 6, CAST(6.0 AS Decimal(18, 1)), CAST(6.0 AS Decimal(18, 1)), 0, NULL, NULL, NULL, 3, NULL, NULL, 6)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [CropInfoOneScotlandQuestionID], [LateSownMannerCropTypeID]) VALUES (8, 2, CAST(8.0 AS Decimal(18, 1)), CAST(8.0 AS Decimal(18, 1)), 0, NULL, NULL, NULL, 1, NULL, NULL, 3)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [CropInfoOneScotlandQuestionID], [LateSownMannerCropTypeID]) VALUES (9, 6, CAST(6.0 AS Decimal(18, 1)), CAST(6.0 AS Decimal(18, 1)), 0, NULL, NULL, NULL, 3, NULL, NULL, 6)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [CropInfoOneScotlandQuestionID], [LateSownMannerCropTypeID]) VALUES (20, 4, CAST(3.5 AS Decimal(18, 1)), CAST(4.0 AS Decimal(18, 1)), 0, 250, 250, 250, 2, 2, 14, 5)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [CropInfoOneScotlandQuestionID], [LateSownMannerCropTypeID]) VALUES (21, 6, NULL, CAST(2.0 AS Decimal(18, 1)), 0, NULL, NULL, NULL, 3, 2, 14, 6)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [CropInfoOneScotlandQuestionID], [LateSownMannerCropTypeID]) VALUES (22, 9, NULL, NULL, 0, NULL, NULL, NULL, 3, NULL, NULL, 9)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [CropInfoOneScotlandQuestionID], [LateSownMannerCropTypeID]) VALUES (23, 9, CAST(4.0 AS Decimal(18, 1)), NULL, 0, 0, 0, 0, 3, 3, 3, 9)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [CropInfoOneScotlandQuestionID], [LateSownMannerCropTypeID]) VALUES (24, 9, CAST(3.5 AS Decimal(18, 1)), NULL, 0, 0, 0, 0, 3, NULL, NULL, 9)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [CropInfoOneScotlandQuestionID], [LateSownMannerCropTypeID]) VALUES (25, 9, CAST(3.5 AS Decimal(18, 1)), NULL, 0, 0, 0, 0, 3, NULL, NULL, 9)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [CropInfoOneScotlandQuestionID], [LateSownMannerCropTypeID]) VALUES (26, 8, CAST(60.0 AS Decimal(18, 1)), NULL, 0, 120, 120, 120, 3, 4, 4, 8)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [CropInfoOneScotlandQuestionID], [LateSownMannerCropTypeID]) VALUES (27, 9, NULL, NULL, 1, NULL, NULL, NULL, 3, NULL, NULL, 9)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [CropInfoOneScotlandQuestionID], [LateSownMannerCropTypeID]) VALUES (28, 9, NULL, NULL, 0, NULL, NULL, NULL, 3, NULL, NULL, 9)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [CropInfoOneScotlandQuestionID], [LateSownMannerCropTypeID]) VALUES (40, 9, NULL, CAST(40.0 AS Decimal(18, 1)), 0, 150, 150, 150, 3, NULL, NULL, 9)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [CropInfoOneScotlandQuestionID], [LateSownMannerCropTypeID]) VALUES (41, 9, NULL, CAST(65.0 AS Decimal(18, 1)), 0, NULL, NULL, NULL, 3, NULL, NULL, 9)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [CropInfoOneScotlandQuestionID], [LateSownMannerCropTypeID]) VALUES (43, 9, NULL, NULL, 0, NULL, NULL, NULL, 3, NULL, NULL, 9)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [CropInfoOneScotlandQuestionID], [LateSownMannerCropTypeID]) VALUES (44, 9, NULL, NULL, 0, NULL, NULL, NULL, 3, NULL, NULL, 9)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [CropInfoOneScotlandQuestionID], [LateSownMannerCropTypeID]) VALUES (45, 9, NULL, CAST(85.0 AS Decimal(18, 1)), 0, NULL, NULL, NULL, 3, NULL, 15, 9)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [CropInfoOneScotlandQuestionID], [LateSownMannerCropTypeID]) VALUES (50, 6, NULL, CAST(25.0 AS Decimal(18, 1)), 0, 150, 150, 150, 3, NULL, 16, 6)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [CropInfoOneScotlandQuestionID], [LateSownMannerCropTypeID]) VALUES (51, 6, NULL, CAST(25.0 AS Decimal(18, 1)), 0, 180, 180, 180, 3, NULL, 16, 6)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [CropInfoOneScotlandQuestionID], [LateSownMannerCropTypeID]) VALUES (52, 2, NULL, CAST(30.0 AS Decimal(18, 1)), 0, 180, 180, 180, 1, NULL, NULL, 3)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [CropInfoOneScotlandQuestionID], [LateSownMannerCropTypeID]) VALUES (53, 2, NULL, CAST(30.0 AS Decimal(18, 1)), 0, 220, 220, 220, 1, NULL, NULL, 3)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [CropInfoOneScotlandQuestionID], [LateSownMannerCropTypeID]) VALUES (54, 6, NULL, CAST(25.0 AS Decimal(18, 1)), 0, NULL, NULL, NULL, 3, NULL, 16, 6)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [CropInfoOneScotlandQuestionID], [LateSownMannerCropTypeID]) VALUES (55, 6, NULL, CAST(25.0 AS Decimal(18, 1)), 0, NULL, NULL, NULL, 3, NULL, 16, 6)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [CropInfoOneScotlandQuestionID], [LateSownMannerCropTypeID]) VALUES (56, 6, NULL, CAST(25.0 AS Decimal(18, 1)), 0, NULL, NULL, NULL, 3, NULL, 16, 6)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [CropInfoOneScotlandQuestionID], [LateSownMannerCropTypeID]) VALUES (57, 2, NULL, CAST(30.0 AS Decimal(18, 1)), 0, NULL, NULL, NULL, 1, NULL, NULL, 3)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [CropInfoOneScotlandQuestionID], [LateSownMannerCropTypeID]) VALUES (58, 2, NULL, CAST(35.0 AS Decimal(18, 1)), 0, NULL, NULL, NULL, 1, NULL, NULL, 3)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [CropInfoOneScotlandQuestionID], [LateSownMannerCropTypeID]) VALUES (59, 2, NULL, CAST(30.0 AS Decimal(18, 1)), 0, NULL, NULL, NULL, 1, NULL, NULL, 3)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [CropInfoOneScotlandQuestionID], [LateSownMannerCropTypeID]) VALUES (60, 9, NULL, NULL, 1, 180, 150, 180, 4, 5, 5, 9)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [CropInfoOneScotlandQuestionID], [LateSownMannerCropTypeID]) VALUES (61, 9, NULL, NULL, 0, 370, 350, 370, 4, NULL, NULL, 9)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [CropInfoOneScotlandQuestionID], [LateSownMannerCropTypeID]) VALUES (62, 9, NULL, NULL, 0, 370, 350, 370, 4, 6, NULL, 9)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [CropInfoOneScotlandQuestionID], [LateSownMannerCropTypeID]) VALUES (63, 9, NULL, NULL, 0, 370, 350, 370, 4, 7, NULL, 9)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [CropInfoOneScotlandQuestionID], [LateSownMannerCropTypeID]) VALUES (64, 9, NULL, NULL, 0, 370, 350, 370, 4, NULL, NULL, 9)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [CropInfoOneScotlandQuestionID], [LateSownMannerCropTypeID]) VALUES (65, 9, NULL, NULL, 0, 280, 250, 280, 4, NULL, NULL, 9)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [CropInfoOneScotlandQuestionID], [LateSownMannerCropTypeID]) VALUES (66, 9, NULL, NULL, 0, NULL, NULL, NULL, 4, NULL, NULL, 9)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [CropInfoOneScotlandQuestionID], [LateSownMannerCropTypeID]) VALUES (67, 9, NULL, NULL, 0, 280, 250, 280, 4, NULL, NULL, 9)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [CropInfoOneScotlandQuestionID], [LateSownMannerCropTypeID]) VALUES (68, 9, NULL, NULL, 0, 280, 250, 280, 4, NULL, NULL, 9)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [CropInfoOneScotlandQuestionID], [LateSownMannerCropTypeID]) VALUES (69, 9, NULL, NULL, 0, 280, 250, 280, 4, NULL, NULL, 9)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [CropInfoOneScotlandQuestionID], [LateSownMannerCropTypeID]) VALUES (70, 9, NULL, NULL, 0, 180, 150, 180, 4, NULL, NULL, 9)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [CropInfoOneScotlandQuestionID], [LateSownMannerCropTypeID]) VALUES (71, 9, NULL, NULL, 0, 280, 250, 280, 4, NULL, NULL, 9)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [CropInfoOneScotlandQuestionID], [LateSownMannerCropTypeID]) VALUES (72, 9, NULL, NULL, 0, 280, 250, 280, 4, NULL, NULL, 9)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [CropInfoOneScotlandQuestionID], [LateSownMannerCropTypeID]) VALUES (73, 9, NULL, NULL, 0, 280, 250, 280, 4, 8, NULL, 9)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [CropInfoOneScotlandQuestionID], [LateSownMannerCropTypeID]) VALUES (74, 9, NULL, NULL, 0, 280, 250, 280, 4, 8, NULL, 9)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [CropInfoOneScotlandQuestionID], [LateSownMannerCropTypeID]) VALUES (75, 9, NULL, NULL, 0, 370, 350, 370, 4, NULL, NULL, 9)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [CropInfoOneScotlandQuestionID], [LateSownMannerCropTypeID]) VALUES (76, 9, NULL, NULL, 1, NULL, NULL, NULL, 4, NULL, NULL, 9)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [CropInfoOneScotlandQuestionID], [LateSownMannerCropTypeID]) VALUES (77, 9, NULL, NULL, 0, 280, 250, 280, 4, NULL, NULL, 9)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [CropInfoOneScotlandQuestionID], [LateSownMannerCropTypeID]) VALUES (78, 9, NULL, NULL, 0, NULL, NULL, NULL, 4, NULL, NULL, 9)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [CropInfoOneScotlandQuestionID], [LateSownMannerCropTypeID]) VALUES (79, 9, NULL, NULL, 0, NULL, NULL, NULL, 4, NULL, NULL, 9)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [CropInfoOneScotlandQuestionID], [LateSownMannerCropTypeID]) VALUES (90, 8, NULL, NULL, 0, 370, 350, 370, 4, NULL, 20, 8)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [CropInfoOneScotlandQuestionID], [LateSownMannerCropTypeID]) VALUES (91, 9, NULL, NULL, 0, 280, 250, 280, 4, NULL, NULL, 9)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [CropInfoOneScotlandQuestionID], [LateSownMannerCropTypeID]) VALUES (92, 9, NULL, NULL, 0, 180, 150, 180, 4, NULL, NULL, 9)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [CropInfoOneScotlandQuestionID], [LateSownMannerCropTypeID]) VALUES (93, 9, NULL, NULL, 0, 280, 250, 280, 4, NULL, NULL, 9)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [CropInfoOneScotlandQuestionID], [LateSownMannerCropTypeID]) VALUES (94, 9, NULL, NULL, 0, 180, 150, 180, 4, NULL, NULL, 9)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [CropInfoOneScotlandQuestionID], [LateSownMannerCropTypeID]) VALUES (110, 9, NULL, NULL, 1, NULL, NULL, NULL, 3, 9, NULL, 9)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [CropInfoOneScotlandQuestionID], [LateSownMannerCropTypeID]) VALUES (111, 9, NULL, NULL, 1, NULL, NULL, NULL, 3, 9, NULL, 9)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [CropInfoOneScotlandQuestionID], [LateSownMannerCropTypeID]) VALUES (112, 9, NULL, NULL, 1, NULL, NULL, NULL, 3, 9, NULL, 9)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [CropInfoOneScotlandQuestionID], [LateSownMannerCropTypeID]) VALUES (113, 9, NULL, NULL, 1, NULL, NULL, NULL, 3, 9, NULL, 9)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [CropInfoOneScotlandQuestionID], [LateSownMannerCropTypeID]) VALUES (114, 9, NULL, NULL, 1, NULL, NULL, NULL, 3, 9, NULL, 9)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [CropInfoOneScotlandQuestionID], [LateSownMannerCropTypeID]) VALUES (115, 9, NULL, NULL, 1, NULL, NULL, NULL, 3, 9, NULL, 9)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [CropInfoOneScotlandQuestionID], [LateSownMannerCropTypeID]) VALUES (116, 9, NULL, NULL, 1, NULL, NULL, NULL, 3, 10, 17, 9)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [CropInfoOneScotlandQuestionID], [LateSownMannerCropTypeID]) VALUES (117, 9, NULL, NULL, 1, NULL, NULL, NULL, 3, 10, 17, 9)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [CropInfoOneScotlandQuestionID], [LateSownMannerCropTypeID]) VALUES (118, 9, NULL, NULL, 1, NULL, NULL, NULL, 3, 10, 17, 9)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [CropInfoOneScotlandQuestionID], [LateSownMannerCropTypeID]) VALUES (119, 9, NULL, NULL, 1, NULL, NULL, NULL, 3, 10, 17, 9)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [CropInfoOneScotlandQuestionID], [LateSownMannerCropTypeID]) VALUES (120, 9, NULL, NULL, 1, NULL, NULL, NULL, 3, 10, 17, 9)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [CropInfoOneScotlandQuestionID], [LateSownMannerCropTypeID]) VALUES (121, 9, NULL, NULL, 1, NULL, NULL, NULL, 3, 10, 17, 9)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [CropInfoOneScotlandQuestionID], [LateSownMannerCropTypeID]) VALUES (122, 9, NULL, NULL, 1, NULL, NULL, NULL, 3, 10, 18, 9)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [CropInfoOneScotlandQuestionID], [LateSownMannerCropTypeID]) VALUES (123, 9, NULL, NULL, 1, NULL, NULL, NULL, 3, 11, 19, 9)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [CropInfoOneScotlandQuestionID], [LateSownMannerCropTypeID]) VALUES (124, 9, NULL, NULL, 1, NULL, NULL, NULL, 3, 10, NULL, 9)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [CropInfoOneScotlandQuestionID], [LateSownMannerCropTypeID]) VALUES (125, 9, NULL, NULL, 1, NULL, NULL, NULL, 3, 10, NULL, 9)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [CropInfoOneScotlandQuestionID], [LateSownMannerCropTypeID]) VALUES (140, 1, NULL, NULL, 0, 300, 300, 300, 3, NULL, NULL, 1)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [CropInfoOneScotlandQuestionID], [LateSownMannerCropTypeID]) VALUES (160, 7, CAST(50.0 AS Decimal(18, 1)), CAST(50.0 AS Decimal(18, 1)), 0, 270, 270, 270, 3, 12, 12, 7)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [CropInfoOneScotlandQuestionID], [LateSownMannerCropTypeID]) VALUES (161, 7, CAST(50.0 AS Decimal(18, 1)), CAST(50.0 AS Decimal(18, 1)), 0, 270, 270, 270, 3, 12, 12, 7)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [CropInfoOneScotlandQuestionID], [LateSownMannerCropTypeID]) VALUES (162, 7, CAST(50.0 AS Decimal(18, 1)), CAST(50.0 AS Decimal(18, 1)), 0, 270, 270, 270, 3, 12, 12, 7)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [CropInfoOneScotlandQuestionID], [LateSownMannerCropTypeID]) VALUES (163, 7, CAST(50.0 AS Decimal(18, 1)), CAST(50.0 AS Decimal(18, 1)), 0, 270, 270, 270, 3, 12, 12, 7)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [CropInfoOneScotlandQuestionID], [LateSownMannerCropTypeID]) VALUES (170, 9, NULL, NULL, 0, NULL, NULL, NULL, 3, NULL, NULL, 9)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [CropInfoOneScotlandQuestionID], [LateSownMannerCropTypeID]) VALUES (171, 6, NULL, CAST(5.5 AS Decimal(18, 1)), 0, NULL, NULL, NULL, NULL, NULL, 1, 6)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [CropInfoOneScotlandQuestionID], [LateSownMannerCropTypeID]) VALUES (172, 6, NULL, CAST(5.0 AS Decimal(18, 1)), 0, NULL, NULL, NULL, NULL, NULL, NULL, 6)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [CropInfoOneScotlandQuestionID], [LateSownMannerCropTypeID]) VALUES (173, 6, NULL, CAST(6.0 AS Decimal(18, 1)), 0, NULL, NULL, NULL, NULL, NULL, NULL, 6)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [CropInfoOneScotlandQuestionID], [LateSownMannerCropTypeID]) VALUES (174, 6, NULL, CAST(7.0 AS Decimal(18, 1)), 0, NULL, NULL, NULL, NULL, NULL, 1, 6)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [CropInfoOneScotlandQuestionID], [LateSownMannerCropTypeID]) VALUES (175, 9, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, 1, 9)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [CropInfoOneScotlandQuestionID], [LateSownMannerCropTypeID]) VALUES (176, 9, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, 9)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [CropInfoOneScotlandQuestionID], [LateSownMannerCropTypeID]) VALUES (177, 9, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, 18, 9)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [CropInfoOneScotlandQuestionID], [LateSownMannerCropTypeID]) VALUES (178, 9, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, 18, 9)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [CropInfoOneScotlandQuestionID], [LateSownMannerCropTypeID]) VALUES (179, 9, NULL, NULL, 1, NULL, NULL, NULL, 4, NULL, NULL, 9)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [CropInfoOneScotlandQuestionID], [LateSownMannerCropTypeID]) VALUES (180, 9, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, 9)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [CropInfoOneScotlandQuestionID], [LateSownMannerCropTypeID]) VALUES (181, 9, NULL, NULL, 0, 0, 0, 0, 4, NULL, NULL, 9)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [CropInfoOneScotlandQuestionID], [LateSownMannerCropTypeID]) VALUES (182, 9, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, 9)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [CropInfoOneScotlandQuestionID], [LateSownMannerCropTypeID]) VALUES (184, 9, NULL, NULL, 1, NULL, NULL, NULL, 3, 10, 10, 9)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [CropInfoOneScotlandQuestionID], [LateSownMannerCropTypeID]) VALUES (185, 9, NULL, NULL, 1, NULL, NULL, NULL, 3, 10, 10, 9)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [CropInfoOneScotlandQuestionID], [LateSownMannerCropTypeID]) VALUES (187, 9, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, 9)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [CropInfoOneScotlandQuestionID], [LateSownMannerCropTypeID]) VALUES (188, 9, NULL, CAST(40.0 AS Decimal(18, 1)), 0, NULL, NULL, NULL, NULL, NULL, NULL, 9)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [CropInfoOneScotlandQuestionID], [LateSownMannerCropTypeID]) VALUES (189, 9, NULL, NULL, 0, NULL, NULL, NULL, 3, NULL, NULL, 9)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [CropInfoOneScotlandQuestionID], [LateSownMannerCropTypeID]) VALUES (191, 9, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, 9)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [CropInfoOneScotlandQuestionID], [LateSownMannerCropTypeID]) VALUES (192, 9, NULL, NULL, 0, NULL, NULL, NULL, 4, NULL, NULL, 9)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [CropInfoOneScotlandQuestionID], [LateSownMannerCropTypeID]) VALUES (193, 9, NULL, NULL, 1, NULL, NULL, NULL, 4, 10, 10, 9)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [CropInfoOneScotlandQuestionID], [LateSownMannerCropTypeID]) VALUES (194, 9, NULL, NULL, 0, NULL, NULL, NULL, 3, NULL, NULL, 9)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [CropInfoOneScotlandQuestionID], [LateSownMannerCropTypeID]) VALUES (195, 9, NULL, CAST(65.0 AS Decimal(18, 1)), 0, NULL, NULL, NULL, 3, NULL, NULL, 9)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [CropInfoOneScotlandQuestionID], [LateSownMannerCropTypeID]) VALUES (196, 9, NULL, NULL, 0, NULL, NULL, NULL, 3, NULL, NULL, 9)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [CropInfoOneScotlandQuestionID], [LateSownMannerCropTypeID]) VALUES (197, 9, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, 9)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [CropInfoOneScotlandQuestionID], [LateSownMannerCropTypeID]) VALUES (198, 9, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, 9)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [CropInfoOneScotlandQuestionID], [LateSownMannerCropTypeID]) VALUES (199, 6, NULL, CAST(6.0 AS Decimal(18, 1)), 0, NULL, NULL, NULL, NULL, NULL, NULL, 6)
 END
 GO
 
+--01.04.2026
 IF NOT EXISTS (SELECT 1 FROM [dbo].[CropTypeLinkings] WHERE [CropTypeID]=196)
 BEGIN
   INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [SNSCategoryID], [CropInfoOneQuestionID]) VALUES (196, 9, NULL, 0, NULL, NULL, 3, NULL)
 END
+--01.04.2026
+IF NOT EXISTS (SELECT 1 FROM [dbo].[CropTypeLinkings] WHERE [CropTypeID] IN (197,198,199))
+BEGIN
+    INSERT INTO CropTypeLinkings ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [CropInfoOneScotlandQuestionID], [LateSownMannerCropTypeID]) VALUES(197, 9, NULL, NULL, 0,NULL, NULL, NULL, NULL, NULL, NULL, 9)
+    INSERT INTO CropTypeLinkings ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [CropInfoOneScotlandQuestionID], [LateSownMannerCropTypeID]) VALUES(198, 9, NULL, NULL, 0,NULL, NULL, NULL, NULL, NULL, NULL, 9)
+    INSERT INTO CropTypeLinkings ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [CropInfoOneScotlandQuestionID], [LateSownMannerCropTypeID]) VALUES(199, 6, NULL, CAST(6.0 AS Decimal(18, 1)), 0, NULL, NULL, NULL, NULL, NULL, NULL, 6)
+END
 
+--01.04.2026
 IF EXISTS (SELECT 1 FROM [dbo].[CropTypeLinkings])
 BEGIN
   UPDATE [dbo].[CropTypeLinkings] SET [DefaultYieldScotland]=CAST(8.0 AS Decimal(18, 1)) where [CropTypeID]=0
   UPDATE [dbo].[CropTypeLinkings] SET [DefaultYieldScotland]=CAST(6.5 AS Decimal(18, 1)) where [CropTypeID]=1
   UPDATE [dbo].[CropTypeLinkings] SET [DefaultYieldScotland]=CAST(7.0 AS Decimal(18, 1)) where [CropTypeID]=2
   UPDATE [dbo].[CropTypeLinkings] SET [DefaultYieldScotland]=CAST(5.5 AS Decimal(18, 1)) where [CropTypeID]=3
-  UPDATE [dbo].[CropTypeLinkings] SET [DefaultYieldScotland]=CAST(5.5 AS Decimal(18, 1)) where [CropTypeID]=5
   UPDATE [dbo].[CropTypeLinkings] SET [DefaultYieldScotland]=CAST(8.0 AS Decimal(18, 1)) where [CropTypeID]=8
-  UPDATE [dbo].[CropTypeLinkings] SET [DefaultYieldScotland]=CAST(8.0 AS Decimal(18, 1)) where [CropTypeID]=9
-  UPDATE [dbo].[CropTypeLinkings] SET [DefaultYieldScotland]=CAST(4.0 AS Decimal(18, 1)) where [CropTypeID]=20
-  UPDATE [dbo].[CropTypeLinkings] SET [DefaultYieldScotland]=CAST(30.0 AS Decimal(18, 1)) where [CropTypeID]=58
+  UPDATE [dbo].[CropTypeLinkings] SET [DefaultYieldScotland]=NULL where [CropTypeID]=20
+  UPDATE [dbo].[CropTypeLinkings] SET [DefaultYieldScotland] =CAST(6.0 AS Decimal(18, 1)) WHERE [CropTypeID]=4
+  UPDATE [dbo].[CropTypeLinkings] SET [DefaultYieldScotland] =CAST(5.0 AS Decimal(18, 1)) WHERE [CropTypeID]=5
+  UPDATE [dbo].[CropTypeLinkings] SET [DefaultYieldScotland] =CAST(6.5 AS Decimal(18, 1)) WHERE [CropTypeID]=6
+  UPDATE [dbo].[CropTypeLinkings] SET [DefaultYieldScotland] =NULL WHERE [CropTypeID]=7
+  UPDATE [dbo].[CropTypeLinkings] SET [DefaultYieldScotland] =NULL WHERE [CropTypeID]=9
+  UPDATE [dbo].[CropTypeLinkings] SET [DefaultYieldScotland] =CAST(4.0 AS Decimal(18, 1)) WHERE [CropTypeID]=21
+  UPDATE [dbo].[CropTypeLinkings] SET [DefaultYieldScotland] =CAST(40.0 AS Decimal(18, 1)) WHERE [CropTypeID]=40
+  UPDATE [dbo].[CropTypeLinkings] SET [DefaultYieldScotland] =CAST(65.0 AS Decimal(18, 1)) WHERE [CropTypeID]=41
+  UPDATE [dbo].[CropTypeLinkings] SET [DefaultYieldScotland] =CAST(85.0 AS Decimal(18, 1)) WHERE [CropTypeID]=45
+  UPDATE [dbo].[CropTypeLinkings] SET [DefaultYieldScotland] =CAST(5.5 AS Decimal(18, 1)) WHERE [CropTypeID]=50
+  UPDATE [dbo].[CropTypeLinkings] SET [DefaultYieldScotland] =CAST(7.0 AS Decimal(18, 1)) WHERE [CropTypeID]=51
+  UPDATE [dbo].[CropTypeLinkings] SET [DefaultYieldScotland] =CAST(6.5 AS Decimal(18, 1)) WHERE [CropTypeID]=52
+  UPDATE [dbo].[CropTypeLinkings] SET [DefaultYieldScotland] =CAST(8.0 AS Decimal(18, 1)) WHERE [CropTypeID]=53
+  UPDATE [dbo].[CropTypeLinkings] SET [DefaultYieldScotland] =CAST(5.0 AS Decimal(18, 1)) WHERE [CropTypeID]=54
+  UPDATE [dbo].[CropTypeLinkings] SET [DefaultYieldScotland] =CAST(6.0 AS Decimal(18, 1)) WHERE [CropTypeID]=57
+  UPDATE [dbo].[CropTypeLinkings] SET [DefaultYieldScotland] =NULL WHERE [CropTypeID]=55
+  UPDATE [dbo].[CropTypeLinkings] SET [DefaultYieldScotland] =NULL WHERE [CropTypeID]=56
+  UPDATE [dbo].[CropTypeLinkings] SET [DefaultYieldScotland] =CAST(35.0 AS Decimal(18, 1)) WHERE [CropTypeID]=58
+  UPDATE [dbo].[CropTypeLinkings] SET [DefaultYieldScotland] =CAST(30.0 AS Decimal(18, 1)) WHERE [CropTypeID]=59
+  
+  UPDATE [dbo].[CropTypeLinkings] SET [DefaultYieldScotland] =CAST(5.5 AS Decimal(18, 1)) WHERE [CropTypeID]=171
+  UPDATE [dbo].[CropTypeLinkings] SET [DefaultYieldScotland] =CAST(5.0 AS Decimal(18, 1)) WHERE [CropTypeID]=172
+  UPDATE [dbo].[CropTypeLinkings] SET [DefaultYieldScotland] =NULL WHERE [CropTypeID]=173
+  UPDATE [dbo].[CropTypeLinkings] SET [DefaultYieldScotland] =CAST(7.0 AS Decimal(18, 1)) WHERE [CropTypeID]=174
+  
+  UPDATE [dbo].[CropTypeLinkings] SET [DefaultYieldScotland] =CAST(40.0 AS Decimal(18, 1)) WHERE [CropTypeID]=188
+  UPDATE [dbo].[CropTypeLinkings] SET [DefaultYieldScotland] =CAST(65.0 AS Decimal(18, 1)) WHERE [CropTypeID]=195
+  
+  UPDATE [dbo].[CropTypeLinkings] SET [DefaultYieldScotland] =NULL WHERE [CropTypeID]=160
+  UPDATE [dbo].[CropTypeLinkings] SET [DefaultYieldScotland] =NULL WHERE [CropTypeID]=161
+  UPDATE [dbo].[CropTypeLinkings] SET [DefaultYieldScotland] =NULL WHERE [CropTypeID]=162
+  UPDATE [dbo].[CropTypeLinkings] SET [DefaultYieldScotland] =NULL WHERE [CropTypeID]=163
+
 
   UPDATE [dbo].[CropTypeLinkings] SET [NMaxLimitScotland]=220  where [CropTypeID]=0
   UPDATE [dbo].[CropTypeLinkings] SET [NMaxLimitScotland]=180  where [CropTypeID]=1
@@ -250,11 +323,59 @@ BEGIN
 
 END
 
+--01.04.2026
+IF EXISTS (SELECT 1 FROM [dbo].[CropTypeLinkings])
+BEGIN
+    UPDATE  CropTypeLinkings SET CropInfoOneQuestionID=10, CropInfoOneScotlandQuestionID=10 WHERE CropTypeID IN (184,185,193)
+    UPDATE  CropTypeLinkings SET CropInfoOneScotlandQuestionID=1 WHERE CropTypeID IN (0,1,2,3,171,174,175)
+    UPDATE  CropTypeLinkings SET CropInfoOneScotlandQuestionID=3 WHERE CropTypeID IN (23)
+    UPDATE  CropTypeLinkings SET CropInfoOneScotlandQuestionID=4 WHERE CropTypeID IN (26)
+    UPDATE  CropTypeLinkings SET CropInfoOneScotlandQuestionID=5 WHERE CropTypeID IN (60)
+    UPDATE  CropTypeLinkings SET CropInfoOneScotlandQuestionID=12 WHERE CropTypeID IN (160,161,162,163)
+    UPDATE  CropTypeLinkings SET CropInfoOneScotlandQuestionID=14 WHERE CropTypeID IN (20,21)
+    UPDATE  CropTypeLinkings SET CropInfoOneScotlandQuestionID=15 WHERE CropTypeID IN (45)
+    UPDATE  CropTypeLinkings SET CropInfoOneScotlandQuestionID=16 WHERE CropTypeID IN (50,51,54,55,56)
+    UPDATE  CropTypeLinkings SET CropInfoOneScotlandQuestionID=17 WHERE CropTypeID IN (116,117,118,119,120,121)
+    UPDATE  CropTypeLinkings SET CropInfoOneScotlandQuestionID=18 WHERE CropTypeID IN (122,177,178)
+    UPDATE  CropTypeLinkings SET CropInfoOneScotlandQuestionID=19 WHERE CropTypeID IN (123)
+    UPDATE  CropTypeLinkings SET CropInfoOneScotlandQuestionID=20 WHERE CropTypeID IN (90)
+END
+
+--01.04.2026
 IF EXISTS (SELECT 1 FROM [dbo].[CropTypeLinkings])
 BEGIN
   UPDATE [dbo].CropTypeLinkings SET LateSownMannerCropTypeId=3 WHERE MannerCropTypeID=2
   UPDATE CropTypeLinkings SET LateSownMannerCropTypeId=5 WHERE MannerCropTypeID=4
   UPDATE CropTypeLinkings SET LateSownMannerCropTypeId=MannerCropTypeID WHERE LateSownMannerCropTypeId is null
+END
+
+--29.04.2026
+IF EXISTS (SELECT 1 FROM [dbo].[CropTypeLinkings] WHERE [CropTypeID]=20)
+BEGIN
+  UPDATE CropTypeLinkings SET [DefaultYieldScotland]=CAST(4.0 AS Decimal(18, 1)) WHERE [CropTypeID]=20
+END
+
+--22.07.2026
+IF EXISTS (SELECT 1 FROM [dbo].[CropTypeLinkings] WHERE [CropTypeID]=20)
+BEGIN
+    Update CropTypeLinkings set DefaultYieldScotland=6 WHERE CropTypeID=7
+    Update CropTypeLinkings set DefaultYieldScotland=6 WHERE CropTypeID=9
+    Update CropTypeLinkings set DefaultYieldScotland=2 WHERE CropTypeID=21
+    Update CropTypeLinkings set DefaultYieldScotland=25 WHERE CropTypeID=50
+    Update CropTypeLinkings set DefaultYieldScotland=25 WHERE CropTypeID=51
+    Update CropTypeLinkings set DefaultYieldScotland=30 WHERE CropTypeID=52
+    Update CropTypeLinkings set DefaultYieldScotland=30 WHERE CropTypeID=53
+    Update CropTypeLinkings set DefaultYieldScotland=25 WHERE CropTypeID=54
+    Update CropTypeLinkings set DefaultYieldScotland=30 WHERE CropTypeID=57
+    Update CropTypeLinkings set DefaultYieldScotland=25 WHERE CropTypeID=55
+    Update CropTypeLinkings set DefaultYieldScotland=25 WHERE CropTypeID=56
+    Update CropTypeLinkings set DefaultYieldScotland=50 WHERE CropTypeID=160
+    Update CropTypeLinkings set DefaultYieldScotland=50 WHERE CropTypeID=161
+    Update CropTypeLinkings set DefaultYieldScotland=50 WHERE CropTypeID=162
+    Update CropTypeLinkings set DefaultYieldScotland=50 WHERE CropTypeID=163
+    Update CropTypeLinkings set DefaultYieldScotland=6 WHERE CropTypeID=173
+    Update CropTypeLinkings set DefaultYieldScotland=NULL WHERE CropTypeID=197
+    Update CropTypeLinkings set DefaultYieldScotland=6 WHERE CropTypeID=199
 END
  
 IF NOT EXISTS (SELECT 1 FROM [dbo].[InOrganicManureDurations])
@@ -275,832 +396,988 @@ GO
 
 IF NOT EXISTS (SELECT 1 FROM [dbo].[SecondCropLinkings])
 BEGIN
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (0, 43)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (0, 44)
-
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (1, 43)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (1, 44)
-
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (2, 43)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (2, 44)
-
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (3, 43)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (3, 44)
-
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (4, 43)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (4, 44)
-
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (5, 43)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (5, 44)
-
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (6, 43)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (6, 44)
-
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (7, 43)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (7, 44)
-
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (8, 43)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (8, 44)
-
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (9, 43)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (9, 44)
-
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (55, 2)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (55, 3)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (55, 5)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (55, 7)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (55, 9)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (55, 23)
-
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (55, 25)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (55, 140)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (55, 171)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (55, 172)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (55, 173)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (55, 174)
-
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (58, 2)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (58, 3)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (58, 5)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (58, 7)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (58, 9)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (58, 23)
-
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (58, 25)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (58, 40)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (58, 43)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (58, 44)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (58, 45)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (58, 140)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (58, 171)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (58, 172)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (58, 173)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (58, 174)
-
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (60, 60)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (60, 61)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (60, 62)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (60, 63)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (60, 64)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (60, 65)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (60, 66)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (60, 67)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (60, 68)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (60, 69)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (60, 70)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (60, 71)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (60, 72)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (60, 73)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (60, 74)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (60, 75)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (60, 77)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (60, 78)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (60, 79)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (60, 90)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (60, 91)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (60, 92)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (60, 93)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (60, 94)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (60, 170)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (60, 181)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (60, 182)
-
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (61, 60)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (61, 61)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (61, 62)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (61, 63)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (61, 64)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (61, 65)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (61, 66)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (61, 67)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (61, 68)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (61, 69)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (61, 70)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (61, 71)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (61, 72)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (61, 73)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (61, 74)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (61, 75)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (61, 77)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (61, 78)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (61, 79)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (61, 90)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (61, 91)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (61, 92)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (61, 93)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (61, 94)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (61, 170)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (61, 181)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (61, 182)
-
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (62, 60)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (62, 61)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (62, 62)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (62, 63)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (62, 64)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (62, 65)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (62, 66)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (62, 67)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (62, 68)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (62, 69)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (62, 70)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (62, 71)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (62, 72)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (62, 73)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (62, 74)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (62, 75)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (62, 77)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (62, 78)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (62, 79)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (62, 90)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (62, 91)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (62, 92)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (62, 93)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (62, 94)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (62, 170)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (62, 181)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (62, 182)
-
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (63, 60)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (63, 61)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (63, 62)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (63, 63)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (63, 64)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (63, 65)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (63, 66)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (63, 67)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (63, 68)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (63, 69)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (63, 70)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (63, 71)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (63, 72)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (63, 73)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (63, 74)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (63, 75)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (63, 77)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (63, 78)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (63, 79)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (63, 90)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (63, 91)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (63, 92)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (63, 93)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (63, 94)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (63, 170)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (63, 181)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (63, 182)
-
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (64, 60)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (64, 61)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (64, 62)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (64, 63)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (64, 64)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (64, 65)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (64, 66)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (64, 67)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (64, 68)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (64, 69)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (64, 70)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (64, 71)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (64, 72)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (64, 73)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (64, 74)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (64, 75)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (64, 77)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (64, 78)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (64, 79)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (64, 90)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (64, 91)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (64, 92)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (64, 93)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (64, 94)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (64, 170)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (64, 181)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (64, 182)
-
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (65, 60)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (65, 61)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (65, 62)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (65, 63)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (65, 64)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (65, 65)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (65, 66)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (65, 67)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (65, 68)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (65, 69)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (65, 70)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (65, 71)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (65, 72)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (65, 73)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (65, 74)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (65, 75)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (65, 77)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (65, 78)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (65, 79)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (65, 90)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (65, 91)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (65, 92)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (65, 93)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (65, 94)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (65, 170)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (65, 181)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (65, 182)
-
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (66, 60)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (66, 61)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (66, 62)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (66, 63)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (66, 64)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (66, 65)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (66, 66)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (66, 67)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (66, 68)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (66, 69)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (66, 70)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (66, 71)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (66, 72)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (66, 73)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (66, 74)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (66, 75)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (66, 77)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (66, 78)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (66, 79)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (66, 90)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (66, 91)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (66, 92)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (66, 93)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (66, 94)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (66, 170)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (66, 181)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (66, 182)
-
-
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (67, 60)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (67, 61)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (67, 62)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (67, 63)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (67, 64)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (67, 65)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (67, 66)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (67, 67)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (67, 68)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (67, 69)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (67, 70)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (67, 71)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (67, 72)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (67, 73)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (67, 74)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (67, 75)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (67, 77)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (67, 78)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (67, 79)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (67, 90)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (67, 91)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (67, 92)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (67, 93)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (67, 94)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (67, 170)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (67, 181)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (67, 182)
-
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (68, 60)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (68, 61)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (68, 62)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (68, 63)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (68, 64)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (68, 65)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (68, 66)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (68, 67)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (68, 68)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (68, 69)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (68, 70)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (68, 71)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (68, 72)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (68, 73)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (68, 74)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (68, 75)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (68, 77)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (68, 78)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (68, 79)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (68, 90)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (68, 91)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (68, 92)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (68, 93)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (68, 94)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (68, 170)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (68, 181)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (68, 182)
-
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (69, 60)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (69, 61)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (69, 62)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (69, 63)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (69, 64)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (69, 65)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (69, 66)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (69, 67)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (69, 68)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (69, 69)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (69, 70)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (69, 71)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (69, 72)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (69, 73)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (69, 74)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (69, 75)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (69, 77)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (69, 78)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (69, 79)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (69, 90)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (69, 91)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (69, 92)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (69, 93)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (69, 94)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (69, 170)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (69, 181)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (69, 182)
-
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (70, 60)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (70, 61)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (70, 62)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (70, 63)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (70, 64)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (70, 65)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (70, 66)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (70, 67)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (70, 68)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (70, 69)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (70, 70)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (70, 71)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (70, 72)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (70, 73)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (70, 74)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (70, 75)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (70, 77)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (70, 78)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (70, 79)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (70, 90)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (70, 91)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (70, 92)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (70, 93)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (70, 94)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (70, 170)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (70, 181)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (70, 182)
-
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (71, 60)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (71, 61)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (71, 62)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (71, 63)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (71, 64)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (71, 65)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (71, 66)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (71, 67)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (71, 68)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (71, 69)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (71, 70)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (71, 71)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (71, 72)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (71, 73)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (71, 74)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (71, 75)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (71, 77)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (71, 78)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (71, 79)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (71, 90)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (71, 91)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (71, 92)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (71, 93)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (71, 94)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (71, 170)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (71, 181)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (71, 182)
-
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (72, 60)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (72, 61)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (72, 62)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (72, 63)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (72, 64)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (72, 65)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (72, 66)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (72, 67)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (72, 68)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (72, 69)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (72, 70)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (72, 71)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (72, 72)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (72, 73)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (72, 74)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (72, 75)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (72, 77)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (72, 78)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (72, 79)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (72, 90)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (72, 91)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (72, 92)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (72, 93)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (72, 94)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (72, 170)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (72, 181)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (72, 182)
-
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (73, 60)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (73, 61)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (73, 62)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (73, 63)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (73, 64)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (73, 65)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (73, 66)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (73, 67)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (73, 68)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (73, 69)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (73, 70)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (73, 71)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (73, 72)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (73, 73)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (73, 74)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (73, 75)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (73, 77)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (73, 78)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (73, 79)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (73, 90)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (73, 91)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (73, 92)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (73, 93)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (73, 94)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (73, 170)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (73, 182)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (73, 181)
-
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (74, 60)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (74, 61)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (74, 62)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (74, 63)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (74, 64)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (74, 65)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (74, 66)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (74, 67)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (74, 68)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (74, 69)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (74, 70)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (74, 71)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (74, 72)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (74, 73)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (74, 74)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (74, 75)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (74, 77)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (74, 78)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (74, 79)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (74, 90)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (74, 91)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (74, 92)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (74, 93)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (74, 94)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (74, 170)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (74, 181)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (74, 182)
-
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (75, 60)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (75, 61)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (75, 62)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (75, 63)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (75, 64)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (75, 65)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (75, 66)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (75, 67)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (75, 68)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (75, 69)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (75, 70)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (75, 71)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (75, 72)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (75, 73)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (75, 74)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (75, 75)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (75, 77)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (75, 78)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (75, 79)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (75, 90)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (75, 91)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (75, 92)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (75, 93)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (75, 94)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (75, 170)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (75, 181)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (75, 182)
-
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (77, 60)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (77, 61)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (77, 62)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (77, 63)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (77, 64)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (77, 65)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (77, 66)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (77, 67)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (77, 68)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (77, 69)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (77, 70)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (77, 71)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (77, 72)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (77, 73)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (77, 74)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (77, 75)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (77, 77)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (77, 78)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (77, 79)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (77, 90)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (77, 91)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (77, 92)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (77, 93)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (77, 94)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (77, 170)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (77, 181)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (77, 182)
-
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (78, 60)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (78, 61)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (78, 62)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (78, 63)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (78, 64)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (78, 65)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (78, 66)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (78, 67)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (78, 68)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (78, 69)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (78, 70)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (78, 71)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (78, 72)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (78, 73)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (78, 74)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (78, 75)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (78, 77)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (78, 78)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (78, 79)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (78, 90)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (78, 91)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (78, 92)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (78, 93)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (78, 94)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (78, 170)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (78, 181)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (78, 182)
-
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (79, 60)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (79, 61)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (79, 62)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (79, 63)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (79, 64)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (79, 65)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (79, 66)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (79, 67)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (79, 68)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (79, 69)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (79, 70)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (79, 71)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (79, 72)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (79, 73)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (79, 74)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (79, 75)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (79, 77)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (79, 78)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (79, 79)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (79, 90)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (79, 91)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (79, 92)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (79, 93)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (79, 94)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (79, 170)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (79, 181)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (79, 182)
-
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (90, 60)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (90, 61)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (90, 62)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (90, 63)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (90, 64)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (90, 65)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (90, 66)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (90, 67)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (90, 68)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (90, 69)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (90, 70)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (90, 71)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (90, 72)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (90, 73)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (90, 74)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (90, 75)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (90, 77)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (90, 78)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (90, 79)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (90, 90)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (90, 91)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (90, 92)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (90, 93)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (90, 94)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (90, 170)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (90, 181)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (90, 182)
-
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (91, 60)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (91, 61)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (91, 62)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (91, 63)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (91, 64)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (91, 65)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (91, 66)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (91, 67)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (91, 68)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (91, 69)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (91, 70)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (91, 71)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (91, 72)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (91, 73)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (91, 74)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (91, 75)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (91, 77)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (91, 78)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (91, 79)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (91, 90)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (91, 91)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (91, 92)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (91, 93)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (91, 94)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (91, 170)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (91, 181)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (91, 182)
-
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (92, 60)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (92, 61)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (92, 62)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (92, 63)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (92, 64)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (92, 65)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (92, 66)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (92, 67)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (92, 68)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (92, 69)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (92, 70)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (92, 71)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (92, 72)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (92, 73)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (92, 74)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (92, 75)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (92, 77)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (92, 78)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (92, 79)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (92, 90)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (92, 91)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (92, 92)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (92, 93)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (92, 94)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (92, 170)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (92, 181)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (92, 182)
-
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (93, 60)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (93, 61)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (93, 62)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (93, 63)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (93, 64)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (93, 65)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (93, 66)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (93, 67)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (93, 68)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (93, 69)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (93, 70)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (93, 71)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (93, 72)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (93, 73)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (93, 74)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (93, 75)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (93, 77)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (93, 78)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (93, 79)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (93, 90)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (93, 91)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (93, 92)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (93, 93)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (93, 94)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (93, 170)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (93, 181)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (93, 182)
-
-
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (94, 60)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (94, 61)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (94, 62)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (94, 63)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (94, 64)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (94, 65)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (94, 66)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (94, 67)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (94, 68)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (94, 69)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (94, 70)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (94, 71)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (94, 72)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (94, 73)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (94, 74)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (94, 75)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (94, 77)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (94, 78)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (94, 79)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (94, 90)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (94, 91)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (94, 92)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (94, 93)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (94, 94)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (94, 170)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (94, 181)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (94, 182)
-
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (140, 2)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (140, 3)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (140, 5)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (140, 7)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (140, 9)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (140, 23)
-
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (140, 25)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (140, 40)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (140, 45)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (140, 43)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (140, 44)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (140, 171)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (140, 172)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (140, 173)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (140, 174)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (140, 188)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (140, 189)
-
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (170, 170)
-
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (171, 43)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (171, 44)
-
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (172, 43)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (172, 44)
-
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (173, 43)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (173, 44)
-
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (174, 43)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (174, 44)
-
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (181, 60)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (181, 61)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (181, 62)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (181, 63)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (181, 64)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (181, 65)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (181, 66)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (181, 67)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (181, 68)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (181, 69)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (181, 70)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (181, 71)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (181, 72)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (181, 73)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (181, 74)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (181, 75)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (181, 77)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (181, 78)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (181, 79)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (181, 90)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (181, 91)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (181, 92)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (181, 93)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (181, 94)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (181, 170)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (181, 181)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (181, 182)
-
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (182, 60)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (182, 61)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (182, 62)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (182, 63)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (182, 64)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (182, 65)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (182, 66)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (182, 67)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (182, 68)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (182, 69)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (182, 70)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (182, 71)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (182, 72)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (182, 73)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (182, 74)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (182, 75)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (182, 77)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (182, 78)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (182, 79)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (182, 90)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (182, 91)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (182, 92)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (182, 93)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (182, 94)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (182, 170)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (182, 181)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID]) VALUES (182, 182)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (0, 43, 1)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (0, 44, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (0, 195, 2)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (0, 197, 2)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (0, 198, 2)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (1, 43, 1)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (1, 44, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (1, 195, 2)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (1, 197, 2)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (1, 198, 2)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (2, 43, 1)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (2, 44, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (2, 195, 2)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (2, 197, 2)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (2, 198, 2)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (3, 43, 1)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (3, 44, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (3, 195, 2)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (3, 197, 2)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (3, 198, 2)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (4, 43, 1)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (4, 44, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (4, 195, 2)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (4, 197, 2)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (4, 198, 2)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (5, 43, 1)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (5, 44, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (5, 195, 2)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (5, 197, 2)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (5, 198, 2)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (6, 43, 1)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (6, 44, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (6, 195, 2)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (6, 197, 2)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (6, 198, 2)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (7, 43, 1)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (7, 44, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (7, 195, 2)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (7, 197, 2)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (7, 198, 2)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (8, 43, 1)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (8, 44, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (8, 195, 2)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (8, 197, 2)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (8, 198, 2)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (9, 43, 1)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (9, 44, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (9, 195, 2)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (9, 197, 2)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (9, 198, 2)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (50, 43, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (50, 195, 2)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (50, 197, 2)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (50, 198, 2)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (51, 43, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (51, 195, 2)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (51, 197, 2)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (51, 198, 2)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (52, 43, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (52, 195, 2)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (52, 197, 2)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (52, 198, 2)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (53, 43, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (53, 195, 2)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (53, 197, 2)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (53, 198, 2)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (54, 43, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (54, 195, 2)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (54, 197, 2)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (54, 198, 2)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (55, 2, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (55, 3, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (55, 5, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (55, 7, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (55, 9, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (55, 23, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (55, 25, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (55, 140, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (55, 171, 2)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (55, 172, 2)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (55, 173, 2)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (55, 174, 2)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (55, 199, 2)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (55, 40, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (55, 43, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (55, 44, 1)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (55, 45, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (56, 43, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (56, 195, 2)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (56, 197, 2)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (56, 198, 2)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (57, 43, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (57, 195, 2)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (57, 197, 2)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (57, 198, 2)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (58, 2, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (58, 3, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (58, 5, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (58, 7, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (58, 9, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (58, 23, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (58, 25, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (58, 40, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (58, 43, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (58, 44, 1)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (58, 45, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (58, 140, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (58, 171, 2)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (58, 172, 2)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (58, 173, 2)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (58, 174, 2)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (58, 195, 2)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (58, 197, 2)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (58, 198, 2)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (58, 199, 2)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (59, 43, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (59, 195, 2)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (59, 197, 2)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (59, 198, 2)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (60, 60, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (60, 61, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (60, 62, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (60, 63, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (60, 64, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (60, 65, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (60, 66, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (60, 67, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (60, 68, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (60, 69, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (60, 70, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (60, 71, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (60, 72, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (60, 73, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (60, 74, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (60, 75, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (60, 77, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (60, 78, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (60, 79, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (60, 90, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (60, 91, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (60, 92, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (60, 93, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (60, 94, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (60, 170, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (60, 181, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (60, 182, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (61, 60, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (61, 61, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (61, 62, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (61, 63, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (61, 64, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (61, 65, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (61, 66, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (61, 67, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (61, 68, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (61, 69, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (61, 70, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (61, 71, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (61, 72, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (61, 73, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (61, 74, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (61, 75, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (61, 77, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (61, 78, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (61, 79, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (61, 90, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (61, 91, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (61, 92, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (61, 93, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (61, 94, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (61, 170, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (61, 181, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (61, 182, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (62, 60, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (62, 61, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (62, 62, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (62, 63, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (62, 64, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (62, 65, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (62, 66, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (62, 67, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (62, 68, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (62, 69, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (62, 70, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (62, 71, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (62, 72, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (62, 73, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (62, 74, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (62, 75, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (62, 77, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (62, 78, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (62, 79, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (62, 90, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (62, 91, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (62, 92, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (62, 93, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (62, 94, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (62, 170, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (62, 181, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (62, 182, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (63, 60, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (63, 61, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (63, 62, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (63, 63, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (63, 64, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (63, 65, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (63, 66, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (63, 67, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (63, 68, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (63, 69, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (63, 70, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (63, 71, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (63, 72, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (63, 73, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (63, 74, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (63, 75, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (63, 77, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (63, 78, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (63, 79, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (63, 90, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (63, 91, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (63, 92, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (63, 93, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (63, 94, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (63, 170, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (63, 181, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (63, 182, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (64, 60, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (64, 61, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (64, 62, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (64, 63, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (64, 64, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (64, 65, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (64, 66, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (64, 67, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (64, 68, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (64, 69, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (64, 70, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (64, 71, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (64, 72, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (64, 73, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (64, 74, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (64, 75, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (64, 77, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (64, 78, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (64, 79, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (64, 90, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (64, 91, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (64, 92, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (64, 93, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (64, 94, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (64, 170, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (64, 181, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (64, 182, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (65, 60, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (65, 61, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (65, 62, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (65, 63, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (65, 64, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (65, 65, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (65, 66, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (65, 67, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (65, 68, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (65, 69, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (65, 70, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (65, 71, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (65, 72, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (65, 73, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (65, 74, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (65, 75, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (65, 77, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (65, 78, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (65, 79, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (65, 90, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (65, 91, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (65, 92, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (65, 93, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (65, 94, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (65, 170, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (65, 181, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (65, 182, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (66, 60, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (66, 61, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (66, 62, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (66, 63, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (66, 64, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (66, 65, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (66, 66, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (66, 67, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (66, 68, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (66, 69, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (66, 70, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (66, 71, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (66, 72, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (66, 73, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (66, 74, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (66, 75, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (66, 77, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (66, 78, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (66, 79, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (66, 90, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (66, 91, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (66, 92, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (66, 93, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (66, 94, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (66, 170, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (66, 181, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (66, 182, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (67, 60, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (67, 61, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (67, 62, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (67, 63, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (67, 64, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (67, 65, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (67, 66, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (67, 67, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (67, 68, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (67, 69, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (67, 70, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (67, 71, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (67, 72, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (67, 73, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (67, 74, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (67, 75, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (67, 77, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (67, 78, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (67, 79, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (67, 90, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (67, 91, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (67, 92, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (67, 93, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (67, 94, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (67, 170, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (67, 181, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (67, 182, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (68, 60, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (68, 61, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (68, 62, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (68, 63, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (68, 64, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (68, 65, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (68, 66, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (68, 67, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (68, 68, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (68, 69, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (68, 70, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (68, 71, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (68, 72, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (68, 73, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (68, 74, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (68, 75, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (68, 77, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (68, 78, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (68, 79, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (68, 90, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (68, 91, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (68, 92, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (68, 93, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (68, 94, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (68, 170, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (68, 181, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (68, 182, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (69, 60, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (69, 61, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (69, 62, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (69, 63, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (69, 64, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (69, 65, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (69, 66, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (69, 67, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (69, 68, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (69, 69, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (69, 70, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (69, 71, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (69, 72, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (69, 73, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (69, 74, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (69, 75, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (69, 77, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (69, 78, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (69, 79, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (69, 90, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (69, 91, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (69, 92, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (69, 93, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (69, 94, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (69, 170, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (69, 181, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (69, 182, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (70, 60, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (70, 61, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (70, 62, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (70, 63, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (70, 64, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (70, 65, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (70, 66, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (70, 67, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (70, 68, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (70, 69, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (70, 70, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (70, 71, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (70, 72, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (70, 73, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (70, 74, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (70, 75, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (70, 77, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (70, 78, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (70, 79, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (70, 90, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (70, 91, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (70, 92, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (70, 93, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (70, 94, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (70, 170, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (70, 181, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (70, 182, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (71, 60, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (71, 61, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (71, 62, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (71, 63, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (71, 64, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (71, 65, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (71, 66, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (71, 67, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (71, 68, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (71, 69, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (71, 70, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (71, 71, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (71, 72, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (71, 73, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (71, 74, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (71, 75, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (71, 77, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (71, 78, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (71, 79, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (71, 90, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (71, 91, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (71, 92, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (71, 93, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (71, 94, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (71, 170, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (71, 181, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (71, 182, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (72, 60, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (72, 61, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (72, 62, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (72, 63, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (72, 64, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (72, 65, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (72, 66, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (72, 67, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (72, 68, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (72, 69, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (72, 70, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (72, 71, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (72, 72, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (72, 73, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (72, 74, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (72, 75, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (72, 77, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (72, 78, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (72, 79, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (72, 90, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (72, 91, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (72, 92, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (72, 93, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (72, 94, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (72, 170, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (72, 181, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (72, 182, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (73, 60, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (73, 61, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (73, 62, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (73, 63, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (73, 64, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (73, 65, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (73, 66, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (73, 67, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (73, 68, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (73, 69, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (73, 70, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (73, 71, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (73, 72, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (73, 73, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (73, 74, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (73, 75, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (73, 77, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (73, 78, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (73, 79, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (73, 90, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (73, 91, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (73, 92, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (73, 93, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (73, 94, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (73, 170, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (73, 181, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (73, 182, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (74, 60, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (74, 61, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (74, 62, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (74, 63, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (74, 64, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (74, 65, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (74, 66, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (74, 67, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (74, 68, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (74, 69, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (74, 70, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (74, 71, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (74, 72, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (74, 73, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (74, 74, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (74, 75, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (74, 77, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (74, 78, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (74, 79, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (74, 90, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (74, 91, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (74, 92, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (74, 93, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (74, 94, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (74, 170, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (74, 181, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (74, 182, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (75, 60, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (75, 61, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (75, 62, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (75, 63, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (75, 64, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (75, 65, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (75, 66, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (75, 67, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (75, 68, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (75, 69, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (75, 70, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (75, 71, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (75, 72, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (75, 73, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (75, 74, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (75, 75, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (75, 77, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (75, 78, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (75, 79, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (75, 90, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (75, 91, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (75, 92, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (75, 93, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (75, 94, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (75, 170, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (75, 181, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (75, 182, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (77, 60, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (77, 61, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (77, 62, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (77, 63, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (77, 64, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (77, 65, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (77, 66, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (77, 67, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (77, 68, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (77, 69, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (77, 70, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (77, 71, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (77, 72, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (77, 73, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (77, 74, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (77, 75, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (77, 77, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (77, 78, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (77, 79, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (77, 90, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (77, 91, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (77, 92, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (77, 93, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (77, 94, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (77, 170, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (77, 181, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (77, 182, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (78, 60, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (78, 61, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (78, 62, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (78, 63, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (78, 64, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (78, 65, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (78, 66, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (78, 67, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (78, 68, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (78, 69, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (78, 70, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (78, 71, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (78, 72, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (78, 73, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (78, 74, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (78, 75, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (78, 77, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (78, 78, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (78, 79, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (78, 90, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (78, 91, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (78, 92, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (78, 93, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (78, 94, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (78, 170, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (78, 181, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (78, 182, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (79, 60, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (79, 61, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (79, 62, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (79, 63, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (79, 64, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (79, 65, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (79, 66, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (79, 67, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (79, 68, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (79, 69, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (79, 70, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (79, 71, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (79, 72, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (79, 73, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (79, 74, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (79, 75, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (79, 77, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (79, 78, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (79, 79, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (79, 90, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (79, 91, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (79, 92, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (79, 93, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (79, 94, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (79, 170, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (79, 181, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (79, 182, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (90, 60, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (90, 61, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (90, 62, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (90, 63, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (90, 64, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (90, 65, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (90, 66, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (90, 67, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (90, 68, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (90, 69, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (90, 70, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (90, 71, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (90, 72, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (90, 73, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (90, 74, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (90, 75, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (90, 77, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (90, 78, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (90, 79, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (90, 90, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (90, 91, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (90, 92, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (90, 93, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (90, 94, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (90, 170, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (90, 181, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (90, 182, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (91, 60, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (91, 61, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (91, 62, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (91, 63, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (91, 64, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (91, 65, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (91, 66, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (91, 67, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (91, 68, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (91, 69, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (91, 70, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (91, 71, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (91, 72, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (91, 73, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (91, 74, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (91, 75, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (91, 77, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (91, 78, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (91, 79, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (91, 90, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (91, 91, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (91, 92, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (91, 93, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (91, 94, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (91, 170, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (91, 181, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (91, 182, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (92, 60, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (92, 61, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (92, 62, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (92, 63, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (92, 64, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (92, 65, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (92, 66, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (92, 67, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (92, 68, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (92, 69, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (92, 70, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (92, 71, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (92, 72, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (92, 73, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (92, 74, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (92, 75, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (92, 77, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (92, 78, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (92, 79, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (92, 90, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (92, 91, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (92, 92, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (92, 93, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (92, 94, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (92, 170, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (92, 181, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (92, 182, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (93, 60, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (93, 61, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (93, 62, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (93, 63, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (93, 64, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (93, 65, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (93, 66, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (93, 67, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (93, 68, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (93, 69, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (93, 70, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (93, 71, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (93, 72, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (93, 73, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (93, 74, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (93, 75, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (93, 77, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (93, 78, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (93, 79, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (93, 90, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (93, 91, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (93, 92, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (93, 93, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (93, 94, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (93, 170, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (93, 181, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (93, 182, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (94, 60, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (94, 61, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (94, 62, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (94, 63, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (94, 64, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (94, 65, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (94, 66, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (94, 67, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (94, 68, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (94, 69, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (94, 70, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (94, 71, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (94, 72, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (94, 73, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (94, 74, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (94, 75, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (94, 77, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (94, 78, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (94, 79, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (94, 90, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (94, 91, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (94, 92, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (94, 93, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (94, 94, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (94, 170, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (94, 181, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (94, 182, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (140, 2, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (140, 3, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (140, 5, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (140, 7, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (140, 9, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (140, 23, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (140, 25, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (140, 40, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (140, 43, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (140, 44, 1)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (140, 45, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (140, 171, 2)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (140, 172, 2)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (140, 173, 2)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (140, 174, 2)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (140, 188, 2)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (140, 189, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (140, 195, 2)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (140, 197, 2)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (140, 198, 2)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (140, 199, 2)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (170, 170, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (171, 43, 1)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (171, 44, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (171, 195, 2)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (171, 197, 2)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (171, 198, 2)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (172, 43, 1)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (172, 44, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (172, 195, 2)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (172, 197, 2)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (172, 198, 2)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (173, 43, 1)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (173, 44, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (173, 195, 2)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (173, 197, 2)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (173, 198, 2)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (174, 43, 1)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (174, 44, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (174, 195, 2)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (174, 197, 2)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (174, 198, 2)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (181, 60, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (181, 61, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (181, 62, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (181, 63, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (181, 64, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (181, 65, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (181, 66, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (181, 67, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (181, 68, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (181, 69, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (181, 70, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (181, 71, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (181, 72, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (181, 73, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (181, 74, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (181, 75, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (181, 77, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (181, 78, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (181, 79, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (181, 90, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (181, 91, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (181, 92, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (181, 93, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (181, 94, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (181, 170, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (181, 181, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (181, 182, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (182, 60, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (182, 61, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (182, 62, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (182, 63, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (182, 64, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (182, 65, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (182, 66, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (182, 67, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (182, 68, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (182, 69, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (182, 70, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (182, 71, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (182, 72, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (182, 73, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (182, 74, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (182, 75, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (182, 77, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (182, 78, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (182, 79, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (182, 90, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (182, 91, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (182, 92, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (182, 93, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (182, 94, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (182, 170, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (182, 181, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (182, 182, 3)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (199, 195, 2)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (199, 197, 2)
+INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (199, 198, 2)
 END
 
+GO
+
+--01.04.2026
+IF (SELECT COUNT(*) FROM [dbo].[SecondCropLinkings]) = (SELECT COUNT(*) FROM [dbo].[SecondCropLinkings] WHERE RB209CountryID = 3)
+BEGIN
+    
+    INSERT INTO SecondCropLinkings (FirstCropID,SecondCropID,RB209CountryID) VALUES(0,195,2)
+    INSERT INTO SecondCropLinkings (FirstCropID,SecondCropID,RB209CountryID) VALUES(0,197,2)
+    INSERT INTO SecondCropLinkings (FirstCropID,SecondCropID,RB209CountryID) VALUES(0,198,2)
+    INSERT INTO SecondCropLinkings (FirstCropID,SecondCropID,RB209CountryID) VALUES(1,195,2)
+    INSERT INTO SecondCropLinkings (FirstCropID,SecondCropID,RB209CountryID) VALUES(1,197,2)
+    INSERT INTO SecondCropLinkings (FirstCropID,SecondCropID,RB209CountryID) VALUES(1,198,2)
+    INSERT INTO SecondCropLinkings (FirstCropID,SecondCropID,RB209CountryID) VALUES(2,195,2)
+    INSERT INTO SecondCropLinkings (FirstCropID,SecondCropID,RB209CountryID) VALUES(2,197,2)
+    INSERT INTO SecondCropLinkings (FirstCropID,SecondCropID,RB209CountryID) VALUES(2,198,2)
+    INSERT INTO SecondCropLinkings (FirstCropID,SecondCropID,RB209CountryID) VALUES(3,195,2)
+    INSERT INTO SecondCropLinkings (FirstCropID,SecondCropID,RB209CountryID) VALUES(3,197,2)
+    INSERT INTO SecondCropLinkings (FirstCropID,SecondCropID,RB209CountryID) VALUES(3,198,2)
+    INSERT INTO SecondCropLinkings (FirstCropID,SecondCropID,RB209CountryID) VALUES(4,195,2)
+    INSERT INTO SecondCropLinkings (FirstCropID,SecondCropID,RB209CountryID) VALUES(4,197,2)
+    INSERT INTO SecondCropLinkings (FirstCropID,SecondCropID,RB209CountryID) VALUES(4,198,2)
+    INSERT INTO SecondCropLinkings (FirstCropID,SecondCropID,RB209CountryID) VALUES(5,195,2)
+    INSERT INTO SecondCropLinkings (FirstCropID,SecondCropID,RB209CountryID) VALUES(5,197,2)
+    INSERT INTO SecondCropLinkings (FirstCropID,SecondCropID,RB209CountryID) VALUES(5,198,2)
+    INSERT INTO SecondCropLinkings (FirstCropID,SecondCropID,RB209CountryID) VALUES(6,195,2)
+    INSERT INTO SecondCropLinkings (FirstCropID,SecondCropID,RB209CountryID) VALUES(6,197,2)
+    INSERT INTO SecondCropLinkings (FirstCropID,SecondCropID,RB209CountryID) VALUES(6,198,2)
+    INSERT INTO SecondCropLinkings (FirstCropID,SecondCropID,RB209CountryID) VALUES(7,195,2)
+    INSERT INTO SecondCropLinkings (FirstCropID,SecondCropID,RB209CountryID) VALUES(7,197,2)
+    INSERT INTO SecondCropLinkings (FirstCropID,SecondCropID,RB209CountryID) VALUES(7,198,2)
+    INSERT INTO SecondCropLinkings (FirstCropID,SecondCropID,RB209CountryID) VALUES(8,195,2)
+    INSERT INTO SecondCropLinkings (FirstCropID,SecondCropID,RB209CountryID) VALUES(8,197,2)
+    INSERT INTO SecondCropLinkings (FirstCropID,SecondCropID,RB209CountryID) VALUES(8,198,2)
+    INSERT INTO SecondCropLinkings (FirstCropID,SecondCropID,RB209CountryID) VALUES(9,195,2)
+    INSERT INTO SecondCropLinkings (FirstCropID,SecondCropID,RB209CountryID) VALUES(9,197,2)
+    INSERT INTO SecondCropLinkings (FirstCropID,SecondCropID,RB209CountryID) VALUES(9,198,2)
+    INSERT INTO SecondCropLinkings (FirstCropID,SecondCropID,RB209CountryID) VALUES(171,195,2)
+    INSERT INTO SecondCropLinkings (FirstCropID,SecondCropID,RB209CountryID) VALUES(171,197,2)
+    INSERT INTO SecondCropLinkings (FirstCropID,SecondCropID,RB209CountryID) VALUES(171,198,2)
+    INSERT INTO SecondCropLinkings (FirstCropID,SecondCropID,RB209CountryID) VALUES(172,195,2)
+    INSERT INTO SecondCropLinkings (FirstCropID,SecondCropID,RB209CountryID) VALUES(172,197,2)
+    INSERT INTO SecondCropLinkings (FirstCropID,SecondCropID,RB209CountryID) VALUES(172,198,2)
+    INSERT INTO SecondCropLinkings (FirstCropID,SecondCropID,RB209CountryID) VALUES(173,195,2)
+    INSERT INTO SecondCropLinkings (FirstCropID,SecondCropID,RB209CountryID) VALUES(173,197,2)
+    INSERT INTO SecondCropLinkings (FirstCropID,SecondCropID,RB209CountryID) VALUES(173,198,2)
+    INSERT INTO SecondCropLinkings (FirstCropID,SecondCropID,RB209CountryID) VALUES(174,195,2)
+    INSERT INTO SecondCropLinkings (FirstCropID,SecondCropID,RB209CountryID) VALUES(174,197,2)
+    INSERT INTO SecondCropLinkings (FirstCropID,SecondCropID,RB209CountryID) VALUES(174,198,2)
+    INSERT INTO SecondCropLinkings (FirstCropID,SecondCropID,RB209CountryID) VALUES(199,195,2)
+    INSERT INTO SecondCropLinkings (FirstCropID,SecondCropID,RB209CountryID) VALUES(199,197,2)
+    INSERT INTO SecondCropLinkings (FirstCropID,SecondCropID,RB209CountryID) VALUES(199,198,2)
+    INSERT INTO SecondCropLinkings (FirstCropID,SecondCropID,RB209CountryID) VALUES(58,195,2)
+    INSERT INTO SecondCropLinkings (FirstCropID,SecondCropID,RB209CountryID) VALUES(58,197,2)
+    INSERT INTO SecondCropLinkings (FirstCropID,SecondCropID,RB209CountryID) VALUES(58,198,2)
+    INSERT INTO SecondCropLinkings (FirstCropID,SecondCropID,RB209CountryID) VALUES(58,199,2)
+    INSERT INTO SecondCropLinkings (FirstCropID,SecondCropID,RB209CountryID) VALUES(50,195,2)
+    INSERT INTO SecondCropLinkings (FirstCropID,SecondCropID,RB209CountryID) VALUES(50,197,2)
+    INSERT INTO SecondCropLinkings (FirstCropID,SecondCropID,RB209CountryID) VALUES(50,198,2)
+    INSERT INTO SecondCropLinkings (FirstCropID,SecondCropID,RB209CountryID) VALUES(50,43,3)
+    INSERT INTO SecondCropLinkings (FirstCropID,SecondCropID,RB209CountryID) VALUES(51,195,2)
+    INSERT INTO SecondCropLinkings (FirstCropID,SecondCropID,RB209CountryID) VALUES(51,197,2)
+    INSERT INTO SecondCropLinkings (FirstCropID,SecondCropID,RB209CountryID) VALUES(51,198,2)
+    INSERT INTO SecondCropLinkings (FirstCropID,SecondCropID,RB209CountryID) VALUES(51,43,3)
+    INSERT INTO SecondCropLinkings (FirstCropID,SecondCropID,RB209CountryID) VALUES(52,195,2)
+    INSERT INTO SecondCropLinkings (FirstCropID,SecondCropID,RB209CountryID) VALUES(52,197,2)
+    INSERT INTO SecondCropLinkings (FirstCropID,SecondCropID,RB209CountryID) VALUES(52,198,2)
+    INSERT INTO SecondCropLinkings (FirstCropID,SecondCropID,RB209CountryID) VALUES(52,43,3)
+    INSERT INTO SecondCropLinkings (FirstCropID,SecondCropID,RB209CountryID) VALUES(53,195,2)
+    INSERT INTO SecondCropLinkings (FirstCropID,SecondCropID,RB209CountryID) VALUES(53,197,2)
+    INSERT INTO SecondCropLinkings (FirstCropID,SecondCropID,RB209CountryID) VALUES(53,198,2)
+    INSERT INTO SecondCropLinkings (FirstCropID,SecondCropID,RB209CountryID) VALUES(53,43,3)
+    INSERT INTO SecondCropLinkings (FirstCropID,SecondCropID,RB209CountryID) VALUES(54,195,2)
+    INSERT INTO SecondCropLinkings (FirstCropID,SecondCropID,RB209CountryID) VALUES(54,197,2)
+    INSERT INTO SecondCropLinkings (FirstCropID,SecondCropID,RB209CountryID) VALUES(54,198,2)
+    INSERT INTO SecondCropLinkings (FirstCropID,SecondCropID,RB209CountryID) VALUES(54,43,3)    
+    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (55, 199, 2)
+    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (55, 40, 3)
+    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (55, 43, 3)
+    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (55, 44, 1)
+    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (55, 45, 3)
+
+    INSERT INTO SecondCropLinkings (FirstCropID,SecondCropID,RB209CountryID) VALUES(56,195,2)
+    INSERT INTO SecondCropLinkings (FirstCropID,SecondCropID,RB209CountryID) VALUES(56,197,2)
+    INSERT INTO SecondCropLinkings (FirstCropID,SecondCropID,RB209CountryID) VALUES(56,198,2)
+    INSERT INTO SecondCropLinkings (FirstCropID,SecondCropID,RB209CountryID) VALUES(56,43,3)
+    INSERT INTO SecondCropLinkings (FirstCropID,SecondCropID,RB209CountryID) VALUES(57,195,2)
+    INSERT INTO SecondCropLinkings (FirstCropID,SecondCropID,RB209CountryID) VALUES(57,197,2)
+    INSERT INTO SecondCropLinkings (FirstCropID,SecondCropID,RB209CountryID) VALUES(57,198,2)
+    INSERT INTO SecondCropLinkings (FirstCropID,SecondCropID,RB209CountryID) VALUES(57,43,3)
+    INSERT INTO SecondCropLinkings (FirstCropID,SecondCropID,RB209CountryID) VALUES(59,195,2)
+    INSERT INTO SecondCropLinkings (FirstCropID,SecondCropID,RB209CountryID) VALUES(59,197,2)
+    INSERT INTO SecondCropLinkings (FirstCropID,SecondCropID,RB209CountryID) VALUES(59,198,2)
+    INSERT INTO SecondCropLinkings (FirstCropID,SecondCropID,RB209CountryID) VALUES(59,43,3)
+    INSERT INTO SecondCropLinkings (FirstCropID,SecondCropID,RB209CountryID) VALUES(140,199,2)
+    INSERT INTO SecondCropLinkings (FirstCropID,SecondCropID,RB209CountryID) VALUES(140,195,2)
+    INSERT INTO SecondCropLinkings (FirstCropID,SecondCropID,RB209CountryID) VALUES(140,197,2)
+    INSERT INTO SecondCropLinkings (FirstCropID,SecondCropID,RB209CountryID) VALUES(140,198,2)
+
+
+    UPDATE SecondCropLinkings SET RB209CountryID=1 WHERE FirstCropID in (0,1,2,3,4,5,6,7,8,9,171,172,173,174,199) AND SecondCropID=44
+    UPDATE SecondCropLinkings SET RB209CountryID=3 WHERE FirstCropID in (0,1,2,3,4,5,6,7,8,9,171,172,173,174,199) AND SecondCropID=43
+    UPDATE SecondCropLinkings SET RB209CountryID=3 where FirstCropID=58 and SecondCropID in (2,3,5,7,9,23,25,40,43,45,140)
+    UPDATE SecondCropLinkings SET RB209CountryID=1 where FirstCropID=58 and SecondCropID in (44)
+    UPDATE SecondCropLinkings SET RB209CountryID=2 where FirstCropID=58 and SecondCropID in (171,172,173,174,195,199,197,198)
+    UPDATE SecondCropLinkings SET RB209CountryID=2 where FirstCropID=55 and SecondCropID in (171,172,173,174,199)
+    UPDATE SecondCropLinkings SET RB209CountryID=3 where FirstCropID=55 and SecondCropID in (2,3,5,7,9,23,25,140)
+    UPDATE SecondCropLinkings SET RB209CountryID=3 where FirstCropID in (60,61,63,62,65,64,66,67,68,69,70,71,72,73,74,75,77,78,79,181)
+    UPDATE SecondCropLinkings SET RB209CountryID=3 where FirstCropID in (90,92,91,93,94,182)
+    UPDATE SecondCropLinkings SET RB209CountryID=1 where FirstCropID=140 and SecondCropID in (44)
+    UPDATE SecondCropLinkings SET RB209CountryID=2 where FirstCropID=140 and SecondCropID in (171,172,173,174,188)
+    UPDATE SecondCropLinkings SET RB209CountryID=3 where FirstCropID=140 and SecondCropID in (2,3,5,7,9,23,25,40,43,45,189)
+    UPDATE SecondCropLinkings SET RB209CountryID=3 where FirstCropID=170 
+
+END
 GO
 
 IF NOT EXISTS (SELECT 1 FROM [dbo].[GrassManagementOptions])
@@ -1136,6 +1413,7 @@ END
 
 GO
 
+--01.04.2026
 IF EXISTS (SELECT 1 FROM [dbo].[Farms] where [ClimateDataPostCode] IS NULL)
 BEGIN
     UPDATE [dbo].[Farms] SET [ClimateDataPostCode]=[Postcode] where [ClimateDataPostCode] IS NULL
@@ -1249,6 +1527,7 @@ BEGIN
     SET IDENTITY_INSERT [dbo].[PreviousGrassIdMapping] OFF
 END
 
+--01.04.2026
  IF EXISTS (SELECT 1 FROM [dbo].[PreviousGrassIdMapping] WHERE ID=33)
 BEGIN
   UPDATE [dbo].[PreviousGrassIdMapping] SET PreviousGrassID=21 WHERE ID=33
@@ -1417,6 +1696,7 @@ BEGIN
 END
 GO
 
+--01.04.2026
 IF  EXISTS (SELECT 1 FROM [dbo].[LivestockTypes] WHERE [Name] IN ('Calf (all categories except veal) youger than 2 months','Breeding boar from 66 kg to 150 kg'))
 BEGIN
     UPDATE [LivestockTypes] SET [Name]=N'Breeding boar, 66 to 150 kg' WHERE ID=25
@@ -1433,14 +1713,17 @@ BEGIN
     SET IDENTITY_INSERT [dbo].[MaterialStates] OFF
 END
 
+--01.04.2026
 IF EXISTS (SELECT 1 FROM [dbo].[MaterialStates] WHERE [ID]=1)
 BEGIN
     UPDATE [dbo].[MaterialStates] SET [Name] ='Dirty water store' WHERE [ID]=1;
 END
+--01.04.2026
 IF EXISTS (SELECT 1 FROM [dbo].[MaterialStates] WHERE [ID]=2)
 BEGIN
     UPDATE [dbo].[MaterialStates] SET [Name] ='Slurry store' WHERE [ID]=2;
 END
+--01.04.2026
 IF EXISTS (SELECT 1 FROM [dbo].[MaterialStates] WHERE [ID]=3)
 BEGIN
     UPDATE [dbo].[MaterialStates] SET [Name] ='Solid manure store (on yards or in livestock housing)' WHERE [ID]=3;
@@ -1456,10 +1739,12 @@ BEGIN
     SET IDENTITY_INSERT [dbo].[StorageTypes] OFF
 END
 
+--01.04.2026
 IF EXISTS (SELECT 1 FROM [dbo].[StorageTypes] where [ID]=1)
 BEGIN
     UPDATE dbo.[StorageTypes] SET [Name] = 'Square or rectangular store' WHERE [ID] = 1;
 END
+--01.04.2026
 IF EXISTS (SELECT 1 FROM [dbo].[StorageTypes] where [ID]=2)
 BEGIN
     UPDATE dbo.[StorageTypes] SET [Name] = 'Circular store' WHERE [ID] = 2;
@@ -1475,14 +1760,18 @@ BEGIN
     SET IDENTITY_INSERT [dbo].[SolidManureTypes] OFF
 END
 
+--01.04.2026
 IF EXISTS (SELECT 1 FROM [dbo].[SolidManureTypes] where [ID]=9)
 BEGIN
     UPDATE dbo.[SolidManureTypes] SET [Name] = 'Manure from other poultry' WHERE [ID] = 9;
 END
+--01.04.2026
 IF EXISTS (SELECT 1 FROM [dbo].[SolidManureTypes] where [ID]=11)
 BEGIN
     UPDATE dbo.[SolidManureTypes] SET [Name] = 'Solid livestock manure (not from poultry)' WHERE [ID] = 11;
 END
+
+--01.04.2026
 IF NOT EXISTS (SELECT 1 FROM [dbo].[SolidManureTypes] where [ID]=10)
 BEGIN
 	  SET IDENTITY_INSERT [dbo].[SolidManureTypes] ON
@@ -1503,6 +1792,7 @@ BEGIN
     SET IDENTITY_INSERT [dbo].[BankSlopeAngles] OFF
 END
 
+--01.04.2026
 IF EXISTS (SELECT 1 FROM [dbo].[BankSlopeAngles])
 BEGIN
     UPDATE [BankSlopeAngles] SET [Slope] =1, [Name]='1 in 0.5 (63 degrees)' WHERE [ID] = 1
@@ -1550,152 +1840,380 @@ END
 GO
 IF NOT EXISTS (SELECT 1 FROM [dbo].[Warnings])
 BEGIN
+
+DECLARE 
+        @NVZ_OFFENCE_COMMON NVARCHAR(MAX) = N'It is an offence to breach the Nitrate Vulnerable Zone rules, and you should consider reducing the amount of nitrogen from organic manures.',
+
+        @NVZ_OFFENCE_RATE NVARCHAR(MAX) = N'It is an offence to breach the Nitrate Vulnerable Zone rules, and you should consider reducing the application rate of high readily available nitrogen manures.',
+
+        @NVZ_OFFENCE_FERT NVARCHAR(MAX) = N'It is an offence to breach the Nitrate Vulnerable Zone rules, and you should consider reducing the application rate of inorganic nitrogen fertiliser.',
+
+        @NVZ_OFFENCE_DATE NVARCHAR(MAX) = N'It is an offence to breach the Nitrate Vulnerable Zone rules, and you should consider applying outside the closed spreading period.',
+
+        @WATER_OFFENCE_COMMON NVARCHAR(MAX) = N'It is an offence to breach the Water Resources (Control of Agricultural Pollution) Regulations 2021 (Wales), and you should consider reducing the amount of nitrogen from organic manures.',
+
+        @WATER_OFFENCE_RATE NVARCHAR(MAX) = N'It is an offence to breach the Water Resources (Control of Agricultural Pollution) Regulations 2021 (Wales), and you should consider reducing the application rate of inorganic nitrogen fertiliser.',
+
+        @HEADER_FERT NVARCHAR(200) = N'Closed period for the application of inorganic nitrogen fertiliser',
+
+        @HEADER_ORGANIC NVARCHAR(200) = N'Closed period for the application of high N organic manure',
+
+        @ORGANICMANURENFIELDLIMIT NVARCHAR(200) = N'ORGANICMANURENFIELDLIMIT',
+
+         @ORGANICMANURENFIELDLIMITCOMPOST NVARCHAR(200) = N'ORGANICMANURENFIELDLIMITCOMPOST',
+        
+        @HIGHNORGANICMANURECLOSEDPERIOD NVARCHAR(200) = N'HIGHNORGANICMANURECLOSEDPERIOD',
+
+        @NITROFERTCLOSEDPERIOD NVARCHAR(200) = N'NITROFERTCLOSEDPERIOD',
+
+        @INORGNMAXRATEBRASSICA NVARCHAR(200) = N'INORGNMAXRATEBRASSICA',
+
+        @INORGNMAXRATEGRASS NVARCHAR(200) = N'INORGNMAXRATEGRASS',
+
+        @INORGFERTDATEONLY NVARCHAR(200) = N'INORGFERTDATEONLY',
+
+        @NMAXLIMIT NVARCHAR(200) = N'NMAXLIMIT',
+
+        @SLURRYMAXRATE NVARCHAR(200)= N'SLURRYMAXRATE',
+        @POULTRYMANUREMAXAPPLICATIONRATE NVARCHAR(200) = N'POULTRYMANUREMAXAPPLICATIONRATE',
+
+        @ALLOWWEEKSBETWEENSLURRYPOULTRYAPPLICATIONS NVARCHAR(200) = N'ALLOWWEEKSBETWEENSLURRYPOULTRYAPPLICATIONS',
+
+        @MANUREAPPLICATIONLIMIT NVARCHAR(200) = N'Manure application limit between the end of the closed spreading period and the end of February',
+        
+        @CLOSEDPERIODAPPLICATIONRATE_ORGANICFARM NVARCHAR(200) = N'Closed period and maximum application rate for high N organic manure on a registered organic farm',
+        
+        @APPLICATIONDATEINSIDE_CLOSEDPERIOD NVARCHAR(500) = N'The application date you entered is inside your closed spreading period for applying high readily available nitrogen organic manure',
+        
+        @APPLICATIONTAKEYOUOVERMAXIMUMAPPLICATIONRATEDURINGCLOSEDPERIOD NVARCHAR(MAX) = N'This application will take you over the maximum application rate for high readily available nitrogen organic manure during your closed spreading period',
+        
+        @ITISANOFFENCETOBREACHTHE_NITRATEVULNERABLEZONERULES NVARCHAR(MAX) = N'It is an offence to breach the Nitrate Vulnerable Zone rules, and you should consider reducing the application rate of high readily available nitrogen organic manure.',
+        
+        @CLOSEDPERIODMANUFACTUREDNITROGEN NVARCHAR(MAX) = N'Closed period for the application of manufactured nitrogen fertilisers.',
+        
+        @DATEENTEREDINSIDECLOSEDPERIODFERTILISER NVARCHAR(MAX) = N'The application date you entered is inside your closed spreading period for applying inorganic nitrogen fertiliser',
+        
+        @MAXIMUMAPPLICATIONRATEFORINORGANICNITROGENFERTILISER NVARCHAR(MAX) = N'This application will take you over the maximum application rate for inorganic nitrogen fertiliser to this crop during the closed spreading period for applying inorganic nitrogen fertiliser',
+        
+        @CLOSEDPERIODFORINORGANICNITROGENFERTILISER NVARCHAR(MAX) = N'Closed spreading period for the application of inorganic nitrogen fertiliser',
+        
+        @RATEFORINORGANICNITROGENFERTILISERTOTHISCROPDURINGTHECLOSEDPERIOD NVARCHAR(MAX) = N'This application will take you over the maximum application rate for inorganic nitrogen fertiliser to this crop during the closed spreading period',
+         
+         @NMAXPARA1FORENGLANDANDSCOTLAND NVARCHAR(MAX) = N'This application may take you over the maximum nitrogen rate limit (N-max) for this crop',
+
+         @NMAXPARA2FORENGLANDANDSCOTLAND NVARCHAR(MAX) = N'The Nitrate Vulnerable Zone rules include a limit on the average amount of inorganic fertiliser nitrogen and crop-available nitrogen in organic manure that you can apply to most crops each year - this is known as the N-max limit.'
+         + CHAR(13) + CHAR(10) + N'The N-max limit for {0} is {1}kg of nitrogen per hectare. This limit can be increased for individual fields under certain circumstances. The adjusted N-max limit for this field is {2}kg of nitrogen per hectare.'
+         + CHAR(13) + CHAR(10) + N'You can apply more than the adjusted N-max limit to a field, if you apply less to another field growing this crop type, and you comply with the adjusted N-max limit averaged across all fields growing this crop type on the farm.'
+         + CHAR(13) + CHAR(10) + N'You can check your compliance with the N-max limit for all fields growing this crop by producing an N-max report.',
+         @GREENCOMPOSTAPPLIEDSTANDARD NVARCHAR(MAX) = N'The green compost or green/food compost applied must be produced in accordance with the standards set out in PAS 100:2011 (Specification for composted material) and must not contain livestock manure',
+         @ORGANICMANURENFIELDLIMITCOMPOSTPAS NVARCHAR(MAX) = N'ORGANICMANURENFIELDLIMITCOMPOSTPAS';
+
+    
+
     SET IDENTITY_INSERT [dbo].[Warnings] ON
-    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3], [WarningCodeID], [WarningLevelID]) VALUES (1, N'ORGANICMANURENFIELDLIMIT', 1, N'Organic Manure N field limit', N'This application will take you over the organic manure nitrogen field limit', N'The Nitrate Vulnerable Zone (NVZ) rules state that the total amount of nitrogen from all organic manures you apply in any 12 month period on any single hectare of your land must not exceed 250kg.', N'It is an offence to breach the Nitrate Vulnerable Zone rules, and you should consider reducing the amount of nitrogen from organic manures.',0, 1)
-    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3], [WarningCodeID], [WarningLevelID]) VALUES (2, N'ORGANICMANURENFIELDLIMITCOMPOST', 1, N'Organic Manure N Field Limit for compost worked into the soil', N'This application will take you over the organic manure nitrogen field limit for compost', N'The Nitrate Vulnerable Zone (NVZ) rules state that the total amount of nitrogen from all green and green/food compost you apply in any 2-year period on any single hectare of your land must not exceed 500kg.', N'It is an offence to breach the Nitrate Vulnerable Zone rules, and you should consider reducing the amount of nitrogen from organic manures.',0,1)
-    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3], [WarningCodeID], [WarningLevelID]) VALUES (3, N'ORGANICMANURENFIELDLIMITCOMPOSTMULCH', 1, N'Organic Manure N Field Limit for compost applied as a mulch', N'This application will take you over the organic manure nitrogen field limit for compost applied to orchard land', N'The Nitrate Vulnerable Zone (NVZ) rules state that the total amount of nitrogen from all green and green/food compost you apply in any 4-year period on any single hectare of orchard land must not exceed 1000kg.', N'It is an offence to breach the Nitrate Vulnerable Zone rules, and you should consider reducing the amount of nitrogen from organic manures.',0,1)
-    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3], [WarningCodeID], [WarningLevelID]) VALUES (4, N'NMAXLIMIT', 1, N'N max limit', N'This application may take you over the maximum nitrogen rate limit (N-max) for this crop', N'The Nitrate Vulnerable Zone rules include a limit on the average amount of inorganic fertiliser nitrogen and crop-available nitrogen in organic manure that you can apply to most crops each year - this is known as the N-max limit.
+    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3], [WarningCodeID], [WarningLevelID]) VALUES (1, @ORGANICMANURENFIELDLIMIT, 1, N'Organic Manure N field limit', N'This application will take you over the organic manure nitrogen field limit', N'The Nitrate Vulnerable Zone (NVZ) rules state that the total amount of nitrogen from all organic manures you apply in any 12 month period on any single hectare of your land must not exceed 250kg.', @NVZ_OFFENCE_COMMON,0, 1)
+    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3], [WarningCodeID], [WarningLevelID]) VALUES (2, @ORGANICMANURENFIELDLIMITCOMPOST, 1, N'Organic Manure N Field Limit for compost worked into the soil', N'This application will take you over the organic manure nitrogen field limit for compost', N'The Nitrate Vulnerable Zone (NVZ) rules state that the total amount of nitrogen from all green and green/food compost you apply in any 2-year period on any single hectare of your land must not exceed 500kg.', @NVZ_OFFENCE_COMMON,0,1)
+    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3], [WarningCodeID], [WarningLevelID]) VALUES (3, N'ORGANICMANURENFIELDLIMITCOMPOSTMULCH', 1, N'Organic Manure N Field Limit for compost applied as a mulch', N'This application will take you over the organic manure nitrogen field limit for compost applied to orchard land', N'The Nitrate Vulnerable Zone (NVZ) rules state that the total amount of nitrogen from all green and green/food compost you apply in any 4-year period on any single hectare of orchard land must not exceed 1000kg.', @NVZ_OFFENCE_COMMON,0,1)
+    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3], [WarningCodeID], [WarningLevelID]) VALUES (4, @NMAXLIMIT, 1, N'N-max limit',@NMAXPARA1FORENGLANDANDSCOTLAND, @NMAXPARA2FORENGLANDANDSCOTLAND, N'It is an offence to breach the Nitrate Vulnerable Zone rules, and you should consider reducing the amount inorganic fertiliser nitrogen and crop-available nitrogen from organic manures you apply.',6,0)
+    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3], [WarningCodeID], [WarningLevelID]) VALUES (5, @HIGHNORGANICMANURECLOSEDPERIOD, 1, @HEADER_ORGANIC, @APPLICATIONDATEINSIDE_CLOSEDPERIOD, NULL, @NVZ_OFFENCE_DATE,1,1)
+    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3], [WarningCodeID], [WarningLevelID]) VALUES (6, N'HIGHNORGANICMANURECLOSEDPERIODORGANICFARM', 1, @CLOSEDPERIODAPPLICATIONRATE_ORGANICFARM, @APPLICATIONDATEINSIDE_CLOSEDPERIOD, NULL, @NVZ_OFFENCE_DATE,1,1)
+    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3], [WarningCodeID], [WarningLevelID]) VALUES (7, N'HIGHNORGANICMANUREMAXRATE', 1, @CLOSEDPERIODAPPLICATIONRATE_ORGANICFARM, @APPLICATIONTAKEYOUOVERMAXIMUMAPPLICATIONRATEDURINGCLOSEDPERIOD, N'The Nitrate Vulnerable Zone (NVZ) rules state that on organic farms the application rate of high readily available nitrogen manures on this crop type between the start of the closed spreading period and the end of February must not exceed 150kg of total nitrogen per hectare.', @NVZ_OFFENCE_RATE,8,1)
+    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3], [WarningCodeID], [WarningLevelID]) VALUES (8, N'HIGHNORGANICMANUREMAXRATEWEEKS', 1, @CLOSEDPERIODAPPLICATIONRATE_ORGANICFARM, @APPLICATIONTAKEYOUOVERMAXIMUMAPPLICATIONRATEDURINGCLOSEDPERIOD, N'The Nitrate Vulnerable Zone (NVZ) rules state that on organic farms the application rate of high readily available nitrogen manures on this crop type between the start of the closed spreading period and the end of February must not exceed 150kg of total nitrogen per hectare, and that no more than 50kg of total nitrogen can be applied every 4 weeks.', @NVZ_OFFENCE_RATE,8,1)
+    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3], [WarningCodeID], [WarningLevelID]) VALUES (9, N'HIGHNORGANICMANUREMAXRATEGRASS', 1, @CLOSEDPERIODAPPLICATIONRATE_ORGANICFARM, @APPLICATIONTAKEYOUOVERMAXIMUMAPPLICATIONRATEDURINGCLOSEDPERIOD, N'The Nitrate Vulnerable Zone (NVZ) rules state that on organic farms the application rate of high readily available nitrogen manures on grass between the start of the closed spreading period and end of October must not exceed 150kg of total nitrogen per hectare, and that no more than 40kg of total nitrogen can be applied at any one time.', @NVZ_OFFENCE_RATE,8,1)
+    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3], [WarningCodeID], [WarningLevelID]) VALUES (10, N'HIGHNORGANICMANUREMAXRATEOSR', 1, @CLOSEDPERIODAPPLICATIONRATE_ORGANICFARM, @APPLICATIONTAKEYOUOVERMAXIMUMAPPLICATIONRATEDURINGCLOSEDPERIOD, N'The Nitrate Vulnerable Zone (NVZ) rules state that on organic farms the application rate of high readily available nitrogen manures on winter oilseed rape between the start of the closed spreading period and end of October must not exceed 150kg of total nitrogen per hectare.', @NVZ_OFFENCE_RATE,8,1)
+    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3], [WarningCodeID], [WarningLevelID]) VALUES (11, N'HIGHNORGANICMANUREDATEONLY', 1, @CLOSEDPERIODAPPLICATIONRATE_ORGANICFARM, @APPLICATIONDATEINSIDE_CLOSEDPERIOD, NULL, @NVZ_OFFENCE_DATE,1,1)
+    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3], [WarningCodeID], [WarningLevelID]) VALUES (12, @SLURRYMAXRATE, 1, @MANUREAPPLICATIONLIMIT, N'This application will take you over the maximum application rate for slurry between the end of the closed spreading period and the end of February', N'The Nitrate Vulnerable Zone (NVZ) rules state you must not spread more than 30 cubic metres per hectare of slurry in a single application from the end of the closed spreading period until the end of February.', N'It is an offence to breach the Nitrate Vulnerable Zone rules, and you should consider reducing the application rate of slurry.',81,1)
+    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3], [WarningCodeID], [WarningLevelID]) VALUES (13, @POULTRYMANUREMAXAPPLICATIONRATE, 1, @MANUREAPPLICATIONLIMIT, N'This application will take you over the maximum application rate for poultry manure between the end of the closed spreading period and the end of February', N'The Nitrate Vulnerable Zone (NVZ) rules state you must not spread more than 8 tonnes per hectare of poultry manure in a single application from the end of the closed spreading period until the end of February.', N'It is an offence to breach the Nitrate Vulnerable Zone rules, and you should consider reducing the application rate of poultry manure.',81,1)
+    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3], [WarningCodeID], [WarningLevelID]) VALUES (14, @ALLOWWEEKSBETWEENSLURRYPOULTRYAPPLICATIONS, 1, @MANUREAPPLICATIONLIMIT, N'You must allow at least 3 weeks between applications from the end of the closed spreading period to the end of February', N'The Nitrate Vulnerable Zone (NVZ) rules state that, between the end of the closed spreading period and the end of February, you must allow at least 3 weeks between each individual application of slurry or poultry manure.', N'It is an offence to breach the Nitrate Vulnerable Zone rules, and you should consider allowing more time between applications.',1,1)
+    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3], [WarningCodeID], [WarningLevelID]) VALUES (15, @NITROFERTCLOSEDPERIOD, 1, @HEADER_FERT, @DATEENTEREDINSIDECLOSEDPERIODFERTILISER, NULL, @NVZ_OFFENCE_DATE, 5, 2)
+    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3], [WarningCodeID], [WarningLevelID]) VALUES (16, N'INORGNMAXRATE', 1, @HEADER_FERT, @RATEFORINORGANICNITROGENFERTILISERTOTHISCROPDURINGTHECLOSEDPERIOD, N'The Nitrate Vulnerable Zone (NVZ) rules state that the application rate of inorganic nitrogen fertiliser to this crop between {0} and {1} must not exceed {2}kg of nitrogen per hectare.', @NVZ_OFFENCE_FERT,51,2)
+    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3], [WarningCodeID], [WarningLevelID]) VALUES (17, @INORGNMAXRATEBRASSICA, 1, @HEADER_FERT, @RATEFORINORGANICNITROGENFERTILISERTOTHISCROPDURINGTHECLOSEDPERIOD, N'The Nitrate Vulnerable Zone (NVZ) rules state that the application rate of inorganic nitrogen fertiliser on brassica crops between {0} and {1} must not exceed 100kg of nitrogen per hectare and that no more than 50kg of nitrogen per hectare can be applied every 4 weeks, up to the date on which you harvest the crop.', @NVZ_OFFENCE_FERT, 51, 2)
+    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3], [WarningCodeID], [WarningLevelID]) VALUES (18, N'INORGNMAXRATEOSR', 1, @HEADER_FERT, @RATEFORINORGANICNITROGENFERTILISERTOTHISCROPDURINGTHECLOSEDPERIOD, N'The Nitrate Vulnerable Zone (NVZ) rules state that the application rate of inorganic nitrogen fertiliser on winter oilseed rape between {0} and end of October must not exceed 30kg of nitrogen per hectare.', @NVZ_OFFENCE_FERT, 51, 2)
+    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3], [WarningCodeID], [WarningLevelID]) VALUES (19, @INORGNMAXRATEGRASS, 1, @HEADER_FERT, @RATEFORINORGANICNITROGENFERTILISERTOTHISCROPDURINGTHECLOSEDPERIOD, N'The Nitrate Vulnerable Zone (NVZ) rules state that the application rate of inorganic nitrogen fertiliser on grass between {0} and end of October must not exceed 80kg of nitrogen per hectare, and that no more than 40kg of nitrogen per hectare can be applied at any one time.', @NVZ_OFFENCE_FERT,51,2)
+    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3], [WarningCodeID], [WarningLevelID]) VALUES (20, @INORGFERTDATEONLY, 1, @HEADER_FERT, @DATEENTEREDINSIDECLOSEDPERIODFERTILISER, NULL, N'It is an offence to breach the Nitrate Vulnerable Zone rules, and you should consider changing your application date.', 5, 2)
+    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3], [WarningCodeID], [WarningLevelID]) VALUES (21, @ORGANICMANURENFIELDLIMITCOMPOSTPAS, 1, @GREENCOMPOSTAPPLIEDSTANDARD, @GREENCOMPOSTAPPLIEDSTANDARD, N'The Nitrate Vulnerable Zone (NVZ) rules state that green compost or green/food compost may only be applied at a rate greater than 250 kg of total nitrogen per hectare in any 12 month period provided that it has been produced in accordance with the standards set out in PAS 100:2011 (Specification for composted material) and does not contain livestock manure.'
+    ,N'The maximum application rate for PAS 100 certified green or green/food compost is 500 kg of total nitrogen per hectare any any 2-year period, or 1000 kg of total nitrogen per hectare in any 4-year period if applied as a mulch to orchard land.',0,1)
 
-The N-max limit for {0} is {1}kg of nitrogen per hectare. This limit can be increased for individual fields under certain circumstances. The adjusted N-max limit for this field is {2}kg of nitrogen per hectare.
-
-You can apply more than the adjusted N-max limit to a field, if you apply less to another field growing this crop type, and you comply with the adjusted N-max limit averaged across all fields growing this crop type on the farm.
-
-You can check your compliance with the N-max limit for all fields growing this crop by producing an N-max report.', N'It is an offence to breach the Nitrate Vulnerable Zone rules, and you should consider reducing the amount inorganic fertiliser nitrogen and crop-available nitrogen from organic manures you apply.',6,0)
-    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3], [WarningCodeID], [WarningLevelID]) VALUES (5, N'HIGHNORGANICMANURECLOSEDPERIOD', 1, N'Closed period for the application of high N organic manure', N'The application date you entered is inside your closed spreading period for applying high readily available nitrogen organic manure', NULL, N'It is an offence to breach the Nitrate Vulnerable Zone rules, and you should consider applying outside the closed spreading period.',1,1)
-    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3], [WarningCodeID], [WarningLevelID]) VALUES (6, N'HIGHNORGANICMANURECLOSEDPERIODORGANICFARM', 1, N'Closed period and maximum application rate for high N organic manure on a registered organic farm', N'The application date you entered is inside your closed spreading period for applying high readily available nitrogen organic manure', NULL, N'It is an offence to breach the Nitrate Vulnerable Zone rules, and you should consider applying outside the closed spreading period.',1,1)
-    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3], [WarningCodeID], [WarningLevelID]) VALUES (7, N'HIGHNORGANICMANUREMAXRATE', 1, N'Closed period and maximum application rate for high N organic manure on a registered organic farm', N'This application will take you over the maximum application rate for high readily available nitrogen organic manure during your closed spreading period', N'The Nitrate Vulnerable Zone (NVZ) rules state that on organic farms the application rate of high readily available nitrogen manures on this crop type between the start of the closed spreading period and the end of February must not exceed 150kg of total nitrogen per hectare.', N'It is an offence to breach the Nitrate Vulnerable Zone rules, and you should consider reducing the application rate of high readily available nitrogen manures.',8,1)
-    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3], [WarningCodeID], [WarningLevelID]) VALUES (8, N'HIGHNORGANICMANUREMAXRATEWEEKS', 1, N'Closed period and maximum application rate for high N organic manure on a registered organic farm', N'This application will take you over the maximum application rate for high readily available nitrogen organic manure during your closed spreading period', N'The Nitrate Vulnerable Zone (NVZ) rules state that on organic farms the application rate of high readily available nitrogen manures on this crop type between the start of the closed spreading period and the end of February must not exceed 150kg of total nitrogen per hectare, and that no more than 50kg of total nitrogen can be applied every 4 weeks.', N'It is an offence to breach the Nitrate Vulnerable Zone rules, and you should consider reducing the application rate of high readily available nitrogen manures.',8,1)
-    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3], [WarningCodeID], [WarningLevelID]) VALUES (9, N'HIGHNORGANICMANUREMAXRATEGRASS', 1, N'Closed period and maximum application rate for high N organic manure on a registered organic farm', N'This application will take you over the maximum application rate for high readily available nitrogen organic manure during your closed spreading period', N'The Nitrate Vulnerable Zone (NVZ) rules state that on organic farms the application rate of high readily available nitrogen manures on grass between the start of the closed spreading period and end of October must not exceed 150kg of total nitrogen per hectare, and that no more than 40kg of total nitrogen can be applied at any one time.', N'It is an offence to breach the Nitrate Vulnerable Zone rules, and you should consider reducing the application rate of high readily available nitrogen manures.',8,1)
-    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3], [WarningCodeID], [WarningLevelID]) VALUES (10, N'HIGHNORGANICMANUREMAXRATEOSR', 1, N'Closed period and maximum application rate for high N organic manure on a registered organic farm', N'This application will take you over the maximum application rate for high readily available nitrogen organic manure during your closed spreading period', N'The Nitrate Vulnerable Zone (NVZ) rules state that on organic farms the application rate of high readily available nitrogen manures on winter oilseed rape between the start of the closed spreading period and end of October must not exceed 150kg of total nitrogen per hectare.', N'It is an offence to breach the Nitrate Vulnerable Zone rules, and you should consider reducing the application rate of high readily available nitrogen manures.',8,1)
-    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3], [WarningCodeID], [WarningLevelID]) VALUES (11, N'HIGHNORGANICMANUREDATEONLY', 1, N'Closed period and maximum application rate for high N organic manure on a registered organic farm', N'The application date you entered is inside your closed spreading period for applying high readily available nitrogen organic manure', NULL, N'It is an offence to breach the Nitrate Vulnerable Zone rules, and you should consider applying outside the closed spreading period.',1,1)
-    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3], [WarningCodeID], [WarningLevelID]) VALUES (12, N'SLURRYMAXRATE', 1, N'Manure application limit between the end of the closed spreading period and the end of February', N'This application will take you over the maximum application rate for slurry between the end of the closed spreading period and the end of February', N'The Nitrate Vulnerable Zone (NVZ) rules state you must not spread more than 30 cubic metres per hectare of slurry in a single application from the end of the closed spreading period until the end of February.', N'It is an offence to breach the Nitrate Vulnerable Zone rules, and you should consider reducing the application rate of slurry.',81,1)
-    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3], [WarningCodeID], [WarningLevelID]) VALUES (13, N'POULTRYMANUREMAXAPPLICATIONRATE', 1, N'Manure application limit between the end of the closed spreading period and the end of February', N'This application will take you over the maximum application rate for poultry manure between the end of the closed spreading period and the end of February', N'The Nitrate Vulnerable Zone (NVZ) rules state you must not spread more than 8 tonnes per hectare of poultry manure in a single application from the end of the closed spreading period until the end of February.', N'It is an offence to breach the Nitrate Vulnerable Zone rules, and you should consider reducing the application rate of poultry manure.',81,1)
-    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3], [WarningCodeID], [WarningLevelID]) VALUES (14, N'ALLOWWEEKSBETWEENSLURRYPOULTRYAPPLICATIONS', 1, N'Manure application limit between the end of the closed spreading period and the end of February', N'You must allow at least 3 weeks between applications from the end of the closed spreading period to the end of February', N'The Nitrate Vulnerable Zone (NVZ) rules state that, between the end of the closed spreading period and the end of February, you must allow at least 3 weeks between each individual application of slurry or poultry manure.', N'It is an offence to breach the Nitrate Vulnerable Zone rules, and you should consider allowing more time between applications.',1,1)
-    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3], [WarningCodeID], [WarningLevelID]) VALUES (15, N'NITROFERTCLOSEDPERIOD', 1, N'Closed period for the application of inorganic nitrogen fertiliser', N'The application date you entered is inside your closed spreading period for applying inorganic nitrogen fertiliser', NULL, N'It is an offence to breach the Nitrate Vulnerable Zone rules, and you should consider applying outside the closed spreading period.', 5, 2)
-    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3], [WarningCodeID], [WarningLevelID]) VALUES (16, N'INORGNMAXRATE', 1, N'Closed period for the application of inorganic nitrogen fertiliser', N'This application will take you over the maximum application rate for inorganic nitrogen fertiliser to this crop during the closed spreading period', N'The Nitrate Vulnerable Zone (NVZ) rules state that the application rate of inorganic nitrogen fertiliser to this crop between {0} and {1} must not exceed {2}kg of nitrogen per hectare.', N'It is an offence to breach the Nitrate Vulnerable Zone rules, and you should consider reducing the application rate of inorganic nitrogen fertiliser.',51,2)
-    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3], [WarningCodeID], [WarningLevelID]) VALUES (17, N'INORGNMAXRATEBRASSICA', 1, N'Closed period for the application of inorganic nitrogen fertiliser', N'This application will take you over the maximum application rate for inorganic nitrogen fertiliser to this crop during the closed spreading period', N'The Nitrate Vulnerable Zone (NVZ) rules state that the application rate of inorganic nitrogen fertiliser on brassica crops between {0} and {1} must not exceed 100kg of nitrogen per hectare and that no more than 50kg of nitrogen per hectare can be applied every 4 weeks, up to the date on which you harvest the crop.', N'It is an offence to breach the Nitrate Vulnerable Zone rules, and you should consider reducing the application rate of inorganic nitrogen fertiliser.', 51, 2)
-    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3], [WarningCodeID], [WarningLevelID]) VALUES (18, N'INORGNMAXRATEOSR', 1, N'Closed period for the application of inorganic nitrogen fertiliser', N'This application will take you over the maximum application rate for inorganic nitrogen fertiliser to this crop during the closed spreading period', N'The Nitrate Vulnerable Zone (NVZ) rules state that the application rate of inorganic nitrogen fertiliser on winter oilseed rape between {0} and end of October must not exceed 30kg of nitrogen per hectare.', N'It is an offence to breach the Nitrate Vulnerable Zone rules, and you should consider reducing the application rate of inorganic nitrogen fertiliser.', 51, 2)
-    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3], [WarningCodeID], [WarningLevelID]) VALUES (19, N'INORGNMAXRATEGRASS', 1, N'Closed period for the application of inorganic nitrogen fertiliser', N'This application will take you over the maximum application rate for inorganic nitrogen fertiliser to this crop during the closed spreading period', N'The Nitrate Vulnerable Zone (NVZ) rules state that the application rate of inorganic nitrogen fertiliser on grass between {0} and end of October must not exceed 80kg of nitrogen per hectare, and that no more than 40kg of nitrogen per hectare can be applied at any one time.', N'It is an offence to breach the Nitrate Vulnerable Zone rules, and you should consider reducing the application rate of inorganic nitrogen fertiliser.',51,2)
-    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3], [WarningCodeID], [WarningLevelID]) VALUES (20, N'INORGFERTDATEONLY', 1, N'Closed period for the application of inorganic nitrogen fertiliser', N'The application date you entered is inside your closed spreading period for applying inorganic nitrogen fertiliser', NULL, N'It is an offence to breach the Nitrate Vulnerable Zone rules, and you should consider changing your application date.', 5, 2)
-    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3], [WarningCodeID], [WarningLevelID]) VALUES (21, N'ORGANICMANURENFIELDLIMIT', 2, N'Organic Manure N field limit', N'This application will take you over the organic manure nitrogen field limit', N'The Nitrate Vulnerable Zone (NVZ) rules state that the total amount of nitrogen from all organic manures you apply in any 12 month period on any single hectare of your land must not exceed 250kg.', N'It is an offence to breach the Nitrate Vulnerable Zone rules, and you should consider reducing the amount of nitrogen from organic manures.',0, 1)
-    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3], [WarningCodeID], [WarningLevelID]) VALUES (22, N'ORGANICMANURENFIELDLIMITCOMPOST', 2, N'Organic Manure N Field Limit for compost worked into the soil', N'This application will take you over the organic manure nitrogen field limit for compost', N'The Nitrate Vulnerable Zone (NVZ) rules state that the total amount of nitrogen from all green and green/food compost you apply in any 2-year period on any single hectare of your land must not exceed 500kg.', N'It is an offence to breach the Nitrate Vulnerable Zone rules, and you should consider reducing the amount of nitrogen from organic manures.',0,1)
-    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3], [WarningCodeID], [WarningLevelID]) VALUES (23, N'ORGANICMANURENFIELDLIMITCOMPOSTMULCH', 2, N'Organic Manure N Field Limit for compost applied as a mulch', N'This application will take you over the organic manure nitrogen field limit for compost applied to orchard land', N'The Nitrate Vulnerable Zone (NVZ) rules state that the total amount of nitrogen from all green and green/food compost you apply in any 4-year period on any single hectare of orchard land must not exceed 1000kg.', N'It is an offence to breach the Nitrate Vulnerable Zone rules, and you should consider reducing the amount of nitrogen from organic manures.',0,1)
-    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3], [WarningCodeID], [WarningLevelID]) VALUES (24, N'NMAXLIMIT', 2, N'N max limit', N'This application may take you over the maximum nitrogen rate limit (N-max) for this crop', N'The Nitrate Vulnerable Zone rules include a limit on the average amount of inorganic fertiliser nitrogen and crop-available nitrogen in organic manure that you can apply to most crops each year - this is known as the N-max limit.
-
-The N-max limit for {0} is {1}kg of nitrogen per hectare. This limit can be increased for individual fields under certain circumstances. The adjusted N-max limit for this field is {2}kg of nitrogen per hectare.
-
-You can apply more than the adjusted N-max limit to a field, if you apply less to another field growing this crop type, and you comply with the adjusted N-max limit averaged across all fields growing this crop type on the farm.
-
-You can check your compliance with the N-max limit for all fields growing this crop by producing an N-max report.', N'It is an offence to breach the Nitrate Vulnerable Zone rules, and you should consider reducing the amount inorganic fertiliser nitrogen and crop-available nitrogen from organic manures you apply.',6,0)
-    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3], [WarningCodeID], [WarningLevelID]) VALUES (25, N'HIGHNORGANICMANURECLOSEDPERIOD', 2, N'Closed period for the application of high N organic manure', N'The application date you entered is inside your closed spreading period for applying high readily available nitrogen organic manure', NULL, N'It is an offence to breach the Nitrate Vulnerable Zone rules, and you should consider applying outside the closed spreading period.',1,1)
-    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3], [WarningCodeID], [WarningLevelID]) VALUES (26, N'HIGHNORGANICMANURECLOSEDPERIODORGANICFARM', 2, N'Closed period and maximum application rate for high N organic manure on a registered organic farm', N'The application date you entered is inside your closed spreading period for applying high readily available nitrogen organic manure', NULL, N'It is an offence to breach the Nitrate Vulnerable Zone rules, and you should consider applying outside the closed spreading period.',1,1)
-    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3], [WarningCodeID], [WarningLevelID]) VALUES (27, N'HIGHNORGANICMANUREMAXRATE', 2, N'Closed period and maximum application rate for high N organic manure on a registered organic farm', N'This application will take you over the maximum application rate for high readily available nitrogen organic manure during your closed spreading period', N'The Nitrate Vulnerable Zone (NVZ) rules state that on organic farms the application rate of high readily available nitrogen manures on this crop type between the start of the closed spreading period and the end of February must not exceed 150kg of total nitrogen per hectare.', N'It is an offence to breach the Nitrate Vulnerable Zone rules, and you should consider reducing the application rate of high readily available nitrogen manures.',8,1)
-    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3], [WarningCodeID], [WarningLevelID]) VALUES (28, N'HIGHNORGANICMANUREMAXRATEWEEKS', 2, N'Closed period and maximum application rate for high N organic manure on a registered organic farm', N'This application will take you over the maximum application rate for high readily available nitrogen organic manure during your closed spreading period', N'The Nitrate Vulnerable Zone (NVZ) rules state that on organic farms the application rate of high readily available nitrogen manures on this crop type between the start of the closed spreading period and the end of February must not exceed 150kg of total nitrogen per hectare, and that no more than 50kg of total nitrogen can be applied every 4 weeks.', N'It is an offence to breach the Nitrate Vulnerable Zone rules, and you should consider reducing the application rate of high readily available nitrogen manures.',8,1)
-    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3], [WarningCodeID], [WarningLevelID]) VALUES (29, N'HIGHNORGANICMANUREMAXRATEGRASS', 2, N'Closed period and maximum application rate for high N organic manure on a registered organic farm', N'This application will take you over the maximum application rate for high readily available nitrogen organic manure during your closed spreading period', N'The Nitrate Vulnerable Zone (NVZ) rules state that on organic farms the application rate of high readily available nitrogen manures on grass between the start of the closed spreading period and end of October must not exceed 150kg of total nitrogen per hectare, and that no more than 40kg of total nitrogen can be applied at any one time.', N'It is an offence to breach the Nitrate Vulnerable Zone rules, and you should consider reducing the application rate of high readily available nitrogen manures.',8,1)
-    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3], [WarningCodeID], [WarningLevelID]) VALUES (30, N'HIGHNORGANICMANUREMAXRATEOSR', 2, N'Closed period and maximum application rate for high N organic manure on a registered organic farm', N'This application will take you over the maximum application rate for high readily available nitrogen organic manure during your closed spreading period', N'The Nitrate Vulnerable Zone (NVZ) rules state that on organic farms the application rate of high readily available nitrogen manures on winter oilseed rape between the start of the closed spreading period and end of October must not exceed 150kg of total nitrogen per hectare.', N'It is an offence to breach the Nitrate Vulnerable Zone rules, and you should consider reducing the application rate of high readily available nitrogen manures.',8,1)
-    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3], [WarningCodeID], [WarningLevelID]) VALUES (31, N'HIGHNORGANICMANUREDATEONLY', 2, N'Closed period and maximum application rate for high N organic manure on a registered organic farm', N'The application date you entered is inside your closed spreading period for applying high readily available nitrogen organic manure', NULL, N'It is an offence to breach the Nitrate Vulnerable Zone rules, and you should consider applying outside the closed spreading period.',1,1)
-    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3], [WarningCodeID], [WarningLevelID]) VALUES (32, N'SLURRYMAXRATE', 2, N'Manure application limit between the end of the closed spreading period and the end of February', N'This application will take you over the maximum application rate for slurry between the end of the closed spreading period and the end of February', N'The Nitrate Vulnerable Zone (NVZ) rules state you must not spread more than 30 cubic metres per hectare of slurry in a single application from the end of the closed spreading period until the end of February.', N'It is an offence to breach the Nitrate Vulnerable Zone rules, and you should consider reducing the application rate of slurry.',81,1)
-    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3], [WarningCodeID], [WarningLevelID]) VALUES (33, N'POULTRYMANUREMAXAPPLICATIONRATE', 2, N'Manure application limit between the end of the closed spreading period and the end of February', N'This application will take you over the maximum application rate for poultry manure between the end of the closed spreading period and the end of February', N'The Nitrate Vulnerable Zone (NVZ) rules state you must not spread more than 8 tonnes per hectare of poultry manure in a single application from the end of the closed spreading period until the end of February.', N'It is an offence to breach the Nitrate Vulnerable Zone rules, and you should consider reducing the application rate of poultry manure.',81,1)
-    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3], [WarningCodeID], [WarningLevelID]) VALUES (34, N'ALLOWWEEKSBETWEENSLURRYPOULTRYAPPLICATIONS', 2, N'Manure application limit between the end of the closed spreading period and the end of February', N'You must allow at least 3 weeks between applications from the end of the closed spreading period to the end of February', N'The Nitrate Vulnerable Zone (NVZ) rules state that, between the end of the closed spreading period and the end of February, you must allow at least 3 weeks between each individual application of slurry or poultry manure.', N'It is an offence to breach the Nitrate Vulnerable Zone rules, and you should consider allowing more time between applications.',1,1)
-    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3], [WarningCodeID], [WarningLevelID]) VALUES (35, N'NITROFERTCLOSEDPERIOD', 2, N'Closed period for the application of inorganic nitrogen fertiliser', N'The application date you entered is inside your closed spreading period for applying inorganic nitrogen fertiliser', NULL, N'It is an offence to breach the Nitrate Vulnerable Zone rules, and you should consider applying outside the closed spreading period.', 5, 2)
-    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3], [WarningCodeID], [WarningLevelID]) VALUES (36, N'INORGNMAXRATE', 2, N'Closed period for the application of inorganic nitrogen fertiliser', N'This application will take you over the maximum application rate for inorganic nitrogen fertiliser to this crop during the closed spreading period', N'The Nitrate Vulnerable Zone (NVZ) rules state that the application rate of inorganic nitrogen fertiliser to this crop between {0} and {1} must not exceed {2}kg of nitrogen per hectare.', N'It is an offence to breach the Nitrate Vulnerable Zone rules, and you should consider reducing the application rate of inorganic nitrogen fertiliser.',51,2)
-    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3], [WarningCodeID], [WarningLevelID]) VALUES (37, N'INORGNMAXRATEBRASSICA', 2, N'Closed period for the application of inorganic nitrogen fertiliser', N'This application will take you over the maximum application rate for inorganic nitrogen fertiliser to this crop during the closed spreading period', N'The Nitrate Vulnerable Zone (NVZ) rules state that the application rate of inorganic nitrogen fertiliser on brassica crops between {0} and {1} must not exceed 100kg of nitrogen per hectare and that no more than 50kg of nitrogen per hectare can be applied every 4 weeks, up to the date on which you harvest the crop.', N'It is an offence to breach the Nitrate Vulnerable Zone rules, and you should consider reducing the application rate of inorganic nitrogen fertiliser.', 51, 2)
-    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3], [WarningCodeID], [WarningLevelID]) VALUES (38, N'INORGNMAXRATEOSR', 2, N'Closed period for the application of inorganic nitrogen fertiliser', N'This application will take you over the maximum application rate for inorganic nitrogen fertiliser to this crop during the closed spreading period', N'The Nitrate Vulnerable Zone (NVZ) rules state that the application rate of inorganic nitrogen fertiliser on winter oilseed rape between {0} and end of October must not exceed 30kg of nitrogen per hectare.', N'It is an offence to breach the Nitrate Vulnerable Zone rules, and you should consider reducing the application rate of inorganic nitrogen fertiliser.', 51, 2)
-    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3], [WarningCodeID], [WarningLevelID]) VALUES (39, N'INORGNMAXRATEGRASS', 2, N'Closed period for the application of inorganic nitrogen fertiliser', N'This application will take you over the maximum application rate for inorganic nitrogen fertiliser to this crop during the closed spreading period', N'The Nitrate Vulnerable Zone (NVZ) rules state that the application rate of inorganic nitrogen fertiliser on grass between {0} and end of October must not exceed 80kg of nitrogen per hectare, and that no more than 40kg of nitrogen per hectare can be applied at any one time.', N'It is an offence to breach the Nitrate Vulnerable Zone rules, and you should consider reducing the application rate of inorganic nitrogen fertiliser.',51,2)
-    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3], [WarningCodeID], [WarningLevelID]) VALUES (40, N'INORGFERTDATEONLY', 2, N'Closed period for the application of inorganic nitrogen fertiliser', N'The application date you entered is inside your closed spreading period for applying inorganic nitrogen fertiliser', NULL, N'It is an offence to breach the Nitrate Vulnerable Zone rules, and you should consider changing your application date.', 5, 2)
-    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3], [WarningCodeID], [WarningLevelID]) VALUES (41, N'ORGANICMANURENFIELDLIMIT', 3, N'The individual hectare limit for spreading organic manure', N'This application will take you over the individual hectare limit for spreading of organic manure', N'The Water Resources (Control of Agricultural Pollution) Regulations 2021 (Wales) apply a limit of 250kg of total nitrogen per individual hectare to the spreading of organic manure in any 12 month rolling period.', N'It is an offence to breach the Water Resources (Control of Agricultural Pollution) Regulations 2021 (Wales), and you should consider reducing the amount of nitrogen from organic manures.',0,1)
-    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3], [WarningCodeID], [WarningLevelID]) VALUES (42, N'ORGANICMANURENFIELDLIMITCOMPOST', 3, N'The individual hectare limit for spreading certified green/food compost', N'This application will take you over the individual hectare limit for spreading certified green and green/food compost', N'The Water Resources (Control of Agricultural Pollution) Regulations 2021 (Wales) apply a limit of 500kg of total nitrogen per individual hectare to the spreading of certified green and green/food compost in any rolling two year period.', N'It is an offence to breach the Water Resources (Control of Agricultural Pollution) Regulations 2021 (Wales), and you should consider reducing the amount of nitrogen from organic manures.',0,1)
-    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3], [WarningCodeID], [WarningLevelID]) VALUES (43, N'ORGANICMANURENFIELDLIMITCOMPOSTMULCH', 3, N'The individual hectare limit for spreading certified green/food compost applied as a mulch to orchard land', N'This application will take you over the individual hectare limit for spreading certified green and green/food compost as a mulch to orchard land', N'The Water Resources (Control of Agricultural Pollution) Regulations 2021 (Wales) apply a limit of 1000kg of total nitrogen per individual hectare to the spreading of certified green and green/food compost to orchard land in any rolling four year period.', N'It is an offence to breach the Water Resources (Control of Agricultural Pollution) Regulations 2021 (Wales), and you should consider reducing the amount of nitrogen from organic manures.',0,1)
-    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3], [WarningCodeID], [WarningLevelID]) VALUES (44, N'NMAXLIMIT', 3, N'Maximum nitrogen limits', N'This application may take you over the maximum nitrogen limit for this crop', N'The Water Resources Regulations include a limit on the average amount of inorganic fertiliser nitrogen and crop-available nitrogen in organic manure that you can apply to most crops each year - this is known as the maximum nitrogen limit.
-
-The maximum nitrogen limit for {0} is {1}kg of nitrogen per hectare. This limit can be increased for individual fields under certain circumstances. The adjusted N-max limit for this field is {2}kg of nitrogen per hectare.
-
-You can apply more than the adjusted limit to a field, if you apply less to another field growing this crop type, and you comply with the adjusted maximum nitrogen limit averaged across all fields growing this crop type on the farm.
-
-You can check your compliance with the maximum nitrogen limit for all fields growing this crop by producing a maximum nitrogen limit report.', N'It is an offence to breach the Water Resources Regulations, and you should consider reducing the amount inorganic fertiliser nitrogen and crop-available nitrogen from organic manures you apply.',6,0)
-    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3], [WarningCodeID], [WarningLevelID]) VALUES (45, N'HIGHNORGANICMANURECLOSEDPERIOD', 3, N'Closed spreading period for the application of high readily available nitrogen organic manures', N'The application date you entered is inside your closed spreading period for applying manure with a high readily available nitrogen content', NULL, N'It is an offence to breach the Water Resources (Control of Agricultural Pollution) Regulations 2021 (Wales), and you should consider applying outside the closed spreading period. Before spreading fertiliser, a field inspection should be carried out to consider the risk of causing pollution or damage to the soil.',1,1)
-    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3], [WarningCodeID], [WarningLevelID]) VALUES (46, N'HIGHNORGANICMANURECLOSEDPERIODORGANICFARM', 3, N'Closed spreading period for the application of high readily available nitrogen organic manures on a registered organic farm', N'The application date you entered is inside your closed spreading period for applying manure with a high readily available nitrogen content', NULL, N'It is an offence to breach the Water Resources (Control of Agricultural Pollution) Regulations 2021 (Wales), and you should consider applying outside the closed spreading period. Before spreading organic manure, a field inspection should be carried out to consider the risk of causing pollution or damage to the soil.',1,1)
-    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3], [WarningCodeID], [WarningLevelID]) VALUES (47, N'HIGHNORGANICMANUREMAXRATE', 3, N'Closed spreading period for the application of high readily available nitrogen organic manures on a registered organic farm', N'This application will take you over the maximum application rate for high readily available nitrogen organic manure during your closed spreading period', N'The Water Resources (Control of Agricultural Pollution) Regulations 2021 (Wales) state that the application rate of high readily available nitrogen manures on this crop type between the start of the closed spreading period and the end of February must not exceed 150kg per hectare.', N'It is an offence to breach the Water Resources (Control of Agricultural Pollution) Regulations 2021 (Wales), and you should consider reducing the application rate of high readily available nitrogen organic manure.',8,1)
-    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3], [WarningCodeID], [WarningLevelID]) VALUES (48, N'SLURRYMAXRATE', 3, N'Manure application limit between the end of the closed spreading period and the end of February', N'This application will take you over the maximum application rate for slurry between the end of the closed spreading period and the end of February', N'The Water Resources (Control of Agricultural Pollution) Regulations 2021 (Wales) state you must not spread more than 30 cubic metres per hectare of slurry in a single application from the end of the closed spreading period until the end of February.', N'It is an offence to breach the Water Resources (Control of Agricultural Pollution) Regulations 2021 (Wales), and you should consider reducing the application rate of slurry.',81,1)
-    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3], [WarningCodeID], [WarningLevelID]) VALUES (49, N'POULTRYMANUREMAXAPPLICATIONRATE', 3, N'Manure application limit between the end of the closed spreading period and the end of February', N'This application will take you over the maximum application rate for poultry manure between the end of the closed spreading period and the end of February', N'The Water Resources (Control of Agricultural Pollution) Regulations 2021 (Wales) state you must not spread more than 8 tonnes per hectare of poultry manure in a single application from the end of the closed spreading period until the end of February.', N'It is an offence to breach the Water Resources (Control of Agricultural Pollution) Regulations 2021 (Wales), and you should consider reducing the application rate of poultry manure.',81,1)
-    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3], [WarningCodeID], [WarningLevelID]) VALUES (50, N'ALLOWWEEKSBETWEENSLURRYPOULTRYAPPLICATIONS', 3, N'Manure application limit between the end of the closed spreading period and the end of February', N'You must allow at least 3 weeks between applications from the end of the closed spreading period to the end of February', N'The Water Resources (Control of Agricultural Pollution) Regulations 2021 (Wales) state that, between the end of the closed spreading period and the end of February, you must allow at least 3 weeks between each individual application of slurry or poultry manure.', N'It is an offence to breach the Water Resources (Control of Agricultural Pollution) Regulations 2021 (Wales), and you should consider allowing more time between applications.',1,1)
-    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3], [WarningCodeID], [WarningLevelID]) VALUES (51, N'NITROFERTCLOSEDPERIOD', 3, N'Closed spreading period for the application of inorganic nitrogen fertiliser', N'The application date you entered is inside your closed spreading period for applying inorganic nitrogen fertiliser', NULL, N'It is an offence to breach the Water Resources (Control of Agricultural Pollution) Regulations 2021 (Wales), and you should consider applying outside the closed spreading period. Before spreading fertiliser, a field inspection should be carried out to consider the risk of causing pollution or damage to the soil.', 5, 2)
-    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3], [WarningCodeID], [WarningLevelID]) VALUES (52, N'INORGNMAXRATE', 3, N'Closed spreading period for the application of inorganic nitrogen fertiliser', N'This application will take you over the maximum application rate for inorganic nitrogen fertiliser to this crop during the closed spreading period', NULL, N'It is an offence to breach the Water Resources (Control of Agricultural Pollution) Regulations 2021 (Wales), and you should consider reducing the application rate of inorganic nitrogen fertiliser.', 51, 2)
-    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3], [WarningCodeID], [WarningLevelID]) VALUES (53, N'INORGNMAXRATEBRASSICA', 3, N'Closed spreading period for the application of inorganic nitrogen fertiliser', N'This application will take you over the maximum application rate for inorganic nitrogen fertiliser to this crop during the closed spreading period', N'The Water Resources (Control of Agricultural Pollution) Regulations 2021 (Wales) state that the application rate of inorganic nitrogen fertiliser on brassica crops between {0} and {1} must not exceed 100kg of nitrogen per hectare, and that no more than 50kg of nitrogen per hectare can be applied every 4 weeks, up to the date on which you harvest the crop.', N'It is an offence to breach the Water Resources (Control of Agricultural Pollution) Regulations 2021 (Wales), and you should consider reducing the application rate of inorganic nitrogen fertiliser.', 51, 2)
-    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3], [WarningCodeID], [WarningLevelID]) VALUES (54, N'INORGNMAXRATEOSR', 3, N'Closed spreading period for the application of inorganic nitrogen fertiliser', N'This application will take you over the maximum application rate for inorganic nitrogen fertiliser to this crop during the closed spreading period', N'The Water Resources (Control of Agricultural Pollution) Regulations 2021 (Wales) state that the application rate of inorganic nitrogen fertiliser on winter oilseed rape between {0} and end of October must not exceed 30kg of nitrogen per hectare.', N'It is an offence to breach the Water Resources (Control of Agricultural Pollution) Regulations 2021 (Wales), and you should consider reducing the application rate of inorganic nitrogen fertiliser.', 51, 2)
-    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3], [WarningCodeID], [WarningLevelID]) VALUES (55, N'INORGNMAXRATEGRASS', 3, N'Closed spreading period for the application of inorganic nitrogen fertiliser', N'This application will take you over the maximum application rate for inorganic nitrogen fertiliser to this crop during the closed spreading period', N'The Water Resources (Control of Agricultural Pollution) Regulations 2021 (Wales) state that the application rate of inorganic nitrogen fertiliser on grass between {0} and end of October must not exceed 80kg of nitrogen per hectare, and that no more than 40kg of nitrogen per hectare can be applied at any one time.', N'It is an offence to breach the Water Resources (Control of Agricultural Pollution) Regulations 2021 (Wales), and you should consider reducing the application rate of inorganic nitrogen fertiliser.',51,2)
-    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3], [WarningCodeID], [WarningLevelID]) VALUES (56, N'INORGFERTDATEONLY', 3, N'Closed spreading period for the application of inorganic nitrogen fertiliser', N'The application date you entered is inside your closed spreading period for applying inorganic nitrogen fertiliser', NULL, N'It is an offence to breach the Water Resources (Control of Agricultural Pollution) Regulations 2021 (Wales), and you should consider changing your application date.', 5, 2)
-
+    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3], [WarningCodeID], [WarningLevelID]) VALUES (22, @ORGANICMANURENFIELDLIMIT, 2, N'Field application limit for organic nitrogen', N'This application will take you over the field application limit for organic nitrogen', N'The Nitrate Vulnerable Zone (NVZ) rules state that the total amount of nitrogen from all organic manures you apply in any 12 month period on any single hectare of your land must not exceed 250kg.', @NVZ_OFFENCE_COMMON,0, 1)
+    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3], [WarningCodeID], [WarningLevelID]) VALUES (23, @ORGANICMANURENFIELDLIMITCOMPOST, 2, N'Field application limit for green compost', N'This application will take you over the field application limit for green compost', N'The Nitrate Vulnerable Zone (NVZ) rules state that the total amount of nitrogen from all green and green/food compost and other organic manures you apply in any 2-year period on any single hectare of your land must not exceed 500kg.', @NVZ_OFFENCE_COMMON,0,1)
+    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3], [WarningCodeID], [WarningLevelID]) VALUES (24, @ORGANICMANURENFIELDLIMITCOMPOSTPAS, 2, @GREENCOMPOSTAPPLIEDSTANDARD, N'The green compost or green/food compost applied must be produced in accordance with the standards set out in PAS 100 and must not contain livestock manure', N'The Nitrate Vulnerable Zone (NVZ) rules state that green compost or green/food compost may only be applied at a rate greater than 250 kg of total nitrogen per hectare in any 12 month period provided that it has been produced in accordance with the standards set out in PAS 100:2011 (Specification for composted material) and does not contain livestock manure.'
+    ,N'The maximum application rate for PAS 100 certified green or green/food compost is 500 kg of total nitrogen per hectare any 2-year period.', 0,1)
+    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3], [WarningCodeID], [WarningLevelID]) VALUES (25, @HIGHNORGANICMANURECLOSEDPERIOD, 2, N'Closed period for the application of high readily available nitrogen organic manure', @APPLICATIONDATEINSIDE_CLOSEDPERIOD, 'This Nitrate Vulnerable Zone rules require that organic manures with a high available N content must not be spread during defined closed periods.', @NVZ_OFFENCE_DATE,1,1)
+    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3], [WarningCodeID], [WarningLevelID]) VALUES (26, N'SLURRY4WEEKPRIORTOCLOSEDPERIODSTART', 2, N'Manure application limit in the four week period prior to the start of the closed spreading period for high readily available nitrogen organic manures', N'This application will take you over the maximum application rate for high readily available nitrogen organic manure in the four week period prior to the start of the closed spreading period for applying high readily available nitrogen organic manure', N'The Nitrate Vulnerable Zone (NVZ) rules state you must not spread more than 30 cubic meters per hectare of high readily available nitrogen organic manure in the four week period prior to the start of the closed spreading period for applying high readily available nitrogen organic manure.', @ITISANOFFENCETOBREACHTHE_NITRATEVULNERABLEZONERULES,81,1)
+    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3], [WarningCodeID], [WarningLevelID]) VALUES (27, N'POULTRY4WEEKPRIORTOCLOSEDPERIODSTART', 2, N'Manure application limit in the four week period prior to the start of the closed spreading period for high readily available nitrogen organic manures', N'This application will take you over the maximum application rate for poultry manure in the four week period prior to the start of the closed spreading period for applying high readily available nitrogen organic manure', N'The Nitrate Vulnerable Zone (NVZ) rules state you must not spread more than 5 tonnes per hectare of poultry manure in the four week period prior to the start of the closed spreading period for applying high readily available nitrogen organic manure.', N'It is an offence to breach the Nitrate Vulnerable Zone rules, and you should consider reducing the application rate of poultry manure.',81,1)
+    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3], [WarningCodeID], [WarningLevelID]) VALUES (28, @SLURRYMAXRATE, 2, N'Manure application limit between the end of the closed spreading period and the 14 February', N'This application will take you over the maximum application rate for high readily available nitrogen organic manure between the end of the closed spreading period for applying high readily available nitrogen organic manure and the 14th February', N'The Nitrate Vulnerable Zone (NVZ) rules state you must not spread more than 30 cubic meters per hectare of high readily available nitrogen organic manure between the end of the closed spreading period for applying high readily available nitrogen organic manure and the 14th February.', @ITISANOFFENCETOBREACHTHE_NITRATEVULNERABLEZONERULES,81,1)
+    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3], [WarningCodeID], [WarningLevelID]) VALUES (29, @POULTRYMANUREMAXAPPLICATIONRATE, 2, N'Manure application limit between the end of the closed spreading period and the 14 February', N'This application will take you over the maximum application rate for poultry manure between the end of the closed spreading period for applying high readily available nitrogen organic manure and the and the 14th February', N'The Nitrate Vulnerable Zone (NVZ) rules state you must not spread more than 5 tonnes per hectare of poultry manure between the end of the closed spreading period for applying high readily available nitrogen organic manure and the 14th February.', @ITISANOFFENCETOBREACHTHE_NITRATEVULNERABLEZONERULES,81,1)
+    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3], [WarningCodeID], [WarningLevelID]) VALUES (30, @ALLOWWEEKSBETWEENSLURRYPOULTRYAPPLICATIONS, 2, N'Requirement to leave a 3 week period between each application of livestock manure.', N'You must leave a period of at least 3 weeks between each application of livestock manure', N'The Nitrate Vulnerable Zone (NVZ) rules state that you must allow at least 3 weeks between each individual application of livestock manure to an area on the farm.', N'It is an offence to breach the Nitrate Vulnerable Zone rules, and you should consider allowing more time between applications of livestock manure.',1,1)
+    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3], [WarningCodeID], [WarningLevelID]) VALUES (31, @NITROFERTCLOSEDPERIOD, 2, @CLOSEDPERIODMANUFACTUREDNITROGEN, @DATEENTEREDINSIDECLOSEDPERIODFERTILISER, NULL, @NVZ_OFFENCE_DATE, 5, 2)
+    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3], [WarningCodeID], [WarningLevelID]) VALUES (32, N'INORGNMAXRATERESIDUEGROUP', 2, @CLOSEDPERIODMANUFACTUREDNITROGEN, @MAXIMUMAPPLICATIONRATEFORINORGANICNITROGENFERTILISER, N'The Nitrate Vulnerable Zone (NVZ) rules state that the application rate of inorganic nitrogen fertiliser in the closed spreading period to winter oilseed rape grown following a Nitrogen residue {0} crop must not exceed {1}kg of nitrogen per hectare.', @NVZ_OFFENCE_FERT,51,2)
+    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3], [WarningCodeID], [WarningLevelID]) VALUES (33, N'INORGNMAXRATERESIDUEGROUP4TO6', 2, @DATEENTEREDINSIDECLOSEDPERIODFERTILISER, @MAXIMUMAPPLICATIONRATEFORINORGANICNITROGENFERTILISER, N'The Nitrate Vulnerable Zone (NVZ) rules state that you must not apply any inorganic nitrogen fertiliser in the closed spreading period to winter oilseed rape in Nitrogen residue group 4, 5 and 6.', @NVZ_OFFENCE_FERT,51,2)
+    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3], [WarningCodeID], [WarningLevelID]) VALUES (34, @INORGNMAXRATEBRASSICA, 2, @CLOSEDPERIODMANUFACTUREDNITROGEN, @MAXIMUMAPPLICATIONRATEFORINORGANICNITROGENFERTILISER, N'The Nitrate Vulnerable Zone (NVZ) rules state that the application rate of inorganic nitrogen fertiliser in the closed spreading period to brassica crops must not exceed 100kg of nitrogen per hectare.', @NVZ_OFFENCE_FERT, 51, 2)
+    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3], [WarningCodeID], [WarningLevelID]) VALUES (35, @NMAXLIMIT, 2,N'N-max limit', @NMAXPARA1FORENGLANDANDSCOTLAND,@NMAXPARA2FORENGLANDANDSCOTLAND, N'It is an offence to breach the Nitrate Vulnerable Zone rules, and you should consider reducing the amount inorganic fertiliser nitrogen and crop-available nitrogen from organic manures you apply.',6,0)
+    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3], [WarningCodeID], [WarningLevelID]) VALUES (36, N'RANMANUREJULYTOSEP', 2, N'Requirement not to apply high readily available nitrogen organic manures to bare fields or stubble ground between 1 July and 30 September unless a crop is sown.', N'The application date you entered is within the period when you are  not permitted to apply high readily available nitrogen organic manure to bare fields or stubble unless a crop is sown within 6 weeks of application', N'The Nitrate Vulnerable Zone (NVZ) rules state that high readily available nitrogen organic manure can only be applied to bare ground or stubble from 01 July to 30 September if a crop is planted within 6 weeks of the manure application.', NULL,1,1)
+    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3], [WarningCodeID], [WarningLevelID]) VALUES (37, @ORGANICMANURENFIELDLIMIT, 3, N'The individual hectare limit for spreading organic manure', N'This application will take you over the individual hectare limit for spreading of organic manure', N'The Water Resources (Control of Agricultural Pollution) Regulations 2021 (Wales) apply a limit of 250kg of total nitrogen per individual hectare to the spreading of organic manure in any 12 month rolling period.', @WATER_OFFENCE_COMMON,0,1)
+    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3], [WarningCodeID], [WarningLevelID]) VALUES (38, @ORGANICMANURENFIELDLIMITCOMPOST, 3, N'The individual hectare limit for spreading certified green/food compost', N'This application will take you over the individual hectare limit for spreading certified green and green/food compost', N'The Water Resources (Control of Agricultural Pollution) Regulations 2021 (Wales) apply a limit of 500kg of total nitrogen per individual hectare to the spreading of certified green and green/food compost in any rolling two year period.', @WATER_OFFENCE_COMMON,0,1)
+    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3], [WarningCodeID], [WarningLevelID]) VALUES (39, N'ORGANICMANURENFIELDLIMITCOMPOSTMULCH', 3, N'The individual hectare limit for spreading certified green/food compost applied as a mulch to orchard land', N'This application will take you over the individual hectare limit for spreading certified green and green/food compost as a mulch to orchard land', N'The Water Resources (Control of Agricultural Pollution) Regulations 2021 (Wales) apply a limit of 1000kg of total nitrogen per individual hectare to the spreading of certified green and green/food compost to orchard land in any rolling four year period.', @WATER_OFFENCE_COMMON,0,1)
+    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3], [WarningCodeID], [WarningLevelID]) VALUES (40, @NMAXLIMIT, 3, N'N-max limit', N'This application may take you over the maximum nitrogen limit for this crop', N'The Water Resources Regulations include a limit on the average amount of inorganic fertiliser nitrogen and crop-available nitrogen in organic manure that you can apply to most crops each year - this is known as the maximum nitrogen limit.'
+    + CHAR(13) + CHAR(10) +
+N'The maximum nitrogen limit for {0} is {1}kg of nitrogen per hectare. This limit can be increased for individual fields under certain circumstances. The adjusted N-max limit for this field is {2}kg of nitrogen per hectare.'
++ CHAR(13) + CHAR(10) +
+N'You can apply more than the adjusted limit to a field, if you apply less to another field growing this crop type, and you comply with the adjusted maximum nitrogen limit averaged across all fields growing this crop type on the farm.'
++ CHAR(13) + CHAR(10) +
+N'You can check your compliance with the maximum nitrogen limit for all fields growing this crop by producing a maximum nitrogen limit report.', N'It is an offence to breach the Water Resources Regulations, and you should consider reducing the amount inorganic fertiliser nitrogen and crop-available nitrogen from organic manures you apply.',6,0)
+    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3], [WarningCodeID], [WarningLevelID]) VALUES (41, @HIGHNORGANICMANURECLOSEDPERIOD, 3, N'Closed spreading period for the application of high readily available nitrogen organic manures', N'The application date you entered is inside your closed spreading period for applying manure with a high readily available nitrogen content', NULL, N'It is an offence to breach the Water Resources (Control of Agricultural Pollution) Regulations 2021 (Wales), and you should consider applying outside the closed spreading period. Before spreading fertiliser, a field inspection should be carried out to consider the risk of causing pollution or damage to the soil.',1,1)
+    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3], [WarningCodeID], [WarningLevelID]) VALUES (42, N'HIGHNORGANICMANURECLOSEDPERIODORGANICFARM', 3, N'Closed spreading period for the application of high readily available nitrogen organic manures on a registered organic farm', N'The application date you entered is inside your closed spreading period for applying manure with a high readily available nitrogen content', NULL, N'It is an offence to breach the Water Resources (Control of Agricultural Pollution) Regulations 2021 (Wales), and you should consider applying outside the closed spreading period. Before spreading organic manure, a field inspection should be carried out to consider the risk of causing pollution or damage to the soil.',1,1)
+    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3], [WarningCodeID], [WarningLevelID]) VALUES (43, N'HIGHNORGANICMANUREMAXRATE', 3, N'Closed spreading period for the application of high readily available nitrogen organic manures on a registered organic farm', @APPLICATIONTAKEYOUOVERMAXIMUMAPPLICATIONRATEDURINGCLOSEDPERIOD, N'The Water Resources (Control of Agricultural Pollution) Regulations 2021 (Wales) state that the application rate of high readily available nitrogen manures on this crop type between the start of the closed spreading period and the end of February must not exceed 150kg of total nitrogen per hectare.', N'It is an offence to breach the Water Resources (Control of Agricultural Pollution) Regulations 2021 (Wales), and you should consider reducing the application rate of high readily available nitrogen organic manure.',8,1)
+    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3], [WarningCodeID], [WarningLevelID]) VALUES (44, @SLURRYMAXRATE, 3, @MANUREAPPLICATIONLIMIT, N'This application will take you over the maximum application rate for slurry between the end of the closed spreading period and the end of February', N'The Water Resources (Control of Agricultural Pollution) Regulations 2021 (Wales) state you must not spread more than 30 cubic metres per hectare of slurry in a single application from the end of the closed spreading period until the end of February.', N'It is an offence to breach the Water Resources (Control of Agricultural Pollution) Regulations 2021 (Wales), and you should consider reducing the application rate of slurry.',81,1)
+    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3], [WarningCodeID], [WarningLevelID]) VALUES (45, @POULTRYMANUREMAXAPPLICATIONRATE, 3, @MANUREAPPLICATIONLIMIT, N'This application will take you over the maximum application rate for poultry manure between the end of the closed spreading period and the end of February', N'The Water Resources (Control of Agricultural Pollution) Regulations 2021 (Wales) state you must not spread more than 8 tonnes per hectare of poultry manure in a single application from the end of the closed spreading period until the end of February.', N'It is an offence to breach the Water Resources (Control of Agricultural Pollution) Regulations 2021 (Wales), and you should consider reducing the application rate of poultry manure.',81,1)
+    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3], [WarningCodeID], [WarningLevelID]) VALUES (46, @ALLOWWEEKSBETWEENSLURRYPOULTRYAPPLICATIONS, 3, @MANUREAPPLICATIONLIMIT, N'You must allow at least 3 weeks between applications from the end of the closed spreading period to the end of February', N'The Water Resources (Control of Agricultural Pollution) Regulations 2021 (Wales) state that, between the end of the closed spreading period and the end of February, you must allow at least 3 weeks between each individual application of slurry or poultry manure.', N'It is an offence to breach the Water Resources (Control of Agricultural Pollution) Regulations 2021 (Wales), and you should consider allowing more time between applications.',1,1)
+    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3], [WarningCodeID], [WarningLevelID]) VALUES (47, @NITROFERTCLOSEDPERIOD, 3, @CLOSEDPERIODFORINORGANICNITROGENFERTILISER, @DATEENTEREDINSIDECLOSEDPERIODFERTILISER, NULL, N'It is an offence to breach the Water Resources (Control of Agricultural Pollution) Regulations 2021 (Wales), and you should consider applying outside the closed spreading period. Before spreading fertiliser, a field inspection should be carried out to consider the risk of causing pollution or damage to the soil.', 5, 2)
+    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3], [WarningCodeID], [WarningLevelID]) VALUES (48, N'INORGNMAXRATE', 3, @CLOSEDPERIODFORINORGANICNITROGENFERTILISER, @RATEFORINORGANICNITROGENFERTILISERTOTHISCROPDURINGTHECLOSEDPERIOD, NULL, @WATER_OFFENCE_RATE, 51, 2)
+    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3], [WarningCodeID], [WarningLevelID]) VALUES (49, @INORGNMAXRATEBRASSICA, 3, @CLOSEDPERIODFORINORGANICNITROGENFERTILISER, @RATEFORINORGANICNITROGENFERTILISERTOTHISCROPDURINGTHECLOSEDPERIOD, N'The Water Resources (Control of Agricultural Pollution) Regulations 2021 (Wales) state that the application rate of inorganic nitrogen fertiliser on brassica crops between {0} and {1} must not exceed 100kg of nitrogen per hectare, and that no more than 50kg of nitrogen per hectare can be applied every 4 weeks, up to the date on which you harvest the crop.', @WATER_OFFENCE_RATE, 51, 2)
+    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3], [WarningCodeID], [WarningLevelID]) VALUES (50, N'INORGNMAXRATEOSR', 3, @CLOSEDPERIODFORINORGANICNITROGENFERTILISER, @RATEFORINORGANICNITROGENFERTILISERTOTHISCROPDURINGTHECLOSEDPERIOD, N'The Water Resources (Control of Agricultural Pollution) Regulations 2021 (Wales) state that the application rate of inorganic nitrogen fertiliser on winter oilseed rape between {0} and end of October must not exceed 30kg of nitrogen per hectare.', @WATER_OFFENCE_RATE, 51, 2)
+    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3], [WarningCodeID], [WarningLevelID]) VALUES (51, @INORGNMAXRATEGRASS, 3, @CLOSEDPERIODFORINORGANICNITROGENFERTILISER, @RATEFORINORGANICNITROGENFERTILISERTOTHISCROPDURINGTHECLOSEDPERIOD, N'The Water Resources (Control of Agricultural Pollution) Regulations 2021 (Wales) state that the application rate of inorganic nitrogen fertiliser on grass between {0} and end of October must not exceed 80kg of nitrogen per hectare, and that no more than 40kg of nitrogen per hectare can be applied at any one time.', @WATER_OFFENCE_RATE,51,2)
+    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3], [WarningCodeID], [WarningLevelID]) VALUES (52, @INORGFERTDATEONLY, 3, @CLOSEDPERIODFORINORGANICNITROGENFERTILISER, @DATEENTEREDINSIDECLOSEDPERIODFERTILISER, NULL, N'It is an offence to breach the Water Resources (Control of Agricultural Pollution) Regulations 2021 (Wales), and you should consider changing your application date.', 5, 2)
+    INSERT [dbo].[Warnings] ([ID], [WarningKey], [CountryID], [Header], [Para1], [Para2], [Para3], [WarningCodeID], [WarningLevelID]) VALUES (53, @ORGANICMANURENFIELDLIMITCOMPOSTPAS, 3, @GREENCOMPOSTAPPLIEDSTANDARD, @GREENCOMPOSTAPPLIEDSTANDARD, N'The Water Resources Regulations state that green compost or green/food compost may only be applied at a rate greater than 250 kg of total nitrogen per hectare in any 12 month period provided that it has been produced in accordance with the standards set out in PAS 100:2011 (Specification for composted material) and does not contain livestock manure.'
+    ,N'The maximum application rate for PAS 100 certified green or green/food compost is 500 kg of total nitrogen per hectare any any 2-year period, or 1000 kg of total nitrogen per hectare in any 4-year period if applied as a mulch to orchard land.',0,1)
     SET IDENTITY_INSERT [dbo].[Warnings] OFF
 END
 
-IF EXISTS (SELECT 1 FROM [dbo].[Warnings] where [Header] LIKE '% message')
+IF EXISTS (SELECT 1 FROM [dbo].[Warnings] WHERE [WarningKey]='POULTRYMANUREMAXAPPLICATIONRATE' AND [CountryID]=2 )
 BEGIN
-    UPDATE dbo.Warnings
-SET [Header] = LEFT([Header], LEN([Header]) - LEN(' message'))
-WHERE [Header] LIKE '% message';
+    UPDATE [dbo].[Warnings] SET 
+    [Para1] = N'This application will take you over the maximum application rate for poultry manure between the end of the closed spreading period for applying high readily available nitrogen organic manure and the and the 14th February' ,
+    [Para2] = N'The Nitrate Vulnerable Zone (NVZ) rules state you must not spread more than 5 tonnes per hectare of poultry manure between the end of the closed spreading period for applying high readily available nitrogen organic manure and the 14th February.' 
+    WHERE [WarningKey]='POULTRYMANUREMAXAPPLICATIONRATE' AND [CountryID]=2
 END
 
-IF EXISTS (SELECT 1 FROM [dbo].[Warnings] where [WarningKey] = 'NMAXLIMIT' and [CountryID] in (1,2))
+IF EXISTS (SELECT 1 FROM [dbo].[Warnings] WHERE [WarningKey]='INORGNMAXRATERESIDUEGROUP4TO6' AND [CountryID]=2 )
 BEGIN
-    UPDATE dbo.Warnings
-SET [Para2] = 'The Nitrate Vulnerable Zone rules include a limit on the average amount of inorganic fertiliser nitrogen and crop-available nitrogen in organic manure that you can apply to most crops each year - this is known as the N-max limit.
-
-The N-max limit for {0} is {1}kg of nitrogen per hectare. This limit can be increased for individual fields under certain circumstances. The adjusted N-max limit for this field is {2}kg of nitrogen per hectare.
-
-You can apply more than the adjusted N-max limit to a field, if you apply less to another field growing this crop type, and you comply with the adjusted N-max limit averaged across all fields growing this crop type on the farm.
-
-You can check your compliance with the N-max limit for all fields growing this crop by producing an N-max report.',
-[Para3]='It is an offence to breach the Nitrate Vulnerable Zone rules, and you should consider reducing the amount inorganic fertiliser nitrogen and crop-available nitrogen from organic manures you apply.'
-WHERE [WarningKey] = 'NMAXLIMIT' and [CountryID] in (1,2);
+    UPDATE [dbo].[Warnings] SET 
+    [Para2] = N'The Nitrate Vulnerable Zone (NVZ) rules state that you must not apply any inorganic nitrogen fertiliser in the closed spreading period to winter oilseed rape in Nitrogen residue group 4, 5 and 6.' 
+    WHERE [WarningKey]='INORGNMAXRATERESIDUEGROUP4TO6' AND [CountryID]=2
 END
 
-IF EXISTS (SELECT 1 FROM [dbo].[Warnings] where [WarningKey] = 'NMAXLIMIT' and [CountryID] = 3)
+IF EXISTS (SELECT 1 FROM [dbo].[Warnings] WHERE [WarningKey]='RANMANUREJULYTOSEP' AND [CountryID]=2 )
 BEGIN
-    UPDATE dbo.Warnings
-SET [Para2] = 'The Water Resources Regulations include a limit on the average amount of inorganic fertiliser nitrogen and crop-available nitrogen in organic manure that you can apply to most crops each year - this is known as the maximum nitrogen limit.
-
-The maximum nitrogen limit for {0} is {1}kg of nitrogen per hectare. This limit can be increased for individual fields under certain circumstances. The adjusted N-max limit for this field is {2}kg of nitrogen per hectare.
-
-You can apply more than the adjusted limit to a field, if you apply less to another field growing this crop type, and you comply with the adjusted maximum nitrogen limit averaged across all fields growing this crop type on the farm.
-
-You can check your compliance with the maximum nitrogen limit for all fields growing this crop by producing a maximum nitrogen limit report.',
-[Para3]='It is an offence to breach the Water Resources Regulations, and you should consider reducing the amount inorganic fertiliser nitrogen and crop-available nitrogen from organic manures you apply.'
-WHERE [WarningKey] = 'NMAXLIMIT' and [CountryID] = 3;
+    UPDATE [dbo].[Warnings] SET 
+    [Para1] = N'The application date you entered is within the period when you are  not permitted to apply high readily available nitrogen organic manure to bare fields or stubble unless a crop is sown within 6 weeks of application' 
+    WHERE [WarningKey]='RANMANUREJULYTOSEP' AND [CountryID]=2
 END
 
-IF EXISTS (SELECT 1 FROM [dbo].[Warnings] where [WarningKey] = 'INORGNMAXRATE' and [CountryID] = 3)
+IF EXISTS (SELECT 1 FROM [dbo].[Warnings] WHERE [WarningKey]='HIGHNORGANICMANUREMAXRATE' AND [CountryID]=3 )
 BEGIN
-    UPDATE dbo.Warnings
-SET [Header] = 'Closed spreading period for the application of inorganic nitrogen fertiliser'
-WHERE [WarningKey] = 'INORGNMAXRATE' and [CountryID] = 3;
+    UPDATE [dbo].[Warnings] SET 
+    [Para2] = N'The Water Resources (Control of Agricultural Pollution) Regulations 2021 (Wales) state that the application rate of high readily available nitrogen manures on this crop type between the start of the closed spreading period and the end of February must not exceed 150kg of total nitrogen per hectare.' 
+    WHERE [WarningKey]='HIGHNORGANICMANUREMAXRATE' AND [CountryID]=3
 END
 
-IF EXISTS (SELECT 1 FROM [dbo].[Warnings] where [WarningKey] = 'HIGHNORGANICMANURECLOSEDPERIODORGANICFARM' OR [WarningKey]='HIGHNORGANICMANUREMAXRATE'
-OR [WarningKey]='HIGHNORGANICMANUREMAXRATEWEEKS' OR [WarningKey]='HIGHNORGANICMANUREMAXRATEGRASS' OR [WarningKey]='HIGHNORGANICMANUREMAXRATEOSR'
-OR [WarningKey]='HIGHNORGANICMANUREDATEONLY' and [CountryID] IN(1,2))
+IF EXISTS (SELECT 1 FROM [dbo].[Warnings] WHERE [WarningKey]='NMAXLIMIT' AND [CountryID] IN (1,2,3) )
 BEGIN
-    UPDATE dbo.Warnings
-SET [Header] = 'Closed period and maximum application rate for high N organic manure on a registered organic farm'
-where [WarningKey] = 'HIGHNORGANICMANURECLOSEDPERIODORGANICFARM' OR [WarningKey]='HIGHNORGANICMANUREMAXRATE'
-OR [WarningKey]='HIGHNORGANICMANUREMAXRATEWEEKS' OR [WarningKey]='HIGHNORGANICMANUREMAXRATEGRASS' OR [WarningKey]='HIGHNORGANICMANUREMAXRATEOSR'
-OR [WarningKey]='HIGHNORGANICMANUREDATEONLY' and [CountryID] IN(1,2);
-END
-
-IF EXISTS (SELECT 1 FROM [dbo].[Warnings] where [WarningKey] = 'INORGNMAXRATEOSR' OR [WarningKey]='INORGNMAXRATEGRASS' and [CountryID] IN(1,2))
-BEGIN
-    UPDATE dbo.Warnings
-SET [Header] = 'Closed period for the application of inorganic nitrogen fertiliser'
-where [WarningKey] = 'INORGNMAXRATEOSR' OR [WarningKey]='INORGNMAXRATEGRASS' and [CountryID] IN(1,2);
+    UPDATE [dbo].[Warnings] SET 
+    [Header] = N'N-max limit' 
+    WHERE [WarningKey]='NMAXLIMIT' AND [CountryID] IN (1,2,3)
 END
 
 IF NOT EXISTS (SELECT 1 FROM [dbo].[PscIndexes])
 BEGIN
     SET IDENTITY_INSERT [dbo].[PscIndexes] ON
-    INSERT INTO [PscIndexes] (ID,[Name]) values(1,'PSC Index 1 (including peat and humose soils)')
+    INSERT INTO [PscIndexes] (ID,[Name]) values(1,'PSC Index 1 (including peaty and humose soils)')
     INSERT INTO [PscIndexes] (ID,[Name]) values(2,'PSC Index 2')
     INSERT INTO [PscIndexes] (ID,[Name]) values(3,'PSC Index 3 (including calcareous soils)')
     SET IDENTITY_INSERT [dbo].[PscIndexes] OFF
 END
+ELSE --01.04.2026
+BEGIN
+    UPDATE [dbo].[PscIndexes] SET [Name] = 'PSC Index 1 (including peaty and humose soils)' WHERE ID = 1
+END
+
+
+IF NOT EXISTS (SELECT 1 FROM [dbo].[ScotlandNMaxValues])
+BEGIN
+    INSERT INTO [ScotlandNMaxValues] ([CropTypeID],[SoilTypeID],[ResidueGroup1],[ResidueGroup2],[ResidueGroup3],[ResidueGroup4],[ResidueGroup5],[ResidueGroup6]) VALUES
+    (0,10,220,210,200,180,150,110),
+    (0,11,220,210,200,180,150,110),
+    (0,12,200,190,180,160,130,90),
+    (0,13,200,190,180,160,130,90),
+    (0,14,140,130,120,100,70,30),
+    (0,15,80,70,60,40,10,0),
+
+    (1,10,200,190,180,170,140,100),
+    (1,11,200,190,180,170,140,100),
+    (1,12,180,170,160,140,110,70),
+    (1,13,180,170,160,140,110,70),
+    (1,14,120,110,100,80,50,10),
+    (1,15,80,70,60,40,10,0),
+
+    (52,10,200,190,180,170,140,100),
+    (52,11,200,190,180,170,140,100),
+    (52,12,180,170,160,140,110,70),
+    (52,13,180,170,160,140,110,70),
+    (52,14,120,110,100,80,50,10),
+    (52,15,80,70,60,40,10,0),
+
+    (53,10,220,210,200,180,150,110),
+    (53,11,220,210,200,180,150,110),
+    (53,12,200,190,180,160,130,90),
+    (53,13,200,190,180,160,130,90),
+    (53,14,140,130,120,100,70,30),
+    (53,15,80,70,60,40,10,0),
+
+    (2,10,170,160,150,130,100,60),
+    (2,11,170,160,150,130,100,60),
+    (2,12,150,140,130,110,80,40),
+    (2,13,150,140,130,110,80,40),
+    (2,14,100,90,80,60,30,0),
+    (2,15,70,60,50,30,0,0),
+
+    (51,10,170,160,150,130,100,60),
+    (51,11,170,160,150,130,100,60),
+    (51,12,150,140,130,110,80,40),
+    (51,13,150,140,130,110,80,40),
+    (51,14,100,90,80,60,30,0),
+    (51,15,70,60,50,30,0,0),
+
+    (174,10,170,160,150,130,100,60),
+    (174,11,170,160,150,130,100,60),
+    (174,12,150,140,130,110,80,40),
+    (174,13,150,140,130,110,80,40),
+    (174,14,100,90,80,60,30,0),
+    (174,15,70,60,50,30,0,0),
+
+    (3,10,150,140,130,110,80,40),
+    (3,11,150,140,130,110,80,40),
+    (3,12,130,120,110,90,60,20),
+    (3,13,130,120,110,90,60,20),
+    (3,14,80,70,60,40,10,0),
+    (3,15,50,40,30,10,0,0),
+
+    (50,10,150,140,130,110,80,40),
+    (50,11,150,140,130,110,80,40),
+    (50,12,130,120,110,90,60,20),
+    (50,13,130,120,110,90,60,20),
+    (50,14,80,70,60,40,10,0),
+    (50,15,50,40,30,10,0,0),
+
+    (171,10,150,140,130,110,80,40),
+    (171,11,150,140,130,110,80,40),
+    (171,12,130,120,110,90,60,20),
+    (171,13,130,120,110,90,60,20),
+    (171,14,80,70,60,40,10,0),
+    (171,15,50,40,30,10,0,0),
+
+    (4,10,200,190,180,170,140,100),
+    (4,11,200,190,180,170,140,100),
+    (4,12,180,170,160,140,110,70),
+    (4,13,180,170,160,140,110,70),
+    (4,14,120,110,100,80,50,10),
+    (4,15,80,70,60,40,10,0),
+
+    (57,10,200,190,180,170,140,100),
+    (57,11,200,190,180,170,140,100),
+    (57,12,180,170,160,140,110,70),
+    (57,13,180,170,160,140,110,70),
+    (57,14,120,110,100,80,50,10),
+    (57,15,80,70,60,40,10,0),
+
+    (5,10,120,110,100,80,50,20),
+    (5,11,120,110,100,80,50,20),
+    (5,12,100,90,80,60,30,20),
+    (5,13,100,90,80,60,30,20),
+    (5,14,50,40,30,20,20,0),
+    (5,15,20,20,20,0,0,0),
+
+    (54,10,120,110,100,80,50,20),
+    (54,11,120,110,100,80,50,20),
+    (54,12,100,90,80,60,30,20),
+    (54,13,100,90,80,60,30,20),
+    (54,14,50,40,30,20,20,0),
+    (54,15,20,20,20,0,0,0),
+
+    (172,10,120,110,100,80,50,20),
+    (172,11,120,110,100,80,50,20),
+    (172,12,100,90,80,60,30,20),
+    (172,13,100,90,80,60,30,20),
+    (172,14,50,40,30,20,20,0),
+    (172,15,20,20,20,0,0,0),
+
+    (160,10,245,235,225,205,175,135),
+    (160,11,245,235,225,205,175,135),
+    (160,12,225,215,205,185,155,115),
+    (160,13,225,215,205,185,155,115),
+    (160,14,175,165,155,145,135,115),
+    (160,15,145,135,125,115,105,115),
+
+    (161,10,245,235,225,205,175,135),
+    (161,11,245,235,225,205,175,135),
+    (161,12,225,215,205,185,155,115),
+    (161,13,225,215,205,185,155,115),
+    (161,14,175,165,155,145,135,115),
+    (161,15,145,135,125,115,105,115),
+
+    (162,10,245,235,225,205,175,135),
+    (162,11,245,235,225,205,175,135),
+    (162,12,225,215,205,185,155,115),
+    (162,13,225,215,205,185,155,115),
+    (162,14,175,165,155,145,135,115),
+    (162,15,145,135,125,115,105,115),
+
+    (163,10,245,235,225,205,175,135),
+    (163,11,245,235,225,205,175,135),
+    (163,12,225,215,205,185,155,115),
+    (163,13,225,215,205,185,155,115),
+    (163,14,175,165,155,145,135,115),
+    (163,15,145,135,125,115,105,115),
+
+    (20,-1,30,20,10,0,0,0),
+
+    (20,10,200,190,180,140,110,70),
+    (20,11,200,190,180,140,110,70),
+    (20,12,200,190,180,140,110,70),
+    (20,13,200,190,180,140,110,70),
+    (20,14,120,110,100,80,50,10),
+    (20,15,80,70,60,40,0,0),
+
+    (7,10,120,110,100,80,50,20),
+    (7,11,120,110,100,80,50,20),
+    (7,12,100,90,70,50,20,20),
+    (7,13,100,90,70,50,20,20),
+    (7,14,50,40,30,20,20,0),
+    (7,15,20,20,20,0,0,0),
+
+    (55,10,120,110,100,80,50,20),
+    (55,11,120,110,100,80,50,20),
+    (55,12,100,90,70,50,20,20),
+    (55,13,100,90,70,50,20,20),
+    (55,14,50,40,30,20,20,0),
+    (55,15,20,20,20,0,0,0),
+
+    (199,10,120,110,100,80,50,20),
+    (199,11,120,110,100,80,50,20),
+    (199,12,100,90,70,50,20,20),
+    (199,13,100,90,70,50,20,20),
+    (199,14,50,40,30,20,20,0),
+    (199,15,20,20,20,0,0,0),
+
+    (9,10,140,130,120,100,70,40),
+    (9,11,140,130,120,100,70,40),
+    (9,12,120,110,90,70,40,40),
+    (9,13,120,110,90,70,40,40),
+    (9,14,70,60,50,40,40,20),
+    (9,15,40,40,40,20,20,20),
+
+    (56,10,140,130,120,100,70,40),
+    (56,11,140,130,120,100,70,40),
+    (56,12,120,110,90,70,40,40),
+    (56,13,120,110,90,70,40,40),
+    (56,14,70,60,50,40,40,20),
+    (56,15,40,40,40,20,20,20),
+
+    (173,10,140,130,120,100,70,40),
+    (173,11,140,130,120,100,70,40),
+    (173,12,120,110,90,70,40,40),
+    (173,13,120,110,90,70,40,40),
+    (173,14,70,60,50,40,40,20),
+    (173,15,40,40,40,20,20,20);
+END
+  
 
 GO -- do not remove this GO

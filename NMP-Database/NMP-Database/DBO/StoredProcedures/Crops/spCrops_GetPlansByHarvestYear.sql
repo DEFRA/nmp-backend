@@ -23,6 +23,7 @@ BEGIN
 		[Crops].DefoliationSequenceID AS DefoliationSequenceID,
 		[Crops].Establishment AS Establishment,
 		[Crops].IsBasePlan AS IsBasePlan,
+		[Fields].[SoilTypeID] AS SoilTypeID,
         CASE
             WHEN [Crops].[ModifiedOn] >= [Crops].[CreatedOn] THEN [Crops].[ModifiedOn]
             ELSE [Crops].[CreatedOn]

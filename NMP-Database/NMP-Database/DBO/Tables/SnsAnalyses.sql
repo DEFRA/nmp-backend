@@ -17,6 +17,7 @@
     [AdjustmentValue] DECIMAL(18, 3) NULL, 
     [SoilNitrogenSupplyValue] INT NULL, 
     [SoilNitrogenSupplyIndex] TINYINT NULL,
+    [NitrogenResidueGroup]      NVARCHAR (20)   NULL,
     [CreatedOn] DATETIME2 NULL CONSTRAINT DF_SnsAnalyses_CreatedOn DEFAULT GETDATE(), 
     [CreatedByID] INT NULL, 
     [ModifiedOn] DATETIME2 NULL, 

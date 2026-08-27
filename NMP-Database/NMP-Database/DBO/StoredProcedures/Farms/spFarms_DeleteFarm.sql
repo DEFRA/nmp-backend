@@ -1,4 +1,5 @@
 ﻿
+
 CREATE PROCEDURE [dbo].[spFarms_DeleteFarm]
     @FarmID INT
 AS
@@ -241,6 +242,14 @@ BEGIN
         END
         CLOSE sc_cursor;
         DEALLOCATE sc_cursor;
+      
+     -- Delete related FarmAverageYields
+       IF EXISTS (SELECT 1 FROM FarmAverageYields WHERE FarmID = @FarmID)
+
+       BEGIN
+        DELETE FROM FarmAverageYields
+        WHERE FarmID = @FarmID;
+       END
 
 		-- Delete related FarmsNVZ 
       IF EXISTS (SELECT 1 FROM FarmsNVZ WHERE FarmID = @FarmID)
