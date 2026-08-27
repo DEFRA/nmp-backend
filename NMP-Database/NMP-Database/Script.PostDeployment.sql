@@ -2013,12 +2013,6 @@ BEGIN
     WHERE [WarningKey]='NMAXLIMIT' AND [CountryID] IN (1,2,3)
 END
 
-IF EXISTS (SELECT 1 FROM [dbo].[Warnings] WHERE [WarningKey]=@POULTRYMANUREMAXAPPLICATIONRATE AND [CountryID]=2 )
-BEGIN
-    UPDATE [dbo].[Warnings] SET 
-    [Para1] = N'This application will take you over the maximum application rate for poultry manure between the end of the closed spreading period for applying high readily available nitrogen organic manure and the 14th February'
-    WHERE [WarningKey]=@POULTRYMANUREMAXAPPLICATIONRATE AND [CountryID]=2
-END
 
 IF NOT EXISTS (SELECT 1 FROM [dbo].[PscIndexes])
 BEGIN
