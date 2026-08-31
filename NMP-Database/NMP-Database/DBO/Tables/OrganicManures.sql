@@ -16,7 +16,7 @@
     [EndOfDrain]               DATETIME        NULL,
     [Rainfall]                 INT             NOT NULL,
     [AreaSpread]               DECIMAL (18, 3) NULL,
-    [ManureQuantity]           DECIMAL (18, 3) NULL,
+    [ManureQuantity]           INT NULL,
     [ApplicationMethodID]      INT             NOT NULL,
     [IncorporationMethodID]    INT             NOT NULL,
     [IncorporationDelayID]     INT             NOT NULL,
