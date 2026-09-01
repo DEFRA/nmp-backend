@@ -13,7 +13,7 @@
     [UricAcid]                 DECIMAL (18, 2) NOT NULL,    
     [ApplicationRate]          DECIMAL(18, 1)  NOT NULL,
 	[AreaSpread]               DECIMAL (18, 3) NULL,
-    [ManureQuantity]           DECIMAL (18, 3) NULL,
+    [ManureQuantity]           INT NULL,
     [ApplicationMethodID]      INT             NOT NULL,
     [NH4N]                     DECIMAL (18, 3) NOT NULL,
     [NO3N]                     DECIMAL (18, 3) NOT NULL,
