@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [dbo].[SoilAnalyses]
 (
-	[ID]             INT IDENTITY(1,1) NOT NULL,
+	[ID]                        INT IDENTITY(1,1) NOT NULL,
 	[FieldID]                   INT             NOT NULL,
     [Year]                      INT             NOT NULL,
     [SulphurDeficient]          BIT             NOT NULL CONSTRAINT DF_SoilAnalyses_SulphurDeficient DEFAULT 1,
@@ -24,7 +24,7 @@
     [PotassiumStatus]           NVARCHAR (20)   NULL,
     [MagnesiumStatus]           NVARCHAR (20)   NULL,
     [NitrogenResidueGroup]      NVARCHAR (20)   NULL,
-    [OrganicMatterPercentage]   INT  NULL,
+    [OrganicMatterPercentage]   DECIMAL (4,1)  NULL,
     [Comments]                  NVARCHAR (255)  NULL,
     [CreatedOn] DATETIME2 NULL DEFAULT GETDATE(), 
     [CreatedByID] INT NULL, 
