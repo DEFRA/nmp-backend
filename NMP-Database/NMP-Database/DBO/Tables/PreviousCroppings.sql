@@ -10,6 +10,7 @@
     [GrassManagementOptionID]       INT NULL,
     [HasGreaterThan30PercentClover] BIT NULL,
     [SoilNitrogenSupplyItemID]      INT NULL,
+    [CropInfo1]                     INT NULL,
 	[CreatedOn]                     DATETIME2 NULL CONSTRAINT DF_PreviousCroppings_CreatedOn DEFAULT GETDATE(), 
     [CreatedByID]                   INT NULL, 
     [ModifiedOn]                    DATETIME2 NULL, 
