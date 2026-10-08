@@ -23,6 +23,9 @@ BEGIN
 		[Crops].DefoliationSequenceID AS DefoliationSequenceID,
 		[Crops].Establishment AS Establishment,
 		[Crops].IsBasePlan AS IsBasePlan,
+        [Crops].PreviousGrass AS PreviousGrass,
+        [Crops].IsPermanentSward AS IsPermanentSward,
+        [Crops].IsDefaultFreshWeightYield AS IsDefaultFreshWeightYield,
 		[Fields].[SoilTypeID] AS SoilTypeID,
         CASE
             WHEN [Crops].[ModifiedOn] >= [Crops].[CreatedOn] THEN [Crops].[ModifiedOn]
