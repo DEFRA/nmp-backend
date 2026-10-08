@@ -27,6 +27,8 @@
     [SwardManagementID]     INT             NULL,
     [PotentialCut]          INT             NULL,
     [IsBasePlan]            BIT             NULL,
+    [IsPermanentSward]      BIT             NULL,
+    [IsDefaultFreshWeightYield]    BIT      NULL,
     [CreatedOn]             DATETIME2       NULL DEFAULT GETDATE(), 
     [CreatedByID]           INT             NULL,
     [ModifiedOn]            DATETIME2    NULL,
