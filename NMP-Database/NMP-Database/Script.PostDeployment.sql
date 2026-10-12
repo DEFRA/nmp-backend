@@ -1096,6 +1096,30 @@ END
 
 GO
 
+--12-10-2026 START
+IF NOT EXISTS (SELECT 1 FROM [dbo].[SecondCropLinkings] WHERE FirstCropID in (0,1,2,3,4,5,6,7,8,9,171,172,173,174,199) AND SecondCropID=43 AND RB209CountryID=1)
+BEGIN
+    UPDATE SecondCropLinkings SET RB209CountryID=3 WHERE FirstCropID in (0,1,2,3,4,5,6,7,8,9,171,172,173,174,199) AND SecondCropID=43
+END
+
+IF NOT EXISTS (SELECT 1 FROM [dbo].[SecondCropLinkings] WHERE FirstCropID in (0,1,2,3,4,5,6,7,8,9,171,172,173,174,199) AND SecondCropID=44 AND RB209CountryID=3)
+BEGIN
+    UPDATE SecondCropLinkings SET RB209CountryID=1 WHERE FirstCropID in (0,1,2,3,4,5,6,7,8,9,171,172,173,174,199) AND SecondCropID=44
+    
+END
+
+IF NOT EXISTS (SELECT 1 FROM [dbo].[SecondCropLinkings] WHERE FirstCropID in (199) AND SecondCropID=43)
+BEGIN
+    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (199, 43, 3)
+END
+
+IF NOT EXISTS (SELECT 1 FROM [dbo].[SecondCropLinkings] WHERE FirstCropID in (199) AND SecondCropID=44)
+BEGIN
+    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (199, 44, 1)
+END
+
+--12-10-2026 END
+
 IF NOT EXISTS (SELECT 1 FROM [dbo].[GrassManagementOptions])
 BEGIN
     SET IDENTITY_INSERT [dbo].[GrassManagementOptions] ON 
