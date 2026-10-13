@@ -1097,12 +1097,12 @@ END
 GO
 
 --12-10-2026 START
-IF NOT EXISTS (SELECT 1 FROM [dbo].[SecondCropLinkings] WHERE FirstCropID in (0,1,2,3,4,5,6,7,8,9,171,172,173,174,199) AND SecondCropID=43 AND RB209CountryID=1)
+IF  EXISTS (SELECT 1 FROM [dbo].[SecondCropLinkings] WHERE FirstCropID in (0,1,2,3,4,5,6,7,8,9,171,172,173,174,199) AND SecondCropID=43 AND RB209CountryID=1)
 BEGIN
     UPDATE SecondCropLinkings SET RB209CountryID=3 WHERE FirstCropID in (0,1,2,3,4,5,6,7,8,9,171,172,173,174,199) AND SecondCropID=43
 END
 
-IF NOT EXISTS (SELECT 1 FROM [dbo].[SecondCropLinkings] WHERE FirstCropID in (0,1,2,3,4,5,6,7,8,9,171,172,173,174,199) AND SecondCropID=44 AND RB209CountryID=3)
+IF  EXISTS (SELECT 1 FROM [dbo].[SecondCropLinkings] WHERE FirstCropID in (0,1,2,3,4,5,6,7,8,9,171,172,173,174,199) AND SecondCropID=44 AND RB209CountryID=3)
 BEGIN
     UPDATE SecondCropLinkings SET RB209CountryID=1 WHERE FirstCropID in (0,1,2,3,4,5,6,7,8,9,171,172,173,174,199) AND SecondCropID=44
     
