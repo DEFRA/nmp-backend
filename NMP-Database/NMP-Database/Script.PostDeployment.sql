@@ -224,53 +224,53 @@ END
 GO
 IF NOT EXISTS (SELECT 1 FROM [dbo].[SecondCropLinkings])
 BEGIN
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (0, 43, 1)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (0, 44, 3)
+    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (0, 43, 3)
+    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (0, 44, 1)
     INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (0, 195, 2)
     INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (0, 197, 2)
     INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (0, 198, 2)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (1, 43, 1)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (1, 44, 3)
+    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (1, 43, 3)
+    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (1, 44, 1)
     INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (1, 195, 2)
     INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (1, 197, 2)
     INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (1, 198, 2)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (2, 43, 1)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (2, 44, 3)
+    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (2, 43, 3)
+    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (2, 44, 1)
     INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (2, 195, 2)
     INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (2, 197, 2)
     INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (2, 198, 2)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (3, 43, 1)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (3, 44, 3)
+    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (3, 43, 3)
+    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (3, 44, 1)
     INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (3, 195, 2)
     INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (3, 197, 2)
     INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (3, 198, 2)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (4, 43, 1)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (4, 44, 3)
+    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (4, 43, 3)
+    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (4, 44, 1)
     INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (4, 195, 2)
     INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (4, 197, 2)
     INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (4, 198, 2)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (5, 43, 1)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (5, 44, 3)
+    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (5, 43, 3)
+    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (5, 44, 1)
     INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (5, 195, 2)
     INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (5, 197, 2)
     INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (5, 198, 2)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (6, 43, 1)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (6, 44, 3)
+    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (6, 43, 3)
+    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (6, 44, 1)
     INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (6, 195, 2)
     INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (6, 197, 2)
     INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (6, 198, 2)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (7, 43, 1)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (7, 44, 3)
+    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (7, 43, 3)
+    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (7, 44, 1)
     INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (7, 195, 2)
     INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (7, 197, 2)
     INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (7, 198, 2)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (8, 43, 1)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (8, 44, 3)
+    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (8, 43, 3)
+    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (8, 44, 1)
     INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (8, 195, 2)
     INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (8, 197, 2)
     INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (8, 198, 2)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (9, 43, 1)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (9, 44, 3)
+    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (9, 43, 3)
+    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (9, 44, 1)
     INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (9, 195, 2)
     INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (9, 197, 2)
     INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (9, 198, 2)
@@ -1013,23 +1013,23 @@ BEGIN
     INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (140, 198, 2)
     INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (140, 199, 2)
     INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (170, 170, 3)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (171, 43, 1)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (171, 44, 3)
+    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (171, 43, 3)
+    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (171, 44, 1)
     INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (171, 195, 2)
     INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (171, 197, 2)
     INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (171, 198, 2)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (172, 43, 1)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (172, 44, 3)
+    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (172, 43, 3)
+    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (172, 44, 1)
     INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (172, 195, 2)
     INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (172, 197, 2)
     INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (172, 198, 2)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (173, 43, 1)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (173, 44, 3)
+    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (173, 43, 3)
+    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (173, 44, 1)
     INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (173, 195, 2)
     INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (173, 197, 2)
     INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (173, 198, 2)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (174, 43, 1)
-    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (174, 44, 3)
+    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (174, 43, 3)
+    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (174, 44, 1)
     INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (174, 195, 2)
     INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (174, 197, 2)
     INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (174, 198, 2)
@@ -1087,12 +1087,39 @@ BEGIN
     INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (182, 170, 3)
     INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (182, 181, 3)
     INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (182, 182, 3)
+    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (199, 43, 3)
+    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (199, 44, 1)
     INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (199, 195, 2)
     INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (199, 197, 2)
     INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (199, 198, 2)
 END
 
 GO
+
+--12-10-2026 START
+IF  EXISTS (SELECT 1 FROM [dbo].[SecondCropLinkings] WHERE FirstCropID in (0,1,2,3,4,5,6,7,8,9,171,172,173,174,199) AND SecondCropID=43 AND RB209CountryID=1)
+BEGIN
+    UPDATE SecondCropLinkings SET RB209CountryID=3 WHERE FirstCropID in (0,1,2,3,4,5,6,7,8,9,171,172,173,174,199) AND SecondCropID=43
+END
+
+IF  EXISTS (SELECT 1 FROM [dbo].[SecondCropLinkings] WHERE FirstCropID in (0,1,2,3,4,5,6,7,8,9,171,172,173,174,199) AND SecondCropID=44 AND RB209CountryID=3)
+BEGIN
+    UPDATE SecondCropLinkings SET RB209CountryID=1 WHERE FirstCropID in (0,1,2,3,4,5,6,7,8,9,171,172,173,174,199) AND SecondCropID=44
+    
+END
+
+IF NOT EXISTS (SELECT 1 FROM [dbo].[SecondCropLinkings] WHERE FirstCropID in (199) AND SecondCropID=43)
+BEGIN
+    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (199, 43, 3)
+END
+
+IF NOT EXISTS (SELECT 1 FROM [dbo].[SecondCropLinkings] WHERE FirstCropID in (199) AND SecondCropID=44)
+BEGIN
+    INSERT [dbo].[SecondCropLinkings] ([FirstCropID], [SecondCropID], [RB209CountryID]) VALUES (199, 44, 1)
+END
+
+--12-10-2026 END
+
 
 IF NOT EXISTS (SELECT 1 FROM [dbo].[GrassManagementOptions])
 BEGIN
