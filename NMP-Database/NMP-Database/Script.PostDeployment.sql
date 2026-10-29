@@ -1862,4 +1862,266 @@ BEGIN
     (173,15,40,40,40,20,20,20);
 END
   
+IF NOT EXISTS (SELECT 1 FROM [dbo].[ScotlandGrassNMaxValues])
+BEGIN
+    -- Grass or grass with low clover / SwardManagementID 1
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (5, 1, 1, 270, 260, 250, 240, 230)  -- G
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (5, 1, 2, 270, 260, 250, 240, 230)  -- GG
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (5, 1, 3, 270, 260, 250, 240, 230)  -- GGG
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (5, 1, 4, 270, 260, 250, 240, 230)  -- GGGG
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (5, 1, 5, 270, 260, 250, 240, 230)  -- GGGGG
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (5, 1, 6, 270, 260, 250, 240, 230)  -- GGGGGG
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (5, 1, 47, 270, 260, 250, 240, 230)  -- EG
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (5, 1, 48, 270, 260, 250, 240, 230)  -- EGG
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (5, 1, 49, 270, 260, 250, 240, 230)  -- EGGG
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (5, 1, 50, 270, 260, 250, 240, 230)  -- EGGGG
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (5, 1, 51, 270, 260, 250, 240, 230)  -- EGGGGG
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (5, 1, 52, 270, 260, 250, 240, 230)  -- EGGGGGG
+
+    -- Grass or grass with low clover / SwardManagementID 2
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (5, 2, 8, 280, 270, 260, 250, 240)  -- S
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (5, 2, 9, 310, 300, 290, 280, 270)  -- SS
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (5, 2, 10, 310, 300, 290, 280, 270)  -- SSS
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (5, 2, 11, 310, 300, 290, 280, 270)  -- SSSS
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (5, 2, 54, 280, 270, 260, 250, 240)  -- ES
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (5, 2, 55, 310, 300, 290, 280, 270)  -- ESS
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (5, 2, 56, 310, 300, 290, 280, 270)  -- ESSS
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (5, 2, 57, 310, 300, 290, 280, 270)  -- ESSSS
+
+    -- Grass or grass with low clover / SwardManagementID 3
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (5, 3, 12, 220, 210, 200, 190, 180)  -- H
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (5, 3, 13, 220, 210, 200, 190, 180)  -- HH
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (5, 3, 58, 220, 210, 200, 190, 180)  -- EH
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (5, 3, 59, 220, 210, 200, 190, 180)  -- EHH
+
+    -- Grass or grass with low clover / SwardManagementID 4
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (5, 4, 14, 280, 270, 260, 250, 240)   -- SG
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (5, 4, 15, 280, 270, 260, 250, 240)   -- SGG
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (5, 4, 16, 280, 270, 260, 250, 240)   -- SGGG
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (5, 4, 17, 280, 270, 260, 250, 240)   -- SGGGG
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (5, 4, 18, 280, 270, 260, 250, 240)   -- GS
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (5, 4, 19, 280, 270, 260, 250, 240)   -- GSG
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (5, 4, 20, 280, 270, 260, 250, 240)   -- GSGG
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (5, 4, 21, 280, 270, 260, 250, 240)   -- GSGGG
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (5, 4, 22, 280, 270, 260, 250, 240)   -- GGS
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (5, 4, 23, 280, 270, 260, 250, 240)   -- GGSG
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (5, 4, 24, 280, 270, 260, 250, 240)   -- GGSGG
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (5, 4, 25, 280, 270, 260, 250, 240)   -- GGGS
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (5, 4, 26, 280, 270, 260, 250, 240)   -- GGGSG
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (5, 4, 27, 310, 300, 290, 280, 270)   -- SSG
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (5, 4, 28, 310, 300, 290, 280, 270)   -- SSGG
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (5, 4, 29, 310, 300, 290, 280, 270)   -- GSS
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (5, 4, 30, 310, 300, 290, 280, 270)   -- GSSG
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (5, 4, 31, 310, 300, 290, 280, 270)   -- GGSS
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (5, 4, 32, 310, 300, 290, 280, 270)   -- SSSG
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (5, 4, 33, 310, 300, 290, 280, 270)   -- GSSS
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (5, 4, 34, 310, 300, 290, 280, 270)   -- SSGS
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (5, 4, 35, 310, 300, 290, 280, 270)   -- SGSS
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (5, 4, 60, 280, 270, 260, 250, 240)   -- ESG
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (5, 4, 61, 280, 270, 260, 250, 240)   -- ESGG
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (5, 4, 62, 280, 270, 260, 250, 240)   -- ESGGG
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (5, 4, 63, 280, 270, 260, 250, 240)   -- ESGGGG
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (5, 4, 64, 280, 270, 260, 250, 240)   -- EGS
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (5, 4, 65, 280, 270, 260, 250, 240)   -- EGSG
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (5, 4, 66, 280, 270, 260, 250, 240)   -- EGSGG
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (5, 4, 67, 280, 270, 260, 250, 240)   -- EGSGGG
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (5, 4, 68, 280, 270, 260, 250, 240)   -- EGGS
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (5, 4, 69, 280, 270, 260, 250, 240)   -- EGGSG
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (5, 4, 70, 280, 270, 260, 250, 240)   -- EGGSGG
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (5, 4, 71, 280, 270, 260, 250, 240)   -- EGGGS
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (5, 4, 72, 280, 270, 260, 250, 240)   -- EGGGSG
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (5, 4, 73, 310, 300, 290, 280, 270)   -- ESSG
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (5, 4, 74, 310, 300, 290, 280, 270)   -- ESSGG
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (5, 4, 75, 310, 300, 290, 280, 270)   -- EGSS
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (5, 4, 76, 310, 300, 290, 280, 270)   -- EGSSG
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (5, 4, 77, 310, 300, 290, 280, 270)   -- EGGSS
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (5, 4, 78, 310, 300, 290, 280, 270)   -- ESSSG
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (5, 4, 79, 310, 300, 290, 280, 270)   -- EGSSS
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (5, 4, 80, 310, 300, 290, 280, 270)   -- ESSGS
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (5, 4, 81, 310, 300, 290, 280, 270)   -- ESGSS
+
+     -- Grass or grass with low clover / SwardManagementID 5
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (5, 5, 36, 220, 210, 200, 190, 180)  -- HG
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (5, 5, 37, 220, 210, 200, 190, 180)  -- GH
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (5, 5, 38, 220, 210, 200, 190, 180)  -- HGG
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (5, 5, 39, 220, 210, 200, 190, 180)  -- GHG
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (5, 5, 40, 220, 210, 200, 190, 180)  -- GGH
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (5, 5, 41, 220, 210, 200, 190, 180)  -- HGGG
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (5, 5, 42, 220, 210, 200, 190, 180)  -- GHGG
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (5, 5, 43, 220, 210, 200, 190, 180)  -- GGHG
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (5, 5, 44, 220, 210, 200, 190, 180)  -- GGGH
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (5, 5, 45, 220, 210, 200, 190, 180)  -- GHH
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (5, 5, 46, 220, 210, 200, 190, 180)  -- HHG
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (5, 5, 82, 220, 210, 200, 190, 180)  -- EHG
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (5, 5, 83, 220, 210, 200, 190, 180)  -- EGH
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (5, 5, 84, 220, 210, 200, 190, 180)  -- EHGG
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (5, 5, 85, 220, 210, 200, 190, 180)  -- EGHG
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (5, 5, 86, 220, 210, 200, 190, 180)  -- EGGH
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (5, 5, 87, 220, 210, 200, 190, 180)  -- EHGGG
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (5, 5, 88, 220, 210, 200, 190, 180)  -- EGHGG
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (5, 5, 89, 220, 210, 200, 190, 180)  -- EGGHG
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (5, 5, 90, 220, 210, 200, 190, 180)  -- EGGGH
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (5, 5, 91, 220, 210, 200, 190, 180)  -- EGHH
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (5, 5, 92, 220, 210, 200, 190, 180)  -- EHHG
+
+    -- Grass with high clover / SwardManagementID 1
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (6, 1, 1, 100, 90, 80, 70, 60)   -- G
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (6, 1, 2, 100, 90, 80, 70, 60)   -- GG
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (6, 1, 3, 100, 90, 80, 70, 60)   -- GGG
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (6, 1, 4, 100, 90, 80, 70, 60)   -- GGGG
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (6, 1, 5, 100, 90, 80, 70, 60)   -- GGGGG
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (6, 1, 6, 100, 90, 80, 70, 60)   -- GGGGGG
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (6, 1, 47, 100, 90, 80, 70, 60)   -- EG
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (6, 1, 48, 100, 90, 80, 70, 60)   -- EGG
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (6, 1, 49, 100, 90, 80, 70, 60)   -- EGGG
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (6, 1, 50, 100, 90, 80, 70, 60)   -- EGGGG
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (6, 1, 51, 100, 90, 80, 70, 60)   -- EGGGGG
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (6, 1, 52, 100, 90, 80, 70, 60)   -- EGGGGGG
+
+      -- Grass with high clover / SwardManagementID 2
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (6, 2, 8, 100, 90, 80, 70, 60)    -- S
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (6, 2, 9, 100, 90, 80, 70, 60)    -- SS
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (6, 2, 10, 100, 90, 80, 70, 60)    -- SSS
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (6, 2, 11, 100, 90, 80, 70, 60)    -- SSSS
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (6, 2, 54, 100, 90, 80, 70, 60)    -- ES
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (6, 2, 55, 100, 90, 80, 70, 60)    -- ESS
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (6, 2, 56, 100, 90, 80, 70, 60)    -- ESSS
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (6, 2, 57, 100, 90, 80, 70, 60)    -- ESSSS
+
+    -- Grass with high clover / SwardManagementID 3
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (6, 3, 12, 100, 90, 80, 70, 60)  -- H
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (6, 3, 13, 100, 90, 80, 70, 60)  -- HH
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (6, 3, 58, 100, 90, 80, 70, 60)  -- EH
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (6, 3, 59, 100, 90, 80, 70, 60)  -- EHH
+
+      -- Grass with high clover / SwardManagementID 4
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (6, 4, 14, 100, 90, 80, 70, 60)   -- SG
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (6, 4, 15, 100, 90, 80, 70, 60)   -- SGG
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (6, 4, 16, 100, 90, 80, 70, 60)   -- SGGG
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (6, 4, 17, 100, 90, 80, 70, 60)   -- SGGGG
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (6, 4, 18, 100, 90, 80, 70, 60)   -- GS
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (6, 4, 19, 100, 90, 80, 70, 60)   -- GSG
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (6, 4, 20, 100, 90, 80, 70, 60)   -- GSGG
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (6, 4, 21, 100, 90, 80, 70, 60)   -- GSGGG
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (6, 4, 22, 100, 90, 80, 70, 60)   -- GGS
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (6, 4, 23, 100, 90, 80, 70, 60)   -- GGSG
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (6, 4, 24, 100, 90, 80, 70, 60)   -- GGSGG
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (6, 4, 25, 100, 90, 80, 70, 60)   -- GGGS
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (6, 4, 26, 100, 90, 80, 70, 60)   -- GGGSG
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (6, 4, 27, 100, 90, 80, 70, 60)   -- SSG
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (6, 4, 28, 100, 90, 80, 70, 60)   -- SSGG
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (6, 4, 29, 100, 90, 80, 70, 60)   -- GSS
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (6, 4, 30, 100, 90, 80, 70, 60)   -- GSSG
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (6, 4, 31, 100, 90, 80, 70, 60)   -- GGSS
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (6, 4, 32, 100, 90, 80, 70, 60)   -- SSSG
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (6, 4, 33, 100, 90, 80, 70, 60)   -- GSSS
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (6, 4, 34, 100, 90, 80, 70, 60)   -- SSGS
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (6, 4, 35, 100, 90, 80, 70, 60)   -- SGSS
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (6, 4, 60, 100, 90, 80, 70, 60)   -- ESG
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (6, 4, 61, 100, 90, 80, 70, 60)   -- ESGG
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (6, 4, 62, 100, 90, 80, 70, 60)   -- ESGGG
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (6, 4, 63, 100, 90, 80, 70, 60)   -- ESGGGG
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (6, 4, 64, 100, 90, 80, 70, 60)   -- EGS
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (6, 4, 65, 100, 90, 80, 70, 60)   -- EGSG
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (6, 4, 66, 100, 90, 80, 70, 60)   -- EGSGG
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (6, 4, 67, 100, 90, 80, 70, 60)   -- EGSGGG
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (6, 4, 68, 100, 90, 80, 70, 60)   -- EGGS
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (6, 4, 69, 100, 90, 80, 70, 60)   -- EGGSG
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (6, 4, 70, 100, 90, 80, 70, 60)   -- EGGSGG
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (6, 4, 71, 100, 90, 80, 70, 60)   -- EGGGS
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (6, 4, 72, 100, 90, 80, 70, 60)   -- EGGGSG
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (6, 4, 73, 100, 90, 80, 70, 60)   -- ESSG
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (6, 4, 74, 100, 90, 80, 70, 60)   -- ESSGG
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (6, 4, 75, 100, 90, 80, 70, 60)   -- EGSS
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (6, 4, 76, 100, 90, 80, 70, 60)   -- EGSSG
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (6, 4, 77, 100, 90, 80, 70, 60)   -- EGGSS
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (6, 4, 78, 100, 90, 80, 70, 60)   -- ESSSG
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (6, 4, 79, 100, 90, 80, 70, 60)   -- EGSSS
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (6, 4, 80, 100, 90, 80, 70, 60)   -- ESSGS
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (6, 4, 81, 100, 90, 80, 70, 60)   -- ESGSS
+
+     -- Grass with high clover / SwardManagementID 5
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (6, 5, 36, 100, 90, 80, 70, 60)   -- HG
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (6, 5, 37, 100, 90, 80, 70, 60)   -- GH
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (6, 5, 38, 100, 90, 80, 70, 60)   -- HGG
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (6, 5, 39, 100, 90, 80, 70, 60)   -- GHG
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (6, 5, 40, 100, 90, 80, 70, 60)   -- GGH
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (6, 5, 41, 100, 90, 80, 70, 60)   -- HGGG
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (6, 5, 42, 100, 90, 80, 70, 60)   -- GHGG
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (6, 5, 43, 100, 90, 80, 70, 60)   -- GGHG
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (6, 5, 44, 100, 90, 80, 70, 60)   -- GGGH
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (6, 5, 45, 100, 90, 80, 70, 60)   -- GHH
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (6, 5, 46, 100, 90, 80, 70, 60)   -- HHG
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (6, 5, 82, 100, 90, 80, 70, 60)   -- EHG
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (6, 5, 83, 100, 90, 80, 70, 60)   -- EGH
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (6, 5, 84, 100, 90, 80, 70, 60)   -- EHGG
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (6, 5, 85, 100, 90, 80, 70, 60)   -- EGHG
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (6, 5, 86, 100, 90, 80, 70, 60)   -- EGGH
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (6, 5, 87, 100, 90, 80, 70, 60)   -- EHGGG
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (6, 5, 88, 100, 90, 80, 70, 60)   -- EGHGG
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (6, 5, 89, 100, 90, 80, 70, 60)   -- EGGHG
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (6, 5, 90, 100, 90, 80, 70, 60)   -- EGGGH
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (6, 5, 91, 100, 90, 80, 70, 60)   -- EGHH
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (6, 5, 92, 100, 90, 80, 70, 60)   -- EHHG
+
+    -- Red clover / SwardManagementID 1
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (3, 1, 1, 0, 0, 0, 0, 0)   -- G
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (3, 1, 2, 0, 0, 0, 0, 0)   -- GG
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (3, 1, 3, 0, 0, 0, 0, 0)   -- GGG
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (3, 1, 4, 0, 0, 0, 0, 0)   -- GGGG
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (3, 1, 5, 0, 0, 0, 0, 0)   -- GGGGG
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (3, 1, 47, 0, 0, 0, 0, 0)   -- EG
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (3, 1, 48, 0, 0, 0, 0, 0)   -- EGG
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (3, 1, 49, 0, 0, 0, 0, 0)   -- EGGG
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (3, 1, 50, 0, 0, 0, 0, 0)   -- EGGGG
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (3, 1, 51, 0, 0, 0, 0, 0)   -- EGGGGG
+
+    -- Red clover / SwardManagementID 2
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (3, 2, 8, 0, 0, 0, 0, 0)  -- S
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (3, 2, 9, 0, 0, 0, 0, 0)  -- SS
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (3, 2, 10, 0, 0, 0, 0, 0)  -- SSS
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (3, 2, 11, 0, 0, 0, 0, 0)  -- SSSS
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (3, 2, 54, 0, 0, 0, 0, 0)  -- ES
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (3, 2, 55, 0, 0, 0, 0, 0)  -- ESS
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (3, 2, 56, 0, 0, 0, 0, 0)  -- ESSS
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (3, 2, 57, 0, 0, 0, 0, 0)  -- ESSSS
+
+    -- Red clover / SwardManagementID 4
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (3, 4, 14, 0, 0, 0, 0, 0)  -- SG
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (3, 4, 15, 0, 0, 0, 0, 0)  -- SGG
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (3, 4, 16, 0, 0, 0, 0, 0)  -- SGGG
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (3, 4, 18, 0, 0, 0, 0, 0)  -- GS
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (3, 4, 19, 0, 0, 0, 0, 0)  -- GSG
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (3, 4, 20, 0, 0, 0, 0, 0)  -- GSGG
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (3, 4, 27, 0, 0, 0, 0, 0)  -- SSG
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (3, 4, 29, 0, 0, 0, 0, 0)  -- GSS
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (3, 4, 32, 0, 0, 0, 0, 0)  -- SSSG
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (3, 4, 33, 0, 0, 0, 0, 0)  -- GSSS
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (3, 4, 34, 0, 0, 0, 0, 0)  -- SSGS
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (3, 4, 35, 0, 0, 0, 0, 0)  -- SGSS
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (3, 4, 60, 0, 0, 0, 0, 0)  -- ESG
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (3, 4, 61, 0, 0, 0, 0, 0)  -- ESGG
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (3, 4, 62, 0, 0, 0, 0, 0)  -- ESGGG
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (3, 4, 64, 0, 0, 0, 0, 0)  -- EGS
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (3, 4, 65, 0, 0, 0, 0, 0)  -- EGSG
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (3, 4, 66, 0, 0, 0, 0, 0)  -- EGSGG
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (3, 4, 73, 0, 0, 0, 0, 0)  -- ESSG
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (3, 4, 75, 0, 0, 0, 0, 0)  -- EGSS
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (3, 4, 78, 0, 0, 0, 0, 0)  -- ESSSG
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (3, 4, 79, 0, 0, 0, 0, 0)  -- EGSSS
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (3, 4, 80, 0, 0, 0, 0, 0)  -- ESSGS
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (3, 4, 81, 0, 0, 0, 0, 0)  -- ESGSS
+
+    -- Red clover / SwardManagementID 5
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (3, 5, 36, 0, 0, 0, 0, 0)  -- HG
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (3, 5, 37, 0, 0, 0, 0, 0)  -- GH
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (3, 5, 38, 0, 0, 0, 0, 0)  -- HGG
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (3, 5, 39, 0, 0, 0, 0, 0)  -- GHG
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (3, 5, 82, 0, 0, 0, 0, 0)  -- EHG
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (3, 5, 83, 0, 0, 0, 0, 0)  -- EGH
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (3, 5, 84, 0, 0, 0, 0, 0)  -- EHGG
+    INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (3, 5, 85, 0, 0, 0, 0, 0)  -- EGHG
+END
+
+
 GO -- do not remove this GO
