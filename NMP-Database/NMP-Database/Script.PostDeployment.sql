@@ -58,7 +58,7 @@ BEGIN
     SET IDENTITY_INSERT [dbo].[CropInfoQuestions] ON
     INSERT [dbo].[CropInfoQuestions] ([ID], [CropInfoQuestion]) VALUES (1, N'How do you plan to use the grain?')
     INSERT [dbo].[CropInfoQuestions] ([ID], [CropInfoQuestion]) VALUES (2, N'Will you harvest and remove both the seed and straw?')
-    INSERT [dbo].[CropInfoQuestions] ([ID], [CropInfoQuestion]) VALUES (3, N'What type of peas are you growing?')
+    INSERT [dbo].[CropInfoQuestions] ([ID], [CropInfoQuestion]) VALUES (3, N'What type of Peas are you growing?')
     INSERT [dbo].[CropInfoQuestions] ([ID], [CropInfoQuestion]) VALUES (4, N'Will you harvest and remove both the roots and tops?')
     INSERT [dbo].[CropInfoQuestions] ([ID], [CropInfoQuestion]) VALUES (5, N'Is this the establishment year?')
     INSERT [dbo].[CropInfoQuestions] ([ID], [CropInfoQuestion]) VALUES (6, N'Select the type of cabbage')
@@ -75,7 +75,7 @@ BEGIN
     INSERT [dbo].[CropInfoQuestions] ([ID], [CropInfoQuestion]) VALUES (17, N'Is this the establishment year or is it an established crop?')
     INSERT [dbo].[CropInfoQuestions] ([ID], [CropInfoQuestion]) VALUES (18, N'Is this the establishment year or is the crop established?')
     INSERT [dbo].[CropInfoQuestions] ([ID], [CropInfoQuestion]) VALUES (19, N'What is the crop stage or type for established crops?')
-    INSERT [dbo].[CropInfoQuestions] ([ID], [CropInfoQuestion]) VALUES (20, N'What type of beetroot are you growing?')
+    INSERT [dbo].[CropInfoQuestions] ([ID], [CropInfoQuestion]) VALUES (20, N'What type of Beetroot are you growing?')
     INSERT [dbo].[CropInfoQuestions] ([ID], [CropInfoQuestion]) VALUES (21, N'What is the crop type and establishment stage?')
     SET IDENTITY_INSERT [dbo].[CropInfoQuestions] OFF
 END
@@ -91,9 +91,20 @@ SET IDENTITY_INSERT [dbo].[CropInfoQuestions] ON
     INSERT [dbo].[CropInfoQuestions] ([ID], [CropInfoQuestion]) VALUES (17, N'Is this the establishment year or is it an established crop?')
     INSERT [dbo].[CropInfoQuestions] ([ID], [CropInfoQuestion]) VALUES (18, N'Is this the establishment year or is the crop established?')
     INSERT [dbo].[CropInfoQuestions] ([ID], [CropInfoQuestion]) VALUES (19, N'What is the crop stage or type for established crops?')
-    INSERT [dbo].[CropInfoQuestions] ([ID], [CropInfoQuestion]) VALUES (20, N'What type of beetroot are you growing?')
+    INSERT [dbo].[CropInfoQuestions] ([ID], [CropInfoQuestion]) VALUES (20, N'What type of Beetroot are you growing?')
     SET IDENTITY_INSERT [dbo].[CropInfoQuestions] OFF
 END
+
+IF EXISTS (SELECT 1 FROM [dbo].[CropInfoQuestions] WHERE [ID]=3 AND CropInfoQuestion='What type of peas are you growing?')
+BEGIN
+    UPDATE CropInfoQuestions SET CropInfoQuestion='What type of Peas are you growing?' WHERE ID=3
+END
+
+IF EXISTS (SELECT 1 FROM [dbo].[CropInfoQuestions] WHERE [ID]=20 AND CropInfoQuestion='What type of beetroot are you growing?')
+BEGIN    
+    UPDATE CropInfoQuestions SET CropInfoQuestion='What type of Beetroot are you growing?' WHERE ID=20
+END
+
 
 IF NOT EXISTS (SELECT 1 FROM [dbo].[CropInfoQuestions] WHERE [ID]=21)
 BEGIN
