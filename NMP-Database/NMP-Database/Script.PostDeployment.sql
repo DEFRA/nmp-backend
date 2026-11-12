@@ -2134,5 +2134,25 @@ BEGIN
     INSERT [dbo].[ScotlandGrassNMaxValues] ([SwardTypeID], [SwardManagementID], [DefoliationSequenceID], [SiteClass1], [SiteClass2], [SiteClass3], [SiteClass4], [SiteClass5]) VALUES (3, 5, 85, 0, 0, 0, 0, 0)  -- EGHG
 END
 
+--11-11-2026
+IF EXISTS (
+    SELECT 1
+    FROM sys.columns
+    WHERE Name = N'Year'
+      AND Object_ID = Object_ID(N'dbo.NutrientsLoadingManures')
+)
+AND EXISTS (
+    SELECT 1
+    FROM [dbo].[NutrientsLoadingManures]
+    WHERE [Year] IS NULL
+)
+BEGIN
+    UPDATE [dbo].[NutrientsLoadingManures]
+    SET [Year] = YEAR([ManureDate])
+    WHERE [Year] IS NULL;
+
+    ALTER TABLE [dbo].[NutrientsLoadingManures]
+    ALTER COLUMN [Year] INT NOT NULL;
+END
 
 GO -- do not remove this GO
