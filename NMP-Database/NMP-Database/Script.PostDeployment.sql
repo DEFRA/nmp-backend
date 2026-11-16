@@ -1414,51 +1414,51 @@ END
 IF NOT EXISTS (SELECT 1 FROM [dbo].[LivestockTypes])
 BEGIN
     SET IDENTITY_INSERT [dbo].[LivestockTypes] ON 
-    INSERT [dbo].[LivestockTypes] ([ID], [LivestockGroupID], [Name], [NByUnit], [NByUnitCalc], [P2O5], [P2O5Calc], [Occupancy], [IsGrazing], [OrderBy]) VALUES
-    (1, 1, N'Calf (all categories except veal) younger than 2 months', 8.4, 8.4, 4.6, 4.6, NULL, 1, 1),
-    (2, 1, N'Veal calf', 8.4, 8.4, 4.6, 4.6, NULL,0,2),
-    (3, 1, N'Dairy cow from 2 months and less than 12 months', 35, 35, 12.4, 12.4, NULL,1, 3),
-    (4, 1, N'Dairy cow from 12 months up to first calf', 61, 61, 25, 25, NULL,1, 4),
-    (5, 1, N'Dairy cow after first calf (over 9,000 litres milk yield)', 115, 115, 52, 52, NULL,1, 5),
-    (6, 1, N'Dairy cow after first calf (6,000 to 9,000 litres milk yield)', 101, 101, 44, 44, NULL,1, 6),
-    (7, 1, N'Dairy cow after first calf (up to 6,000 litres milk yield)', 77, 77, 34, 34, NULL,1, 7),
-    (8, 1, N'Beef cow or steer (castrated male) from 2 months and less than 12 months', 33, 33, 12, 12, NULL,1, 8),
-    (9, 1, N'Beef cow or steer  from 12 months and less than 24 months', 50, 50, 15.7, 15.7, NULL,1, 9),
-    (10, 1, N'Female or steer for slaughter 24 months and over', 50, 50, 22, 22, NULL,1, 10),
-    (11, 1, N'Female for breeding 24 months and over weighing up to 500 kg', 61, 61, 24, 24, NULL,1, 11),
-    (12, 1, N'Female for breeding 25 months and over weighing over 500 kg', 83, 83, 31, 31, NULL,1, 12),
-    (13, 1, N'Non-breeding bull 2 months and over', 54, 54, 8.8, 8.8, NULL,1, 13),
-    (14, 1, N'Bull for breeding from 2 and less than 24 months', 50, 50, 15.7, 15.7, NULL,1, 14),
-    (15, 1, N'Bull for breeding from 24 months', 48, 48, 22, 22, NULL,1, 15),
-    (16, 2, N'Weaner place, 7 to 13 kg', 1, 1, 0.34, 0.34, 71,0, 16),
-    (17, 2, N'Weaner place, 13 to 31 kg', 4.2, 4.2, 1.8, 1.8, 82,0, 17),
-    (18, 2, N'Grower place, 31 to 66 kg (dry fed)', 7.7, 7.7, 3.9, 3.9, 88,0, 18),
-    (19, 2, N'Grower place, 31 to 66 kg (liquid fed)', 7.7, 7.7, 3.9, 3.9, 88,0, 19),
-    (20, 2, N'Finisher place, 66 kg and over (dry fed)', 10.6, 10.6, 5.6,5.6, 86,0, 20),
-    (21, 2, N'Finisher place, 66 kg and over (liquid fed)', 10.6, 10.6, 5.6, 5.6,86,0, 21),
-    (22, 2, N'Maiden gilt place, 66 kg and over', 11.1, 11.1, 5.8, 5.8, 80,0, 22),
-    (23, 2, N'Sow place, 66 kg and over, with litter, up to 7 kg, fed on diet supplement with synthetic amino acids', 16, 16, 13.5, 13.5, 100,0, 23),
-    (24, 2, N'Sow place, 66 kg and over, with litter, up to 7 kg, diet without synthetic amino acids (low protein diet)', 18, 18, 13.5, 13.5, 100,0, 24),
-    (25, 2, N'Breeding boar, 66 to 150 kg', 12, 12, 6.5, 6.5, 100,0, 25),
-    (26, 2, N'Breeding boar, 150 kg and over', 17.5, 17.5, 10.2, 10.2, 100,0, 26),
-    (27, 3, N'Replacement layer pullet places, up to 17 weeks', 210, 210, 150, 150, 89,0, 27), 
-    (28, 3, N'Laying hens in cages, 17 weeks and over', 400, 400, 350, 350, 97,0, 28), 
-    (29, 3, N'Laying hen places, free range, 17 weeks and over', 530, 530, 390, 390, 97,0, 29),     
-    (30, 3, N'Broiler places ', 330, 330, 220, 220, 85,0, 30), 
-    (31, 3, N'Replacement broiler breeder pullet places, up to 25 weeks', 290, 290, 260, 260, 92,0, 31),
-    (32, 3, N'Broiler breeder places, 25 weeks and over ', 700, 700, 520, 520, 95,0, 32), 
-    (33, 3, N'Turkey places (male)', 1230, 1230, 1020, 1020, 90,0, 33), 
-    (34, 3, N'Turkey places (female)', 910, 910, 740, 740, 88,0, 34), 
-    (35, 3, N'Duck places', 750, 750, 730, 730, 83,0, 35), 
-    (36, 3, N'Ostrich', 1.4, 1.4, 6.8, 6.8, 100,0, 36),
-    (37, 4, N'Lamb, 6 to 9 months', 2, 2, 0.28, 0.28, NULL,1, 37),
-    (38, 4, N'Lamb, 9 months and over, to first lambing, first tupping or slaughter', 1.4, 1.4, 0.77, 0.77, NULL,1, 38),
-    (39, 4, N'Sheep, less than 60 kg, after lambing or tupping.  For ewes this includes one or more suckled lambs up to 6 months', 7.6, 7.6, 3.2, 3.2, NULL,1, 39),
-    (40, 4, N'Sheep, over 60 kg, after lambing or tupping.  For ewes this includes one or more suckled lambs up to 6 months', 11.9, 11.9, 3.7, 3.7, NULL,1, 40),
-    (41, 5, N'Goat ', 15, 15, 6.9, 6.9, NULL,1, 41),
-    (42, 5, N'Deer for breeding', 15.2, 15.2, 6.4, 6.4, NULL,1, 42),
-    (43, 5, N'Deer, other', 12, 12, 4.3, 4.3, NULL,1, 43),
-    (44, 5, N'Horse', 21, 21, 20, 20, NULL,1, 44);
+    INSERT [dbo].[LivestockTypes] ([ID], [LivestockGroupID], [Name], [ScotlandName], [NByUnit], [NByUnitCalc], [P2O5], [P2O5Calc], [Occupancy], [IsGrazing], [OrderBy]) VALUES
+    (1, 1, N'Calf (all categories except veal) younger than 2 months', N'Calf, up to 3 months', 8.4, 8.4, 4.6, 4.6, NULL, 1, 1),
+    (2, 1, N'Veal calf', NULL, 8.4, 8.4, 4.6, 4.6, NULL,0,2),
+    (3, 1, N'Dairy cow from 2 months and less than 12 months', N'Dairy heifer replacement, 3 to 13 months', 35, 35, 12.4, 12.4, NULL,1, 3),
+    (4, 1, N'Dairy cow from 12 months up to first calf', N'Dairy heifer replacement, 13 months to first calf ', 61, 61, 25, 25, NULL,1, 4),
+    (5, 1, N'Dairy cow after first calf (over 9,000 litres milk yield)', N'Dairy cow (over 9000 litres milk yield)', 115, 115, 52, 52, NULL,1, 5),
+    (6, 1, N'Dairy cow after first calf (6,000 to 9,000 litres milk yield)', N'Dairy cow (6000-9000 litres milk yield)', 101, 101, 44, 44, NULL,1, 6),
+    (7, 1, N'Dairy cow after first calf (up to 6,000 litres milk yield)', N'Dairy cow (up to 6000 litres milk yield)', 77, 77, 34, 34, NULL,1, 7),
+    (8, 1, N'Beef cow or steer (castrated male) from 2 months and less than 12 months', N'Steer/heifer, 3 to 13 months', 33, 33, 12, 12, NULL,1, 8),
+    (9, 1, N'Beef cow or steer  from 12 months and less than 24 months', N'Steer/heifer, 13 to 25 months', 50, 50, 15.7, 15.7, NULL,1, 9),
+    (10, 1, N'Female or steer for slaughter 24 months and over', N'Steer/heifer, over 25 months', 50, 50, 22, 22, NULL,1, 10),
+    (11, 1, N'Female for breeding 24 months and over weighing up to 500 kg', N'Beef suckler cow (up to 500 kg)', 61, 61, 24, 24, NULL,1, 11),
+    (12, 1, N'Female for breeding 25 months and over weighing over 500 kg', N'Beef suckler cow (over 500 kg)', 83, 83, 31, 31, NULL,1, 12),
+    (13, 1, N'Non-breeding bull 2 months and over', N'Bull beef, 3 months and over', 54, 54, 8.8, 8.8, NULL,1, 13),
+    (14, 1, N'Bull for breeding from 2 and less than 24 months', N'Bull for breeding, 3 to 25 months', 50, 50, 15.7, 15.7, NULL,1, 14),
+    (15, 1, N'Bull for breeding from 24 months', N'Bull for breeding, over 25 months', 48, 48, 22, 22, NULL,1, 15),
+    (16, 2, N'Weaner place, 7 to 13 kg', N'Weaner place (7 to 13 kg)', 1, 1, 0.34, 0.34, 71,0, 16),
+    (17, 2, N'Weaner place, 13 to 31 kg', N'Weaner place (13 to 31 kg)', 4.2, 4.2, 1.8, 1.8, 82,0, 17),
+    (18, 2, N'Grower place, 31 to 66 kg (dry fed)', N'Grower place (31 to 66 kg) (dry fed)', 7.7, 7.7, 3.9, 3.9, 88,0, 18),
+    (19, 2, N'Grower place, 31 to 66 kg (liquid fed)', N'Grower place (31 to 66 kg) (liquid fed)', 7.7, 7.7, 3.9, 3.9, 88,0, 19),
+    (20, 2, N'Finisher place, 66 kg and over (dry fed)', N'Finisher place (66 kg to slaughter) (dry fed)', 10.6, 10.6, 5.6,5.6, 86,0, 20),
+    (21, 2, N'Finisher place, 66 kg and over (liquid fed)', N'Finisher place (66 kg to slaughter) (liquid fed)', 10.6, 10.6, 5.6, 5.6,86,0, 21),
+    (22, 2, N'Maiden gilt place, 66 kg and over', N'Maiden gilt place', 11.1, 11.1, 5.8, 5.8, 80,0, 22),
+    (23, 2, N'Sow place, 66 kg and over, with litter, up to 7 kg, fed on diet supplement with synthetic amino acids', N'Sow place (including litter up to 7 kg) fed on a diet supplemented with synthetic amino acids', 16, 16, 13.5, 13.5, 100,0, 23),
+    (24, 2, N'Sow place, 66 kg and over, with litter, up to 7 kg, diet without synthetic amino acids (low protein diet)', N'Sow place (including litter up to 7 kg) fed on a diet without synthetic amino acids', 18, 18, 13.5, 13.5, 100,0, 24),
+    (25, 2, N'Breeding boar, 66 to 150 kg', N'Breeding boar 66 kg to 150 kg', 12, 12, 6.5, 6.5, 100,0, 25),
+    (26, 2, N'Breeding boar, 150 kg and over', N'Breeding boar over 150 kg', 17.5, 17.5, 10.2, 10.2, 100,0, 26),
+    (27, 3, N'Replacement layer pullet places, up to 17 weeks', N'Laying chickens up to 17 weeks', 210, 210, 150, 150, 89,0, 27), 
+    (28, 3, N'Laying hens in cages, 17 weeks and over', N'Laying chickens (caged) over 17 weeks', 400, 400, 350, 350, 97,0, 28), 
+    (29, 3, N'Laying hen places, free range, 17 weeks and over', N'Laying chickens (free range) over 17 weeks', 530, 530, 390, 390, 97,0, 29),     
+    (30, 3, N'Broiler places ', N'Broiler chickens (table)', 330, 330, 220, 220, 85,0, 30), 
+    (31, 3, N'Replacement broiler breeder pullet places, up to 25 weeks', N'Broiler chickens (breeder) up to 25 weeks', 290, 290, 260, 260, 92,0, 31),
+    (32, 3, N'Broiler breeder places, 25 weeks and over ', N'Broiler chickens (breeder) 25 weeks and over', 700, 700, 520, 520, 95,0, 32), 
+    (33, 3, N'Turkey places (male)', N'Turkeys (male)', 1230, 1230, 1020, 1020, 90,0, 33), 
+    (34, 3, N'Turkey places (female)', N'Turkeys (female)', 910, 910, 740, 740, 88,0, 34), 
+    (35, 3, N'Duck places', N'Ducks', 750, 750, 730, 730, 83,0, 35), 
+    (36, 3, N'Ostrich', N'Ostrich', 1.4, 1.4, 6.8, 6.8, 100,0, 36),
+    (37, 4, N'Lamb, 6 to 9 months', N'Lamb (from 6 months up to 9 months)', 2, 2, 0.28, 0.28, NULL,1, 37),
+    (38, 4, N'Lamb, 9 months and over, to first lambing, first tupping or slaughter', N'Lamb/hogg (from 9 months old to first lambing, tupping or slaughter)', 1.4, 1.4, 0.77, 0.77, NULL,1, 38),
+    (39, 4, N'Sheep, less than 60 kg, after lambing or tupping.  For ewes this includes one or more suckled lambs up to 6 months', N'Sheep up to 60 kg (inc lamb to 6 months where applicable)', 7.6, 7.6, 3.2, 3.2, NULL,1, 39),
+    (40, 4, N'Sheep, over 60 kg, after lambing or tupping.  For ewes this includes one or more suckled lambs up to 6 months', N'Sheep over 60 kg (inc lamb to 6 months where applicable)', 11.9, 11.9, 3.7, 3.7, NULL,1, 40),
+    (41, 5, N'Goat ', N'Goat', 15, 15, 6.9, 6.9, NULL,1, 41),
+    (42, 5, N'Deer for breeding', N'Breeding deer', 15.2, 15.2, 6.4, 6.4, NULL,1, 42),
+    (43, 5, N'Deer, other', N'Deer (other)', 12, 12, 4.3, 4.3, NULL,1, 43),
+    (44, 5, N'Horse', N'Horse', 21, 21, 20, 20, NULL,1, 44);
     SET IDENTITY_INSERT [dbo].[LivestockTypes] OFF
 END
 GO
@@ -2153,6 +2153,54 @@ BEGIN
 
     ALTER TABLE [dbo].[NutrientsLoadingManures]
     ALTER COLUMN [Year] INT NOT NULL;
+END
+
+--16-11-2026 Scotland livestock type names
+IF EXISTS (SELECT 1 FROM [dbo].[LivestockTypes])
+BEGIN
+UPDATE [dbo].[LivestockTypes] SET [ScotlandName] = N'Calf, up to 3 months' WHERE [ID] = 1
+UPDATE [dbo].[LivestockTypes] SET [ScotlandName] = N'Dairy heifer replacement, 3 to 13 months' WHERE [ID] = 3
+UPDATE [dbo].[LivestockTypes] SET [ScotlandName] = N'Dairy heifer replacement, 13 months to first calf ' WHERE [ID] = 4
+UPDATE [dbo].[LivestockTypes] SET [ScotlandName] = N'Dairy cow (over 9000 litres milk yield)' WHERE [ID] = 5
+UPDATE [dbo].[LivestockTypes] SET [ScotlandName] = N'Dairy cow (6000-9000 litres milk yield)' WHERE [ID] = 6
+UPDATE [dbo].[LivestockTypes] SET [ScotlandName] = N'Dairy cow (up to 6000 litres milk yield)' WHERE [ID] = 7
+UPDATE [dbo].[LivestockTypes] SET [ScotlandName] = N'Steer/heifer, 3 to 13 months' WHERE [ID] = 8
+UPDATE [dbo].[LivestockTypes] SET [ScotlandName] = N'Steer/heifer, 13 to 25 months' WHERE [ID] = 9
+UPDATE [dbo].[LivestockTypes] SET [ScotlandName] = N'Steer/heifer, over 25 months' WHERE [ID] = 10
+UPDATE [dbo].[LivestockTypes] SET [ScotlandName] = N'Beef suckler cow (up to 500 kg)' WHERE [ID] = 11
+UPDATE [dbo].[LivestockTypes] SET [ScotlandName] = N'Beef suckler cow (over 500 kg)' WHERE [ID] = 12
+UPDATE [dbo].[LivestockTypes] SET [ScotlandName] = N'Bull beef, 3 months and over' WHERE [ID] = 13
+UPDATE [dbo].[LivestockTypes] SET [ScotlandName] = N'Bull for breeding, 3 to 25 months' WHERE [ID] = 14
+UPDATE [dbo].[LivestockTypes] SET [ScotlandName] = N'Bull for breeding, over 25 months' WHERE [ID] = 15
+UPDATE [dbo].[LivestockTypes] SET [ScotlandName] = N'Weaner place (7 to 13 kg)' WHERE [ID] = 16
+UPDATE [dbo].[LivestockTypes] SET [ScotlandName] = N'Weaner place (13 to 31 kg)' WHERE [ID] = 17
+UPDATE [dbo].[LivestockTypes] SET [ScotlandName] = N'Grower place (31 to 66 kg) (dry fed)' WHERE [ID] = 18
+UPDATE [dbo].[LivestockTypes] SET [ScotlandName] = N'Grower place (31 to 66 kg) (liquid fed)' WHERE [ID] = 19
+UPDATE [dbo].[LivestockTypes] SET [ScotlandName] = N'Finisher place (66 kg to slaughter) (dry fed)' WHERE [ID] = 20
+UPDATE [dbo].[LivestockTypes] SET [ScotlandName] = N'Finisher place (66 kg to slaughter) (liquid fed)' WHERE [ID] = 21
+UPDATE [dbo].[LivestockTypes] SET [ScotlandName] = N'Maiden gilt place' WHERE [ID] = 22
+UPDATE [dbo].[LivestockTypes] SET [ScotlandName] = N'Sow place (including litter up to 7 kg) fed on a diet supplemented with synthetic amino acids' WHERE [ID] = 23
+UPDATE [dbo].[LivestockTypes] SET [ScotlandName] = N'Sow place (including litter up to 7 kg) fed on a diet without synthetic amino acids' WHERE [ID] = 24
+UPDATE [dbo].[LivestockTypes] SET [ScotlandName] = N'Breeding boar 66 kg to 150 kg' WHERE [ID] = 25
+UPDATE [dbo].[LivestockTypes] SET [ScotlandName] = N'Breeding boar over 150 kg' WHERE [ID] = 26
+UPDATE [dbo].[LivestockTypes] SET [ScotlandName] = N'Laying chickens up to 17 weeks' WHERE [ID] = 27
+UPDATE [dbo].[LivestockTypes] SET [ScotlandName] = N'Laying chickens (caged) over 17 weeks' WHERE [ID] = 28
+UPDATE [dbo].[LivestockTypes] SET [ScotlandName] = N'Laying chickens (free range) over 17 weeks' WHERE [ID] = 29
+UPDATE [dbo].[LivestockTypes] SET [ScotlandName] = N'Broiler chickens (table)' WHERE [ID] = 30
+UPDATE [dbo].[LivestockTypes] SET [ScotlandName] = N'Broiler chickens (breeder) up to 25 weeks' WHERE [ID] = 31
+UPDATE [dbo].[LivestockTypes] SET [ScotlandName] = N'Broiler chickens (breeder) 25 weeks and over' WHERE [ID] = 32
+UPDATE [dbo].[LivestockTypes] SET [ScotlandName] = N'Turkeys (male)' WHERE [ID] = 33
+UPDATE [dbo].[LivestockTypes] SET [ScotlandName] = N'Turkeys (female)' WHERE [ID] = 34
+UPDATE [dbo].[LivestockTypes] SET [ScotlandName] = N'Ducks' WHERE [ID] = 35
+UPDATE [dbo].[LivestockTypes] SET [ScotlandName] = N'Ostrich' WHERE [ID] = 36
+UPDATE [dbo].[LivestockTypes] SET [ScotlandName] = N'Lamb (from 6 months up to 9 months)' WHERE [ID] = 37
+UPDATE [dbo].[LivestockTypes] SET [ScotlandName] = N'Lamb/hogg (from 9 months old to first lambing, tupping or slaughter)' WHERE [ID] = 38
+UPDATE [dbo].[LivestockTypes] SET [ScotlandName] = N'Sheep up to 60 kg (inc lamb to 6 months where applicable)' WHERE [ID] = 39
+UPDATE [dbo].[LivestockTypes] SET [ScotlandName] = N'Sheep over 60 kg (inc lamb to 6 months where applicable)' WHERE [ID] = 40
+UPDATE [dbo].[LivestockTypes] SET [ScotlandName] = N'Goat' WHERE [ID] = 41
+UPDATE [dbo].[LivestockTypes] SET [ScotlandName] = N'Breeding deer' WHERE [ID] = 42
+UPDATE [dbo].[LivestockTypes] SET [ScotlandName] = N'Deer (other)' WHERE [ID] = 43
+UPDATE [dbo].[LivestockTypes] SET [ScotlandName] = N'Horse' WHERE [ID] = 44
 END
 
 GO -- do not remove this GO
