@@ -1413,7 +1413,9 @@ END
 
 IF NOT EXISTS (SELECT 1 FROM [dbo].[LivestockTypes])
 BEGIN
-    SET IDENTITY_INSERT [dbo].[LivestockTypes] ON 
+    DECLARE @Ostrich NVARCHAR(50) = N'Ostrich';
+    DECLARE @Horse NVARCHAR(50) = N'Horse';
+    SET IDENTITY_INSERT [dbo].[LivestockTypes] ON
     INSERT [dbo].[LivestockTypes] ([ID], [LivestockGroupID], [Name], [ScotlandName], [NByUnit], [NByUnitCalc], [P2O5], [P2O5Calc], [Occupancy], [IsGrazing], [OrderBy]) VALUES
     (1, 1, N'Calf (all categories except veal) younger than 2 months', N'Calf, up to 3 months', 8.4, 8.4, 4.6, 4.6, NULL, 1, 1),
     (2, 1, N'Veal calf', NULL, 8.4, 8.4, 4.6, 4.6, NULL,0,2),
@@ -1450,7 +1452,7 @@ BEGIN
     (33, 3, N'Turkey places (male)', N'Turkeys (male)', 1230, 1230, 1020, 1020, 90,0, 33), 
     (34, 3, N'Turkey places (female)', N'Turkeys (female)', 910, 910, 740, 740, 88,0, 34), 
     (35, 3, N'Duck places', N'Ducks', 750, 750, 730, 730, 83,0, 35), 
-    (36, 3, N'Ostrich', N'Ostrich', 1.4, 1.4, 6.8, 6.8, 100,0, 36),
+    (36, 3, @Ostrich, @Ostrich, 1.4, 1.4, 6.8, 6.8, 100,0, 36),
     (37, 4, N'Lamb, 6 to 9 months', N'Lamb (from 6 months up to 9 months)', 2, 2, 0.28, 0.28, NULL,1, 37),
     (38, 4, N'Lamb, 9 months and over, to first lambing, first tupping or slaughter', N'Lamb/hogg (from 9 months old to first lambing, tupping or slaughter)', 1.4, 1.4, 0.77, 0.77, NULL,1, 38),
     (39, 4, N'Sheep, less than 60 kg, after lambing or tupping.  For ewes this includes one or more suckled lambs up to 6 months', N'Sheep up to 60 kg (inc lamb to 6 months where applicable)', 7.6, 7.6, 3.2, 3.2, NULL,1, 39),
@@ -1458,7 +1460,7 @@ BEGIN
     (41, 5, N'Goat ', N'Goat', 15, 15, 6.9, 6.9, NULL,1, 41),
     (42, 5, N'Deer for breeding', N'Breeding deer', 15.2, 15.2, 6.4, 6.4, NULL,1, 42),
     (43, 5, N'Deer, other', N'Deer (other)', 12, 12, 4.3, 4.3, NULL,1, 43),
-    (44, 5, N'Horse', N'Horse', 21, 21, 20, 20, NULL,1, 44);
+    (44, 5, @Horse, @Horse, 21, 21, 20, 20, NULL,1, 44);
     SET IDENTITY_INSERT [dbo].[LivestockTypes] OFF
 END
 GO
@@ -2158,6 +2160,8 @@ END
 --16-11-2026 Scotland livestock type names
 IF EXISTS (SELECT 1 FROM [dbo].[LivestockTypes])
 BEGIN
+DECLARE @Ostrich NVARCHAR(50) = N'Ostrich';
+DECLARE @Horse NVARCHAR(50) = N'Horse';
 UPDATE [dbo].[LivestockTypes] SET [ScotlandName] = N'Calf, up to 3 months' WHERE [ID] = 1
 UPDATE [dbo].[LivestockTypes] SET [ScotlandName] = N'Dairy heifer replacement, 3 to 13 months' WHERE [ID] = 3
 UPDATE [dbo].[LivestockTypes] SET [ScotlandName] = N'Dairy heifer replacement, 13 months to first calf ' WHERE [ID] = 4
@@ -2192,7 +2196,7 @@ UPDATE [dbo].[LivestockTypes] SET [ScotlandName] = N'Broiler chickens (breeder) 
 UPDATE [dbo].[LivestockTypes] SET [ScotlandName] = N'Turkeys (male)' WHERE [ID] = 33
 UPDATE [dbo].[LivestockTypes] SET [ScotlandName] = N'Turkeys (female)' WHERE [ID] = 34
 UPDATE [dbo].[LivestockTypes] SET [ScotlandName] = N'Ducks' WHERE [ID] = 35
-UPDATE [dbo].[LivestockTypes] SET [ScotlandName] = N'Ostrich' WHERE [ID] = 36
+UPDATE [dbo].[LivestockTypes] SET [ScotlandName] = @Ostrich WHERE [ID] = 36
 UPDATE [dbo].[LivestockTypes] SET [ScotlandName] = N'Lamb (from 6 months up to 9 months)' WHERE [ID] = 37
 UPDATE [dbo].[LivestockTypes] SET [ScotlandName] = N'Lamb/hogg (from 9 months old to first lambing, tupping or slaughter)' WHERE [ID] = 38
 UPDATE [dbo].[LivestockTypes] SET [ScotlandName] = N'Sheep up to 60 kg (inc lamb to 6 months where applicable)' WHERE [ID] = 39
@@ -2200,7 +2204,7 @@ UPDATE [dbo].[LivestockTypes] SET [ScotlandName] = N'Sheep over 60 kg (inc lamb 
 UPDATE [dbo].[LivestockTypes] SET [ScotlandName] = N'Goat' WHERE [ID] = 41
 UPDATE [dbo].[LivestockTypes] SET [ScotlandName] = N'Breeding deer' WHERE [ID] = 42
 UPDATE [dbo].[LivestockTypes] SET [ScotlandName] = N'Deer (other)' WHERE [ID] = 43
-UPDATE [dbo].[LivestockTypes] SET [ScotlandName] = N'Horse' WHERE [ID] = 44
+UPDATE [dbo].[LivestockTypes] SET [ScotlandName] = @Horse WHERE [ID] = 44
 END
 
 GO -- do not remove this GO
