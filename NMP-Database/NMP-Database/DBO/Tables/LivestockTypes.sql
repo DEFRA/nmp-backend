@@ -2,6 +2,7 @@
     [ID]               INT            IDENTITY (1, 1) NOT NULL,
     [LivestockGroupID] INT            NOT NULL,
     [Name]             VARCHAR (255)  NOT NULL,
+    [ScotlandName]     VARCHAR (255)  NULL,
     [NByUnit]          DECIMAL (8, 2) NULL,
     [NByUnitCalc]      DECIMAL (8, 2) NULL,
     [P2O5]             DECIMAL (8, 2) NULL,
