@@ -187,8 +187,8 @@ INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield
 INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [CropInfoOneScotlandQuestionID], [LateSownMannerCropTypeID]) VALUES (119, 9, NULL, NULL, 1, NULL, NULL, NULL, 3, 10, 17, 9)
 INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [CropInfoOneScotlandQuestionID], [LateSownMannerCropTypeID]) VALUES (120, 9, NULL, NULL, 1, NULL, NULL, NULL, 3, 10, 17, 9)
 INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [CropInfoOneScotlandQuestionID], [LateSownMannerCropTypeID]) VALUES (121, 9, NULL, NULL, 1, NULL, NULL, NULL, 3, 10, 17, 9)
-INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [CropInfoOneScotlandQuestionID], [LateSownMannerCropTypeID]) VALUES (122, 9, NULL, NULL, 1, NULL, NULL, NULL, 3, 17, 17, 9)
-INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [CropInfoOneScotlandQuestionID], [LateSownMannerCropTypeID]) VALUES (123, 9, NULL, NULL, 1, NULL, NULL, NULL, 3, 21, 21, 9)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [CropInfoOneScotlandQuestionID], [LateSownMannerCropTypeID]) VALUES (122, 9, NULL, NULL, 1, NULL, NULL, NULL, 3, 10, 17, 9)
+INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [CropInfoOneScotlandQuestionID], [LateSownMannerCropTypeID]) VALUES (123, 9, NULL, NULL, 1, NULL, NULL, NULL, 3, 10, 21, 9)
 INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [CropInfoOneScotlandQuestionID], [LateSownMannerCropTypeID]) VALUES (124, 9, NULL, NULL, 1, NULL, NULL, NULL, 3, 10, NULL, 9)
 INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [CropInfoOneScotlandQuestionID], [LateSownMannerCropTypeID]) VALUES (125, 9, NULL, NULL, 1, NULL, NULL, NULL, 3, 10, NULL, 9)
 INSERT [dbo].[CropTypeLinkings] ([CropTypeID], [MannerCropTypeID], [DefaultYield], [DefaultYieldScotland], [IsPerennial], [NMaxLimitEngland], [NMaxLimitWales], [NMaxLimitScotland], [SNSCategoryID], [CropInfoOneQuestionID], [CropInfoOneScotlandQuestionID], [LateSownMannerCropTypeID]) VALUES (140, 1, NULL, NULL, 0, 300, 300, 300, 3, NULL, NULL, 1)
@@ -229,8 +229,13 @@ GO
 
 IF EXISTS (SELECT 1 FROM [dbo].[CropTypeLinkings])
 BEGIN
-    UPDATE [dbo].[CropTypeLinkings] SET [CropInfoOneQuestionID]=17, [CropInfoOneScotlandQuestionID]=17 WHERE [CropTypeID] IN (122, 177, 178)
-    UPDATE [dbo].[CropTypeLinkings] SET [CropInfoOneQuestionID]=21, [CropInfoOneScotlandQuestionID]=21 WHERE [CropTypeID] = 123
+    UPDATE [dbo].[CropTypeLinkings] SET [CropInfoOneScotlandQuestionID]=17 WHERE [CropTypeID] IN (122, 177, 178)
+    UPDATE [dbo].[CropTypeLinkings] SET [CropInfoOneScotlandQuestionID]=21 WHERE [CropTypeID] = 123
+END
+GO
+IF EXISTS (SELECT 1 FROM [dbo].[CropTypeLinkings])
+BEGIN
+    UPDATE [dbo].[CropTypeLinkings] SET [CropInfoOneQuestionID]=10 WHERE [CropTypeID] IN (122, 123)
 END
 GO
 
