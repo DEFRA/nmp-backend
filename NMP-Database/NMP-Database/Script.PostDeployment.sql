@@ -1446,7 +1446,7 @@ BEGIN
     (22, 2, N'Maiden gilt place, 66 kg and over', N'Maiden gilt place', 11.1, 11.1, 5.8, 5.8, 80,0, 22),
     (23, 2, N'Sow place, 66 kg and over, with litter, up to 7 kg, fed on diet supplement with synthetic amino acids', N'Sow place (including litter up to 7 kg) fed on a diet supplemented with synthetic amino acids', 16, 16, 13.5, 13.5, 100,0, 23),
     (24, 2, N'Sow place, 66 kg and over, with litter, up to 7 kg, diet without synthetic amino acids (low protein diet)', N'Sow place (including litter up to 7 kg) fed on a diet without synthetic amino acids', 18, 18, 13.5, 13.5, 100,0, 24),
-    (25, 2, N'Breeding boar, 66 to 150 kg', N'Breeding boar 66 kg to 150 kg', 12, 12, 6.5, 6.5, 100,0, 25),
+    (25, 2, N'Breeding boar from 66 kg to 150 kg', N'Breeding boar 66 kg to 150 kg', 12, 12, 6.5, 6.5, 100,0, 25),
     (26, 2, N'Breeding boar, 150 kg and over', N'Breeding boar over 150 kg', 17.5, 17.5, 10.2, 10.2, 100,0, 26),
     (27, 3, N'Replacement layer pullet places, up to 17 weeks', N'Laying chickens up to 17 weeks', 210, 210, 150, 150, 89,0, 27), 
     (28, 3, N'Laying hens in cages, 17 weeks and over', N'Laying chickens (caged) over 17 weeks', 400, 400, 350, 350, 97,0, 28), 
@@ -2190,7 +2190,7 @@ UPDATE [dbo].[LivestockTypes] SET [ScotlandName] = N'Finisher place (66 kg to sl
 UPDATE [dbo].[LivestockTypes] SET [ScotlandName] = N'Maiden gilt place' WHERE [ID] = 22
 UPDATE [dbo].[LivestockTypes] SET [ScotlandName] = N'Sow place (including litter up to 7 kg) fed on a diet supplemented with synthetic amino acids' WHERE [ID] = 23
 UPDATE [dbo].[LivestockTypes] SET [ScotlandName] = N'Sow place (including litter up to 7 kg) fed on a diet without synthetic amino acids' WHERE [ID] = 24
-UPDATE [dbo].[LivestockTypes] SET [ScotlandName] = N'Breeding boar 66 kg to 150 kg' WHERE [ID] = 25
+UPDATE [dbo].[LivestockTypes] SET [Name] = N'Breeding boar from 66 kg to 150 kg', [ScotlandName] = N'Breeding boar 66 kg to 150 kg' WHERE [ID] = 25
 UPDATE [dbo].[LivestockTypes] SET [ScotlandName] = N'Breeding boar over 150 kg' WHERE [ID] = 26
 UPDATE [dbo].[LivestockTypes] SET [ScotlandName] = N'Laying chickens up to 17 weeks' WHERE [ID] = 27
 UPDATE [dbo].[LivestockTypes] SET [ScotlandName] = N'Laying chickens (caged) over 17 weeks' WHERE [ID] = 28
