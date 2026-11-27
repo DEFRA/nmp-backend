@@ -1,4 +1,4 @@
-﻿CREATE TABLE [dbo].[FieldExtension] (
+﻿CREATE TABLE [dbo].[FieldExtensions] (
     [FieldID]            INT           NOT NULL,
     [SiteClassID]        INT           NULL,
     [GrassGrowthClassID] INT           NULL,

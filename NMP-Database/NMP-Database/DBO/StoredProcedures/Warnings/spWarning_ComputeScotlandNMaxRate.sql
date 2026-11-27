@@ -1,4 +1,5 @@
 ﻿
+
 CREATE PROCEDURE [dbo].[spWarning_ComputeScotlandNMaxRate]
 (
     @ManureID INT
@@ -107,7 +108,7 @@ BEGIN
     IF @CropTypeID = 140
     BEGIN
         SELECT @SiteClassID = fe.SiteClassID
-        FROM FieldExtension fe
+        FROM FieldExtensions fe
         WHERE fe.FieldID = @FieldID;
     END
 
